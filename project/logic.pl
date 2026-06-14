@@ -1,5 +1,5 @@
 % ── Project Metadata ─────────────────────────────────────
-project_metadata('hypervisor', '0.5.5', 'python').
+project_metadata('hypervisor', '0.5.7', 'python').
 
 % ── Project Files ────────────────────────────────────────
 project_file('agents/__init__.py', 1, 'python').
@@ -32,7 +32,7 @@ project_file('packages/nl2uri/nl2uri/planner.py', 33, 'python').
 project_file('packages/nl2uri/nl2uri/prompts/__init__.py', 1, 'python').
 project_file('packages/nl2uri/nl2uri/writer.py', 8, 'python').
 project_file('packages/resource-agent-factory/generator/__init__.py', 1, 'python').
-project_file('packages/resource-agent-factory/generator/agent_generator.py', 106, 'python').
+project_file('packages/resource-agent-factory/generator/agent_generator.py', 107, 'python').
 project_file('packages/resource-agent-factory/generator/hashutil.py', 10, 'python').
 project_file('packages/resource-agent-factory/generator/header.py', 52, 'python').
 project_file('packages/resource-agent-factory/generator/model.py', 95, 'python').
@@ -78,7 +78,7 @@ project_file('packages/resource-agent-hypervisor/hypervisor/paths.py', 19, 'pyth
 project_file('packages/resource-agent-hypervisor/hypervisor/policy_gate/__init__.py', 1, 'python').
 project_file('packages/resource-agent-hypervisor/hypervisor/policy_gate/gate.py', 27, 'python').
 project_file('packages/resource-agent-hypervisor/hypervisor/uri/__init__.py', 1, 'python').
-project_file('packages/resource-agent-hypervisor/hypervisor/uri/client.py', 29, 'python').
+project_file('packages/resource-agent-hypervisor/hypervisor/uri/client.py', 38, 'python').
 project_file('packages/resource-agent-hypervisor/hypervisor/uri2llm/__init__.py', 16, 'python').
 project_file('packages/resource-agent-hypervisor/hypervisor/uri2llm/env_resolver.py', 6, 'python').
 project_file('packages/resource-agent-hypervisor/hypervisor/uri2llm/function_resolver.py', 6, 'python').
@@ -105,27 +105,31 @@ project_file('packages/resource-agent-hypervisor/meta_agent/repair/rules.py', 83
 project_file('packages/resource-agent-hypervisor/runtime_client/__init__.py', 1, 'python').
 project_file('packages/resource-agent-hypervisor/runtime_client/client.py', 48, 'python').
 project_file('packages/uri3/uri3/__init__.py', 1, 'python').
-project_file('packages/uri3/uri3/cli.py', 37, 'python').
+project_file('packages/uri3/uri3/cli.py', 63, 'python').
 project_file('packages/uri3/uri3/discovery/__init__.py', 1, 'python').
 project_file('packages/uri3/uri3/graph/__init__.py', 1, 'python').
 project_file('packages/uri3/uri3/graph/uri_graph.py', 52, 'python').
+project_file('packages/uri3/uri3/logs/__init__.py', 4, 'python').
+project_file('packages/uri3/uri3/logs/reader.py', 175, 'python').
 project_file('packages/uri3/uri3/paths.py', 18, 'python').
 project_file('packages/uri3/uri3/protocols/__init__.py', 1, 'python').
 project_file('packages/uri3/uri3/protocols/normalizer.py', 10, 'python').
 project_file('packages/uri3/uri3/protocols/parser.py', 18, 'python').
+project_file('packages/uri3/uri3/protocols/scheme_registry.py', 466, 'python').
 project_file('packages/uri3/uri3/protocols/schemes.py', 5, 'python').
 project_file('packages/uri3/uri3/resolvers/__init__.py', 4, 'python').
 project_file('packages/uri3/uri3/resolvers/env_resolver.py', 22, 'python').
 project_file('packages/uri3/uri3/resolvers/http_resolver.py', 21, 'python').
 project_file('packages/uri3/uri3/resolvers/llm_resolver.py', 46, 'python').
+project_file('packages/uri3/uri3/resolvers/log_resolver.py', 127, 'python').
 project_file('packages/uri3/uri3/resolvers/protocol_resolver.py', 23, 'python').
 project_file('packages/uri3/uri3/resolvers/pypi_resolver.py', 17, 'python').
 project_file('packages/uri3/uri3/resolvers/python_resolver.py', 37, 'python').
-project_file('packages/uri3/uri3/resolvers/router.py', 88, 'python').
+project_file('packages/uri3/uri3/resolvers/router.py', 100, 'python').
 project_file('packages/uri3/uri3/scanner/__init__.py', 1, 'python').
 project_file('packages/uri3/uri3/scanner/base.py', 8, 'python').
 project_file('packages/uri3/uri3/scanner/http_scanner.py', 17, 'python').
-project_file('packages/uri3/uri3/scanner/scanner.py', 8, 'python').
+project_file('packages/uri3/uri3/scanner/scanner.py', 37, 'python').
 project_file('packages/uri3/uri3/validators/__init__.py', 1, 'python').
 project_file('packages/uri3/uri3/validators/uri_tree_validator.py', 21, 'python').
 project_file('packages/uri3/uri3/validators/uri_validator.py', 10, 'python').
@@ -162,7 +166,9 @@ project_file('tests/test_uri3.py', 12, 'python').
 project_file('tests/test_uri_tree_validator.py', 5, 'python').
 project_file('tests/test_validate.py', 9, 'python').
 project_file('tests/uri3/__init__.py', 2, 'python').
+project_file('tests/uri3/test_log_uri.py', 87, 'python').
 project_file('tests/uri3/test_resolvers.py', 83, 'python').
+project_file('tests/uri3/test_schema.py', 99, 'python').
 project_file('tree.sh', 2, 'shell').
 
 % ── Python Functions ─────────────────────────────────────
@@ -327,14 +333,47 @@ python_function('packages/uri3/uri3/cli.py', 'validate_tree', 1, 3, 4).
 python_function('packages/uri3/uri3/cli.py', 'graph', 1, 3, 5).
 python_function('packages/uri3/uri3/cli.py', 'resolve', 1, 2, 8).
 python_function('packages/uri3/uri3/cli.py', 'scan', 1, 2, 4).
+python_function('packages/uri3/uri3/cli.py', 'logs', 2, 2, 6).
+python_function('packages/uri3/uri3/cli.py', 'schema', 3, 4, 8).
 python_function('packages/uri3/uri3/cli.py', 'main', 0, 1, 1).
 python_function('packages/uri3/uri3/graph/uri_graph.py', 'build_graph_from_tree', 1, 10, 9).
+python_function('packages/uri3/uri3/logs/reader.py', 'resolve_log_path', 1, 4, 3).
+python_function('packages/uri3/uri3/logs/reader.py', '_parse_since', 1, 7, 7).
+python_function('packages/uri3/uri3/logs/reader.py', '_parse_entry', 2, 17, 9).
+python_function('packages/uri3/uri3/logs/reader.py', '_entry_timestamp', 1, 4, 4).
+python_function('packages/uri3/uri3/logs/reader.py', '_level_rank', 1, 3, 2).
+python_function('packages/uri3/uri3/logs/reader.py', '_matches_filters', 4, 16, 6).
+python_function('packages/uri3/uri3/logs/reader.py', 'read_logs', 1, 9, 9).
+python_function('packages/uri3/uri3/logs/reader.py', 'summarize_logs', 1, 6, 12).
 python_function('packages/uri3/uri3/paths.py', 'find_repo_root', 1, 6, 5).
 python_function('packages/uri3/uri3/paths.py', 'repo_root', 0, 1, 1).
 python_function('packages/uri3/uri3/protocols/normalizer.py', 'normalize_uri', 1, 3, 3).
 python_function('packages/uri3/uri3/protocols/parser.py', 'parse_uri', 1, 2, 4).
+python_function('packages/uri3/uri3/protocols/scheme_registry.py', '_log_spec', 0, 3, 5).
+python_function('packages/uri3/uri3/protocols/scheme_registry.py', '_env_spec', 0, 1, 1).
+python_function('packages/uri3/uri3/protocols/scheme_registry.py', '_python_spec', 0, 1, 1).
+python_function('packages/uri3/uri3/protocols/scheme_registry.py', '_llm_spec', 0, 1, 1).
+python_function('packages/uri3/uri3/protocols/scheme_registry.py', '_pypi_spec', 0, 1, 1).
+python_function('packages/uri3/uri3/protocols/scheme_registry.py', '_http_spec', 1, 1, 1).
+python_function('packages/uri3/uri3/protocols/scheme_registry.py', '_a2a_spec', 0, 1, 1).
+python_function('packages/uri3/uri3/protocols/scheme_registry.py', '_mcp_spec', 0, 1, 1).
+python_function('packages/uri3/uri3/protocols/scheme_registry.py', '_resource_like_spec', 2, 1, 1).
+python_function('packages/uri3/uri3/protocols/scheme_registry.py', '_build_registry', 0, 2, 9).
+python_function('packages/uri3/uri3/protocols/scheme_registry.py', 'normalize_scheme', 1, 4, 5).
+python_function('packages/uri3/uri3/protocols/scheme_registry.py', 'is_concrete_uri', 1, 4, 3).
+python_function('packages/uri3/uri3/protocols/scheme_registry.py', 'get_scheme_schema', 1, 3, 5).
+python_function('packages/uri3/uri3/protocols/scheme_registry.py', 'list_schemes', 0, 5, 4).
+python_function('packages/uri3/uri3/protocols/scheme_registry.py', '_query_names', 1, 2, 3).
+python_function('packages/uri3/uri3/protocols/scheme_registry.py', '_parse_instance', 2, 10, 11).
+python_function('packages/uri3/uri3/protocols/scheme_registry.py', 'analyze_uri', 1, 15, 11).
+python_function('packages/uri3/uri3/protocols/scheme_registry.py', 'describe_uri', 1, 2, 3).
 python_function('packages/uri3/uri3/resolvers/env_resolver.py', 'resolve_env', 1, 3, 4).
 python_function('packages/uri3/uri3/resolvers/llm_resolver.py', 'resolve_llm', 1, 5, 4).
+python_function('packages/uri3/uri3/resolvers/log_resolver.py', '_first', 3, 2, 1).
+python_function('packages/uri3/uri3/resolvers/log_resolver.py', '_int', 3, 3, 3).
+python_function('packages/uri3/uri3/resolvers/log_resolver.py', '_bool', 3, 3, 2).
+python_function('packages/uri3/uri3/resolvers/log_resolver.py', 'parse_log_uri', 1, 17, 10).
+python_function('packages/uri3/uri3/resolvers/log_resolver.py', 'resolve_log', 1, 1, 2).
 python_function('packages/uri3/uri3/resolvers/protocol_resolver.py', 'resolve_http_like', 1, 1, 0).
 python_function('packages/uri3/uri3/resolvers/protocol_resolver.py', 'resolve_a2a', 1, 2, 1).
 python_function('packages/uri3/uri3/resolvers/protocol_resolver.py', 'resolve_mcp', 1, 2, 1).
@@ -343,10 +382,11 @@ python_function('packages/uri3/uri3/resolvers/pypi_resolver.py', 'resolve_pypi',
 python_function('packages/uri3/uri3/resolvers/python_resolver.py', '_split_python_uri', 1, 2, 4).
 python_function('packages/uri3/uri3/resolvers/python_resolver.py', 'resolve_python', 1, 1, 1).
 python_function('packages/uri3/uri3/resolvers/python_resolver.py', 'call_python', 2, 1, 4).
-python_function('packages/uri3/uri3/resolvers/router.py', 'resolve', 1, 2, 11).
-python_function('packages/uri3/uri3/resolvers/router.py', 'call', 2, 1, 3).
+python_function('packages/uri3/uri3/resolvers/router.py', 'resolve', 1, 2, 12).
+python_function('packages/uri3/uri3/resolvers/router.py', 'call', 2, 1, 6).
 python_function('packages/uri3/uri3/scanner/http_scanner.py', 'scan_http', 1, 6, 6).
-python_function('packages/uri3/uri3/scanner/scanner.py', 'scan', 1, 2, 2).
+python_function('packages/uri3/uri3/scanner/scanner.py', 'scan_log', 1, 2, 5).
+python_function('packages/uri3/uri3/scanner/scanner.py', 'scan', 1, 3, 3).
 python_function('packages/uri3/uri3/validators/uri_tree_validator.py', 'load_yaml', 1, 1, 2).
 python_function('packages/uri3/uri3/validators/uri_tree_validator.py', 'validate_uri_tree', 1, 2, 7).
 python_function('packages/uri3/uri3/validators/uri_validator.py', 'validate_uri', 1, 2, 2).
@@ -412,6 +452,13 @@ python_function('tests/test_uri3.py', 'test_validate_uri', 0, 3, 1).
 python_function('tests/test_uri3.py', 'test_graph_weather_tree', 0, 3, 3).
 python_function('tests/test_uri_tree_validator.py', 'test_uri_tree_schema_ok', 0, 2, 1).
 python_function('tests/test_validate.py', 'test_user_agent_contract_is_valid', 0, 2, 2).
+python_function('tests/uri3/test_log_uri.py', '_write_sample_log', 1, 2, 4).
+python_function('tests/uri3/test_log_uri.py', 'test_resolve_log_uri', 0, 7, 1).
+python_function('tests/uri3/test_log_uri.py', 'test_read_logs_with_filters', 2, 5, 4).
+python_function('tests/uri3/test_log_uri.py', 'test_read_logs_from_explicit_file', 2, 2, 4).
+python_function('tests/uri3/test_log_uri.py', 'test_call_log_uri_returns_entries', 2, 3, 3).
+python_function('tests/uri3/test_log_uri.py', 'test_scan_log_uri', 2, 5, 4).
+python_function('tests/uri3/test_log_uri.py', 'test_summarize_logs', 2, 4, 3).
 python_function('tests/uri3/test_resolvers.py', 'test_env_uri_resolution', 1, 4, 2).
 python_function('tests/uri3/test_resolvers.py', 'test_llm_uri_resolution', 0, 4, 1).
 python_function('tests/uri3/test_resolvers.py', 'test_pypi_uri_resolution', 0, 2, 1).
@@ -424,6 +471,17 @@ python_function('tests/uri3/test_resolvers.py', 'test_python_call', 0, 2, 1).
 python_function('tests/uri3/test_resolvers.py', 'test_router_resolve_returns_uri_resolution', 0, 2, 4).
 python_function('tests/uri3/test_resolvers.py', 'test_unsupported_scheme', 0, 1, 2).
 python_function('tests/uri3/test_resolvers.py', 'test_deprecated_uri2llm_reexport', 0, 3, 5).
+python_function('tests/uri3/test_schema.py', 'test_normalize_scheme', 0, 4, 1).
+python_function('tests/uri3/test_schema.py', 'test_get_scheme_schema_log', 0, 7, 1).
+python_function('tests/uri3/test_schema.py', 'test_get_scheme_schema_unknown', 0, 1, 2).
+python_function('tests/uri3/test_schema.py', 'test_list_schemes_includes_log', 0, 3, 2).
+python_function('tests/uri3/test_schema.py', 'test_analyze_concrete_log_uri', 0, 7, 1).
+python_function('tests/uri3/test_schema.py', 'test_analyze_invalid_log_uri', 0, 3, 1).
+python_function('tests/uri3/test_schema.py', 'test_describe_scheme_only', 0, 3, 1).
+python_function('tests/uri3/test_schema.py', 'test_describe_concrete_uri', 0, 3, 1).
+python_function('tests/uri3/test_schema.py', 'test_cli_schema_log_scheme', 0, 4, 3).
+python_function('tests/uri3/test_schema.py', 'test_cli_schema_list', 0, 3, 3).
+python_function('tests/uri3/test_schema.py', 'test_cli_schema_analyze', 0, 4, 3).
 
 % ── Python Classes ───────────────────────────────────────
 python_class('packages/nl2uri/nl2uri/pipeline.py', 'PipelineResult').
@@ -479,6 +537,8 @@ python_method('Uri3Client', '__init__', 0, 1, 1).
 python_method('Uri3Client', 'resolve', 1, 1, 1).
 python_method('Uri3Client', 'call', 2, 1, 1).
 python_method('Uri3Client', 'scan', 1, 1, 1).
+python_method('Uri3Client', 'logs', 1, 2, 2).
+python_method('Uri3Client', 'schema', 1, 1, 1).
 python_method('Uri3Client', 'graph', 1, 1, 1).
 python_method('Uri3Client', 'nl2uri', 1, 1, 1).
 python_class('packages/resource-agent-hypervisor/meta_agent/api.py', 'PromptRequest').
@@ -496,6 +556,10 @@ python_class('packages/uri3/uri3/graph/uri_graph.py', 'UriGraph').
 python_method('UriGraph', 'add_node', 3, 3, 1).
 python_method('UriGraph', 'add_edge', 3, 3, 2).
 python_class('packages/uri3/uri3/protocols/parser.py', 'ParsedURI').
+python_class('packages/uri3/uri3/protocols/scheme_registry.py', 'QueryOption').
+python_method('QueryOption', 'to_dict', 0, 2, 1).
+python_class('packages/uri3/uri3/protocols/scheme_registry.py', 'SchemeSpec').
+python_method('SchemeSpec', 'to_dict', 0, 2, 2).
 python_class('packages/uri3/uri3/resolvers/env_resolver.py', 'EnvResolver').
 python_method('EnvResolver', 'resolve', 1, 1, 1).
 python_class('packages/uri3/uri3/resolvers/http_resolver.py', 'HttpResolver').
@@ -504,12 +568,17 @@ python_method('HttpResolver', 'fetch', 1, 2, 3).
 python_class('packages/uri3/uri3/resolvers/llm_resolver.py', 'LLMRef').
 python_class('packages/uri3/uri3/resolvers/llm_resolver.py', 'LLMResolver').
 python_method('LLMResolver', 'resolve', 1, 2, 4).
+python_class('packages/uri3/uri3/resolvers/log_resolver.py', 'LogRef').
+python_method('LogRef', 'to_dict', 0, 2, 1).
+python_class('packages/uri3/uri3/resolvers/log_resolver.py', 'LogResolver').
+python_method('LogResolver', 'resolve', 1, 1, 1).
+python_method('LogResolver', 'read', 1, 2, 2).
 python_class('packages/uri3/uri3/resolvers/python_resolver.py', 'PythonResolver').
 python_method('PythonResolver', 'resolve', 1, 1, 1).
 python_method('PythonResolver', 'call', 2, 2, 1).
 python_class('packages/uri3/uri3/resolvers/router.py', 'UriResolution').
 python_class('packages/uri3/uri3/resolvers/router.py', 'Uri3Router').
-python_method('Uri3Router', '__init__', 0, 1, 4).
+python_method('Uri3Router', '__init__', 0, 1, 5).
 python_method('Uri3Router', 'resolve', 1, 2, 3).
 python_method('Uri3Router', 'call', 2, 1, 1).
 python_class('packages/uri3/uri3/scanner/base.py', 'ScanItem').

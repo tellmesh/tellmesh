@@ -25,6 +25,11 @@ class Uri3Client:
     def logs(self, uri: str, *, summary: bool = False):
         return summarize_logs(uri) if summary else read_logs(uri)
 
+    def schema(self, target: str):
+        from uri3.protocols.scheme_registry import describe_uri
+
+        return describe_uri(target)
+
     def graph(self, path: str):
         return build_graph_from_tree(path)
 

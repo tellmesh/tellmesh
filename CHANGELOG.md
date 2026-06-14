@@ -5,11 +5,106 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.10] - 2026-06-14
+
+### Fixed
+- Fix unused-imports issues (ticket-690b4c67)
+- Fix magic-numbers issues (ticket-25bdd7ff)
+- Fix smart-return-type issues (ticket-e9652153)
+- Fix unused-imports issues (ticket-7d2726b5)
+- Fix ai-boilerplate issues (ticket-b0ccd6d4)
+- Fix smart-return-type issues (ticket-a402183b)
+- Fix ai-boilerplate issues (ticket-3e8a9532)
+- Fix string-concat issues (ticket-ed0a608d)
+- Fix smart-return-type issues (ticket-a8b52d89)
+- Fix magic-numbers issues (ticket-865c12d0)
+- Fix string-concat issues (ticket-b05ca504)
+- Fix unused-imports issues (ticket-dbae451c)
+- Fix unused-imports issues (ticket-865c637e)
+- Fix ai-boilerplate issues (ticket-69819513)
+- Fix string-concat issues (ticket-e83a9f54)
+- Fix unused-imports issues (ticket-40311cfb)
+- Fix unused-imports issues (ticket-8d8fb28e)
+- Fix unused-imports issues (ticket-bde17bd0)
+- Fix unused-imports issues (ticket-85dd0f79)
+- Fix ai-boilerplate issues (ticket-90917ed0)
+- Fix unused-imports issues (ticket-3cc1f81d)
+- Fix ai-boilerplate issues (ticket-92a67e2d)
+- Fix unused-imports issues (ticket-dd2b1821)
+- Fix relative-imports issues (ticket-ba303eb9)
+- Fix unused-imports issues (ticket-6d18c8d6)
+- Fix smart-return-type issues (ticket-9a4fa4ca)
+- Fix ai-boilerplate issues (ticket-afcf5a99)
+- Fix unused-imports issues (ticket-a3ef7083)
+- Fix unused-imports issues (ticket-1700b2b8)
+- Fix unused-imports issues (ticket-0ff0b6f6)
+- Fix unused-imports issues (ticket-f5195ea7)
+- Fix unused-imports issues (ticket-cb87ddc9)
+- Fix unused-imports issues (ticket-343765a5)
+- Fix string-concat issues (ticket-86c0756c)
+- Fix unused-imports issues (ticket-55bf1f0c)
+- Fix ai-boilerplate issues (ticket-15440ab9)
+- Fix unused-imports issues (ticket-466161eb)
+- Fix unused-imports issues (ticket-9ea83eeb)
+- Fix unused-imports issues (ticket-de653f6e)
+- Fix unused-imports issues (ticket-133eb4aa)
+- Fix unused-imports issues (ticket-7d59cd5b)
+- Fix string-concat issues (ticket-c7d9f791)
+- Fix unused-imports issues (ticket-e11ca477)
+- Fix unused-imports issues (ticket-4264f2fc)
+- Fix unused-imports issues (ticket-2409f095)
+- Fix relative-imports issues (ticket-e7c63477)
+- Fix unused-imports issues (ticket-cd331354)
+- Fix llm-generated-code issues (ticket-ffb72480)
+- Fix unused-imports issues (ticket-753d7009)
+- Fix unused-imports issues (ticket-516a43af)
+- Fix magic-numbers issues (ticket-429999e1)
+- Fix unused-imports issues (ticket-1576a47a)
+- Fix unused-imports issues (ticket-9d598e2c)
+- Fix unused-imports issues (ticket-a812e992)
+- Fix unused-imports issues (ticket-ceb2ffb9)
+- Fix unused-imports issues (ticket-b3e96ca2)
+- Fix unused-imports issues (ticket-d3a2ef34)
+- Fix ai-boilerplate issues (ticket-0d221dc4)
+- Fix unused-imports issues (ticket-7bb433a7)
+- Fix unused-imports issues (ticket-bbdc0619)
+- Fix unused-imports issues (ticket-d400d413)
+- Fix unused-imports issues (ticket-efc955cc)
+- Fix smart-return-type issues (ticket-2fedbcbe)
+- Fix unused-imports issues (ticket-1dc852fe)
+- Fix unused-imports issues (ticket-c25578fb)
+- Fix unused-imports issues (ticket-f67d9dfd)
+- Fix unused-imports issues (ticket-43ad97cf)
+- Fix ai-boilerplate issues (ticket-71c6178b)
+- Fix unused-imports issues (ticket-18ee002a)
+- Fix unused-imports issues (ticket-94406158)
+- Fix ai-boilerplate issues (ticket-e22d376f)
+- Fix unused-imports issues (ticket-928d1506)
+- Fix unused-imports issues (ticket-4c9edf37)
+- Fix string-concat issues (ticket-f92bca3d)
+- Fix unused-imports issues (ticket-e8e0d04b)
+- Fix unused-imports issues (ticket-36cf5f5d)
+- Fix unused-imports issues (ticket-9edaf0d9)
+- Fix unused-imports issues (ticket-aa87dded)
+- Fix magic-numbers issues (ticket-9830d889)
+- Fix string-concat issues (ticket-038db146)
+- Fix unused-imports issues (ticket-04c476be)
+- Fix unused-imports issues (ticket-79542bb5)
+- Fix string-concat issues (ticket-3d67f0f5)
+- Fix unused-imports issues (ticket-0e3cbe53)
+- Fix smart-return-type issues (ticket-4173afc6)
+- Fix unused-imports issues (ticket-a192f40c)
+- Fix smart-return-type issues (ticket-6bb46fa8)
+- Fix unused-imports issues (ticket-daa55462)
+- Fix ai-boilerplate issues (ticket-f022b5e6)
+
 ## [0.5.6] - 2026-06-14
 
 ### Added
 
 - `log://` URI scheme in `uri3` for reading and filtering log files.
+- `uri3.protocols.scheme_registry` — introspection API for URI formats, query options, actions, and examples.
+- CLI command `uri3 schema [target]` with `--list` and `--analyze` for scheme docs and concrete URI analysis.
 - `uri3.logs.reader` with JSON/text parsing and filters: `level`, `grep`, `logger`, `since`, `until`, `limit`, `offset`, `tail`.
 - `uri3.resolvers.log_resolver` and router integration (`resolve`, `call`).
 - `uri3 scan log://...` for log discovery with match counts and level breakdown.
@@ -95,7 +190,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `make docker-ssh-up`,
   - `make docker-ssh-down`,
   - `make scan-http`,
-  - `make scan-ssh`,
   - `make examples`.
 - `uri3` jako paczka od URI, graph, resolverów i scannerów.
 - `nl2uri` jako paczka `prompt -> URI Tree`.
@@ -261,6 +355,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fix smart-return-type issues (ticket-780e8124)
 
 ## [Unreleased]
+
+## [0.5.8] - 2026-06-14
+
+### Docs
+- Update CHANGELOG.md
+- Update README.md
+- Update SUMD.md
+- Update SUMR.md
+- Update TODO.md
+- Update docs/ARCHITECTURE_V0_5.md
+- Update docs/AUTO_EVOLUTION_PIPELINE.md
+- Update docs/CAPABILITY_VERIFICATION.md
+- Update docs/CONTRACT_REGISTRY_SCHEMA.md
+- Update docs/DEPLOYMENT.md
+- ... and 23 more files
+
+### Test
+- Update tests/test_evolution_proposal.py
+- Update tests/uri3/test_schema.py
+
+### Other
+- Update .code2llm_cache/Makefile_1781432184613035723_1749.pkl
+- Update .code2llm_cache/add_invoices_agent_1781425233000000000_580.pkl
+- Update .code2llm_cache/add_orders_agent_1781426545000000000_425.pkl
+- Update .code2llm_cache/agent_deployments_1781431933935252922_718.pkl
+- Update .code2llm_cache/broken_agent_1781425233000000000_259.pkl
+- Update .code2llm_cache/cli_1781431834923243695_2370.pkl
+- Update .code2llm_cache/cli_1781432111403719486_993.pkl
+- Update .code2llm_cache/client_1781431801345590702_1141.pkl
+- Update .code2llm_cache/contract_registry.resolved_1781431933967261192_4432.pkl
+- Update .code2llm_cache/create_invoices_agent_prompt_1781425233000000000_113.pkl
+- ... and 39 more files
 
 ## [0.5.7] - 2026-06-14
 

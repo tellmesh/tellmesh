@@ -1,5 +1,6 @@
 import json, typer
 from uri3.logs.reader import read_logs, summarize_logs
+from uri3.protocols.scheme_registry import analyze_uri, describe_uri, get_scheme_schema, list_schemes
 from uri3.validators.uri_validator import validate_uri
 from uri3.validators.uri_tree_validator import validate_uri_tree
 from uri3.graph.uri_graph import build_graph_from_tree
@@ -40,6 +41,21 @@ def logs(
 ):
     """Read and filter logs via log:// URI."""
     payload = summarize_logs(uri) if summary else read_logs(uri)
+    typer.echo(json.dumps(payload, indent=2, ensure_ascii=False))
+
+@app.command()
+def schema(
+    target: str = typer.Argument("", help="Scheme (log://) or concrete URI to analyze"),
+    list_all: bool = typer.Option(False, "--list", "-l", help="List supported schemes"),
+    analyze: bool = typer.Option(False, "--analyze", help="Force full URI analysis"),
+):
+    """Describe URI format, options, and API for a scheme or concrete URI."""
+    if list_all or not target:
+        payload = {"schemes": list_schemes()}
+    elif analyze:
+        payload = analyze_uri(target)
+    else:
+        payload = describe_uri(target)
     typer.echo(json.dumps(payload, indent=2, ensure_ascii=False))
 
 def main(): app()

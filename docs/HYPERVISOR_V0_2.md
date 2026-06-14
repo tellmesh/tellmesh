@@ -1,5 +1,7 @@
 # Resource Agent Hypervisor v0.2
 
+> **Dokument historyczny.** Aktualne komendy i layout: [`README.md`](../README.md), [`ARCHITECTURE_V0_5.md`](./ARCHITECTURE_V0_5.md). Poniższe targety Makefile (`make registry`, `make capability-tests`, …) mogą nie istnieć w bieżącym `Makefile`.
+
 Ta wersja łączy trzy wcześniejsze warstwy w jeden kontrolowany układ:
 
 1. **Shared Resource Runtime** — wspólny rdzeń CQRS / Event Sourcing / URI / Renderer.

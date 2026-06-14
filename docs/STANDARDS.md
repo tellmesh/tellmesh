@@ -18,7 +18,7 @@ JSON Schema validates YAML/JSON contracts:
 - `contracts/resources.yaml`
 - `contracts/views.yaml`
 - `contracts/agents/*.yaml`
-- `evolution/proposals/*.yaml`
+- `examples/08_evolution/proposals/*.yaml`
 
 Schemas live in `schemas/`.
 

@@ -1,5 +1,7 @@
 # Contract Registry Schema
 
+> **Dokument historyczny (v0.3).** Aktualny przepływ walidacji: `make validate`, `make verify`, `make test`. Targety `make registry-*` poniżej mogą nie być zdefiniowane w bieżącym `Makefile`.
+
 v0.3 introduces formal schemas for the contract registry layer.
 
 ## Files

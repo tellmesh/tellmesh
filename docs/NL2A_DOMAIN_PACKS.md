@@ -1,26 +1,33 @@
 # nl2a domain pack generation
 
-`nl2a -p` generates a URI Tree first, then a Domain Pack, then a thin generated agent.
+`nl2a generate` tworzy URI Tree, Domain Pack, kontrakt agenta i wygenerowany kod.
 
 ```txt
 prompt
-  -> LLM/deterministic domain planner
+  -> LLM/deterministic domain planner (nl2uri)
   -> URI Tree
   -> Domain Pack
   -> Agent YAML
   -> Agent Factory
   -> Contract Registry validation
+  -> Deployment registry sync
 ```
 
-The domain layer is not hard-coded into the hypervisor. It is generated under `domains/<domain_id>/` and registered through contracts.
+Logika domenowa nie jest w rdzeniu hypervisora — powstaje w `domains/<domain_id>/`.
 
-## Example
+## Przykład
 
 ```bash
-nl2a -p "generuj mape pogody dwa tygodnie do przodu w oparciu o miejscowosc i odpowiedni model przewidujacy pogode, generuj widok w formie html pod adresem url"
+nl2a generate --no-llm -p "generuj mape pogody dwa tygodnie do przodu w oparciu o miejscowosc i odpowiedni model przewidujacy pogode, generuj widok w formie html pod adresem url"
 ```
 
-Expected generated artifacts:
+Skrót:
+
+```bash
+make nl2a-weather
+```
+
+Oczekiwane artefakty:
 
 ```txt
 domains/weather_map/uri_tree.yaml
@@ -32,11 +39,21 @@ domains/weather_map/commands.yaml
 domains/weather_map/renderers.yaml
 contracts/agents/weather_map_agent.yaml
 agents/generated/weather_map_agent/
+output/contract_registry.resolved.json
 ```
+
+Walidacja URI Tree:
+
+```bash
+uri3 validate-tree domains/weather_map/uri_tree.yaml
+uri3 graph domains/weather_map/uri_tree.yaml
+```
+
+Przykład katalogowy: [`examples/04_nl2a_weather_map/`](../examples/04_nl2a_weather_map/README.md).
 
 ## LLM configuration
 
-Use `.env`:
+`.env`:
 
 ```env
 OPENROUTER_API_KEY=sk-or-v1-...
@@ -44,4 +61,4 @@ LLM_MODEL=openrouter/qwen/qwen3-coder-next
 NL2A_USE_LLM=1
 ```
 
-When `NL2A_USE_LLM=0`, the local deterministic planner is used. This makes tests reproducible.
+Gdy `NL2A_USE_LLM=0` lub `--no-llm`, używany jest planner deterministyczny (testy reprodukowalne).

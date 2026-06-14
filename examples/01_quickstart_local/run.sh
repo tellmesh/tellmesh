@@ -4,4 +4,4 @@ pip install -e .[dev]
 make uri-tree
 make validate
 make graph
-pytest -q
+make test

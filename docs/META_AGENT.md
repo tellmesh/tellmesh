@@ -33,7 +33,7 @@ It should not:
 ```text
 meta_agent/
   planner.py        prompt -> normalized intent -> YAML spec
-  repair.py         safe YAML repair rules
+  repair/           safe YAML repair rules (loader, rules, pipeline)
   orchestrator.py   pipeline coordination
   api.py            FastAPI service
   cli.py            command line interface
@@ -74,7 +74,7 @@ python -m meta_agent.cli validate contracts/agents/user_agent.yaml
 Repair a broken contract:
 
 ```bash
-python -m meta_agent.cli repair examples/broken_agent.yaml --write
+python -m meta_agent.cli repair examples/05_meta_repair/broken_agent.yaml --write
 ```
 
 Verify generated agents:

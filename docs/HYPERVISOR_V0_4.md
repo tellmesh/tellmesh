@@ -1,5 +1,7 @@
 # Resource Agent Hypervisor v0.4
 
+> **Dokument historyczny.** Resolver `uri2llm` przeniesiono do `uri3.resolvers`. Aktualne API: [`URI3.md`](./URI3.md), pipeline nl2a: [`NL2A_DOMAIN_PACKS.md`](./NL2A_DOMAIN_PACKS.md).
+
 v0.4 adds natural-language-to-domain-pack generation and URI routing.
 
 ## New features

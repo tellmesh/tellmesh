@@ -1,5 +1,7 @@
 # Resource Agent Hypervisor v0.3
 
+> **Dokument historyczny.** Aktualne komendy: [`README.md`](../README.md). Targety `make registry-*`, `make hypervisor-check`, `make evolution-check` (stara wersja) mogą różnić się od bieżącego `Makefile` — dziś użyj `make evolution-check` (walidacja `examples/08_evolution/proposals/`).
+
 v0.3 formalizes the contract registry as the source of truth for the whole system.
 
 ## Added in v0.3

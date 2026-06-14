@@ -121,292 +121,6 @@ sprints:
     model_hints:
       planning: balanced
       implementation: balanced
-  - id: ticket-8bdf2854
-    name: Fix smart-return-type issues
-    description: Resolve 1 smart-return-type issues in tests/test_capability_tests.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - tests/test_capability_tests.py
-    rule_id: smart-return-type
-    count: 1
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-a38cece3
-    name: Fix smart-return-type issues
-    description: Resolve 2 smart-return-type issues in tests/test_contract_registry.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - tests/test_contract_registry.py
-    rule_id: smart-return-type
-    count: 2
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-8442617a
-    name: Fix smart-return-type issues
-    description: Resolve 1 smart-return-type issues in tests/test_cross_validation_v03.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - tests/test_cross_validation_v03.py
-    rule_id: smart-return-type
-    count: 1
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-009f1de9
-    name: Fix smart-return-type issues
-    description: Resolve 1 smart-return-type issues in tests/test_evolution_proposal.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - tests/test_evolution_proposal.py
-    rule_id: smart-return-type
-    count: 1
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-1a80cdae
-    name: Fix smart-return-type issues
-    description: Resolve 1 smart-return-type issues in tests/test_generate.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - tests/test_generate.py
-    rule_id: smart-return-type
-    count: 1
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-a096e306
-    name: Fix smart-return-type issues
-    description: Resolve 3 smart-return-type issues in tests/test_meta_agent.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - tests/test_meta_agent.py
-    rule_id: smart-return-type
-    count: 3
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-c166a9ae
-    name: Fix smart-return-type issues
-    description: Resolve 7 smart-return-type issues in tests/test_hypervisor.py
-    task_type: prefactor
-    priority: high
-    estimate: 2d
-    files:
-    - tests/test_hypervisor.py
-    rule_id: smart-return-type
-    count: 7
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-c240a48d
-    name: Fix unused-imports issues
-    description: Resolve 14 unused-imports issues in tests/test_hypervisor.py
-    task_type: prefactor
-    priority: high
-    estimate: 3d
-    files:
-    - tests/test_hypervisor.py
-    rule_id: unused-imports
-    count: 14
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-d472307e
-    name: Fix smart-return-type issues
-    description: Resolve 2 smart-return-type issues in tests/test_nl2a_v04.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - tests/test_nl2a_v04.py
-    rule_id: smart-return-type
-    count: 2
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-c00ce508
-    name: Fix smart-return-type issues
-    description: Resolve 1 smart-return-type issues in tests/test_nl2uri.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - tests/test_nl2uri.py
-    rule_id: smart-return-type
-    count: 1
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-2f8eb260
-    name: Fix smart-return-type issues
-    description: Resolve 2 smart-return-type issues in tests/test_registry_builder_v03.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - tests/test_registry_builder_v03.py
-    rule_id: smart-return-type
-    count: 2
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-e006f308
-    name: Fix smart-return-type issues
-    description: Resolve 3 smart-return-type issues in tests/test_policy_gate.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - tests/test_policy_gate.py
-    rule_id: smart-return-type
-    count: 3
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-e1b6dfb6
-    name: Fix smart-return-type issues
-    description: Resolve 1 smart-return-type issues in tests/test_runtime_client.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - tests/test_runtime_client.py
-    rule_id: smart-return-type
-    count: 1
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-cb424cb6
-    name: Fix smart-return-type issues
-    description: Resolve 1 smart-return-type issues in tests/test_schema_validation_v03.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - tests/test_schema_validation_v03.py
-    rule_id: smart-return-type
-    count: 1
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-a2dd5037
-    name: Fix smart-return-type issues
-    description: Resolve 3 smart-return-type issues in tests/test_uri2llm_v04.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - tests/test_uri2llm_v04.py
-    rule_id: smart-return-type
-    count: 3
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-65947156
-    name: Fix smart-return-type issues
-    description: Resolve 2 smart-return-type issues in tests/test_uri3.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - tests/test_uri3.py
-    rule_id: smart-return-type
-    count: 2
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-c503af83
-    name: Fix smart-return-type issues
-    description: Resolve 1 smart-return-type issues in tests/test_uri_tree_validator.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - tests/test_uri_tree_validator.py
-    rule_id: smart-return-type
-    count: 1
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-765f08a5
-    name: Fix smart-return-type issues
-    description: Resolve 1 smart-return-type issues in tests/test_validate.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - tests/test_validate.py
-    rule_id: smart-return-type
-    count: 1
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-cba515d7
-    name: Fix smart-return-type issues
-    description: Resolve 6 smart-return-type issues in tests/domain_pack/test_generator.py
-    task_type: prefactor
-    priority: high
-    estimate: 2d
-    files:
-    - tests/domain_pack/test_generator.py
-    rule_id: smart-return-type
-    count: 6
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-00003659
-    name: Fix unused-imports issues
-    description: Resolve 2 unused-imports issues in tests/domain_pack/test_generator.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - tests/domain_pack/test_generator.py
-    rule_id: unused-imports
-    count: 2
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-872cfffc
-    name: Fix smart-return-type issues
-    description: Resolve 2 smart-return-type issues in tests/generator/test_headers.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - tests/generator/test_headers.py
-    rule_id: smart-return-type
-    count: 2
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-04f706f9
-    name: Fix unused-imports issues
-    description: Resolve 2 unused-imports issues in tests/generator/test_headers.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - tests/generator/test_headers.py
-    rule_id: unused-imports
-    count: 2
-    model_hints:
-      planning: balanced
-      implementation: balanced
   - id: ticket-7dfb5b9a
     name: Fix smart-return-type issues
     description: Resolve 2 smart-return-type issues in testenv/ssh_agent_host/mock_agent_server.py
@@ -446,132 +160,1159 @@ sprints:
     model_hints:
       planning: balanced
       implementation: balanced
-  - id: ticket-8c04edf3
-    name: Fix smart-return-type issues
-    description: Resolve 5 smart-return-type issues in tests/hypervisor/test_config.py
-    task_type: prefactor
-    priority: medium
-    estimate: 2d
-    files:
-    - tests/hypervisor/test_config.py
-    rule_id: smart-return-type
-    count: 5
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-6405c5fd
+  - id: ticket-690b4c67
     name: Fix unused-imports issues
-    description: Resolve 2 unused-imports issues in tests/hypervisor/test_config.py
+    description: Resolve 2 unused-imports issues in packages/nl2uri/nl2uri/domain_planner.py
     task_type: prefactor
     priority: medium
     estimate: 1d
     files:
-    - tests/hypervisor/test_config.py
+    - packages/nl2uri/nl2uri/domain_planner.py
     rule_id: unused-imports
     count: 2
     model_hints:
       planning: balanced
       implementation: balanced
-  - id: ticket-3b7074ab
+  - id: ticket-25bdd7ff
+    name: Fix magic-numbers issues
+    description: Resolve 2 magic-numbers issues in packages/nl2uri/nl2uri/domain_planner.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/nl2uri/nl2uri/domain_planner.py
+    rule_id: magic-numbers
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-e9652153
     name: Fix smart-return-type issues
-    description: Resolve 7 smart-return-type issues in tests/hypervisor/test_deployment_registry.py
+    description: Resolve 2 smart-return-type issues in packages/nl2uri/nl2a/cli.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/nl2uri/nl2a/cli.py
+    rule_id: smart-return-type
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-7d2726b5
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/nl2uri/nl2a/cli.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/nl2uri/nl2a/cli.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-b0ccd6d4
+    name: Fix ai-boilerplate issues
+    description: Resolve 2 ai-boilerplate issues in packages/nl2uri/nl2a/cli.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/nl2uri/nl2a/cli.py
+    rule_id: ai-boilerplate
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-a402183b
+    name: Fix smart-return-type issues
+    description: Resolve 2 smart-return-type issues in packages/nl2uri/nl2uri/cli.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/nl2uri/nl2uri/cli.py
+    rule_id: smart-return-type
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-3e8a9532
+    name: Fix ai-boilerplate issues
+    description: Resolve 2 ai-boilerplate issues in packages/nl2uri/nl2uri/cli.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/nl2uri/nl2uri/cli.py
+    rule_id: ai-boilerplate
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-ed0a608d
+    name: Fix string-concat issues
+    description: Resolve 1 string-concat issues in packages/nl2uri/nl2uri/llm_planner.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/nl2uri/nl2uri/llm_planner.py
+    rule_id: string-concat
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-a8b52d89
+    name: Fix smart-return-type issues
+    description: Resolve 1 smart-return-type issues in packages/nl2uri/nl2uri/writer.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/nl2uri/nl2uri/writer.py
+    rule_id: smart-return-type
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-865c12d0
+    name: Fix magic-numbers issues
+    description: Resolve 2 magic-numbers issues in packages/nl2uri/nl2uri/planner.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/nl2uri/nl2uri/planner.py
+    rule_id: magic-numbers
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-b05ca504
+    name: Fix string-concat issues
+    description: Resolve 2 string-concat issues in packages/nl2uri/nl2uri/pipeline.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/nl2uri/nl2uri/pipeline.py
+    rule_id: string-concat
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-dbae451c
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/nl2uri/nl2uri/pipeline.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/nl2uri/nl2uri/pipeline.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-865c637e
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-factory/generator/agent_generator.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-factory/generator/agent_generator.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-69819513
+    name: Fix ai-boilerplate issues
+    description: Resolve 1 ai-boilerplate issues in packages/resource-agent-factory/generator/agent_generator.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-factory/generator/agent_generator.py
+    rule_id: ai-boilerplate
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-e83a9f54
+    name: Fix string-concat issues
+    description: Resolve 1 string-concat issues in packages/resource-agent-factory/generator/hashutil.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-factory/generator/hashutil.py
+    rule_id: string-concat
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-40311cfb
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-factory/generator/hashutil.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-factory/generator/hashutil.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-8d8fb28e
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-factory/generator/header.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-factory/generator/header.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-bde17bd0
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-factory/generator/paths.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-factory/generator/paths.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-85dd0f79
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-factory/generator/verify.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-factory/generator/verify.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-90917ed0
+    name: Fix ai-boilerplate issues
+    description: Resolve 1 ai-boilerplate issues in packages/resource-agent-factory/generator/verify.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-factory/generator/verify.py
+    rule_id: ai-boilerplate
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-3cc1f81d
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-factory/generator/validate.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-factory/generator/validate.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-92a67e2d
+    name: Fix ai-boilerplate issues
+    description: Resolve 1 ai-boilerplate issues in packages/resource-agent-factory/generator/validate.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-factory/generator/validate.py
+    rule_id: ai-boilerplate
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-dd2b1821
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-factory/generator/model.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-factory/generator/model.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-ba303eb9
+    name: Fix relative-imports issues
+    description: Resolve 6 relative-imports issues in packages/resource-agent-hypervisor/hypervisor/__init__.py
     task_type: prefactor
     priority: high
     estimate: 2d
     files:
-    - tests/hypervisor/test_deployment_registry.py
-    rule_id: smart-return-type
-    count: 7
+    - packages/resource-agent-hypervisor/hypervisor/__init__.py
+    rule_id: relative-imports
+    count: 6
     model_hints:
       planning: balanced
       implementation: balanced
-  - id: ticket-a5ed41d3
+  - id: ticket-6d18c8d6
     name: Fix unused-imports issues
-    description: Resolve 2 unused-imports issues in tests/hypervisor/test_deployment_registry.py
+    description: Resolve 2 unused-imports issues in packages/resource-agent-hypervisor/hypervisor/_version.py
     task_type: prefactor
     priority: medium
     estimate: 1d
     files:
-    - tests/hypervisor/test_deployment_registry.py
+    - packages/resource-agent-hypervisor/hypervisor/_version.py
     rule_id: unused-imports
     count: 2
     model_hints:
       planning: balanced
       implementation: balanced
-  - id: ticket-009a2fdd
+  - id: ticket-9a4fa4ca
     name: Fix smart-return-type issues
-    description: Resolve 5 smart-return-type issues in tests/meta_agent/test_repair.py
+    description: Resolve 4 smart-return-type issues in packages/resource-agent-hypervisor/hypervisor/cli.py
     task_type: prefactor
     priority: medium
     estimate: 2d
     files:
-    - tests/meta_agent/test_repair.py
+    - packages/resource-agent-hypervisor/hypervisor/cli.py
     rule_id: smart-return-type
-    count: 5
+    count: 4
     model_hints:
       planning: balanced
       implementation: balanced
-  - id: ticket-928e2453
-    name: Fix unused-imports issues
-    description: Resolve 2 unused-imports issues in tests/meta_agent/test_repair.py
+  - id: ticket-afcf5a99
+    name: Fix ai-boilerplate issues
+    description: Resolve 1 ai-boilerplate issues in packages/resource-agent-hypervisor/hypervisor/cli.py
     task_type: prefactor
     priority: medium
     estimate: 1d
     files:
-    - tests/meta_agent/test_repair.py
+    - packages/resource-agent-hypervisor/hypervisor/cli.py
+    rule_id: ai-boilerplate
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-a3ef7083
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-hypervisor/hypervisor/compatibility/checker.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/compatibility/checker.py
     rule_id: unused-imports
     count: 2
     model_hints:
       planning: balanced
       implementation: balanced
-  - id: ticket-90793d63
-    name: Fix smart-return-type issues
-    description: Resolve 2 smart-return-type issues in tests/integration/test_nl2a_e2e.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - tests/integration/test_nl2a_e2e.py
-    rule_id: smart-return-type
-    count: 2
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-c63d0bcd
+  - id: ticket-1700b2b8
     name: Fix unused-imports issues
-    description: Resolve 2 unused-imports issues in tests/integration/test_nl2a_e2e.py
+    description: Resolve 2 unused-imports issues in packages/resource-agent-hypervisor/hypervisor/config/env.py
     task_type: prefactor
     priority: medium
     estimate: 1d
     files:
-    - tests/integration/test_nl2a_e2e.py
+    - packages/resource-agent-hypervisor/hypervisor/config/env.py
     rule_id: unused-imports
     count: 2
     model_hints:
       planning: balanced
       implementation: balanced
-  - id: ticket-b1ab7af7
-    name: Fix smart-return-type issues
-    description: Resolve 12 smart-return-type issues in tests/uri3/test_resolvers.py
+  - id: ticket-0ff0b6f6
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-hypervisor/hypervisor/config/defaults.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/config/defaults.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-f5195ea7
+    name: Fix unused-imports issues
+    description: Resolve 6 unused-imports issues in packages/resource-agent-hypervisor/hypervisor/config/loader.py
     task_type: prefactor
     priority: high
-    estimate: 3d
+    estimate: 2d
     files:
-    - tests/uri3/test_resolvers.py
-    rule_id: smart-return-type
-    count: 12
+    - packages/resource-agent-hypervisor/hypervisor/config/loader.py
+    rule_id: unused-imports
+    count: 6
     model_hints:
       planning: balanced
       implementation: balanced
-  - id: ticket-5eb38ac1
+  - id: ticket-cb87ddc9
     name: Fix unused-imports issues
-    description: Resolve 2 unused-imports issues in tests/uri3/test_resolvers.py
+    description: Resolve 2 unused-imports issues in packages/resource-agent-hypervisor/hypervisor/config/models.py
     task_type: prefactor
     priority: medium
     estimate: 1d
     files:
-    - tests/uri3/test_resolvers.py
+    - packages/resource-agent-hypervisor/hypervisor/config/models.py
     rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-343765a5
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-hypervisor/hypervisor/config/validators.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/config/validators.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-86c0756c
+    name: Fix string-concat issues
+    description: Resolve 2 string-concat issues in packages/resource-agent-hypervisor/hypervisor/contract_registry/cli.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/contract_registry/cli.py
+    rule_id: string-concat
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-55bf1f0c
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-hypervisor/hypervisor/contract_registry/cli.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/contract_registry/cli.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-15440ab9
+    name: Fix ai-boilerplate issues
+    description: Resolve 1 ai-boilerplate issues in packages/resource-agent-hypervisor/hypervisor/contract_registry/cli.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/contract_registry/cli.py
+    rule_id: ai-boilerplate
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-466161eb
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-hypervisor/hypervisor/contract_registry/cross_validator.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/contract_registry/cross_validator.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-9ea83eeb
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-hypervisor/hypervisor/contract_registry/loader.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/contract_registry/loader.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-de653f6e
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-hypervisor/hypervisor/contract_registry/merger.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/contract_registry/merger.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-133eb4aa
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-hypervisor/hypervisor/contract_registry/registry_builder.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/contract_registry/registry_builder.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-7d59cd5b
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-hypervisor/hypervisor/contract_registry/models.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/contract_registry/models.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-c7d9f791
+    name: Fix string-concat issues
+    description: Resolve 1 string-concat issues in packages/resource-agent-hypervisor/hypervisor/contract_registry/registry_exporter.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/contract_registry/registry_exporter.py
+    rule_id: string-concat
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-e11ca477
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-hypervisor/hypervisor/contract_registry/registry_exporter.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/contract_registry/registry_exporter.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-4264f2fc
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-hypervisor/hypervisor/contract_registry/schema_validator.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/contract_registry/schema_validator.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-2409f095
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-hypervisor/hypervisor/contract_registry/validate.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/contract_registry/validate.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-e7c63477
+    name: Fix relative-imports issues
+    description: Resolve 2 relative-imports issues in packages/resource-agent-hypervisor/hypervisor/core.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/core.py
+    rule_id: relative-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-cd331354
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-hypervisor/hypervisor/core.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/core.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-ffb72480
+    name: Fix llm-generated-code issues
+    description: Resolve 1 llm-generated-code issues in packages/resource-agent-hypervisor/hypervisor/core.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/core.py
+    rule_id: llm-generated-code
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-753d7009
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-hypervisor/hypervisor/deployment_registry/loader.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/deployment_registry/loader.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-516a43af
+    name: Fix unused-imports issues
+    description: Resolve 6 unused-imports issues in packages/resource-agent-hypervisor/hypervisor/deployment_registry/status.py
+    task_type: prefactor
+    priority: high
+    estimate: 2d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/deployment_registry/status.py
+    rule_id: unused-imports
+    count: 6
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-429999e1
+    name: Fix magic-numbers issues
+    description: Resolve 2 magic-numbers issues in packages/resource-agent-hypervisor/hypervisor/deployment_registry/status.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/deployment_registry/status.py
+    rule_id: magic-numbers
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-1576a47a
+    name: Fix unused-imports issues
+    description: Resolve 6 unused-imports issues in packages/resource-agent-hypervisor/hypervisor/deployment_registry/writer.py
+    task_type: prefactor
+    priority: high
+    estimate: 2d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/deployment_registry/writer.py
+    rule_id: unused-imports
+    count: 6
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-9d598e2c
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-hypervisor/hypervisor/deployment_registry/models.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/deployment_registry/models.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-a812e992
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-hypervisor/hypervisor/domain_pack/templates.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/domain_pack/templates.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-ceb2ffb9
+    name: Fix unused-imports issues
+    description: Resolve 6 unused-imports issues in packages/resource-agent-hypervisor/hypervisor/domain_pack/writer.py
+    task_type: prefactor
+    priority: high
+    estimate: 2d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/domain_pack/writer.py
+    rule_id: unused-imports
+    count: 6
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-b3e96ca2
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-hypervisor/hypervisor/domain_pack/generator.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/domain_pack/generator.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-d3a2ef34
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-hypervisor/hypervisor/evolution/cli.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/evolution/cli.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-0d221dc4
+    name: Fix ai-boilerplate issues
+    description: Resolve 1 ai-boilerplate issues in packages/resource-agent-hypervisor/hypervisor/evolution/cli.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/evolution/cli.py
+    rule_id: ai-boilerplate
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-7bb433a7
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-hypervisor/hypervisor/evolution/validator.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/evolution/validator.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-bbdc0619
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-hypervisor/hypervisor/evolution/models.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/evolution/models.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-d400d413
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-hypervisor/hypervisor/paths.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/paths.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-efc955cc
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-hypervisor/hypervisor/policy_gate/gate.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/policy_gate/gate.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-2fedbcbe
+    name: Fix smart-return-type issues
+    description: Resolve 6 smart-return-type issues in packages/resource-agent-hypervisor/hypervisor/uri/client.py
+    task_type: prefactor
+    priority: high
+    estimate: 2d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/uri/client.py
+    rule_id: smart-return-type
+    count: 6
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-1dc852fe
+    name: Fix unused-imports issues
+    description: Resolve 10 unused-imports issues in packages/resource-agent-hypervisor/hypervisor/uri/client.py
+    task_type: prefactor
+    priority: high
+    estimate: 2d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/uri/client.py
+    rule_id: unused-imports
+    count: 10
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-c25578fb
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-hypervisor/hypervisor/uri2llm/__init__.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/uri2llm/__init__.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-f67d9dfd
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-hypervisor/hypervisor/verifier/capability_tests.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/verifier/capability_tests.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-43ad97cf
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-hypervisor/hypervisor/verifier/cli.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/verifier/cli.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-71c6178b
+    name: Fix ai-boilerplate issues
+    description: Resolve 1 ai-boilerplate issues in packages/resource-agent-hypervisor/hypervisor/verifier/cli.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/verifier/cli.py
+    rule_id: ai-boilerplate
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-18ee002a
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-hypervisor/meta_agent/domain_planner/domain_pack_generator.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/meta_agent/domain_planner/domain_pack_generator.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-94406158
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-hypervisor/meta_agent/cli.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/meta_agent/cli.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-e22d376f
+    name: Fix ai-boilerplate issues
+    description: Resolve 1 ai-boilerplate issues in packages/resource-agent-hypervisor/meta_agent/cli.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/meta_agent/cli.py
+    rule_id: ai-boilerplate
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-928d1506
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-hypervisor/meta_agent/domain_planner/llm_planner.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/meta_agent/domain_planner/llm_planner.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-4c9edf37
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-hypervisor/meta_agent/orchestrator.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/meta_agent/orchestrator.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-f92bca3d
+    name: Fix string-concat issues
+    description: Resolve 2 string-concat issues in packages/resource-agent-hypervisor/meta_agent/planner.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/meta_agent/planner.py
+    rule_id: string-concat
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-e8e0d04b
+    name: Fix unused-imports issues
+    description: Resolve 6 unused-imports issues in packages/resource-agent-hypervisor/meta_agent/planner.py
+    task_type: prefactor
+    priority: high
+    estimate: 2d
+    files:
+    - packages/resource-agent-hypervisor/meta_agent/planner.py
+    rule_id: unused-imports
+    count: 6
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-36cf5f5d
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-hypervisor/meta_agent/models.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/meta_agent/models.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-9edaf0d9
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-hypervisor/meta_agent/repair/loader.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/meta_agent/repair/loader.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-aa87dded
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-hypervisor/meta_agent/api.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/meta_agent/api.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-9830d889
+    name: Fix magic-numbers issues
+    description: Resolve 3 magic-numbers issues in packages/resource-agent-hypervisor/meta_agent/api.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/meta_agent/api.py
+    rule_id: magic-numbers
+    count: 3
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-038db146
+    name: Fix string-concat issues
+    description: Resolve 1 string-concat issues in packages/resource-agent-hypervisor/meta_agent/repair/pipeline.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/meta_agent/repair/pipeline.py
+    rule_id: string-concat
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-04c476be
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-hypervisor/meta_agent/repair/pipeline.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/meta_agent/repair/pipeline.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-79542bb5
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-hypervisor/runtime_client/client.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/runtime_client/client.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-3d67f0f5
+    name: Fix string-concat issues
+    description: Resolve 2 string-concat issues in packages/resource-agent-hypervisor/meta_agent/repair/rules.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/meta_agent/repair/rules.py
+    rule_id: string-concat
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-0e3cbe53
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/resource-agent-hypervisor/meta_agent/repair/rules.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/resource-agent-hypervisor/meta_agent/repair/rules.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-4173afc6
+    name: Fix smart-return-type issues
+    description: Resolve 2 smart-return-type issues in packages/uri3/uri3/graph/uri_graph.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/uri3/uri3/graph/uri_graph.py
+    rule_id: smart-return-type
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-a192f40c
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in packages/uri3/uri3/logs/reader.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/uri3/uri3/logs/reader.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-6bb46fa8
+    name: Fix smart-return-type issues
+    description: Resolve 8 smart-return-type issues in packages/uri3/uri3/cli.py
+    task_type: prefactor
+    priority: high
+    estimate: 2d
+    files:
+    - packages/uri3/uri3/cli.py
+    rule_id: smart-return-type
+    count: 8
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-daa55462
+    name: Fix unused-imports issues
+    description: Resolve 4 unused-imports issues in packages/uri3/uri3/cli.py
+    task_type: prefactor
+    priority: medium
+    estimate: 2d
+    files:
+    - packages/uri3/uri3/cli.py
+    rule_id: unused-imports
+    count: 4
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-f022b5e6
+    name: Fix ai-boilerplate issues
+    description: Resolve 2 ai-boilerplate issues in packages/uri3/uri3/cli.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - packages/uri3/uri3/cli.py
+    rule_id: ai-boilerplate
     count: 2
     model_hints:
       planning: balanced

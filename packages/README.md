@@ -1,4 +1,4 @@
-# Monorepo packages (v0.5.6)
+# Monorepo packages (v0.5.7)
 
 Physical Python packages live under `packages/`:
 
@@ -12,13 +12,30 @@ Physical Python packages live under `packages/`:
 Shared repo assets remain at the repository root:
 
 ```txt
-contracts/ schemas/ domains/ agents/ deployments/ output/ tests/
+contracts/ schemas/ domains/ agents/ deployments/ examples/ output/ tests/
 ```
 
-Install editable workspace from repo root:
+## Install
+
+From repo root:
+
+```bash
+pip install -e '.[dev]'
+```
+
+Or with uv workspace:
 
 ```bash
 uv sync
 ```
 
-Or a single legacy editable install still works via root `pyproject.toml`.
+## CLI entry points
+
+```bash
+uri3 --help
+nl2uri --help
+nl2a --help
+hypervisor --help
+```
+
+See [`README.md`](../README.md) and [`examples/README.md`](../examples/README.md).

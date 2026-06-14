@@ -17,9 +17,26 @@ Recommended pipeline:
 10. Deploy
 ```
 
+## Evolution proposals in this repo
+
+Example files:
+
+```txt
+examples/08_evolution/proposals/add_orders_agent.yaml
+examples/08_evolution/proposals/add_invoices_agent.yaml
+```
+
+Validate:
+
+```bash
+make evolution-check
+```
+
+See [`examples/08_evolution/README.md`](../examples/08_evolution/README.md).
+
 ## Evolution proposal
 
-Example:
+Example (invoices):
 
 ```yaml
 proposal_id: add-invoices-agent
@@ -36,6 +53,8 @@ checks:
 approval:
   required: true
 ```
+
+Prompt file: [`examples/07_invoices_agent/create_invoices_agent_prompt.txt`](../examples/07_invoices_agent/create_invoices_agent_prompt.txt).
 
 ## Why approval is still required
 

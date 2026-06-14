@@ -1,154 +1,144 @@
-# Resource Agent Meta-Factory v0.1
+# Resource Agent System v0.5.7
 
 
 ## AI Cost Tracking
 
-![PyPI](https://img.shields.io/badge/pypi-costs-blue) ![Version](https://img.shields.io/badge/version-0.5.7-blue) ![Python](https://img.shields.io/badge/python-3.9+-blue) ![License](https://img.shields.io/badge/license-Apache--2.0-green)
-![AI Cost](https://img.shields.io/badge/AI%20Cost-$1.81-orange) ![Human Time](https://img.shields.io/badge/Human%20Time-2.9h-blue) ![Model](https://img.shields.io/badge/Model-openrouter%2Fqwen%2Fqwen3--coder--next-lightgrey)
+![PyPI](https://img.shields.io/badge/pypi-costs-blue) ![Version](https://img.shields.io/badge/version-0.5.8-blue) ![Python](https://img.shields.io/badge/python-3.9+-blue) ![License](https://img.shields.io/badge/license-Apache--2.0-green)
+![AI Cost](https://img.shields.io/badge/AI%20Cost-$2.44-orange) ![Human Time](https://img.shields.io/badge/Human%20Time-3.2h-blue) ![Model](https://img.shields.io/badge/Model-openrouter%2Fqwen%2Fqwen3--coder--next-lightgrey)
 
-- 🤖 **LLM usage:** $1.8068 (6 commits)
-- 👤 **Human dev:** ~$291 (2.9h @ $100/h, 30min dedup)
+- 🤖 **LLM usage:** $2.4358 (7 commits)
+- 👤 **Human dev:** ~$324 (3.2h @ $100/h, 30min dedup)
 
 Generated on 2026-06-14 using [openrouter/qwen/qwen3-coder-next](https://openrouter.ai/qwen/qwen3-coder-next)
 
 ---
 
-Generator, validator and repairer for contract-first thin agents.
 
-This package extends the earlier `resource-agent-factory` with a **meta-agent** that can create agent specifications from prompts, validate them, repair common mistakes and generate working FastAPI agents.
 
-## Core idea
+Monorepo: **uri3**, **nl2uri**, **hypervisor**, **agent factory** — contract-first thin agents z pipeline `prompt → URI Tree → Domain Pack → generated agent`.
 
-```text
-Prompt / request
-      ↓
-Meta-agent
-      ↓
-contracts/agents/*.yaml
-      ↓
-Validator + safe repair
-      ↓
-Agent Factory
-      ↓
-agents/generated/<agent>/
-      ↓
-Tests + contract hash verification
-```
-
-The LLM or user creates the **contract proposal**. The deterministic generator creates the code.
-
-## Quick start
-
-Install dependencies:
-
-```bash
-pip install -e '.[dev]'
-```
-
-Validate existing contracts:
-
-```bash
-make validate
-```
-
-Generate agents:
-
-```bash
-make generate
-```
-
-Verify generated agents:
-
-```bash
-make verify
-```
-
-Run tests:
-
-```bash
-make test
-```
-
-## Meta-agent workflow
-
-Create a new agent from a prompt:
-
-```bash
-python -m meta_agent.cli pipeline "Stwórz agenta do obsługi zamówień z odczytem zamówienia, historią i tworzeniem zamówienia"
-```
-
-Run the meta-agent HTTP API:
-
-```bash
-make run-meta-agent
-```
-
-Then call:
-
-```bash
-curl -X POST http://localhost:8200/pipeline/from-prompt \
-  -H 'Content-Type: application/json' \
-  -d '{"prompt":"Stwórz agenta do obsługi faktur z odczytem faktury, historią i tworzeniem faktury"}'
-```
-
-## Important rule
-
-Do not edit `agents/generated/` manually.
-
-Change:
-
-```text
-contracts/agents/*.yaml
-```
-
-Then regenerate.
-# Resource Agent Hypervisor v0.5
-
-Ta wersja dodaje osobne paczki **`uri3`** i **`nl2uri`**.
-
-- `uri3` = parser, normalizer, resolver, scanner, graf zależności i walidator URI Tree.
-- `nl2uri` = natural language/query/prompt -> `URI Tree`, korzystając z modelu URI i walidacji z `uri3`.
-
-Hypervisor nie skanuje usług samodzielnie i nie generuje domeny bezpośrednio z promptu. Robi to przez `uri3` i `nl2uri`.
+## Architektura
 
 ```txt
-prompt -> nl2uri -> URI Tree -> uri3 validation/graph -> Domain Pack -> Agent Factory -> generated thin agent
+uri3       = URI, discovery, routing, skanowanie, graf, log://, schema introspection
+nl2uri     = natural language / query → URI Tree
+nl2a       = prompt → URI Tree → Domain Pack → agent contract → generated agent
+hypervisor = registry, policy, deployment, lifecycle
+generator  = deterministyczny kod agenta z YAML
+domains/*  = logika domenowa (Domain Pack)
+agents/generated/* = artefakty — nie edytować ręcznie
 ```
+
+Szczegóły: [`docs/ARCHITECTURE_V0_5.md`](docs/ARCHITECTURE_V0_5.md) · [`packages/README.md`](packages/README.md)
 
 ## Instalacja
 
 ```bash
-pip install -e .[dev]
+pip install -e '.[dev]'
+# lub
+uv sync
 ```
 
-## Przykład
+## Szybki start
 
 ```bash
-nl2uri generate --no-llm -p "generuj mape pogody dwa tygodnie do przodu w oparciu o miejscowosc i odpowiedni model przewidujacy pogode, generuj widok w formie html pod adresem url" --out domains/weather_map/uri_tree.yaml
+make uri-tree
+make validate
+make graph
+make test
+```
+
+Pełny pipeline weather-map (bez LLM):
+
+```bash
+make nl2a-weather
+```
+
+Ręcznie krok po kroku:
+
+```bash
+nl2uri generate --no-llm -p "generuj mape pogody dwa tygodnie do przodu w html" \
+  --out domains/weather_map/uri_tree.yaml
 uri3 validate-tree domains/weather_map/uri_tree.yaml
 uri3 graph domains/weather_map/uri_tree.yaml
-nl2a generate --no-llm -p "generuj mape pogody dwa tygodnie do przodu w oparciu o miejscowosc i odpowiedni model przewidujacy pogode, generuj widok w formie html pod adresem url"
+nl2a generate --no-llm -p "generuj mape pogody dwa tygodnie do przodu w html"
 ```
 
-## Zasada odpowiedzialności
+## uri3 — skanowanie, logi, schema
 
-```txt
-uri3 = adresowanie, discovery, routing, graf URI
-nl2uri = język naturalny -> URI Tree
-hypervisor = registry, policy, deployment, lifecycle
-agent factory = generowanie kodu cienkiego agenta
-domain pack = logika domenowa
+```bash
+uri3 scan http://localhost:8101
+uri3 logs 'log://hypervisor?level=ERROR&limit=50'
+uri3 schema 'log://'
+uri3 schema --list
+uri3 resolve env://OPENROUTER_API_KEY
 ```
 
-## Documentation
+## Meta-agent
 
-- `docs/META_AGENT.md` — meta-agent usage.
-- `docs/ARCHITECTURE_META_FACTORY.md` — architecture.
-- `docs/AUTO_EVOLUTION_PIPELINE.md` — controlled auto-evolution.
-- `docs/CONTRACTS.md` — YAML contract format.
-- `docs/GENERATOR.md` — generator details.
-- `docs/DEPLOYMENT.md` — deployment notes.
+```bash
+make meta-pipeline
+make meta-repair
+make run-meta-agent
+```
 
+Przykładowe prompty i kontrakty: [`examples/`](examples/README.md).
+
+## Przykłady (`examples/*/*`)
+
+| # | Katalog | Opis |
+|---|---------|------|
+| 01 | [`examples/01_quickstart_local`](examples/01_quickstart_local/) | Lokalny start bez Dockera |
+| 02 | [`examples/02_uri3_scan_http`](examples/02_uri3_scan_http/) | Skan HTTP/A2A-like |
+| 03 | [`examples/03_ssh_remote_agent`](examples/03_ssh_remote_agent/) | Docker + SSH testenv |
+| 04 | [`examples/04_nl2a_weather_map`](examples/04_nl2a_weather_map/) | Prompt weather-map |
+| 05 | [`examples/05_meta_repair`](examples/05_meta_repair/) | Naprawa uszkodzonego kontraktu |
+| 06 | [`examples/06_orders_agent`](examples/06_orders_agent/) | Kontrakt agenta zamówień |
+| 07 | [`examples/07_invoices_agent`](examples/07_invoices_agent/) | Prompt agenta faktur |
+| 08 | [`examples/08_evolution`](examples/08_evolution/) | Evolution proposals |
+
+Docker + SSH testenv:
+
+```bash
+make docker-ssh-up
+make scan-http
+make docker-ssh-down
+```
+
+## Deployment registry
+
+Rejestr wdrożeń: [`deployments/agent_deployments.yaml`](deployments/agent_deployments.yaml)
+
+```bash
+make evolution-check
+```
+
+## Ważna zasada
+
+Nie edytuj `agents/generated/` ręcznie. Zmieniaj `contracts/agents/*.yaml` lub pipeline domeny, potem regeneruj.
+
+## Dokumentacja
+
+Pełny indeks: [`docs/README.md`](docs/README.md)
+
+### Aktualne (v0.5)
+
+- [`docs/ARCHITECTURE_V0_5.md`](docs/ARCHITECTURE_V0_5.md) — podział odpowiedzialności
+- [`docs/URI3.md`](docs/URI3.md) — uri3 CLI i schematy URI
+- [`docs/NL2URI.md`](docs/NL2URI.md) — prompt → URI Tree
+- [`docs/NL2A_DOMAIN_PACKS.md`](docs/NL2A_DOMAIN_PACKS.md) — Domain Pack pipeline
+- [`docs/META_AGENT.md`](docs/META_AGENT.md) — meta-agent CLI/API
+- [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) — wdrożenie lokalne i Docker
+- [`docs/AUTO_EVOLUTION_PIPELINE.md`](docs/AUTO_EVOLUTION_PIPELINE.md) — kontrolowana autoewolucja
+- [`docs/EVOLUTION.md`](docs/EVOLUTION.md) — evolution proposals
+- [`docs/STANDARDS.md`](docs/STANDARDS.md) — MCP, Protobuf, JSON Schema
+- [`docs/CONTRACTS.md`](docs/CONTRACTS.md) — format kontraktów YAML
+- [`docs/GENERATOR.md`](docs/GENERATOR.md) — generator agentów
+- [`CHANGELOG.md`](CHANGELOG.md) · [`TODO.md`](TODO.md)
+
+### Historyczne
+
+Starsze wersje (`docs/HYPERVISOR_V0_2.md` … `V0_4.md`, `docs/URI2LLM.md`) opisują wcześniejsze etapy API. Resolver URI jest dziś w paczce `uri3` (`uri3.resolvers`).
 
 ## License
 

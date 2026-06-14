@@ -10,7 +10,7 @@ from hypervisor.evolution.validator import validate_proposal
 def main(argv: list[str] | None = None) -> int:
     argv = argv or sys.argv[1:]
     if not argv:
-        print("Usage: python -m hypervisor.evolution.cli evolution/proposals/*.yaml")
+        print("Usage: python -m hypervisor.evolution.cli examples/08_evolution/proposals/*.yaml")
         return 1
     errors: list[str] = []
     for item in argv:

@@ -7,16 +7,22 @@ pip install -e .[dev]
 make uri-tree
 make validate
 make graph
-pytest -q
+make test
 ```
 
-Wynikowy URI Tree znajdziesz w:
+Lub skrypt:
+
+```bash
+./examples/01_quickstart_local/run.sh
+```
+
+Wynikowy URI Tree:
 
 ```txt
 domains/weather_map/uri_tree.yaml
 ```
 
-Ten przykład pokazuje podstawowy łańcuch:
+Łańcuch:
 
 ```txt
 prompt -> nl2uri -> URI Tree -> uri3 validate/graph

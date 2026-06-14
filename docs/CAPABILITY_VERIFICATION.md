@@ -1,5 +1,7 @@
 # Capability Verification
 
+> **Uwaga:** `make capability-tests` nie jest zdefiniowany w bieżącym `Makefile`. Użyj `make test` lub modułu `hypervisor.verifier`.
+
 Każda capability zadeklarowana w agencie powinna mieć test.
 
 ## Generowanie planu testów

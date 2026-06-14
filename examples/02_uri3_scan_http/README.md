@@ -1,12 +1,14 @@
 # Example 02 — skanowanie HTTP/A2A-like
 
-Ten przykład zakłada, że działa mock agent z przykładu `03_ssh_remote_agent` albo inny agent HTTP.
+Ten przykład zakłada działający agent HTTP — np. mock z [`../03_ssh_remote_agent/`](../03_ssh_remote_agent/) albo `make run-user-agent`.
 
 ```bash
+make scan-http
+# lub
 uri3 scan http://localhost:8101
 ```
 
-Oczekiwane punkty sprawdzane przez skaner:
+Sprawdzane endpointy:
 
 ```txt
 /health
@@ -15,4 +17,11 @@ Oczekiwane punkty sprawdzane przez skaner:
 /.well-known/agent.json
 ```
 
-To jest celowo w paczce `uri3`, a nie w hypervisorze. `uri3` odkrywa fakty, hypervisor później podejmuje decyzje o rejestracji, aktualizacji albo oznaczeniu agenta jako stale.
+To jest w paczce `uri3`. Hypervisor później interpretuje wyniki skanowania (registry, lifecycle).
+
+Powiązane:
+
+```bash
+uri3 schema 'http://'
+uri3 resolve http://localhost:8101/health
+```

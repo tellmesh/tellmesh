@@ -1,22 +1,23 @@
-# redup/duplication | 4 groups | 119f 4442L | 2026-06-14
+# redup/duplication | 6 groups | 120f 4928L | 2026-06-14
 
 SUMMARY:
-  files_scanned: 119
-  total_lines:   4442
-  dup_groups:    4
-  dup_fragments: 11
-  saved_lines:   117
-  scan_ms:       2395
+  files_scanned: 120
+  total_lines:   4928
+  dup_groups:    6
+  dup_fragments: 15
+  saved_lines:   141
+  scan_ms:       2338
 
-HOTSPOTS[6] (files with most duplication):
-  packages/resource-agent-hypervisor/hypervisor/domain_pack/templates.py  dup=76L  groups=1  frags=3  (1.7%)
+HOTSPOTS[7] (files with most duplication):
+  packages/resource-agent-hypervisor/hypervisor/domain_pack/templates.py  dup=76L  groups=1  frags=3  (1.5%)
+  packages/uri3/uri3/protocols/scheme_registry.py  dup=48L  groups=2  frags=4  (1.0%)
   packages/resource-agent-factory/generator/header.py  dup=18L  groups=1  frags=3  (0.4%)
   packages/resource-agent-hypervisor/hypervisor/paths.py  dup=9L  groups=1  frags=1  (0.2%)
   packages/resource-agent-factory/generator/paths.py  dup=8L  groups=1  frags=1  (0.2%)
   packages/uri3/uri3/paths.py  dup=8L  groups=1  frags=1  (0.2%)
   packages/uri3/uri3/resolvers/protocol_resolver.py  dup=6L  groups=1  frags=2  (0.1%)
 
-DUPLICATES[4] (ranked by impact):
+DUPLICATES[6] (ranked by impact):
   [49d1d03e6ce392a1] ! STRU  weather_proto  L=43 N=3 saved=86 sim=1.00
       packages/resource-agent-hypervisor/hypervisor/domain_pack/templates.py:36-78  (weather_proto)
       packages/resource-agent-hypervisor/hypervisor/domain_pack/templates.py:81-106  (weather_handler)
@@ -29,11 +30,17 @@ DUPLICATES[4] (ranked by impact):
       packages/resource-agent-factory/generator/header.py:21-26  (python_file_header)
       packages/resource-agent-factory/generator/header.py:29-34  (dockerfile_header)
       packages/resource-agent-factory/generator/header.py:37-42  (markdown_generated_banner)
+  [89ebc2e80c754394]   STRU  _env_spec  L=12 N=2 saved=12 sim=1.00
+      packages/uri3/uri3/protocols/scheme_registry.py:146-157  (_env_spec)
+      packages/uri3/uri3/protocols/scheme_registry.py:192-203  (_pypi_spec)
+  [71dc3d2f70a63bf5]   STRU  _a2a_spec  L=12 N=2 saved=12 sim=1.00
+      packages/uri3/uri3/protocols/scheme_registry.py:220-231  (_a2a_spec)
+      packages/uri3/uri3/protocols/scheme_registry.py:234-245  (_mcp_spec)
   [bc6d855bfb035b8b]   STRU  resolve_a2a  L=3 N=2 saved=3 sim=1.00
       packages/uri3/uri3/resolvers/protocol_resolver.py:10-12  (resolve_a2a)
       packages/uri3/uri3/resolvers/protocol_resolver.py:15-17  (resolve_mcp)
 
-REFACTOR[4] (ranked by priority):
+REFACTOR[6] (ranked by priority):
   [1] ○ extract_function   → packages/resource-agent-hypervisor/hypervisor/domain_pack/utils/weather_proto.py
       WHY: 3 occurrences of 43-line block across 1 files — saves 86 lines
       FILES: packages/resource-agent-hypervisor/hypervisor/domain_pack/templates.py
@@ -43,24 +50,36 @@ REFACTOR[4] (ranked by priority):
   [3] ○ extract_function   → packages/resource-agent-factory/generator/utils/python_file_header.py
       WHY: 3 occurrences of 6-line block across 1 files — saves 12 lines
       FILES: packages/resource-agent-factory/generator/header.py
-  [4] ○ extract_function   → packages/uri3/uri3/resolvers/utils/resolve_a2a.py
+  [4] ○ extract_function   → packages/uri3/uri3/protocols/utils/_env_spec.py
+      WHY: 2 occurrences of 12-line block across 1 files — saves 12 lines
+      FILES: packages/uri3/uri3/protocols/scheme_registry.py
+  [5] ○ extract_function   → packages/uri3/uri3/protocols/utils/_a2a_spec.py
+      WHY: 2 occurrences of 12-line block across 1 files — saves 12 lines
+      FILES: packages/uri3/uri3/protocols/scheme_registry.py
+  [6] ○ extract_function   → packages/uri3/uri3/resolvers/utils/resolve_a2a.py
       WHY: 2 occurrences of 3-line block across 1 files — saves 3 lines
       FILES: packages/uri3/uri3/resolvers/protocol_resolver.py
 
-QUICK_WINS[3] (low risk, high savings — do first):
+QUICK_WINS[5] (low risk, high savings — do first):
   [1] extract_function   saved=86L  → packages/resource-agent-hypervisor/hypervisor/domain_pack/utils/weather_proto.py
       FILES: templates.py
   [2] extract_function   saved=16L  → packages/utils/find_repo_root.py
       FILES: paths.py, paths.py, paths.py
   [3] extract_function   saved=12L  → packages/resource-agent-factory/generator/utils/python_file_header.py
       FILES: header.py
+  [4] extract_function   saved=12L  → packages/uri3/uri3/protocols/utils/_env_spec.py
+      FILES: scheme_registry.py
+  [5] extract_function   saved=12L  → packages/uri3/uri3/protocols/utils/_a2a_spec.py
+      FILES: scheme_registry.py
 
-EFFORT_ESTIMATE (total ≈ 5.3h):
+EFFORT_ESTIMATE (total ≈ 6.1h):
   hard   weather_proto                       saved=86L  ~258min
   medium find_repo_root                      saved=16L  ~32min
   easy   python_file_header                  saved=12L  ~24min
+  easy   _env_spec                           saved=12L  ~24min
+  easy   _a2a_spec                           saved=12L  ~24min
   easy   resolve_a2a                         saved=3L  ~6min
 
 METRICS-TARGET:
-  dup_groups:  4 → 0
-  saved_lines: 117 lines recoverable
+  dup_groups:  6 → 0
+  saved_lines: 141 lines recoverable
