@@ -1,23 +1,23 @@
-# redup/duplication | 15 groups | 227f 10310L | 2026-06-14
+# redup/duplication | 16 groups | 254f 11465L | 2026-06-14
 
 SUMMARY:
-  files_scanned: 227
-  total_lines:   10310
-  dup_groups:    15
-  dup_fragments: 41
-  saved_lines:   233
-  scan_ms:       2645
+  files_scanned: 254
+  total_lines:   11465
+  dup_groups:    16
+  dup_fragments: 43
+  saved_lines:   250
+  scan_ms:       2634
 
 HOTSPOTS[7] (files with most duplication):
   packages/resource-agent-hypervisor/hypervisor/domain_pack/templates.py  dup=76L  groups=1  frags=3  (0.7%)
-  packages/nl2uri/nl2uri/cli.py  dup=50L  groups=2  frags=4  (0.5%)
-  packages/uri3/uri3/protocols/schemes/instance_parser.py  dup=40L  groups=1  frags=10  (0.4%)
+  packages/nl2uri/nl2uri/cli.py  dup=50L  groups=2  frags=4  (0.4%)
+  packages/uri3/uri3/protocols/schemes/instance_parser.py  dup=40L  groups=1  frags=10  (0.3%)
   domains/weather_map/handlers/generate_weather_map.py  dup=18L  groups=1  frags=1  (0.2%)
   packages/uri3/domains/weather_map/handlers/generate_weather_map.py  dup=18L  groups=1  frags=1  (0.2%)
   packages/resource-agent-factory/generator/header.py  dup=18L  groups=1  frags=3  (0.2%)
-  packages/uri3/uri3/cli.py  dup=14L  groups=1  frags=2  (0.1%)
+  packages/uri3/uri3/graph/adapters/browser_router.py  dup=17L  groups=1  frags=1  (0.1%)
 
-DUPLICATES[15] (ranked by impact):
+DUPLICATES[16] (ranked by impact):
   [49d1d03e6ce392a1] ! STRU  weather_proto  L=43 N=3 saved=86 sim=1.00
       packages/resource-agent-hypervisor/hypervisor/domain_pack/templates.py:36-78  (weather_proto)
       packages/resource-agent-hypervisor/hypervisor/domain_pack/templates.py:81-106  (weather_handler)
@@ -39,6 +39,9 @@ DUPLICATES[15] (ranked by impact):
   [1b86825b8b7cb469]   EXAC  handler  L=18 N=2 saved=18 sim=1.00
       domains/weather_map/handlers/generate_weather_map.py:7-24  (handler)
       packages/uri3/domains/weather_map/handlers/generate_weather_map.py:7-24  (handler)
+  [16b912bffbd4a264]   EXAC  _playwright_ready  L=17 N=2 saved=17 sim=1.00
+      packages/uri3/uri3/graph/adapters/browser_router.py:14-30  (_playwright_ready)
+      uri2ops/operator/adapters/browser_router.py:12-28  (_playwright_ready)
   [277a3a34943f29ee]   STRU  python_file_header  L=6 N=3 saved=12 sim=1.00
       packages/resource-agent-factory/generator/header.py:21-26  (python_file_header)
       packages/resource-agent-factory/generator/header.py:29-34  (dockerfile_header)
@@ -75,7 +78,7 @@ DUPLICATES[15] (ranked by impact):
       packages/uri3/uri3/resolvers/protocol_resolver.py:10-12  (resolve_a2a)
       packages/uri3/uri3/resolvers/protocol_resolver.py:15-17  (resolve_mcp)
 
-REFACTOR[15] (ranked by priority):
+REFACTOR[16] (ranked by priority):
   [1] ○ extract_function   → packages/resource-agent-hypervisor/hypervisor/domain_pack/utils/weather_proto.py
       WHY: 3 occurrences of 43-line block across 1 files — saves 86 lines
       FILES: packages/resource-agent-hypervisor/hypervisor/domain_pack/templates.py
@@ -88,41 +91,44 @@ REFACTOR[15] (ranked by priority):
   [4] ○ extract_function   → utils/handler.py
       WHY: 2 occurrences of 18-line block across 2 files — saves 18 lines
       FILES: domains/weather_map/handlers/generate_weather_map.py, packages/uri3/domains/weather_map/handlers/generate_weather_map.py
-  [5] ○ extract_function   → packages/resource-agent-factory/generator/utils/python_file_header.py
+  [5] ○ extract_function   → utils/_playwright_ready.py
+      WHY: 2 occurrences of 17-line block across 2 files — saves 17 lines
+      FILES: packages/uri3/uri3/graph/adapters/browser_router.py, uri2ops/operator/adapters/browser_router.py
+  [6] ○ extract_function   → packages/resource-agent-factory/generator/utils/python_file_header.py
       WHY: 3 occurrences of 6-line block across 1 files — saves 12 lines
       FILES: packages/resource-agent-factory/generator/header.py
-  [6] ○ extract_function   → packages/uri3/uri3/protocols/schemes/utils/spec.py
+  [7] ○ extract_function   → packages/uri3/uri3/protocols/schemes/utils/spec.py
       WHY: 2 occurrences of 12-line block across 2 files — saves 12 lines
       FILES: packages/uri3/uri3/protocols/schemes/a2a.py, packages/uri3/uri3/protocols/schemes/mcp.py
-  [7] ○ extract_function   → packages/nl2uri/nl2uri/utils/_slug.py
+  [8] ○ extract_function   → packages/nl2uri/nl2uri/utils/_slug.py
       WHY: 3 occurrences of 4-line block across 3 files — saves 8 lines
       FILES: packages/nl2uri/nl2uri/graph_planner.py, packages/nl2uri/nl2uri/graph_repair.py, packages/nl2uri/nl2uri/planner_templates.py
-  [8] ○ extract_function   → packages/uri3/uri3/utils/validate_tree.py
+  [9] ○ extract_function   → packages/uri3/uri3/utils/validate_tree.py
       WHY: 2 occurrences of 7-line block across 1 files — saves 7 lines
       FILES: packages/uri3/uri3/cli.py
-  [9] ○ extract_function   → packages/nl2uri/nl2uri/utils/single.py
+  [10] ○ extract_function   → packages/nl2uri/nl2uri/utils/single.py
       WHY: 2 occurrences of 6-line block across 1 files — saves 6 lines
       FILES: packages/nl2uri/nl2uri/cli.py
-  [10] ○ extract_function   → packages/resource-agent-hypervisor/hypervisor/utils/deploy_agent_cmd.py
+  [11] ○ extract_function   → packages/resource-agent-hypervisor/hypervisor/utils/deploy_agent_cmd.py
       WHY: 2 occurrences of 6-line block across 1 files — saves 6 lines
       FILES: packages/resource-agent-hypervisor/hypervisor/cli.py
-  [11] ○ extract_function   → packages/uri3/uri3/graph/utils/adjacency.py
+  [12] ○ extract_function   → packages/uri3/uri3/graph/utils/adjacency.py
       WHY: 2 occurrences of 6-line block across 1 files — saves 6 lines
       FILES: packages/uri3/uri3/graph/dependency_graph.py
-  [12] ○ extract_function   → packages/uri3/uri3/resolvers/utils/_first.py
+  [13] ○ extract_function   → packages/uri3/uri3/resolvers/utils/_first.py
       WHY: 2 occurrences of 5-line block across 2 files — saves 5 lines
       FILES: packages/uri3/uri3/resolvers/docker_resolver.py, packages/uri3/uri3/resolvers/log_query.py
-  [13] ○ extract_function   → packages/uri3/uri3/resolvers/utils/_bool.py
+  [14] ○ extract_function   → packages/uri3/uri3/resolvers/utils/_bool.py
       WHY: 2 occurrences of 5-line block across 2 files — saves 5 lines
       FILES: packages/uri3/uri3/resolvers/docker_resolver.py, packages/uri3/uri3/resolvers/log_query.py
-  [14] ○ extract_function   → packages/resource-agent-hypervisor/hypervisor/contract_registry/utils/run_build_command.py
+  [15] ○ extract_function   → packages/resource-agent-hypervisor/hypervisor/contract_registry/utils/run_build_command.py
       WHY: 2 occurrences of 4-line block across 1 files — saves 4 lines
       FILES: packages/resource-agent-hypervisor/hypervisor/contract_registry/cli_commands.py
-  [15] ○ extract_function   → packages/uri3/uri3/resolvers/utils/resolve_a2a.py
+  [16] ○ extract_function   → packages/uri3/uri3/resolvers/utils/resolve_a2a.py
       WHY: 2 occurrences of 3-line block across 1 files — saves 3 lines
       FILES: packages/uri3/uri3/resolvers/protocol_resolver.py
 
-QUICK_WINS[11] (low risk, high savings — do first):
+QUICK_WINS[12] (low risk, high savings — do first):
   [1] extract_function   saved=86L  → packages/resource-agent-hypervisor/hypervisor/domain_pack/utils/weather_proto.py
       FILES: templates.py
   [2] extract_function   saved=36L  → packages/uri3/uri3/protocols/schemes/utils/_parse_env.py
@@ -131,37 +137,40 @@ QUICK_WINS[11] (low risk, high savings — do first):
       FILES: cli.py
   [4] extract_function   saved=18L  → utils/handler.py
       FILES: generate_weather_map.py, generate_weather_map.py
-  [5] extract_function   saved=12L  → packages/resource-agent-factory/generator/utils/python_file_header.py
+  [5] extract_function   saved=17L  → utils/_playwright_ready.py
+      FILES: browser_router.py, browser_router.py
+  [6] extract_function   saved=12L  → packages/resource-agent-factory/generator/utils/python_file_header.py
       FILES: header.py
-  [6] extract_function   saved=12L  → packages/uri3/uri3/protocols/schemes/utils/spec.py
+  [7] extract_function   saved=12L  → packages/uri3/uri3/protocols/schemes/utils/spec.py
       FILES: a2a.py, mcp.py
-  [7] extract_function   saved=8L  → packages/nl2uri/nl2uri/utils/_slug.py
+  [8] extract_function   saved=8L  → packages/nl2uri/nl2uri/utils/_slug.py
       FILES: graph_planner.py, graph_repair.py, planner_templates.py
-  [8] extract_function   saved=7L  → packages/uri3/uri3/utils/validate_tree.py
+  [9] extract_function   saved=7L  → packages/uri3/uri3/utils/validate_tree.py
       FILES: cli.py
-  [9] extract_function   saved=6L  → packages/nl2uri/nl2uri/utils/single.py
-      FILES: cli.py
-  [10] extract_function   saved=6L  → packages/resource-agent-hypervisor/hypervisor/utils/deploy_agent_cmd.py
+  [10] extract_function   saved=6L  → packages/nl2uri/nl2uri/utils/single.py
       FILES: cli.py
 
-DEPENDENCY_RISK[1] (duplicates spanning multiple packages):
+DEPENDENCY_RISK[2] (duplicates spanning multiple packages):
   handler  packages=2  files=2
       domains/weather_map/handlers/generate_weather_map.py
       packages/uri3/domains/weather_map/handlers/generate_weather_map.py
+  _playwright_ready  packages=2  files=2
+      packages/uri3/uri3/graph/adapters/browser_router.py
+      uri2ops/operator/adapters/browser_router.py
 
-EFFORT_ESTIMATE (total ≈ 9.8h):
+EFFORT_ESTIMATE (total ≈ 10.9h):
   hard   weather_proto                       saved=86L  ~258min
   medium _parse_env                          saved=36L  ~72min
   medium task                                saved=19L  ~38min
   medium handler                             saved=18L  ~72min
+  medium _playwright_ready                   saved=17L  ~68min
   easy   python_file_header                  saved=12L  ~24min
   easy   spec                                saved=12L  ~24min
   easy   _slug                               saved=8L  ~16min
   easy   validate_tree                       saved=7L  ~14min
   easy   single                              saved=6L  ~12min
-  easy   deploy_agent_cmd                    saved=6L  ~12min
-  ... +5 more (~46min)
+  ... +6 more (~58min)
 
 METRICS-TARGET:
-  dup_groups:  15 → 0
-  saved_lines: 233 lines recoverable
+  dup_groups:  16 → 0
+  saved_lines: 250 lines recoverable

@@ -1,0 +1,9 @@
+syntax = "proto3";
+package operator.screen.v1;
+
+message ScreenObservation {
+  string target_uri = 1;
+  string screenshot_uri = 2;
+  string tree_json = 3;
+  int64 observed_at = 4;
+}

@@ -64,6 +64,13 @@ def test_run_workflow_execute_mock_with_approve(tmp_path: Path):
     assert any(event["type"] == "WorkflowCompleted" for event in events)
 
 
+def test_run_workflow_accepts_workflow_graph_object(tmp_path: Path):
+    graph = load_workflow_graph(TASK_PAYLOAD)
+    result = run_workflow(graph, dry_run=False, approve=True, root=tmp_path, browser_mode="mock")
+    assert result.ok is True
+    assert result.steps[-1].id == "verify_ok"
+
+
 def test_run_workflow_skips_conditional_branch(tmp_path: Path):
     payload = {
         "graph": {

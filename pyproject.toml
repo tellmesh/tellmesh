@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "resource-agent-system"
-version = "0.5.10"
-description = "WronAI resource agent monorepo — uri3, nl2uri, hypervisor, agent factory"
+version = "0.5.11"
+description = "WronAI resource agent monorepo — uri3, nl2uri, uri2ops, hypervisor, agent factory"
 readme = "README.md"
 license = "Apache-2.0"
 requires-python = ">=3.10"
@@ -38,10 +38,17 @@ dev = [
 browser = [
     "playwright>=1.40",
 ]
+windows = [
+    "pywinauto>=0.6",
+]
+server = [
+    "uvicorn>=0.27",
+]
 
 [project.scripts]
 hypervisor = "hypervisor.cli:main"
 uri3 = "uri3.cli:main"
+uri2ops = "uri2ops.cli:main"
 nl2uri = "nl2uri.cli:main"
 nl2a = "nl2a.cli:main"
 
@@ -62,12 +69,14 @@ resource-agent-factory = { workspace = true }
 
 [tool.setuptools.packages.find]
 where = [
+    ".",
     "packages/uri3",
     "packages/nl2uri",
     "packages/resource-agent-hypervisor",
     "packages/resource-agent-factory",
 ]
 include = [
+    "uri2ops*",
     "uri3*",
     "nl2uri*",
     "nl2a*",
@@ -80,6 +89,10 @@ include = [
 [tool.setuptools.package-data]
 hypervisor = ["py.typed", "data/*.yaml"]
 generator = ["templates/*"]
+uri2ops = [
+    "operation_registry/*.yaml",
+    "schemas/*.json",
+]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

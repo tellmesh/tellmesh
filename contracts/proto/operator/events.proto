@@ -1,0 +1,17 @@
+syntax = "proto3";
+package operator.events.v1;
+
+message OperatorCommandRequested {
+  string target_uri = 1;
+  string operation = 2;
+  string payload_hash = 3;
+  int64 requested_at = 4;
+}
+
+message OperatorCommandCompleted {
+  string target_uri = 1;
+  string operation = 2;
+  bool ok = 3;
+  string artifact_uri = 4;
+  int64 completed_at = 5;
+}

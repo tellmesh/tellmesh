@@ -1,5 +1,6 @@
 flowchart TD
 %% generated in 0.02s
+    domains__weather_map["domains.weather_map<br/>1 funcs"]
     generator__hashutil["generator.hashutil<br/>1 funcs"]
     generator__model["generator.model<br/>2 funcs"]
     generator__validate["generator.validate<br/>3 funcs"]
@@ -20,19 +21,29 @@ flowchart TD
     packages__resource_agent_factory["packages.resource-agent-factory<br/>10 funcs"]
     packages__resource_agent_hypervisor["packages.resource-agent-hypervisor<br/>159 funcs"]
     packages__uri3["packages.uri3<br/>233 funcs"]
+    uri2ops__cli["uri2ops.cli<br/>6 funcs"]
+    uri2ops__operation_registry["uri2ops.operation_registry<br/>13 funcs"]
+    uri2ops__operator["uri2ops.operator<br/>58 funcs"]
     uri3__graph["uri3.graph<br/>3 funcs"]
     uri3__protocols["uri3.protocols<br/>2 funcs"]
     uri3__resolvers["uri3.resolvers<br/>9 funcs"]
     uri3__validators["uri3.validators<br/>1 funcs"]
     packages__resource_agent_hypervisor ==>|43| packages__uri3
     packages__nl2uri ==>|24| packages__uri3
+    packages__uri3 ==>|16| uri2ops__operation_registry
     packages__uri3 ==>|12| packages__resource_agent_hypervisor
+    packages__nl2uri ==>|7| uri2ops__operation_registry
     packages__resource_agent_hypervisor ==>|7| hypervisor__contract_registry
-    packages__uri3 ==>|5| uri3__resolvers
+    uri2ops__operator ==>|6| packages__uri3
     meta_agent__api ==>|5| packages__resource_agent_hypervisor
+    uri2ops__operator ==>|5| uri2ops__operation_registry
+    packages__uri3 ==>|4| uri3__resolvers
+    uri2ops__cli ==>|4| uri2ops__operator
     packages__nl2uri -->|3| nl2uri__writer
     packages__resource_agent_hypervisor -->|3| meta_agent__planner
     meta_agent__repair -->|3| generator__validate
+    packages__resource_agent_hypervisor -->|3| uri2ops__operation_registry
+    packages__uri3 -->|2| uri3__validators
     packages__resource_agent_factory -->|2| generator__model
     packages__nl2uri -->|2| packages__resource_agent_hypervisor
     packages__resource_agent_hypervisor -->|2| generator__validate
@@ -41,7 +52,8 @@ flowchart TD
     packages__resource_agent_hypervisor -->|2| hypervisor__evolution
     packages__resource_agent_hypervisor -->|2| hypervisor__deployment_registry
     hypervisor__compatibility -->|2| hypervisor__contract_registry
-    packages__uri3 -->|2| uri3__validators
+    uri2ops__cli -->|2| uri2ops__operation_registry
+    packages__uri3 -->|1| uri3__graph
     uri3__validators -->|1| uri3__protocols
     packages__uri3 -->|1| uri3__protocols
     packages__uri3 -->|1| hypervisor__uri2llm
@@ -64,7 +76,9 @@ flowchart TD
     hypervisor__verifier -->|1| hypervisor__contract_registry
     hypervisor__verifier -->|1| packages__resource_agent_hypervisor
     packages__resource_agent_hypervisor -->|1| hypervisor__config
+    hypervisor__config -->|1| uri2ops__operation_registry
     packages__resource_agent_hypervisor -->|1| uri3__graph
     packages__resource_agent_hypervisor -->|1| packages__nl2uri
     hypervisor__deployment_registry -->|1| packages__resource_agent_hypervisor
-    packages__uri3 -->|1| uri3__graph
+    uri2ops__operator -->|1| domains__weather_map
+    uri2ops__cli -->|1| packages__nl2uri

@@ -2,12 +2,14 @@
 
 app {
   name: resource-agent-system;
-  version: 0.5.9;
+  version: 0.5.10;
 }
 
 dependencies {
   runtime: "fastapi>=0.115, httpx>=0.27, jinja2>=3.1, jsonschema>=4.23, pydantic>=2.0, python-dotenv>=1.0.0, pyyaml>=6.0, typer>=0.12";
   dev: "pytest>=7.0, pytest-cov>=4.0, pytest-asyncio>=0.21.0, ruff>=0.1.0, mypy>=1.0, build>=1.0, goal>=2.1.0, costs>=0.1.20, pfix>=0.1.60, rich>=13.0.0";
+  browser: playwright>=1.40;
+  windows: pywinauto>=0.6;
 }
 
 interface[type="api"] {
@@ -23,6 +25,9 @@ interface[type="cli"] page[name="hypervisor"] {
 }
 interface[type="cli"] page[name="uri3"] {
   entry: uri3.cli:main;
+}
+interface[type="cli"] page[name="uri2ops"] {
+  entry: uri2ops.cli:main;
 }
 interface[type="cli"] page[name="nl2uri"] {
   entry: nl2uri.cli:main;

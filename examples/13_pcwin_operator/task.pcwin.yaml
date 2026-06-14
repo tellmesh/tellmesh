@@ -1,0 +1,26 @@
+task:
+  id: notepad-save-smoke
+  description: Focus Notepad window and click Save control via UI Automation.
+
+steps:
+  - id: focus_notepad
+    uri: pcwin://window/Notepad/focus
+    operation: focus
+    kind: command
+
+  - id: click_save
+    uri: pcwin://control/SaveButton/click
+    operation: click
+    kind: command
+    depends_on:
+      - focus_notepad
+
+  - id: verify_focused
+    uri: assertion://contains
+    operation: check
+    kind: query
+    payload:
+      actual_from: focus_notepad.title
+      expected: Notepad
+    depends_on:
+      - click_save

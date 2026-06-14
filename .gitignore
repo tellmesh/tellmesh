@@ -1,6 +1,9 @@
 # Byte-compiled / optimized / DLL files
 .code2llm_cache/
 .idea/
+operator/
+workflows/
+output/
 .env.example
 __pycache__/
 *.py[codz]

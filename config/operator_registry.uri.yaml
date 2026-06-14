@@ -1,0 +1,9 @@
+version: 1
+
+local:
+  path: uri2ops/operation_registry/registry.yaml
+
+remotes:
+  - id: extra-local
+    uri: file://config/extra_operator_registry.yaml
+    enabled: true

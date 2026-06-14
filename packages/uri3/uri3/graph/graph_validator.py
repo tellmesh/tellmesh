@@ -17,7 +17,9 @@ def _schema_path(name: str) -> Path:
     return find_repo_root() / "schemas" / name
 
 
-def load_workflow_graph(source: str | Path | dict[str, Any]) -> WorkflowGraph:
+def load_workflow_graph(source: str | Path | dict[str, Any] | WorkflowGraph) -> WorkflowGraph:
+    if isinstance(source, WorkflowGraph):
+        return source
     if isinstance(source, dict):
         data = source
     else:
@@ -48,7 +50,7 @@ def validate_workflow_schema(graph: dict[str, Any]) -> list[str]:
     return [f"{list(error.path)}: {error.message}" for error in sorted(validator.iter_errors(graph), key=lambda item: item.path)]
 
 
-def validate_workflow_graph(source: str | Path | dict[str, Any]) -> list[str]:
+def validate_workflow_graph(source: str | Path | dict[str, Any] | WorkflowGraph) -> list[str]:
     graph = load_workflow_graph(source)
     errors = validate_workflow_schema(graph.to_dict())
     node_ids = set(graph.nodes)

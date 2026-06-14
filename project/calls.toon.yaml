@@ -1,13 +1,17 @@
 # code2llm call graph | /home/tom/github/wronai/hypervisor
-# generated in 0.21s
-# nodes: 384 | edges: 500 | modules: 132
+# generated in 0.19s
+# nodes: 398 | edges: 500 | modules: 128
 # CC̄=3.5
 
 HUBS[20]:
+  packages.uri3.uri3.graph.graph_executor.run_workflow
+    CC=21  in:2  out:39  total:41
   hypervisor.contract_registry.loader.load_contract_registry
     CC=9  in:6  out:33  total:39
   packages.uri3.uri3.config.llm_profiles.resolve_llm_profile
     CC=10  in:3  out:32  total:35
+  uri2ops.operation_registry.models.OperationRegistry.list
+    CC=1  in:32  out:2  total:34
   meta_agent.planner.infer_intent
     CC=9  in:1  out:30  total:31
   packages.resource-agent-hypervisor.hypervisor.domain_pack.pack_writer.write_domain_pack
@@ -16,8 +20,14 @@ HUBS[20]:
     CC=10  in:2  out:28  total:30
   packages.uri3.uri3.resolvers.docker_resolver.parse_docker_uri
     CC=12  in:5  out:23  total:28
+  packages.uri3.uri3.graph.graph_serializer.normalize_graph_payload
+    CC=12  in:2  out:24  total:26
+  packages.nl2uri.nl2uri.graph_repair.repair_graph_body
+    CC=12  in:1  out:25  total:26
   generator.model.load_agent_spec
     CC=7  in:2  out:24  total:26
+  packages.nl2uri.nl2uri.graph_repair.sanitize_node
+    CC=16  in:1  out:25  total:26
   packages.uri3.uri3.logs.reader.summarize_logs
     CC=6  in:6  out:18  total:24
   packages.uri3.uri3.graph.adapters.browser_playwright.PlaywrightBrowserAdapter.execute
@@ -28,22 +38,12 @@ HUBS[20]:
     CC=2  in:16  out:5  total:21
   packages.uri3.uri3.resolvers.log_resolver.parse_log_uri
     CC=7  in:5  out:16  total:21
+  packages.uri3.uri3.cli.scan
+    CC=8  in:0  out:21  total:21
+  packages.uri3.uri3.graph.graph_validator.validate_workflow_graph
+    CC=9  in:8  out:13  total:21
   packages.resource-agent-factory.generator.agent_generator.generate_agent
     CC=5  in:3  out:17  total:20
-  packages.resource-agent-hypervisor.hypervisor.config.defaults.apply_builtin_defaults
-    CC=1  in:2  out:17  total:19
-  packages.resource-agent-hypervisor.meta_agent.orchestrator.validate_repair_generate
-    CC=7  in:3  out:16  total:19
-  packages.resource-agent-hypervisor.hypervisor.deployment_registry.lifecycle.stop_agent
-    CC=7  in:2  out:17  total:19
-  packages.uri3.uri3.resolvers.env_resolver.call_env
-    CC=8  in:2  out:17  total:19
-  hypervisor.config.env.apply_structured_env_overrides
-    CC=9  in:1  out:17  total:18
-  packages.resource-agent-hypervisor.hypervisor.deployment_registry.status.deployment_from_uri_tree
-    CC=8  in:1  out:17  total:18
-  packages.uri3.uri3.docker.controller.control_docker
-    CC=11  in:7  out:11  total:18
 
 MODULES:
   generator.hashutil  [1 funcs]
@@ -58,32 +58,20 @@ MODULES:
     main  CC=9  out:10
     verify_generated  CC=6  out:5
     verify_generated_agent  CC=7  out:10
-  hypervisor.compatibility.checker  [1 funcs]
-    classify_registry_change  CC=8  out:11
   hypervisor.config.env  [4 funcs]
     _parse_bool  CC=1  out:1
     apply_env_overrides  CC=1  out:2
     apply_legacy_env_overrides  CC=6  out:4
     apply_structured_env_overrides  CC=9  out:17
+  hypervisor.config.models  [1 funcs]
+    to_dict  CC=1  out:1
   hypervisor.contract_registry.loader  [2 funcs]
     _read_yaml  CC=3  out:4
     load_contract_registry  CC=9  out:33
-  hypervisor.contract_registry.registry_builder  [3 funcs]
-    _contract_hash  CC=3  out:13
-    build_registry_manifest  CC=5  out:9
+  hypervisor.contract_registry.registry_builder  [1 funcs]
     write_registry_manifest  CC=2  out:6
-  hypervisor.contract_registry.registry_exporter  [2 funcs]
+  hypervisor.contract_registry.registry_exporter  [1 funcs]
     export_json  CC=1  out:1
-    export_markdown  CC=6  out:13
-  hypervisor.contract_registry.schema_validator  [4 funcs]
-    _read_json  CC=1  out:2
-    _read_yaml  CC=2  out:2
-    validate_contract_files  CC=6  out:13
-    validate_file  CC=3  out:8
-  hypervisor.deployment_registry.writer  [3 funcs]
-    save_deployment_registry  CC=2  out:4
-    upsert_deployment  CC=3  out:2
-    write_deployment_registry  CC=1  out:2
   hypervisor.domain_pack.templates  [2 funcs]
     generic_proto  CC=1  out:1
     package_name  CC=1  out:0
@@ -125,10 +113,46 @@ MODULES:
     generate  CC=1  out:5
   nl2uri.writer  [1 funcs]
     write_uri_tree  CC=1  out:4
+  packages.nl2uri.nl2uri.cli  [12 funcs]
+    _default_use_llm  CC=1  out:2
+    _emit  CC=2  out:3
+    _plan_command  CC=5  out:6
+    _resolve_use_llm  CC=5  out:2
+    classify  CC=1  out:5
+    generate  CC=4  out:14
+    graph  CC=5  out:15
+    list_cmd  CC=1  out:5
+    plan  CC=5  out:13
+    single  CC=1  out:5
   packages.nl2uri.nl2uri.domain_planner  [1 funcs]
     plan_from_prompt  CC=7  out:11
+  packages.nl2uri.nl2uri.graph_planner  [11 funcs]
+    _detect_agent_id  CC=3  out:3
+    _detect_health_uri  CC=4  out:6
+    _slug  CC=2  out:3
+    plan_auto  CC=1  out:2
+    plan_by_kind  CC=1  out:2
+    plan_list  CC=2  out:4
+    plan_single  CC=4  out:6
+    plan_task  CC=3  out:7
+    plan_tree  CC=9  out:14
+    plan_workflow_graph  CC=12  out:15
+  packages.nl2uri.nl2uri.graph_planner_llm  [3 funcs]
+    build_graph_planner_system_prompt  CC=2  out:5
+    call_graph_planner_llm  CC=4  out:9
+    plan_graph_with_llm  CC=4  out:7
+  packages.nl2uri.nl2uri.graph_repair  [7 funcs]
+    _coerce_operation  CC=5  out:6
+    _sanitize_nodes  CC=12  out:8
+    extract_graph_payload  CC=14  out:10
+    normalize_to_kind  CC=12  out:14
+    repair_and_validate_graph  CC=13  out:12
+    repair_graph_body  CC=12  out:25
+    sanitize_node  CC=16  out:25
   packages.nl2uri.nl2uri.llm_planner  [1 funcs]
     llm_plan  CC=2  out:4
+  packages.nl2uri.nl2uri.output_classifier  [1 funcs]
+    classify_output_kind  CC=20  out:13
   packages.nl2uri.nl2uri.pipeline  [4 funcs]
     _append_pipeline_logs  CC=2  out:4
     generate_tree  CC=1  out:1
@@ -159,7 +183,7 @@ MODULES:
     python_file_header  CC=1  out:0
   packages.resource-agent-factory.generator.paths  [1 funcs]
     project_root  CC=1  out:1
-  packages.resource-agent-hypervisor.hypervisor.cli  [13 funcs]
+  packages.resource-agent-hypervisor.hypervisor.cli  [14 funcs]
     agent_status_cmd  CC=1  out:5
     call  CC=1  out:4
     config_cmd  CC=2  out:7
@@ -167,9 +191,9 @@ MODULES:
     deployments_list  CC=1  out:4
     docker_cmd  CC=1  out:4
     logs_cmd  CC=1  out:4
+    main  CC=4  out:3
     resolve  CC=1  out:4
     restart_agent_cmd  CC=1  out:8
-    run_agent_cmd  CC=1  out:8
   packages.resource-agent-hypervisor.hypervisor.cli_commands  [6 funcs]
     call_docker  CC=5  out:6
     deploy_agent  CC=7  out:16
@@ -202,57 +226,16 @@ MODULES:
   packages.resource-agent-hypervisor.hypervisor.contract_registry.cli  [2 funcs]
     _parse_args  CC=5  out:2
     main  CC=2  out:1
-  packages.resource-agent-hypervisor.hypervisor.contract_registry.cli_commands  [5 funcs]
-    run_build_command  CC=1  out:2
-    run_check_command  CC=5  out:13
-    run_cross_command  CC=3  out:4
-    run_export_md_command  CC=1  out:2
-    run_schema_command  CC=5  out:3
-  packages.resource-agent-hypervisor.hypervisor.contract_registry.cross_checks.capabilities  [1 funcs]
-    validate_capability_cross_refs  CC=13  out:6
-  packages.resource-agent-hypervisor.hypervisor.contract_registry.cross_checks.proto_index  [2 funcs]
-    load_proto_text  CC=2  out:5
-    schema_exists  CC=1  out:3
-  packages.resource-agent-hypervisor.hypervisor.contract_registry.cross_checks.resources  [1 funcs]
-    validate_resource_cross_refs  CC=6  out:4
-  packages.resource-agent-hypervisor.hypervisor.contract_registry.cross_validator  [2 funcs]
-    validate_cross_references  CC=5  out:3
-    validate_root  CC=1  out:2
-  packages.resource-agent-hypervisor.hypervisor.contract_registry.merge_helpers  [3 funcs]
-    merge_proto_contract  CC=2  out:1
-    merge_resources_contract  CC=5  out:14
-    merge_views_contract  CC=6  out:15
   packages.resource-agent-hypervisor.hypervisor.contract_registry.merger  [1 funcs]
     merge_main_contracts  CC=2  out:4
-  packages.resource-agent-hypervisor.hypervisor.contract_registry.registry_checks.capabilities  [3 funcs]
-    validate_capabilities  CC=4  out:5
-    validate_command_capability  CC=3  out:2
-    validate_resource_read_capability  CC=7  out:3
-  packages.resource-agent-hypervisor.hypervisor.contract_registry.registry_checks.resources  [2 funcs]
-    validate_resources  CC=7  out:9
-    validate_views  CC=3  out:2
   packages.resource-agent-hypervisor.hypervisor.contract_registry.validate  [1 funcs]
     validate_registry  CC=1  out:3
-  packages.resource-agent-hypervisor.hypervisor.core  [1 funcs]
+  packages.resource-agent-hypervisor.hypervisor.core  [2 funcs]
     from_config  CC=1  out:2
-  packages.resource-agent-hypervisor.hypervisor.deployment_registry.docker_runner  [6 funcs]
-    apply_docker_deploy  CC=3  out:6
-    build_docker_control_plan  CC=2  out:3
+    status  CC=1  out:4
+  packages.resource-agent-hypervisor.hypervisor.deployment_registry.docker_runner  [2 funcs]
     build_docker_deploy_plan  CC=4  out:6
-    docker_uri_for_deployment  CC=2  out:2
-    stop_docker_deployment  CC=4  out:2
     verify_docker_deployment  CC=9  out:5
-  packages.resource-agent-hypervisor.hypervisor.deployment_registry.env  [3 funcs]
-    build_deployment_env_map  CC=9  out:15
-    default_log_uri  CC=5  out:7
-    resolve_deployment_env  CC=1  out:2
-  packages.resource-agent-hypervisor.hypervisor.deployment_registry.env_config  [3 funcs]
-    load_deployments_uri_config  CC=2  out:3
-    load_runtime_uri_config  CC=2  out:3
-    repo_config_dir  CC=2  out:2
-  packages.resource-agent-hypervisor.hypervisor.deployment_registry.env_merge  [2 funcs]
-    materialize_env_values  CC=6  out:8
-    merge_runtime_defaults  CC=3  out:4
   packages.resource-agent-hypervisor.hypervisor.deployment_registry.lifecycle  [6 funcs]
     _repo_root  CC=2  out:3
     agent_logs_uri  CC=3  out:6
@@ -260,46 +243,17 @@ MODULES:
     restart_agent  CC=1  out:2
     run_agent  CC=8  out:15
     stop_agent  CC=7  out:17
-  packages.resource-agent-hypervisor.hypervisor.deployment_registry.loader  [4 funcs]
-    _parse_deployment  CC=3  out:12
-    _read_yaml  CC=3  out:4
-    default_registry_path  CC=1  out:1
-    load_deployment_registry  CC=5  out:8
-  packages.resource-agent-hypervisor.hypervisor.deployment_registry.local_targets  [3 funcs]
-    build_local_run_plan  CC=6  out:12
-    local_target_to_module  CC=4  out:3
-    local_target_to_relative_path  CC=3  out:6
-  packages.resource-agent-hypervisor.hypervisor.deployment_registry.process  [1 funcs]
-    start_process  CC=4  out:6
   packages.resource-agent-hypervisor.hypervisor.deployment_registry.run_plans  [1 funcs]
     build_run_plan  CC=5  out:7
-  packages.resource-agent-hypervisor.hypervisor.deployment_registry.runtime_state  [7 funcs]
-    clear_runtime_state  CC=2  out:3
-    is_process_alive  CC=4  out:1
-    load_runtime_state  CC=3  out:5
-    runtime_root  CC=2  out:2
-    runtime_status  CC=6  out:7
-    save_runtime_state  CC=1  out:4
-    state_path  CC=1  out:1
   packages.resource-agent-hypervisor.hypervisor.deployment_registry.selector  [1 funcs]
     resolve_deployment  CC=7  out:9
   packages.resource-agent-hypervisor.hypervisor.deployment_registry.ssh_deploy  [2 funcs]
     apply_ssh_deploy_plan  CC=7  out:6
     build_ssh_deploy_plan  CC=3  out:10
-  packages.resource-agent-hypervisor.hypervisor.deployment_registry.ssh_helpers  [2 funcs]
-    generated_agent_dir  CC=1  out:2
-    remote_module_for  CC=2  out:2
-  packages.resource-agent-hypervisor.hypervisor.deployment_registry.ssh_run  [1 funcs]
-    build_ssh_run_plan  CC=7  out:13
   packages.resource-agent-hypervisor.hypervisor.deployment_registry.ssh_verify  [1 funcs]
     verify_remote_deployment  CC=12  out:6
-  packages.resource-agent-hypervisor.hypervisor.deployment_registry.status  [7 funcs]
-    deployment_from_uri_tree  CC=8  out:17
-    get_deployment_for_agent  CC=3  out:2
-    infer_port  CC=3  out:3
-    list_deployments  CC=2  out:2
+  packages.resource-agent-hypervisor.hypervisor.deployment_registry.status  [2 funcs]
     registry_summary  CC=4  out:2
-    resolve_status  CC=11  out:7
     sync_from_uri_tree  CC=2  out:4
   packages.resource-agent-hypervisor.hypervisor.domain_pack.artifact_generators.agent_contract  [1 funcs]
     generate_agent_contract  CC=2  out:3
@@ -344,6 +298,17 @@ MODULES:
     pipeline_from_prompt  CC=1  out:2
     save_proposal_from_prompt  CC=2  out:6
     validate_repair_generate  CC=7  out:16
+  packages.uri3.uri3.cli  [13 funcs]
+    _list_payload  CC=2  out:3
+    _quick_reference  CC=5  out:5
+    graph  CC=3  out:5
+    list_cmd  CC=4  out:10
+    logs  CC=2  out:6
+    plan_workflow  CC=1  out:5
+    resolve  CC=2  out:8
+    run_workflow_cmd  CC=2  out:10
+    scan  CC=8  out:21
+    schema  CC=4  out:9
   packages.uri3.uri3.config.cli_shortcuts  [5 funcs]
     cli_config_path  CC=1  out:1
     cli_examples  CC=3  out:3
@@ -412,15 +377,49 @@ MODULES:
     _playwright_ready  CC=3  out:5
     cleanup_browser_adapters  CC=2  out:2
     resolve_browser_mode  CC=5  out:3
-  packages.uri3.uri3.graph.artifacts  [1 funcs]
+  packages.uri3.uri3.graph.adapters.registry  [2 funcs]
+    execute  CC=11  out:6
+    adapter_for_uri  CC=3  out:1
+  packages.uri3.uri3.graph.artifacts  [3 funcs]
+    artifact_path  CC=1  out:0
+    artifact_uri  CC=1  out:0
     write_artifact  CC=2  out:6
+  packages.uri3.uri3.graph.dependency_graph  [3 funcs]
+    dependency_summary  CC=8  out:7
+    detect_cycles  CC=15  out:7
+    topological_sort  CC=13  out:13
   packages.uri3.uri3.graph.event_log  [2 funcs]
     append_workflow_event  CC=1  out:6
     workflow_event_path  CC=1  out:0
-  packages.uri3.uri3.graph.execution_models  [1 funcs]
+  packages.uri3.uri3.graph.execution_models  [2 funcs]
+    new_execution_context  CC=2  out:3
     utc_now_iso  CC=1  out:3
-  packages.uri3.uri3.graph.graph_validator  [1 funcs]
+  packages.uri3.uri3.graph.graph_executor  [4 funcs]
+    _execute_step  CC=2  out:2
+    build_execution_plan  CC=3  out:10
+    dry_run_workflow  CC=1  out:2
+    run_workflow  CC=21  out:39
+  packages.uri3.uri3.graph.graph_serializer  [4 funcs]
+    edges_from_depends_on  CC=4  out:5
+    normalize_graph_payload  CC=12  out:24
+    task_steps_to_graph  CC=3  out:7
+    workflow_manifest  CC=1  out:1
+  packages.uri3.uri3.graph.graph_validator  [4 funcs]
     _schema_path  CC=1  out:1
+    load_workflow_graph  CC=10  out:11
+    validate_workflow_graph  CC=9  out:13
+    validate_workflow_schema  CC=2  out:7
+  packages.uri3.uri3.graph.models  [1 funcs]
+    from_dict  CC=5  out:15
+  packages.uri3.uri3.graph.operation_registry  [6 funcs]
+    allowed_operations  CC=1  out:2
+    effective_kind  CC=2  out:2
+    operation_registry_summary  CC=2  out:5
+    requires_approval  CC=1  out:1
+    scheme_from_uri  CC=2  out:1
+    validate_node_operation  CC=2  out:5
+  packages.uri3.uri3.graph.policy  [1 funcs]
+    can_execute_step  CC=6  out:2
   packages.uri3.uri3.logs.filters  [7 funcs]
     entry_timestamp  CC=4  out:5
     level_rank  CC=3  out:2
@@ -446,6 +445,9 @@ MODULES:
     _analyze_query  CC=14  out:10
     analyze_uri  CC=2  out:7
     describe_uri  CC=2  out:3
+  packages.uri3.uri3.protocols.schemes.base  [2 funcs]
+    to_dict  CC=4  out:2
+    to_dict  CC=2  out:5
   packages.uri3.uri3.protocols.schemes.instance_parser  [13 funcs]
     _parse_a2a  CC=1  out:1
     _parse_docker  CC=1  out:1
@@ -457,14 +459,14 @@ MODULES:
     _parse_pypi  CC=1  out:1
     _parse_python  CC=1  out:1
     _parse_resource  CC=1  out:1
-  packages.uri3.uri3.protocols.schemes.spec_registry  [3 funcs]
+  packages.uri3.uri3.protocols.schemes.spec_registry  [4 funcs]
     get_scheme_schema  CC=3  out:5
     is_concrete_uri  CC=4  out:3
+    list_schemes  CC=5  out:5
     query_names  CC=2  out:3
-  packages.uri3.uri3.resolvers.dispatch  [3 funcs]
+  packages.uri3.uri3.resolvers.dispatch  [2 funcs]
     _resolve_docker  CC=1  out:1
     resolve_target  CC=3  out:4
-    scheme_from_uri  CC=2  out:2
   packages.uri3.uri3.resolvers.docker_resolver  [6 funcs]
     _bool  CC=3  out:2
     _first  CC=2  out:1
@@ -517,12 +519,11 @@ MODULES:
     scan_compose_stack  CC=5  out:4
     scan_container  CC=2  out:2
     scan_docker  CC=4  out:4
-  packages.uri3.uri3.scanner.http_scanner  [6 funcs]
+  packages.uri3.uri3.scanner.http_scanner  [5 funcs]
     _kind_for_path  CC=5  out:3
     _origin  CC=1  out:3
     _probe  CC=3  out:7
     _status_for  CC=5  out:0
-    health_scan_ok  CC=6  out:3
     scan_http  CC=7  out:8
   packages.uri3.uri3.scanner.scanner  [2 funcs]
     scan  CC=5  out:5
@@ -537,6 +538,8 @@ MODULES:
   packages.uri3.uri3.validators.uri_tree_validator  [2 funcs]
     load_yaml  CC=1  out:2
     validate_uri_tree  CC=2  out:7
+  uri2ops.operation_registry.models  [1 funcs]
+    list  CC=1  out:2
   uri3.graph.uri_graph  [1 funcs]
     build_graph_from_tree  CC=10  out:28
   uri3.protocols.normalizer  [1 funcs]
@@ -558,6 +561,28 @@ MODULES:
     validate_uri  CC=2  out:2
 
 EDGES:
+  packages.uri3.uri3.cli._quick_reference → packages.uri3.uri3.config.cli_shortcuts.scan_shortcuts
+  packages.uri3.uri3.cli._quick_reference → packages.uri3.uri3.config.cli_shortcuts.cli_examples
+  packages.uri3.uri3.cli._list_payload → packages.uri3.uri3.config.cli_shortcuts.cli_examples
+  packages.uri3.uri3.cli._list_payload → packages.uri3.uri3.protocols.schemes.spec_registry.list_schemes
+  packages.uri3.uri3.cli._list_payload → packages.uri3.uri3.config.cli_shortcuts.scan_shortcuts
+  packages.uri3.uri3.cli.list_cmd → packages.uri3.uri3.cli._list_payload
+  packages.uri3.uri3.cli.list_cmd → packages.uri3.uri3.cli._quick_reference
+  packages.uri3.uri3.cli.validate → uri3.validators.uri_validator.validate_uri
+  packages.uri3.uri3.cli.validate_tree → packages.uri3.uri3.validators.uri_tree_validator.validate_uri_tree
+  packages.uri3.uri3.cli.graph → uri3.graph.uri_graph.build_graph_from_tree
+  packages.uri3.uri3.cli.validate_workflow → packages.uri3.uri3.graph.graph_validator.validate_workflow_graph
+  packages.uri3.uri3.cli.plan_workflow → packages.uri3.uri3.graph.graph_executor.build_execution_plan
+  packages.uri3.uri3.cli.plan_workflow → packages.uri3.uri3.graph.graph_validator.load_workflow_graph
+  packages.uri3.uri3.cli.run_workflow_cmd → packages.uri3.uri3.graph.graph_executor.run_workflow
+  packages.uri3.uri3.cli.run_workflow_cmd → packages.uri3.uri3.graph.graph_validator.load_workflow_graph
+  packages.uri3.uri3.cli.scan → packages.uri3.uri3.config.cli_shortcuts.scan_shortcuts
+  packages.uri3.uri3.cli.scan → packages.uri3.uri3.config.cli_shortcuts.resolve_scan_target
+  packages.uri3.uri3.cli.logs → packages.uri3.uri3.logs.reader.summarize_logs
+  packages.uri3.uri3.cli.logs → packages.uri3.uri3.logs.reader.read_logs_result
+  packages.uri3.uri3.cli.schema → packages.uri3.uri3.protocols.schemes.spec_registry.list_schemes
+  packages.uri3.uri3.cli.schema → packages.uri3.uri3.protocols.schemes.analyze.analyze_uri
+  packages.uri3.uri3.cli.schema → packages.uri3.uri3.protocols.schemes.analyze.describe_uri
   packages.uri3.uri3.logs.parsing.parse_log_line → packages.uri3.uri3.logs.parsing.empty_entry
   packages.uri3.uri3.logs.parsing.parse_log_line → packages.uri3.uri3.logs.parsing.parse_json_entry
   packages.uri3.uri3.logs.parsing.parse_log_line → packages.uri3.uri3.logs.parsing.parse_text_entry
@@ -579,32 +604,10 @@ EDGES:
   packages.uri3.uri3.logs.reader.summarize_logs → packages.uri3.uri3.logs.reader.resolve_log_path
   packages.uri3.uri3.logs.reader.summarize_logs → packages.uri3.uri3.logs.reader.read_logs
   packages.uri3.uri3.logs.writer.append_log → packages.uri3.uri3.config.repo_root.find_repo_root
-  uri3.validators.uri_validator.validate_uri → uri3.protocols.parser.parse_uri
-  packages.uri3.uri3.validators.uri_tree_validator.validate_uri_tree → packages.uri3.uri3.validators.uri_tree_validator.load_yaml
-  packages.uri3.uri3.docker.controller.control_docker → packages.uri3.uri3.resolvers.docker_resolver.parse_docker_uri
-  packages.uri3.uri3.docker.controller.control_docker → packages.uri3.uri3.docker.actions.container.handles_container_action
-  packages.uri3.uri3.docker.controller.control_docker → packages.uri3.uri3.docker.compose_generator.write_generated_compose
-  packages.uri3.uri3.docker.controller.control_docker → packages.uri3.uri3.docker.actions.container.control_container
-  packages.uri3.uri3.docker.controller.control_docker → packages.uri3.uri3.docker.actions.compose.control_compose
-  packages.uri3.uri3.docker.compose_generator.build_generate_plan → packages.uri3.uri3.config.docker_stacks.resolve_agent_stack
-  packages.uri3.uri3.docker.compose_generator.write_generated_compose → packages.uri3.uri3.docker.compose_generator.build_generate_plan
-  packages.uri3.uri3.docker.actions.container.control_container → packages.uri3.uri3.docker.actions.container._container_name
-  packages.uri3.uri3.docker.actions.container.control_container → packages.uri3.uri3.docker.runner.run_command
-  packages.uri3.uri3.docker.actions.compose.control_compose_ps → packages.uri3.uri3.docker.actions.compose.compose_base
-  packages.uri3.uri3.docker.actions.compose.control_compose_ps → packages.uri3.uri3.docker.runner.run_command
-  packages.uri3.uri3.docker.actions.compose.control_compose_ps → packages.uri3.uri3.docker.actions.compose._parse_ps_stdout
-  packages.uri3.uri3.docker.actions.compose.control_compose_up → packages.uri3.uri3.docker.actions.compose.compose_base
-  packages.uri3.uri3.docker.actions.compose.control_compose_up → packages.uri3.uri3.docker.runner.run_command
-  packages.uri3.uri3.docker.actions.compose.control_compose_down → packages.uri3.uri3.docker.actions.compose.compose_base
-  packages.uri3.uri3.docker.actions.compose.control_compose_down → packages.uri3.uri3.docker.runner.run_command
-  packages.uri3.uri3.docker.actions.compose.control_compose_lifecycle → packages.uri3.uri3.docker.actions.compose.compose_base
-  packages.uri3.uri3.docker.actions.compose.control_compose_lifecycle → packages.uri3.uri3.docker.runner.run_command
-  packages.uri3.uri3.docker.actions.compose.control_compose_logs → packages.uri3.uri3.docker.actions.compose.compose_base
-  packages.uri3.uri3.docker.actions.compose.control_compose_logs → packages.uri3.uri3.docker.runner.run_command
-  packages.uri3.uri3.docker.actions.compose.control_compose → packages.uri3.uri3.docker.actions.compose.control_compose_ps
-  packages.uri3.uri3.docker.actions.compose.control_compose → packages.uri3.uri3.docker.actions.compose.control_compose_up
-  packages.uri3.uri3.docker.actions.compose.control_compose → packages.uri3.uri3.docker.actions.compose.control_compose_down
-  packages.uri3.uri3.docker.actions.compose.control_compose → packages.uri3.uri3.docker.actions.compose.control_compose_lifecycle
-  packages.uri3.uri3.docker.actions.compose.control_compose → packages.uri3.uri3.docker.actions.compose.control_compose_logs
-  packages.uri3.uri3.scanner.http_scanner._probe → packages.uri3.uri3.scanner.http_scanner._kind_for_path
-  packages.uri3.uri3.scanner.http_scanner._probe → packages.uri3.uri3.scanner.http_scanner._status_for
+  packages.uri3.uri3.graph.graph_serializer.normalize_graph_payload → uri2ops.operation_registry.models.OperationRegistry.list
+  packages.uri3.uri3.graph.graph_serializer.normalize_graph_payload → packages.uri3.uri3.graph.graph_serializer.edges_from_depends_on
+  packages.uri3.uri3.graph.graph_serializer.task_steps_to_graph → packages.uri3.uri3.graph.graph_serializer.edges_from_depends_on
+  packages.uri3.uri3.graph.artifacts.write_artifact → packages.uri3.uri3.graph.artifacts.artifact_path
+  packages.uri3.uri3.graph.artifacts.write_artifact → packages.uri3.uri3.graph.artifacts.artifact_uri
+  packages.uri3.uri3.graph.dependency_graph.topological_sort → packages.uri3.uri3.graph.dependency_graph.detect_cycles
+  packages.uri3.uri3.graph.dependency_graph.dependency_summary → packages.uri3.uri3.graph.dependency_graph.detect_cycles

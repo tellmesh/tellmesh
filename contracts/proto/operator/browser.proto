@@ -1,0 +1,23 @@
+syntax = "proto3";
+package operator.browser.v1;
+
+message BrowserPageOpenCommand {
+  string browser = 1;
+  string session = 2;
+  string url = 3;
+}
+
+message BrowserClickCommand {
+  string browser = 1;
+  string session = 2;
+  string selector = 3;
+  int32 x = 4;
+  int32 y = 5;
+}
+
+message DomSnapshot {
+  string target_uri = 1;
+  string html = 2;
+  string text = 3;
+  string artifact_uri = 4;
+}

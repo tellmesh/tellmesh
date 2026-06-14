@@ -3,6 +3,10 @@ flowchart TD
     subgraph domains__weather_map
         domains__weather_map__handlers__generate_weather_map__handler["handler"]
     end
+    subgraph examples__11_playwright_browser
+        examples__11_playwright_browser__run__do_GET["do_GET"]
+        examples__11_playwright_browser__run__log_message["log_message"]
+    end
     subgraph generator__hashutil
         generator__hashutil__file_sha256["file_sha256"]
     end
@@ -121,27 +125,6 @@ flowchart TD
         nl2uri__writer__write_uri_tree["write_uri_tree"]
     end
     subgraph packages__nl2uri
-        packages__nl2uri__nl2uri__llm_planner__llm_plan["llm_plan"]
-        packages__nl2uri__nl2uri__planner_llm__extract_json["extract_json"]
-        packages__nl2uri__nl2uri__planner_llm__call_openrouter["call_openrouter"]
-        packages__nl2uri__nl2uri__planner__rule_based_plan["rule_based_plan"]
-        packages__nl2uri__nl2uri__domain_planner__plan_from_prompt["plan_from_prompt"]
-        packages__nl2uri__nl2uri__planner_templates__slug["slug"]
-        packages__nl2uri__nl2uri__planner_templates__llm_uri_from_env["llm_uri_from_env"]
-        packages__nl2uri__nl2uri__planner_templates__is_weather_prompt["is_weather_prompt"]
-        packages__nl2uri__nl2uri__planner_templates__deterministic_weather_plan["deterministic_weather_plan"]
-        packages__nl2uri__nl2uri__planner_templates__generic_plan["generic_plan"]
-        packages__nl2uri__nl2uri__pipeline__generate_tree["generate_tree"]
-        packages__nl2uri__nl2uri__pipeline___append_pipeline_logs["_append_pipeline_logs"]
-        packages__nl2uri__nl2uri__pipeline__run_generate_pipeline["run_generate_pipeline"]
-        packages__nl2uri__nl2uri__pipeline__run_full_pipeline["run_full_pipeline"]
-        packages__nl2uri__nl2uri__planner_validation__validate_tree_data["validate_tree_data"]
-        packages__nl2uri__nl2uri__planner_validation__is_structured_uri_tree("is_structured_uri_tree CC=10")
-        packages__nl2uri__nl2uri__planner_validation__normalize_llm_tree["normalize_llm_tree"]
-        packages__nl2uri__nl2uri__output_classifier__classify_output_kind{{classify_output_kind CC=20}}
-        packages__nl2uri__nl2uri__graph_planner_llm__build_graph_planner_system_prompt["build_graph_planner_system_prompt"]
-        packages__nl2uri__nl2uri__graph_planner_llm__call_graph_planner_llm["call_graph_planner_llm"]
-        packages__nl2uri__nl2uri__graph_planner_llm__plan_graph_with_llm["plan_graph_with_llm"]
         packages__nl2uri__nl2uri__cli___default_use_llm["_default_use_llm"]
         packages__nl2uri__nl2uri__cli___resolve_use_llm["_resolve_use_llm"]
         packages__nl2uri__nl2uri__cli___emit["_emit"]
@@ -155,6 +138,18 @@ flowchart TD
         packages__nl2uri__nl2uri__cli__graph["graph"]
         packages__nl2uri__nl2uri__cli__generate["generate"]
         packages__nl2uri__nl2uri__cli__main["main"]
+        packages__nl2uri__nl2uri__llm_planner__llm_plan["llm_plan"]
+        packages__nl2uri__nl2uri__planner_llm__extract_json["extract_json"]
+        packages__nl2uri__nl2uri__planner_llm__call_openrouter["call_openrouter"]
+        packages__nl2uri__nl2uri__planner__rule_based_plan["rule_based_plan"]
+        packages__nl2uri__nl2uri__graph_repair___slug["_slug"]
+        packages__nl2uri__nl2uri__graph_repair___coerce_operation["_coerce_operation"]
+        packages__nl2uri__nl2uri__graph_repair__extract_graph_payload("extract_graph_payload CC=14")
+        packages__nl2uri__nl2uri__graph_repair__normalize_to_kind("normalize_to_kind CC=12")
+        packages__nl2uri__nl2uri__graph_repair__sanitize_node{{sanitize_node CC=16}}
+        packages__nl2uri__nl2uri__graph_repair___sanitize_nodes("_sanitize_nodes CC=12")
+        packages__nl2uri__nl2uri__graph_repair__repair_graph_body("repair_graph_body CC=12")
+        packages__nl2uri__nl2uri__graph_repair__repair_and_validate_graph("repair_and_validate_graph CC=13")
         packages__nl2uri__nl2uri__graph_planner___slug["_slug"]
         packages__nl2uri__nl2uri__graph_planner___detect_agent_id["_detect_agent_id"]
         packages__nl2uri__nl2uri__graph_planner___detect_health_uri["_detect_health_uri"]
@@ -166,14 +161,23 @@ flowchart TD
         packages__nl2uri__nl2uri__graph_planner__plan_workflow_graph("plan_workflow_graph CC=12")
         packages__nl2uri__nl2uri__graph_planner__plan_auto["plan_auto"]
         packages__nl2uri__nl2uri__graph_planner__plan_by_kind["plan_by_kind"]
-        packages__nl2uri__nl2uri__graph_repair___slug["_slug"]
-        packages__nl2uri__nl2uri__graph_repair___coerce_operation["_coerce_operation"]
-        packages__nl2uri__nl2uri__graph_repair__extract_graph_payload("extract_graph_payload CC=14")
-        packages__nl2uri__nl2uri__graph_repair__normalize_to_kind("normalize_to_kind CC=12")
-        packages__nl2uri__nl2uri__graph_repair__sanitize_node{{sanitize_node CC=16}}
-        packages__nl2uri__nl2uri__graph_repair___sanitize_nodes("_sanitize_nodes CC=12")
-        packages__nl2uri__nl2uri__graph_repair__repair_graph_body("repair_graph_body CC=12")
-        packages__nl2uri__nl2uri__graph_repair__repair_and_validate_graph("repair_and_validate_graph CC=13")
+        packages__nl2uri__nl2uri__domain_planner__plan_from_prompt["plan_from_prompt"]
+        packages__nl2uri__nl2uri__planner_templates__slug["slug"]
+        packages__nl2uri__nl2uri__planner_templates__llm_uri_from_env["llm_uri_from_env"]
+        packages__nl2uri__nl2uri__planner_templates__is_weather_prompt["is_weather_prompt"]
+        packages__nl2uri__nl2uri__planner_templates__deterministic_weather_plan["deterministic_weather_plan"]
+        packages__nl2uri__nl2uri__planner_templates__generic_plan["generic_plan"]
+        packages__nl2uri__nl2uri__output_classifier__classify_output_kind{{classify_output_kind CC=20}}
+        packages__nl2uri__nl2uri__pipeline__generate_tree["generate_tree"]
+        packages__nl2uri__nl2uri__pipeline___append_pipeline_logs["_append_pipeline_logs"]
+        packages__nl2uri__nl2uri__pipeline__run_generate_pipeline["run_generate_pipeline"]
+        packages__nl2uri__nl2uri__pipeline__run_full_pipeline["run_full_pipeline"]
+        packages__nl2uri__nl2uri__graph_planner_llm__build_graph_planner_system_prompt["build_graph_planner_system_prompt"]
+        packages__nl2uri__nl2uri__graph_planner_llm__call_graph_planner_llm["call_graph_planner_llm"]
+        packages__nl2uri__nl2uri__graph_planner_llm__plan_graph_with_llm["plan_graph_with_llm"]
+        packages__nl2uri__nl2uri__planner_validation__validate_tree_data["validate_tree_data"]
+        packages__nl2uri__nl2uri__planner_validation__is_structured_uri_tree("is_structured_uri_tree CC=10")
+        packages__nl2uri__nl2uri__planner_validation__normalize_llm_tree["normalize_llm_tree"]
     end
     subgraph packages__resource_agent_factory
         packages__resource_agent_factory__generator__header__contract_source_ref["contract_source_ref"]
@@ -250,6 +254,21 @@ flowchart TD
         packages__resource_agent_hypervisor__hypervisor__config__config_checks__validate_llm["validate_llm"]
     end
     subgraph packages__uri3
+        packages__uri3__uri3__cli___quick_reference["_quick_reference"]
+        packages__uri3__uri3__cli___list_payload["_list_payload"]
+        packages__uri3__uri3__cli__main["main"]
+        packages__uri3__uri3__cli__list_cmd["list_cmd"]
+        packages__uri3__uri3__cli__validate["validate"]
+        packages__uri3__uri3__cli__validate_tree["validate_tree"]
+        packages__uri3__uri3__cli__graph["graph"]
+        packages__uri3__uri3__cli__validate_workflow["validate_workflow"]
+        packages__uri3__uri3__cli__plan_workflow["plan_workflow"]
+        packages__uri3__uri3__cli__run_workflow_cmd["run_workflow_cmd"]
+        packages__uri3__uri3__cli__resolve["resolve"]
+        packages__uri3__uri3__cli__call["call"]
+        packages__uri3__uri3__cli__scan("scan CC=8")
+        packages__uri3__uri3__cli__logs["logs"]
+        packages__uri3__uri3__cli__schema["schema"]
         packages__uri3__uri3__logs__parsing__empty_entry["empty_entry"]
         packages__uri3__uri3__logs__parsing__parse_json_entry("parse_json_entry CC=14")
         packages__uri3__uri3__logs__parsing__parse_text_entry["parse_text_entry"]
@@ -267,49 +286,34 @@ flowchart TD
         packages__uri3__uri3__logs__reader__read_logs_result["read_logs_result"]
         packages__uri3__uri3__logs__reader__summarize_logs["summarize_logs"]
         packages__uri3__uri3__logs__writer__append_log["append_log"]
-        packages__uri3__uri3__validators__uri_tree_validator__load_yaml["load_yaml"]
-        packages__uri3__uri3__validators__uri_tree_validator__validate_uri_tree["validate_uri_tree"]
-        packages__uri3__uri3__docker__controller__control_docker("control_docker CC=11")
-        packages__uri3__uri3__docker__runner__run_command["run_command"]
-        packages__uri3__uri3__docker__compose_generator__build_generate_plan["build_generate_plan"]
-        packages__uri3__uri3__docker__compose_generator__write_generated_compose["write_generated_compose"]
-        packages__uri3__uri3__docker__actions__container___container_name["_container_name"]
-        packages__uri3__uri3__docker__actions__container__handles_container_action["handles_container_action"]
-        packages__uri3__uri3__docker__actions__container__control_container("control_container CC=8")
-        packages__uri3__uri3__docker__actions__compose__compose_base["compose_base"]
-        packages__uri3__uri3__docker__actions__compose___parse_ps_stdout["_parse_ps_stdout"]
-        packages__uri3__uri3__docker__actions__compose__control_compose_ps["control_compose_ps"]
-        packages__uri3__uri3__docker__actions__compose__control_compose_up("control_compose_up CC=9")
-        packages__uri3__uri3__docker__actions__compose__control_compose_down["control_compose_down"]
-        packages__uri3__uri3__docker__actions__compose__control_compose_lifecycle["control_compose_lifecycle"]
-        packages__uri3__uri3__docker__actions__compose__control_compose_logs["control_compose_logs"]
-        packages__uri3__uri3__docker__actions__compose__control_compose["control_compose"]
-        packages__uri3__uri3__scanner__http_scanner___origin["_origin"]
-        packages__uri3__uri3__scanner__http_scanner___kind_for_path["_kind_for_path"]
-        packages__uri3__uri3__scanner__http_scanner___status_for["_status_for"]
-        packages__uri3__uri3__scanner__http_scanner___probe["_probe"]
-        packages__uri3__uri3__scanner__http_scanner__health_scan_ok["health_scan_ok"]
-        packages__uri3__uri3__scanner__http_scanner__scan_http["scan_http"]
-        packages__uri3__uri3__scanner__ssh_scanner___invalid_ssh_item["_invalid_ssh_item"]
-        packages__uri3__uri3__scanner__ssh_scanner___connectivity_item("_connectivity_item CC=8")
-        packages__uri3__uri3__scanner__ssh_scanner___remote_item_uri["_remote_item_uri"]
-        packages__uri3__uri3__scanner__ssh_scanner___remote_path_item["_remote_path_item"]
-        packages__uri3__uri3__scanner__ssh_scanner___remote_listing_item["_remote_listing_item"]
-        packages__uri3__uri3__scanner__ssh_scanner__scan_ssh["scan_ssh"]
-        packages__uri3__uri3__scanner__docker_scanner___inspect_container["_inspect_container"]
-        packages__uri3__uri3__scanner__docker_scanner__scan_container["scan_container"]
-        packages__uri3__uri3__scanner__docker_scanner___compose_ps["_compose_ps"]
-        packages__uri3__uri3__scanner__docker_scanner__scan_compose_stack["scan_compose_stack"]
-        packages__uri3__uri3__scanner__docker_scanner__scan_docker["scan_docker"]
-        packages__uri3__uri3__scanner__scanner__scan_log["scan_log"]
-        packages__uri3__uri3__scanner__scanner__scan["scan"]
-        packages__uri3__uri3__protocols__schemes__log__spec["spec"]
-        packages__uri3__uri3__protocols__schemes__mcp__spec["spec"]
-        packages__uri3__uri3__protocols__schemes__base__QueryOption__to_dict["to_dict"]
-        packages__uri3__uri3__protocols__schemes__base__SchemeSpec__to_dict["to_dict"]
-        packages__uri3__uri3__protocols__schemes__analyze___analyze_query("_analyze_query CC=14")
-        packages__uri3__uri3__protocols__schemes__analyze__analyze_uri["analyze_uri"]
-        packages__uri3__uri3__protocols__schemes__analyze__describe_uri["describe_uri"]
+        packages__uri3__uri3__graph__conditions__evaluate_condition["evaluate_condition"]
+        packages__uri3__uri3__graph__graph_serializer__edges_from_depends_on["edges_from_depends_on"]
+        packages__uri3__uri3__graph__graph_serializer__normalize_graph_payload("normalize_graph_payload CC=12")
+        packages__uri3__uri3__graph__graph_serializer__task_steps_to_graph["task_steps_to_graph"]
+        packages__uri3__uri3__graph__graph_serializer__workflow_manifest["workflow_manifest"]
+        packages__uri3__uri3__graph__artifacts__artifact_path["artifact_path"]
+        packages__uri3__uri3__graph__artifacts__artifact_uri["artifact_uri"]
+        packages__uri3__uri3__graph__artifacts__write_artifact["write_artifact"]
+        packages__uri3__uri3__graph__dependency_graph__adjacency["adjacency"]
+        packages__uri3__uri3__graph__dependency_graph__reverse_adjacency["reverse_adjacency"]
+        packages__uri3__uri3__graph__dependency_graph__detect_cycles{{detect_cycles CC=15}}
+        packages__uri3__uri3__graph__dependency_graph__topological_sort("topological_sort CC=13")
+        packages__uri3__uri3__graph__dependency_graph__dependency_summary("dependency_summary CC=8")
+        packages__uri3__uri3__graph__policy__can_execute_step["can_execute_step"]
+        packages__uri3__uri3__graph__models__GraphNode__from_dict["from_dict"]
+        packages__uri3__uri3__graph__models__GraphNode__to_dict("to_dict CC=8")
+        packages__uri3__uri3__graph__models__GraphEdge__to_dict["to_dict"]
+        packages__uri3__uri3__graph__models__WorkflowGraph__add_node["add_node"]
+        packages__uri3__uri3__graph__models__WorkflowGraph__to_dict["to_dict"]
+        packages__uri3__uri3__graph__graph_executor__build_execution_plan["build_execution_plan"]
+        packages__uri3__uri3__graph__graph_executor__dry_run_workflow["dry_run_workflow"]
+        packages__uri3__uri3__graph__graph_executor___dependencies_ok["_dependencies_ok"]
+        packages__uri3__uri3__graph__graph_executor___execute_step["_execute_step"]
+        packages__uri3__uri3__graph__graph_executor__run_workflow{{run_workflow CC=21}}
+        packages__uri3__uri3__graph__execution_models__utc_now_iso["utc_now_iso"]
+        packages__uri3__uri3__graph__execution_models__ExecutionContext__resolve_ref["resolve_ref"]
+        packages__uri3__uri3__graph__execution_models__StepExecutionResult__to_dict["to_dict"]
+        packages__uri3__uri3__graph__execution_models__GraphExecutionPlan__to_dict["to_dict"]
     end
     subgraph runtime_client__client
         runtime_client__client__ResourceRuntimeClient____init__["__init__"]
@@ -320,6 +324,89 @@ flowchart TD
         testenv__ssh_agent_host__mock_agent_server__Handler___json["_json"]
         testenv__ssh_agent_host__mock_agent_server__Handler__do_GET["do_GET"]
         testenv__ssh_agent_host__mock_agent_server__Handler__log_message["log_message"]
+    end
+    subgraph uri2ops__cli
+        uri2ops__cli___print["_print"]
+        uri2ops__cli__operations_cmd["operations_cmd"]
+        uri2ops__cli__validate_cmd["validate_cmd"]
+        uri2ops__cli__plan_cmd["plan_cmd"]
+        uri2ops__cli__run_cmd["run_cmd"]
+        uri2ops__cli__main["main"]
+    end
+    subgraph uri2ops__operation_registry
+        uri2ops__operation_registry__validator__validate_registry_schema["validate_registry_schema"]
+        uri2ops__operation_registry__validator__validate_operation_registry("validate_operation_registry CC=14")
+        uri2ops__operation_registry__loader__default_registry_path["default_registry_path"]
+        uri2ops__operation_registry__loader__registry_schema_path["registry_schema_path"]
+        uri2ops__operation_registry__loader__load_operation_registry("load_operation_registry CC=10")
+        uri2ops__operation_registry__models__OperationSpec__from_mapping["from_mapping"]
+        uri2ops__operation_registry__models__OperationSpec__to_dict["to_dict"]
+        uri2ops__operation_registry__models__OperationRegistry__get["get"]
+        uri2ops__operation_registry__models__OperationRegistry__require["require"]
+        uri2ops__operation_registry__models__OperationRegistry__list["list"]
+        uri2ops__operation_registry__dispatcher___split_python_uri["_split_python_uri"]
+        uri2ops__operation_registry__dispatcher__call_handler["call_handler"]
+        uri2ops__operation_registry__dispatcher__dispatch["dispatch"]
+    end
+    subgraph uri2ops__operator
+        uri2ops__operator__validator__schema_path["schema_path"]
+        uri2ops__operator__validator__validate_task_file["validate_task_file"]
+        uri2ops__operator__events__events_path["events_path"]
+        uri2ops__operator__events__append_event["append_event"]
+        uri2ops__operator__policy__can_execute["can_execute"]
+        uri2ops__operator__redaction___is_secret_field["_is_secret_field"]
+        uri2ops__operator__redaction__redact_value["redact_value"]
+        uri2ops__operator__redaction__redact_payload["redact_payload"]
+        uri2ops__operator__redaction__redact_event_payload["redact_event_payload"]
+        uri2ops__operator__task__load_task("load_task CC=9")
+        uri2ops__operator__models__StepResult__to_dict["to_dict"]
+        uri2ops__operator__models__TaskResult__to_dict["to_dict"]
+        uri2ops__operator__dependency__topological_steps["topological_steps"]
+        uri2ops__operator__adapters__screen_mock__observe["observe"]
+        uri2ops__operator__adapters__assertion__check["check"]
+        uri2ops__operator__adapters__input_mock__type_text["type_text"]
+        uri2ops__operator__artifact_resolver__parse_artifact_uri["parse_artifact_uri"]
+        uri2ops__operator__artifact_resolver__resolve_artifact_path["resolve_artifact_path"]
+        uri2ops__operator__artifact_resolver__read_artifact["read_artifact"]
+        uri2ops__operator__artifact_resolver__artifact_metadata["artifact_metadata"]
+        uri2ops__operator__adapters__browser_mock___artifact_root["_artifact_root"]
+        uri2ops__operator__adapters__browser_mock__open_page["open_page"]
+        uri2ops__operator__adapters__browser_mock__extract_dom["extract_dom"]
+        uri2ops__operator__adapters__browser_mock__screenshot["screenshot"]
+        uri2ops__operator__adapters__browser_mock__click["click"]
+        uri2ops__operator__adapters__browser_router___playwright_ready["_playwright_ready"]
+        uri2ops__operator__adapters__browser_router__resolve_adapter_mode("resolve_adapter_mode CC=9")
+        uri2ops__operator__adapters__browser_router___dispatch["_dispatch"]
+        uri2ops__operator__adapters__browser_router__open_page["open_page"]
+        uri2ops__operator__adapters__browser_router__extract_dom["extract_dom"]
+        uri2ops__operator__adapters__browser_router__screenshot["screenshot"]
+        uri2ops__operator__adapters__browser_router__click["click"]
+        uri2ops__operator__adapters__browser_router__cleanup_browser_session["cleanup_browser_session"]
+        uri2ops__operator__artifacts__artifact_root["artifact_root"]
+        uri2ops__operator__artifacts__write_artifact["write_artifact"]
+        uri2ops__operator__artifacts__write_step_artifact["write_step_artifact"]
+        uri2ops__operator__artifacts__resolve_artifact["resolve_artifact"]
+        uri2ops__operator__adapters__browser_playwright__json_dumps["json_dumps"]
+        uri2ops__operator__adapters__browser_playwright___session["_session"]
+        uri2ops__operator__adapters__browser_playwright___task_context["_task_context"]
+        uri2ops__operator__adapters__browser_playwright__close_playwright_session["close_playwright_session"]
+        uri2ops__operator__adapters__browser_playwright__open_page["open_page"]
+        uri2ops__operator__adapters__browser_playwright__extract_dom["extract_dom"]
+        uri2ops__operator__adapters__browser_playwright__screenshot["screenshot"]
+        uri2ops__operator__adapters__browser_playwright__click["click"]
+        uri2ops__operator__adapters__browser_playwright__execute("execute CC=10")
+        uri2ops__operator__policy_loader__OperatorPolicy__allows_adapter["allows_adapter"]
+        uri2ops__operator__policy_loader__OperatorPolicy__requires_approval["requires_approval"]
+        uri2ops__operator__policy_loader__OperatorPolicy__allowed_adapters_for["allowed_adapters_for"]
+        uri2ops__operator__policy_loader__default_policy["default_policy"]
+        uri2ops__operator__policy_loader__load_operator_policy("load_operator_policy CC=11")
+        uri2ops__operator__policy_loader__policy_config_path["policy_config_path"]
+        uri2ops__operator__runner___scheme["_scheme"]
+        uri2ops__operator__runner___resolve_value["_resolve_value"]
+        uri2ops__operator__runner___hydrate_payload("_hydrate_payload CC=9")
+        uri2ops__operator__runner___resolve_adapter("_resolve_adapter CC=8")
+        uri2ops__operator__runner__plan_task["plan_task"]
+        uri2ops__operator__runner__run_task("run_task CC=10")
     end
     subgraph uri3__graph
         uri3__graph__uri_graph__UriGraph__add_node["add_node"]
@@ -344,6 +431,29 @@ flowchart TD
     subgraph uri3__validators
         uri3__validators__uri_validator__validate_uri["validate_uri"]
     end
+    packages__uri3__uri3__cli___quick_reference --> packages__uri3__uri3__config__cli_shortcuts__scan_shortcuts
+    packages__uri3__uri3__cli___quick_reference --> packages__uri3__uri3__config__cli_shortcuts__cli_examples
+    packages__uri3__uri3__cli___list_payload --> packages__uri3__uri3__config__cli_shortcuts__cli_examples
+    packages__uri3__uri3__cli___list_payload --> packages__uri3__uri3__protocols__schemes__spec_registry__list_schemes
+    packages__uri3__uri3__cli___list_payload --> packages__uri3__uri3__config__cli_shortcuts__scan_shortcuts
+    packages__uri3__uri3__cli__list_cmd --> packages__uri3__uri3__cli___list_payload
+    packages__uri3__uri3__cli__list_cmd --> packages__uri3__uri3__cli___quick_reference
+    packages__uri3__uri3__cli__validate --> uri3__validators__uri_validator__validate_uri
+    packages__uri3__uri3__cli__validate_tree --> packages__uri3__uri3__validators__uri_tree_validator__validate_uri_tree
+    packages__uri3__uri3__cli__graph --> uri3__graph__uri_graph__build_graph_from_tree
+    packages__uri3__uri3__cli__validate_workflow --> packages__uri3__uri3__graph__graph_validator__validate_workflow_graph
+    packages__uri3__uri3__cli__plan_workflow --> packages__uri3__uri3__graph__graph_executor__build_execution_plan
+    packages__uri3__uri3__cli__plan_workflow --> packages__uri3__uri3__graph__graph_validator__load_workflow_graph
+    packages__uri3__uri3__cli__run_workflow_cmd --> packages__uri3__uri3__graph__graph_executor__run_workflow
+    packages__uri3__uri3__cli__run_workflow_cmd --> packages__uri3__uri3__graph__graph_validator__load_workflow_graph
+    packages__uri3__uri3__cli__scan --> packages__uri3__uri3__config__cli_shortcuts__scan_shortcuts
+    packages__uri3__uri3__cli__scan --> packages__uri3__uri3__config__cli_shortcuts__resolve_scan_target
+    packages__uri3__uri3__cli__scan --> packages__uri3__uri3__cli___quick_reference
+    packages__uri3__uri3__cli__logs --> packages__uri3__uri3__logs__reader__summarize_logs
+    packages__uri3__uri3__cli__logs --> packages__uri3__uri3__logs__reader__read_logs_result
+    packages__uri3__uri3__cli__schema --> packages__uri3__uri3__protocols__schemes__spec_registry__list_schemes
+    packages__uri3__uri3__cli__schema --> packages__uri3__uri3__protocols__schemes__analyze__analyze_uri
+    packages__uri3__uri3__cli__schema --> packages__uri3__uri3__protocols__schemes__analyze__describe_uri
     packages__uri3__uri3__logs__parsing__parse_log_line --> packages__uri3__uri3__logs__parsing__empty_entry
     packages__uri3__uri3__logs__parsing__parse_log_line --> packages__uri3__uri3__logs__parsing__parse_json_entry
     packages__uri3__uri3__logs__parsing__parse_log_line --> packages__uri3__uri3__logs__parsing__parse_text_entry
@@ -365,8 +475,61 @@ flowchart TD
     packages__uri3__uri3__logs__reader__summarize_logs --> packages__uri3__uri3__logs__reader__resolve_log_path
     packages__uri3__uri3__logs__reader__summarize_logs --> packages__uri3__uri3__logs__reader__read_logs
     packages__uri3__uri3__logs__writer__append_log --> packages__uri3__uri3__config__repo_root__find_repo_root
+    packages__uri3__uri3__graph__graph_serializer__normalize_graph_payload --> uri2ops__operation_registry__models__OperationRegistry__list
+    packages__uri3__uri3__graph__graph_serializer__normalize_graph_payload --> packages__uri3__uri3__graph__graph_serializer__edges_from_depends_on
+    packages__uri3__uri3__graph__graph_serializer__task_steps_to_graph --> packages__uri3__uri3__graph__graph_serializer__edges_from_depends_on
+    packages__uri3__uri3__graph__artifacts__write_artifact --> packages__uri3__uri3__graph__artifacts__artifact_path
+    packages__uri3__uri3__graph__artifacts__write_artifact --> packages__uri3__uri3__graph__artifacts__artifact_uri
+    packages__uri3__uri3__graph__dependency_graph__topological_sort --> packages__uri3__uri3__graph__dependency_graph__detect_cycles
+    packages__uri3__uri3__graph__dependency_graph__dependency_summary --> packages__uri3__uri3__graph__dependency_graph__detect_cycles
+    packages__uri3__uri3__graph__dependency_graph__dependency_summary --> packages__uri3__uri3__graph__dependency_graph__topological_sort
+    packages__uri3__uri3__graph__policy__can_execute_step --> packages__uri3__uri3__graph__operation_registry__effective_kind
+    packages__uri3__uri3__graph__policy__can_execute_step --> packages__uri3__uri3__graph__operation_registry__requires_approval
+    packages__uri3__uri3__graph__models__GraphNode__from_dict --> uri2ops__operation_registry__models__OperationRegistry__list
+    packages__uri3__uri3__graph__graph_executor__build_execution_plan --> packages__uri3__uri3__graph__dependency_graph__topological_sort
+    packages__uri3__uri3__graph__graph_executor__build_execution_plan --> packages__uri3__uri3__graph__graph_validator__load_workflow_graph
+    packages__uri3__uri3__graph__graph_executor__build_execution_plan --> packages__uri3__uri3__graph__graph_serializer__workflow_manifest
+    packages__uri3__uri3__graph__graph_executor__build_execution_plan --> packages__uri3__uri3__graph__operation_registry__effective_kind
+    packages__uri3__uri3__graph__graph_executor__build_execution_plan --> uri2ops__operation_registry__models__OperationRegistry__list
+    packages__uri3__uri3__graph__graph_executor__dry_run_workflow --> packages__uri3__uri3__graph__graph_executor__run_workflow
+    packages__uri3__uri3__graph__graph_executor___execute_step --> packages__uri3__uri3__graph__adapters__registry__adapter_for_uri
+    packages__uri3__uri3__graph__graph_executor__run_workflow --> packages__uri3__uri3__graph__graph_validator__validate_workflow_graph
+    packages__uri3__uri3__graph__graph_executor__run_workflow --> packages__uri3__uri3__graph__execution_models__new_execution_context
+    packages__uri3__uri3__graph__graph_executor__run_workflow --> packages__uri3__uri3__graph__execution_models__utc_now_iso
+    packages__uri3__uri3__graph__graph_executor__run_workflow --> packages__uri3__uri3__graph__event_log__append_workflow_event
+    packages__uri3__uri3__graph__graph_executor__run_workflow --> packages__uri3__uri3__graph__dependency_graph__topological_sort
+    packages__uri3__uri3__graph__graph_executor__run_workflow --> packages__uri3__uri3__graph__graph_validator__load_workflow_graph
+    packages__uri3__uri3__graph__graph_executor__run_workflow --> packages__uri3__uri3__graph__operation_registry__validate_node_operation
+    packages__uri3__uri3__graph__graph_executor__run_workflow --> packages__uri3__uri3__graph__adapters__browser_router__cleanup_browser_adapters
+    packages__uri3__uri3__graph__execution_models__new_execution_context --> packages__uri3__uri3__config__repo_root__find_repo_root
+    packages__uri3__uri3__graph__event_log__append_workflow_event --> packages__uri3__uri3__graph__event_log__workflow_event_path
+    packages__uri3__uri3__graph__event_log__append_workflow_event --> packages__uri3__uri3__graph__execution_models__utc_now_iso
+    packages__uri3__uri3__graph__graph_validator___schema_path --> packages__uri3__uri3__config__repo_root__find_repo_root
+    packages__uri3__uri3__graph__graph_validator__load_workflow_graph --> packages__uri3__uri3__graph__graph_serializer__normalize_graph_payload
+    packages__uri3__uri3__graph__graph_validator__load_workflow_graph --> packages__uri3__uri3__graph__graph_serializer__task_steps_to_graph
+    packages__uri3__uri3__graph__graph_validator__validate_workflow_schema --> packages__uri3__uri3__graph__graph_validator___schema_path
+    packages__uri3__uri3__graph__graph_validator__validate_workflow_schema --> uri2ops__operation_registry__models__OperationRegistry__list
+    packages__uri3__uri3__graph__graph_validator__validate_workflow_graph --> packages__uri3__uri3__graph__graph_validator__load_workflow_graph
+    packages__uri3__uri3__graph__graph_validator__validate_workflow_graph --> packages__uri3__uri3__graph__graph_validator__validate_workflow_schema
+    packages__uri3__uri3__graph__graph_validator__validate_workflow_graph --> packages__uri3__uri3__graph__dependency_graph__detect_cycles
+    packages__uri3__uri3__graph__graph_validator__validate_workflow_graph --> uri3__validators__uri_validator__validate_uri
+    packages__uri3__uri3__graph__operation_registry__effective_kind --> packages__uri3__uri3__graph__operation_registry__scheme_from_uri
+    packages__uri3__uri3__graph__operation_registry__requires_approval --> packages__uri3__uri3__graph__operation_registry__effective_kind
+    packages__uri3__uri3__graph__operation_registry__validate_node_operation --> packages__uri3__uri3__graph__operation_registry__scheme_from_uri
+    packages__uri3__uri3__graph__operation_registry__validate_node_operation --> packages__uri3__uri3__graph__operation_registry__allowed_operations
+    packages__uri3__uri3__graph__adapters__browser_mock__BrowserMockAdapter__execute --> packages__uri3__uri3__graph__artifacts__write_artifact
+    packages__uri3__uri3__graph__adapters__browser_mock__BrowserMockAdapter__execute --> packages__uri3__uri3__graph__adapters__browser_mock__json_dumps
+    packages__uri3__uri3__graph__adapters__registry__HypervisorAdapter__execute --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__selector__resolve_deployment
+    packages__uri3__uri3__graph__adapters__registry__HypervisorAdapter__execute --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__run_plans__build_run_plan
+    packages__uri3__uri3__graph__adapters__registry__HypervisorAdapter__execute --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__lifecycle__agent_status
+    packages__uri3__uri3__graph__adapters__browser_playwright__PlaywrightBrowserAdapter__execute --> packages__uri3__uri3__graph__adapters__browser_playwright___session_state
+    packages__uri3__uri3__graph__adapters__browser_playwright__PlaywrightBrowserAdapter__execute --> packages__uri3__uri3__graph__artifacts__write_artifact
+    packages__uri3__uri3__graph__adapters__browser_router__resolve_browser_mode --> packages__uri3__uri3__graph__adapters__browser_router___playwright_ready
+    packages__uri3__uri3__graph__adapters__browser_router__BrowserRouterAdapter__execute --> packages__uri3__uri3__graph__adapters__browser_router__resolve_browser_mode
+    packages__uri3__uri3__graph__adapters__browser_router__cleanup_browser_adapters --> packages__uri3__uri3__graph__adapters__browser_playwright__close_playwright_session
     uri3__validators__uri_validator__validate_uri --> uri3__protocols__parser__parse_uri
     packages__uri3__uri3__validators__uri_tree_validator__validate_uri_tree --> packages__uri3__uri3__validators__uri_tree_validator__load_yaml
+    packages__uri3__uri3__validators__uri_tree_validator__validate_uri_tree --> uri2ops__operation_registry__models__OperationRegistry__list
     packages__uri3__uri3__docker__controller__control_docker --> packages__uri3__uri3__resolvers__docker_resolver__parse_docker_uri
     packages__uri3__uri3__docker__controller__control_docker --> packages__uri3__uri3__docker__actions__container__handles_container_action
     packages__uri3__uri3__docker__controller__control_docker --> packages__uri3__uri3__docker__compose_generator__write_generated_compose
@@ -422,6 +585,9 @@ flowchart TD
     packages__uri3__uri3__scanner__scanner__scan --> packages__uri3__uri3__scanner__docker_scanner__scan_docker
     packages__uri3__uri3__scanner__scanner__scan --> packages__uri3__uri3__scanner__scanner__scan_log
     uri3__protocols__normalizer__normalize_uri --> uri3__protocols__parser__parse_uri
+    packages__uri3__uri3__protocols__schemes__log__spec --> uri2ops__operation_registry__models__OperationRegistry__list
+    packages__uri3__uri3__protocols__schemes__base__QueryOption__to_dict --> uri2ops__operation_registry__models__OperationRegistry__list
+    packages__uri3__uri3__protocols__schemes__base__SchemeSpec__to_dict --> uri2ops__operation_registry__models__OperationRegistry__list
     packages__uri3__uri3__protocols__schemes__analyze___analyze_query --> packages__uri3__uri3__protocols__schemes__spec_registry__query_names
     packages__uri3__uri3__protocols__schemes__analyze__analyze_uri --> packages__uri3__uri3__protocols__schemes__instance_parser__normalize_scheme
     packages__uri3__uri3__protocols__schemes__analyze__analyze_uri --> packages__uri3__uri3__protocols__schemes__spec_registry__get_scheme_schema
@@ -442,6 +608,8 @@ flowchart TD
     packages__uri3__uri3__protocols__schemes__instance_parser___parse_ssh --> packages__uri3__uri3__resolvers__ssh_resolver__resolve_ssh
     packages__uri3__uri3__protocols__schemes__instance_parser___parse_resource --> packages__uri3__uri3__resolvers__protocol_resolver__resolve_resource
     packages__uri3__uri3__protocols__schemes__instance_parser__parse_instance --> packages__uri3__uri3__protocols__schemes__instance_parser___parse_resource
+    packages__uri3__uri3__protocols__schemes__spec_registry__get_scheme_schema --> packages__uri3__uri3__protocols__schemes__instance_parser__normalize_scheme
+    packages__uri3__uri3__protocols__schemes__spec_registry__list_schemes --> uri2ops__operation_registry__models__OperationRegistry__list
     packages__uri3__uri3__config__ssh_auth__ssh_config_path --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__lifecycle___repo_root
     packages__uri3__uri3__config__ssh_auth__load_ssh_config --> packages__uri3__uri3__config__ssh_auth__ssh_config_path
     packages__uri3__uri3__config__ssh_auth__load_ssh_config --> packages__uri3__uri3__config__uri_yaml__load_uri_yaml
@@ -471,6 +639,9 @@ flowchart TD
     packages__uri3__uri3__config__docker_stacks__resolve_stack --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__lifecycle___repo_root
     packages__uri3__uri3__config__docker_stacks__resolve_agent_stack --> packages__uri3__uri3__config__docker_stacks__load_docker_config
     packages__uri3__uri3__config__docker_stacks__resolve_agent_stack --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__lifecycle___repo_root
+    packages__uri3__uri3__config__uri_yaml__resolve_uri_values --> packages__uri3__uri3__config__uri_yaml__is_uri
+    packages__uri3__uri3__config__uri_yaml__resolve_uri_values --> packages__uri3__uri3__cli__resolve
+    packages__uri3__uri3__config__uri_yaml__resolve_uri_values --> packages__uri3__uri3__resolvers__env_resolver__resolve_env
     packages__uri3__uri3__config__cli_shortcuts__cli_config_path --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__lifecycle___repo_root
     packages__uri3__uri3__config__cli_shortcuts__load_cli_config --> packages__uri3__uri3__config__cli_shortcuts__cli_config_path
     packages__uri3__uri3__config__cli_shortcuts__load_cli_config --> packages__uri3__uri3__config__uri_yaml__load_uri_yaml
@@ -495,9 +666,12 @@ flowchart TD
     packages__uri3__uri3__resolvers__docker_resolver__parse_docker_uri --> packages__uri3__uri3__config__docker_stacks__resolve_stack
     packages__uri3__uri3__resolvers__docker_resolver__parse_docker_uri --> packages__uri3__uri3__resolvers__docker_resolver___bool
     packages__uri3__uri3__resolvers__docker_resolver__resolve_docker --> packages__uri3__uri3__resolvers__docker_resolver__parse_docker_uri
+    packages__uri3__uri3__resolvers__docker_resolver__resolve_docker --> uri2ops__operation_registry__models__OperationRegistry__list
     packages__uri3__uri3__resolvers__docker_resolver__resolve_docker --> packages__uri3__uri3__docker__compose_generator__build_generate_plan
     packages__uri3__uri3__resolvers__docker_resolver__resolve_docker_target --> packages__uri3__uri3__resolvers__docker_resolver__parse_docker_uri
     packages__uri3__uri3__resolvers__protocol_resolver__resolve_resource --> packages__uri3__uri3__resolvers__ssh_resolver__resolve_ssh
+    packages__uri3__uri3__resolvers__dispatch___resolve_docker --> packages__uri3__uri3__resolvers__docker_resolver__resolve_docker
+    packages__uri3__uri3__resolvers__dispatch__resolve_target --> packages__uri3__uri3__resolvers__protocol_resolver__resolve_resource
     uri3__resolvers__llm_resolver__LLMResolver__resolve --> uri3__resolvers__llm_resolver__resolve_llm
     uri3__resolvers__llm_resolver__LLMResolver__resolve --> uri3__protocols__parser__parse_uri
     packages__uri3__uri3__resolvers__router__Uri3Router____init__ --> packages__uri3__uri3__resolvers__registry__build_resolver_registry
@@ -508,7 +682,7 @@ flowchart TD
     packages__uri3__uri3__resolvers__env_resolver__call_env --> packages__uri3__uri3__resolvers__env_resolver___upsert_env_file
     packages__uri3__uri3__resolvers__env_resolver__EnvResolver__resolve --> packages__uri3__uri3__resolvers__env_resolver__resolve_env
     packages__uri3__uri3__resolvers__env_resolver__EnvResolver__call --> packages__uri3__uri3__resolvers__env_resolver__call_env
-    packages__uri3__uri3__resolvers__resolve_core__resolve --> packages__uri3__uri3__resolvers__dispatch__scheme_from_uri
+    packages__uri3__uri3__resolvers__resolve_core__resolve --> packages__uri3__uri3__graph__operation_registry__scheme_from_uri
     packages__uri3__uri3__resolvers__resolve_core__resolve --> packages__uri3__uri3__resolvers__dispatch__resolve_target
     packages__uri3__uri3__resolvers__resolve_core__call --> uri3__resolvers__python_resolver__call_python
     packages__uri3__uri3__resolvers__resolve_core__call --> packages__uri3__uri3__resolvers__env_resolver__call_env
@@ -551,10 +725,74 @@ flowchart TD
     generator__verify__verify_generated_agent --> generator__hashutil__file_sha256
     generator__verify__verify_generated --> generator__verify__verify_generated_agent
     generator__verify__main --> generator__verify__verify_generated
+    packages__nl2uri__nl2uri__cli___resolve_use_llm --> packages__nl2uri__nl2uri__cli___default_use_llm
+    packages__nl2uri__nl2uri__cli___plan_command --> packages__nl2uri__nl2uri__graph_planner__plan_by_kind
+    packages__nl2uri__nl2uri__cli___plan_command --> packages__nl2uri__nl2uri__cli___emit
+    packages__nl2uri__nl2uri__cli___plan_command --> packages__uri3__uri3__graph__graph_validator__validate_workflow_graph
+    packages__nl2uri__nl2uri__cli__plan --> packages__nl2uri__nl2uri__graph_planner__plan_auto
+    packages__nl2uri__nl2uri__cli__plan --> packages__nl2uri__nl2uri__cli___emit
+    packages__nl2uri__nl2uri__cli__plan --> packages__uri3__uri3__graph__graph_validator__validate_workflow_graph
+    packages__nl2uri__nl2uri__cli__plan --> packages__nl2uri__nl2uri__cli___resolve_use_llm
+    packages__nl2uri__nl2uri__cli__classify --> packages__nl2uri__nl2uri__cli___emit
+    packages__nl2uri__nl2uri__cli__classify --> packages__nl2uri__nl2uri__output_classifier__classify_output_kind
+    packages__nl2uri__nl2uri__cli__single --> packages__nl2uri__nl2uri__cli___plan_command
+    packages__nl2uri__nl2uri__cli__list_cmd --> packages__nl2uri__nl2uri__cli___plan_command
+    packages__nl2uri__nl2uri__cli__tree --> packages__nl2uri__nl2uri__graph_planner__plan_tree
+    packages__nl2uri__nl2uri__cli__tree --> packages__nl2uri__nl2uri__cli___emit
+    packages__nl2uri__nl2uri__cli__tree --> nl2uri__writer__write_uri_tree
+    packages__nl2uri__nl2uri__cli__tree --> packages__uri3__uri3__validators__uri_tree_validator__validate_uri_tree
+    packages__nl2uri__nl2uri__cli__task --> packages__nl2uri__nl2uri__graph_planner__plan_task
+    packages__nl2uri__nl2uri__cli__task --> packages__nl2uri__nl2uri__cli___emit
+    packages__nl2uri__nl2uri__cli__task --> packages__uri3__uri3__graph__graph_validator__validate_workflow_graph
+    packages__nl2uri__nl2uri__cli__task --> packages__uri3__uri3__graph__graph_executor__dry_run_workflow
+    packages__nl2uri__nl2uri__cli__task --> packages__nl2uri__nl2uri__cli___resolve_use_llm
+    packages__nl2uri__nl2uri__cli__graph --> packages__nl2uri__nl2uri__graph_planner__plan_workflow_graph
+    packages__nl2uri__nl2uri__cli__graph --> packages__nl2uri__nl2uri__cli___emit
+    packages__nl2uri__nl2uri__cli__graph --> packages__uri3__uri3__graph__graph_validator__validate_workflow_graph
+    packages__nl2uri__nl2uri__cli__graph --> packages__uri3__uri3__graph__graph_executor__dry_run_workflow
+    packages__nl2uri__nl2uri__cli__graph --> packages__nl2uri__nl2uri__cli___resolve_use_llm
+    packages__nl2uri__nl2uri__cli__generate --> packages__nl2uri__nl2uri__domain_planner__plan_from_prompt
+    packages__nl2uri__nl2uri__cli__generate --> packages__nl2uri__nl2uri__cli___emit
+    packages__nl2uri__nl2uri__cli__generate --> nl2uri__writer__write_uri_tree
+    packages__nl2uri__nl2uri__cli__generate --> packages__uri3__uri3__validators__uri_tree_validator__validate_uri_tree
     packages__nl2uri__nl2uri__llm_planner__llm_plan --> packages__nl2uri__nl2uri__domain_planner__plan_from_prompt
     packages__nl2uri__nl2uri__planner_llm__call_openrouter --> packages__uri3__uri3__config__llm_profiles__resolve_llm_profile
     packages__nl2uri__nl2uri__planner_llm__call_openrouter --> packages__nl2uri__nl2uri__planner_llm__extract_json
     packages__nl2uri__nl2uri__planner__rule_based_plan --> packages__nl2uri__nl2uri__domain_planner__plan_from_prompt
+    packages__nl2uri__nl2uri__graph_repair___coerce_operation --> packages__uri3__uri3__graph__operation_registry__allowed_operations
+    packages__nl2uri__nl2uri__graph_repair__normalize_to_kind --> packages__uri3__uri3__graph__graph_serializer__task_steps_to_graph
+    packages__nl2uri__nl2uri__graph_repair__normalize_to_kind --> uri2ops__operation_registry__models__OperationRegistry__list
+    packages__nl2uri__nl2uri__graph_repair__normalize_to_kind --> packages__nl2uri__nl2uri__graph_repair___slug
+    packages__nl2uri__nl2uri__graph_repair__sanitize_node --> packages__uri3__uri3__graph__operation_registry__scheme_from_uri
+    packages__nl2uri__nl2uri__graph_repair__sanitize_node --> packages__nl2uri__nl2uri__graph_repair___coerce_operation
+    packages__nl2uri__nl2uri__graph_repair___sanitize_nodes --> packages__nl2uri__nl2uri__graph_repair__sanitize_node
+    packages__nl2uri__nl2uri__graph_repair__repair_graph_body --> packages__nl2uri__nl2uri__graph_repair__normalize_to_kind
+    packages__nl2uri__nl2uri__graph_repair__repair_graph_body --> packages__nl2uri__nl2uri__graph_repair__extract_graph_payload
+    packages__nl2uri__nl2uri__graph_repair__repair_graph_body --> packages__nl2uri__nl2uri__graph_repair___sanitize_nodes
+    packages__nl2uri__nl2uri__graph_repair__repair_graph_body --> uri2ops__operation_registry__models__OperationRegistry__list
+    packages__nl2uri__nl2uri__graph_repair__repair_graph_body --> packages__nl2uri__nl2uri__graph_repair___slug
+    packages__nl2uri__nl2uri__graph_repair__repair_and_validate_graph --> packages__nl2uri__nl2uri__graph_repair__repair_graph_body
+    packages__nl2uri__nl2uri__graph_repair__repair_and_validate_graph --> packages__uri3__uri3__graph__graph_validator__validate_workflow_graph
+    packages__nl2uri__nl2uri__graph_repair__repair_and_validate_graph --> packages__uri3__uri3__graph__operation_registry__validate_node_operation
+    packages__nl2uri__nl2uri__graph_repair__repair_and_validate_graph --> packages__uri3__uri3__graph__graph_serializer__normalize_graph_payload
+    packages__nl2uri__nl2uri__graph_planner__plan_single --> packages__nl2uri__nl2uri__graph_planner___detect_agent_id
+    packages__nl2uri__nl2uri__graph_planner__plan_single --> packages__nl2uri__nl2uri__graph_planner__wrap_nl2uri_output
+    packages__nl2uri__nl2uri__graph_planner__plan_single --> packages__nl2uri__nl2uri__graph_planner___detect_health_uri
+    packages__nl2uri__nl2uri__graph_planner__plan_list --> packages__nl2uri__nl2uri__graph_planner___detect_health_uri
+    packages__nl2uri__nl2uri__graph_planner__plan_list --> packages__nl2uri__nl2uri__graph_planner__wrap_nl2uri_output
+    packages__nl2uri__nl2uri__graph_planner__plan_tree --> packages__nl2uri__nl2uri__domain_planner__plan_from_prompt
+    packages__nl2uri__nl2uri__graph_planner__plan_tree --> packages__nl2uri__nl2uri__graph_planner__wrap_nl2uri_output
+    packages__nl2uri__nl2uri__graph_planner__plan_task --> packages__nl2uri__nl2uri__graph_planner___detect_health_uri
+    packages__nl2uri__nl2uri__graph_planner__plan_task --> packages__nl2uri__nl2uri__graph_planner___slug
+    packages__nl2uri__nl2uri__graph_planner__plan_task --> packages__nl2uri__nl2uri__graph_planner__wrap_nl2uri_output
+    packages__nl2uri__nl2uri__graph_planner__plan_task --> packages__nl2uri__nl2uri__graph_planner_llm__plan_graph_with_llm
+    packages__nl2uri__nl2uri__graph_planner__plan_workflow_graph --> packages__nl2uri__nl2uri__graph_planner___slug
+    packages__nl2uri__nl2uri__graph_planner__plan_workflow_graph --> packages__nl2uri__nl2uri__graph_planner___detect_health_uri
+    packages__nl2uri__nl2uri__graph_planner__plan_workflow_graph --> packages__nl2uri__nl2uri__graph_planner__wrap_nl2uri_output
+    packages__nl2uri__nl2uri__graph_planner__plan_workflow_graph --> packages__nl2uri__nl2uri__graph_planner_llm__plan_graph_with_llm
+    packages__nl2uri__nl2uri__graph_planner__plan_workflow_graph --> packages__nl2uri__nl2uri__graph_planner__plan_task
+    packages__nl2uri__nl2uri__graph_planner__plan_auto --> packages__nl2uri__nl2uri__output_classifier__classify_output_kind
+    packages__nl2uri__nl2uri__graph_planner__plan_auto --> packages__nl2uri__nl2uri__graph_planner__plan_by_kind
     packages__nl2uri__nl2uri__domain_planner__plan_from_prompt --> packages__nl2uri__nl2uri__planner_templates__is_weather_prompt
     packages__nl2uri__nl2uri__domain_planner__plan_from_prompt --> packages__nl2uri__nl2uri__planner_templates__generic_plan
     packages__nl2uri__nl2uri__domain_planner__plan_from_prompt --> packages__nl2uri__nl2uri__planner_templates__deterministic_weather_plan
@@ -576,6 +814,15 @@ flowchart TD
     packages__nl2uri__nl2uri__pipeline__run_full_pipeline --> hypervisor__contract_registry__registry_builder__write_registry_manifest
     packages__nl2uri__nl2uri__pipeline__run_full_pipeline --> generator__verify__verify_generated_agent
     packages__nl2uri__nl2uri__pipeline__run_full_pipeline --> packages__uri3__uri3__logs__writer__append_log
+    packages__nl2uri__nl2uri__graph_planner_llm__build_graph_planner_system_prompt --> packages__uri3__uri3__graph__operation_registry__operation_registry_summary
+    packages__nl2uri__nl2uri__graph_planner_llm__call_graph_planner_llm --> packages__uri3__uri3__config__llm_profiles__resolve_llm_profile
+    packages__nl2uri__nl2uri__graph_planner_llm__call_graph_planner_llm --> packages__nl2uri__nl2uri__graph_planner_llm__build_graph_planner_system_prompt
+    packages__nl2uri__nl2uri__graph_planner_llm__call_graph_planner_llm --> packages__nl2uri__nl2uri__planner_llm__extract_json
+    packages__nl2uri__nl2uri__graph_planner_llm__plan_graph_with_llm --> packages__nl2uri__nl2uri__graph_planner_llm__call_graph_planner_llm
+    packages__nl2uri__nl2uri__graph_planner_llm__plan_graph_with_llm --> packages__nl2uri__nl2uri__graph_planner__wrap_nl2uri_output
+    packages__nl2uri__nl2uri__graph_planner_llm__plan_graph_with_llm --> packages__nl2uri__nl2uri__graph_repair__repair_and_validate_graph
+    packages__nl2uri__nl2uri__graph_planner_llm__plan_graph_with_llm --> uri2ops__operation_registry__models__OperationRegistry__list
+    packages__nl2uri__nl2uri__planner_validation__validate_tree_data --> uri2ops__operation_registry__models__OperationRegistry__list
     packages__nl2uri__nl2uri__planner_validation__normalize_llm_tree --> packages__nl2uri__nl2uri__planner_templates__is_weather_prompt
     packages__nl2uri__nl2uri__planner_validation__normalize_llm_tree --> packages__nl2uri__nl2uri__planner_validation__validate_tree_data
     packages__nl2uri__nl2uri__planner_validation__normalize_llm_tree --> packages__nl2uri__nl2uri__planner_templates__deterministic_weather_plan
@@ -639,7 +886,9 @@ flowchart TD
     packages__resource_agent_hypervisor__hypervisor__cli__deploy_agent_cmd --> packages__resource_agent_hypervisor__hypervisor__cli_commands__deploy_agent
     packages__resource_agent_hypervisor__hypervisor__cli__verify_agent_cmd --> packages__resource_agent_hypervisor__hypervisor__cli_commands__verify_agent
     packages__resource_agent_hypervisor__hypervisor__cli__docker_cmd --> packages__resource_agent_hypervisor__hypervisor__cli_commands__call_docker
+    packages__resource_agent_hypervisor__hypervisor__cli__main --> uri2ops__operation_registry__models__OperationRegistry__list
     packages__resource_agent_hypervisor__hypervisor__core__Hypervisor__from_config --> packages__resource_agent_hypervisor__hypervisor__config__loader__load_config
+    packages__resource_agent_hypervisor__hypervisor__core__Hypervisor__status --> uri2ops__operation_registry__models__OperationRegistry__list
     packages__resource_agent_hypervisor__hypervisor__cli_commands__run_local_agent --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__selector__resolve_deployment
     packages__resource_agent_hypervisor__hypervisor__cli_commands__run_local_agent --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__run_plans__build_run_plan
     packages__resource_agent_hypervisor__hypervisor__cli_commands__run_local_agent --> packages__resource_agent_hypervisor__hypervisor__cli_commands__echo_json
@@ -698,6 +947,7 @@ flowchart TD
     packages__resource_agent_hypervisor__hypervisor__config__validators__validate_config --> packages__resource_agent_hypervisor__hypervisor__config__config_checks__validate_llm
     packages__resource_agent_hypervisor__hypervisor__config__validators__validate_config --> packages__resource_agent_hypervisor__hypervisor__config__config_checks__validate_uri3
     packages__resource_agent_hypervisor__hypervisor__config__validators__validate_config --> packages__resource_agent_hypervisor__hypervisor__config__config_checks__validate_path_sections
+    hypervisor__config__models__HypervisorConfig__to_dict --> uri2ops__operation_registry__models__OperationRegistry__list
     hypervisor__config__env__apply_legacy_env_overrides --> hypervisor__config__env___parse_bool
     hypervisor__config__env__apply_env_overrides --> hypervisor__config__env__apply_legacy_env_overrides
     hypervisor__config__env__apply_env_overrides --> hypervisor__config__env__apply_structured_env_overrides
@@ -781,171 +1031,8 @@ flowchart TD
     packages__resource_agent_hypervisor__hypervisor__deployment_registry__env_config__load_deployments_uri_config --> packages__uri3__uri3__config__uri_yaml__load_uri_yaml
     packages__resource_agent_hypervisor__hypervisor__deployment_registry__env_config__load_deployments_uri_config --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__env_config__repo_config_dir
     packages__resource_agent_hypervisor__hypervisor__deployment_registry__env_config__load_runtime_uri_config --> packages__uri3__uri3__config__uri_yaml__load_uri_yaml
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__env_config__load_runtime_uri_config --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__env_config__repo_config_dir
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__loader__load_deployment_registry --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__loader___read_yaml
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__loader__load_deployment_registry --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__loader__default_registry_path
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__loader__load_deployment_registry --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__loader___parse_deployment
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__docker_runner__docker_uri_for_deployment --> packages__uri3__uri3__resolvers__docker_resolver__parse_docker_uri
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__docker_runner__build_docker_deploy_plan --> packages__uri3__uri3__docker__controller__control_docker
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__docker_runner__build_docker_deploy_plan --> packages__uri3__uri3__config__repo_root__find_repo_root
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__docker_runner__build_docker_deploy_plan --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__docker_runner__docker_uri_for_deployment
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__docker_runner__build_docker_control_plan --> packages__uri3__uri3__docker__controller__control_docker
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__docker_runner__build_docker_control_plan --> packages__uri3__uri3__config__repo_root__find_repo_root
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__docker_runner__apply_docker_deploy --> packages__uri3__uri3__docker__controller__control_docker
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__docker_runner__apply_docker_deploy --> packages__uri3__uri3__config__repo_root__find_repo_root
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__docker_runner__stop_docker_deployment --> packages__uri3__uri3__docker__controller__control_docker
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__docker_runner__stop_docker_deployment --> packages__uri3__uri3__config__repo_root__find_repo_root
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__docker_runner__verify_docker_deployment --> packages__uri3__uri3__scanner__docker_scanner__scan_docker
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__docker_runner__verify_docker_deployment --> packages__uri3__uri3__scanner__http_scanner__scan_http
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__docker_runner__verify_docker_deployment --> packages__uri3__uri3__scanner__http_scanner__health_scan_ok
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__status__deployment_from_uri_tree --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__status__deployment_id_for_agent
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__status__deployment_from_uri_tree --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__status__infer_card_uri
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__status__deployment_from_uri_tree --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__status__infer_health_uri
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__status__sync_from_uri_tree --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__status__deployment_from_uri_tree
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__status__sync_from_uri_tree --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__loader__load_deployment_registry
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__status__sync_from_uri_tree --> hypervisor__deployment_registry__writer__upsert_deployment
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__status__sync_from_uri_tree --> hypervisor__deployment_registry__writer__save_deployment_registry
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__status__list_deployments --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__loader__load_deployment_registry
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__status__get_deployment_for_agent --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__loader__load_deployment_registry
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__status__registry_summary --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__loader__load_deployment_registry
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__run_plans__build_run_plan --> packages__uri3__uri3__config__repo_root__find_repo_root
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__run_plans__build_run_plan --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__local_targets__build_local_run_plan
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__run_plans__build_run_plan --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__ssh_run__build_ssh_run_plan
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__run_plans__build_run_plan --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__docker_runner__build_docker_control_plan
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__local_targets__local_target_to_module --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__local_targets__local_target_to_relative_path
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__local_targets__build_local_run_plan --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__local_targets__local_target_to_module
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__local_targets__build_local_run_plan --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__env__resolve_deployment_env
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__local_targets__build_local_run_plan --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__status__infer_port
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__local_targets__build_local_run_plan --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__local_targets__local_target_to_relative_path
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__local_targets__build_local_run_plan --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__env__default_log_uri
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__env_merge__materialize_env_values --> packages__uri3__uri3__config__uri_yaml__resolve_uri_values
-    hypervisor__deployment_registry__writer__write_deployment_registry --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__loader__load_deployment_registry
-    hypervisor__deployment_registry__writer__write_deployment_registry --> hypervisor__deployment_registry__writer__save_deployment_registry
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__env__build_deployment_env_map --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__env_config__load_deployments_uri_config
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__env__build_deployment_env_map --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__env_config__load_runtime_uri_config
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__env__build_deployment_env_map --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__env_merge__merge_runtime_defaults
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__env__resolve_deployment_env --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__env__build_deployment_env_map
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__env__resolve_deployment_env --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__env_merge__materialize_env_values
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__env__default_log_uri --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__env_config__load_runtime_uri_config
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__ssh_run__build_ssh_run_plan --> packages__uri3__uri3__resolvers__ssh_resolver__parse_ssh_uri
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__ssh_run__build_ssh_run_plan --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__ssh_helpers__remote_module_for
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__ssh_run__build_ssh_run_plan --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__env__resolve_deployment_env
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__ssh_run__build_ssh_run_plan --> packages__uri3__uri3__resolvers__ssh_resolver__build_ssh_command
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__ssh_run__build_ssh_run_plan --> packages__uri3__uri3__config__repo_root__find_repo_root
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__ssh_run__build_ssh_run_plan --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__status__infer_port
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__ssh_deploy__build_ssh_deploy_plan --> packages__uri3__uri3__resolvers__ssh_resolver__parse_ssh_uri
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__ssh_deploy__build_ssh_deploy_plan --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__ssh_helpers__generated_agent_dir
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__ssh_deploy__build_ssh_deploy_plan --> packages__uri3__uri3__resolvers__ssh_resolver__ssh_transport_option
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__ssh_deploy__build_ssh_deploy_plan --> packages__uri3__uri3__config__repo_root__find_repo_root
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__ssh_deploy__apply_ssh_deploy_plan --> packages__uri3__uri3__resolvers__ssh_resolver__parse_ssh_uri
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__ssh_deploy__apply_ssh_deploy_plan --> packages__uri3__uri3__resolvers__ssh_resolver__build_ssh_command
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__selector__resolve_deployment --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__loader__load_deployment_registry
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__ssh_verify__verify_remote_deployment --> packages__uri3__uri3__resolvers__ssh_resolver__parse_ssh_uri
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__ssh_verify__verify_remote_deployment --> packages__uri3__uri3__scanner__ssh_scanner__scan_ssh
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__ssh_verify__verify_remote_deployment --> packages__uri3__uri3__scanner__http_scanner__scan_http
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__ssh_verify__verify_remote_deployment --> packages__uri3__uri3__scanner__http_scanner__health_scan_ok
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__runtime_state__runtime_root --> packages__uri3__uri3__config__repo_root__find_repo_root
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__runtime_state__state_path --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__runtime_state__runtime_root
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__runtime_state__load_runtime_state --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__runtime_state__state_path
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__runtime_state__save_runtime_state --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__runtime_state__state_path
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__runtime_state__clear_runtime_state --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__runtime_state__state_path
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__runtime_state__runtime_status --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__runtime_state__load_runtime_state
-    packages__resource_agent_hypervisor__hypervisor__deployment_registry__runtime_state__runtime_status --> packages__resource_agent_hypervisor__hypervisor__deployment_registry__runtime_state__is_process_alive
-    hypervisor__compatibility__checker__classify_registry_change --> hypervisor__contract_registry__loader__load_contract_registry
-    hypervisor__compatibility__checker__classify_registry_change --> hypervisor__compatibility__checker___load_policy
-    packages__uri3__uri3__graph__adapters__browser_playwright__PlaywrightBrowserAdapter__execute --> packages__uri3__uri3__graph__adapters__browser_playwright___session_state
-    packages__uri3__uri3__graph__adapters__browser_playwright__PlaywrightBrowserAdapter__execute --> packages__uri3__uri3__graph__artifacts__write_artifact
-    packages__uri3__uri3__graph__adapters__browser_router__resolve_browser_mode --> packages__uri3__uri3__graph__adapters__browser_router___playwright_ready
-    packages__uri3__uri3__graph__adapters__browser_router__BrowserRouterAdapter__execute --> packages__uri3__uri3__graph__adapters__browser_router__resolve_browser_mode
-    packages__uri3__uri3__graph__adapters__browser_router__cleanup_browser_adapters --> packages__uri3__uri3__graph__adapters__browser_playwright__close_playwright_session
-    packages__uri3__uri3__protocols__schemes__spec_registry__get_scheme_schema --> packages__uri3__uri3__protocols__schemes__instance_parser__normalize_scheme
-    packages__uri3__uri3__graph__event_log__append_workflow_event --> packages__uri3__uri3__graph__event_log__workflow_event_path
-    packages__uri3__uri3__graph__event_log__append_workflow_event --> packages__uri3__uri3__graph__execution_models__utc_now_iso
-    packages__uri3__uri3__graph__adapters__browser_mock__BrowserMockAdapter__execute --> packages__uri3__uri3__graph__artifacts__write_artifact
-    packages__uri3__uri3__graph__adapters__browser_mock__BrowserMockAdapter__execute --> packages__uri3__uri3__graph__adapters__browser_mock__json_dumps
-    packages__uri3__uri3__resolvers__dispatch___resolve_docker --> packages__uri3__uri3__resolvers__docker_resolver__resolve_docker
-    packages__uri3__uri3__resolvers__dispatch__resolve_target --> packages__uri3__uri3__resolvers__protocol_resolver__resolve_resource
-    packages__uri3__uri3__config__uri_yaml__resolve_uri_values --> packages__uri3__uri3__config__uri_yaml__is_uri
-    packages__uri3__uri3__config__uri_yaml__resolve_uri_values --> uri3__resolvers__http_resolver__HttpResolver__resolve
-    packages__uri3__uri3__config__uri_yaml__resolve_uri_values --> packages__uri3__uri3__resolvers__env_resolver__resolve_env
-    packages__uri3__uri3__graph__graph_validator___schema_path --> packages__uri3__uri3__config__repo_root__find_repo_root
-    packages__uri3__uri3__graph__graph_validator__load_workflow_graph --> packages__uri3__uri3__graph__graph_serializer__normalize_graph_payload
-    packages__uri3__uri3__graph__graph_validator__load_workflow_graph --> packages__uri3__uri3__graph__graph_serializer__task_steps_to_graph
-    packages__uri3__uri3__graph__graph_validator__validate_workflow_schema --> packages__uri3__uri3__graph__graph_validator___schema_path
-    packages__uri3__uri3__graph__graph_validator__validate_workflow_graph --> packages__uri3__uri3__graph__graph_validator__load_workflow_graph
-    packages__uri3__uri3__graph__graph_validator__validate_workflow_graph --> packages__uri3__uri3__graph__graph_validator__validate_workflow_schema
-    packages__uri3__uri3__graph__graph_validator__validate_workflow_graph --> packages__uri3__uri3__graph__dependency_graph__detect_cycles
-    packages__uri3__uri3__graph__graph_validator__validate_workflow_graph --> uri3__validators__uri_validator__validate_uri
-    packages__uri3__uri3__graph__policy__can_execute_step --> packages__uri3__uri3__graph__operation_registry__effective_kind
-    packages__uri3__uri3__graph__policy__can_execute_step --> packages__uri3__uri3__graph__operation_registry__requires_approval
-    packages__uri3__uri3__graph__dependency_graph__topological_sort --> packages__uri3__uri3__graph__dependency_graph__detect_cycles
-    packages__uri3__uri3__graph__dependency_graph__dependency_summary --> packages__uri3__uri3__graph__dependency_graph__detect_cycles
-    packages__uri3__uri3__graph__dependency_graph__dependency_summary --> packages__uri3__uri3__graph__dependency_graph__topological_sort
-    packages__uri3__uri3__graph__operation_registry__effective_kind --> packages__uri3__uri3__graph__operation_registry__scheme_from_uri
-    packages__uri3__uri3__graph__operation_registry__requires_approval --> packages__uri3__uri3__graph__operation_registry__effective_kind
-    packages__uri3__uri3__graph__operation_registry__validate_node_operation --> packages__uri3__uri3__graph__operation_registry__scheme_from_uri
-    packages__uri3__uri3__graph__operation_registry__validate_node_operation --> packages__uri3__uri3__graph__operation_registry__allowed_operations
-    packages__nl2uri__nl2uri__graph_planner_llm__build_graph_planner_system_prompt --> packages__uri3__uri3__graph__operation_registry__operation_registry_summary
-    packages__nl2uri__nl2uri__graph_planner_llm__call_graph_planner_llm --> packages__uri3__uri3__config__llm_profiles__resolve_llm_profile
-    packages__nl2uri__nl2uri__graph_planner_llm__call_graph_planner_llm --> packages__nl2uri__nl2uri__graph_planner_llm__build_graph_planner_system_prompt
-    packages__nl2uri__nl2uri__graph_planner_llm__call_graph_planner_llm --> packages__nl2uri__nl2uri__planner_llm__extract_json
-    packages__nl2uri__nl2uri__graph_planner_llm__plan_graph_with_llm --> packages__nl2uri__nl2uri__graph_planner_llm__call_graph_planner_llm
-    packages__nl2uri__nl2uri__graph_planner_llm__plan_graph_with_llm --> packages__nl2uri__nl2uri__graph_planner__wrap_nl2uri_output
-    packages__nl2uri__nl2uri__graph_planner_llm__plan_graph_with_llm --> packages__nl2uri__nl2uri__graph_repair__repair_and_validate_graph
-    packages__nl2uri__nl2uri__cli___resolve_use_llm --> packages__nl2uri__nl2uri__cli___default_use_llm
-    packages__nl2uri__nl2uri__cli___plan_command --> packages__nl2uri__nl2uri__graph_planner__plan_by_kind
-    packages__nl2uri__nl2uri__cli___plan_command --> packages__nl2uri__nl2uri__cli___emit
-    packages__nl2uri__nl2uri__cli___plan_command --> packages__uri3__uri3__graph__graph_validator__validate_workflow_graph
-    packages__nl2uri__nl2uri__cli__plan --> packages__nl2uri__nl2uri__graph_planner__plan_auto
-    packages__nl2uri__nl2uri__cli__plan --> packages__nl2uri__nl2uri__cli___emit
-    packages__nl2uri__nl2uri__cli__plan --> packages__uri3__uri3__graph__graph_validator__validate_workflow_graph
-    packages__nl2uri__nl2uri__cli__plan --> packages__nl2uri__nl2uri__cli___resolve_use_llm
-    packages__nl2uri__nl2uri__cli__classify --> packages__nl2uri__nl2uri__cli___emit
-    packages__nl2uri__nl2uri__cli__classify --> packages__nl2uri__nl2uri__output_classifier__classify_output_kind
-    packages__nl2uri__nl2uri__cli__single --> packages__nl2uri__nl2uri__cli___plan_command
-    packages__nl2uri__nl2uri__cli__list_cmd --> packages__nl2uri__nl2uri__cli___plan_command
-    packages__nl2uri__nl2uri__cli__tree --> packages__nl2uri__nl2uri__graph_planner__plan_tree
-    packages__nl2uri__nl2uri__cli__tree --> packages__nl2uri__nl2uri__cli___emit
-    packages__nl2uri__nl2uri__cli__tree --> nl2uri__writer__write_uri_tree
-    packages__nl2uri__nl2uri__cli__tree --> packages__uri3__uri3__validators__uri_tree_validator__validate_uri_tree
-    packages__nl2uri__nl2uri__cli__task --> packages__nl2uri__nl2uri__graph_planner__plan_task
-    packages__nl2uri__nl2uri__cli__task --> packages__nl2uri__nl2uri__cli___emit
-    packages__nl2uri__nl2uri__cli__task --> packages__uri3__uri3__graph__graph_validator__validate_workflow_graph
-    packages__nl2uri__nl2uri__cli__task --> packages__uri3__uri3__graph__graph_executor__dry_run_workflow
-    packages__nl2uri__nl2uri__cli__task --> packages__nl2uri__nl2uri__cli___resolve_use_llm
-    packages__nl2uri__nl2uri__cli__graph --> packages__nl2uri__nl2uri__graph_planner__plan_workflow_graph
-    packages__nl2uri__nl2uri__cli__graph --> packages__nl2uri__nl2uri__cli___emit
-    packages__nl2uri__nl2uri__cli__graph --> packages__uri3__uri3__graph__graph_validator__validate_workflow_graph
-    packages__nl2uri__nl2uri__cli__graph --> packages__uri3__uri3__graph__graph_executor__dry_run_workflow
-    packages__nl2uri__nl2uri__cli__graph --> packages__nl2uri__nl2uri__cli___resolve_use_llm
-    packages__nl2uri__nl2uri__cli__generate --> packages__nl2uri__nl2uri__domain_planner__plan_from_prompt
-    packages__nl2uri__nl2uri__cli__generate --> packages__nl2uri__nl2uri__cli___emit
-    packages__nl2uri__nl2uri__cli__generate --> nl2uri__writer__write_uri_tree
-    packages__nl2uri__nl2uri__cli__generate --> packages__uri3__uri3__validators__uri_tree_validator__validate_uri_tree
-    packages__nl2uri__nl2uri__graph_planner__plan_single --> packages__nl2uri__nl2uri__graph_planner___detect_agent_id
-    packages__nl2uri__nl2uri__graph_planner__plan_single --> packages__nl2uri__nl2uri__graph_planner__wrap_nl2uri_output
-    packages__nl2uri__nl2uri__graph_planner__plan_single --> packages__nl2uri__nl2uri__graph_planner___detect_health_uri
-    packages__nl2uri__nl2uri__graph_planner__plan_list --> packages__nl2uri__nl2uri__graph_planner___detect_health_uri
-    packages__nl2uri__nl2uri__graph_planner__plan_list --> packages__nl2uri__nl2uri__graph_planner__wrap_nl2uri_output
-    packages__nl2uri__nl2uri__graph_planner__plan_tree --> packages__nl2uri__nl2uri__domain_planner__plan_from_prompt
-    packages__nl2uri__nl2uri__graph_planner__plan_tree --> packages__nl2uri__nl2uri__graph_planner__wrap_nl2uri_output
-    packages__nl2uri__nl2uri__graph_planner__plan_task --> packages__nl2uri__nl2uri__graph_planner___detect_health_uri
-    packages__nl2uri__nl2uri__graph_planner__plan_task --> packages__nl2uri__nl2uri__graph_planner___slug
-    packages__nl2uri__nl2uri__graph_planner__plan_task --> packages__nl2uri__nl2uri__graph_planner__wrap_nl2uri_output
-    packages__nl2uri__nl2uri__graph_planner__plan_task --> packages__nl2uri__nl2uri__graph_planner_llm__plan_graph_with_llm
-    packages__nl2uri__nl2uri__graph_planner__plan_workflow_graph --> packages__nl2uri__nl2uri__graph_planner___slug
-    packages__nl2uri__nl2uri__graph_planner__plan_workflow_graph --> packages__nl2uri__nl2uri__graph_planner___detect_health_uri
-    packages__nl2uri__nl2uri__graph_planner__plan_workflow_graph --> packages__nl2uri__nl2uri__graph_planner__wrap_nl2uri_output
-    packages__nl2uri__nl2uri__graph_planner__plan_workflow_graph --> packages__nl2uri__nl2uri__graph_planner_llm__plan_graph_with_llm
-    packages__nl2uri__nl2uri__graph_planner__plan_workflow_graph --> packages__nl2uri__nl2uri__graph_planner__plan_task
-    packages__nl2uri__nl2uri__graph_planner__plan_auto --> packages__nl2uri__nl2uri__output_classifier__classify_output_kind
-    packages__nl2uri__nl2uri__graph_planner__plan_auto --> packages__nl2uri__nl2uri__graph_planner__plan_by_kind
-    packages__uri3__uri3__cli___quick_reference --> packages__uri3__uri3__config__cli_shortcuts__scan_shortcuts
-    packages__uri3__uri3__cli___quick_reference --> packages__uri3__uri3__config__cli_shortcuts__cli_examples
-    packages__uri3__uri3__cli___list_payload --> packages__uri3__uri3__config__cli_shortcuts__cli_examples
-    packages__uri3__uri3__cli___list_payload --> packages__uri3__uri3__protocols__schemes__spec_registry__list_schemes
 
     classDef highCC fill:#ff6b6b,stroke:#c92a2a,color:#fff
     classDef medCC fill:#ffd43b,stroke:#f08c00,color:#000
-    class packages__uri3__uri3__config__uri_yaml__resolve_uri_values,packages__nl2uri__nl2uri__output_classifier__classify_output_kind,packages__uri3__uri3__graph__dependency_graph__detect_cycles,packages__uri3__uri3__graph__graph_executor__run_workflow,packages__nl2uri__nl2uri__graph_repair__sanitize_node highCC
-    class packages__uri3__uri3__logs__parsing__parse_json_entry,packages__uri3__uri3__logs__reader__read_logs,uri3__graph__uri_graph__build_graph_from_tree,packages__uri3__uri3__docker__controller__control_docker,packages__uri3__uri3__docker__actions__container__control_container,packages__uri3__uri3__docker__actions__compose__control_compose_up,packages__uri3__uri3__scanner__ssh_scanner___connectivity_item,packages__uri3__uri3__protocols__schemes__analyze___analyze_query,packages__uri3__uri3__config__ssh_auth___resolve_password_value,packages__uri3__uri3__config__ssh_auth__resolve_ssh_password,packages__uri3__uri3__config__llm_profiles__resolve_llm_profile,packages__uri3__uri3__resolvers__ssh_resolver__parse_ssh_uri,packages__uri3__uri3__resolvers__docker_resolver__parse_docker_uri,packages__uri3__uri3__resolvers__env_resolver__call_env,packages__uri3__uri3__resolvers__resolve_core__call,packages__uri3__uri3__resolvers__log_query__resolve_path,generator__validate__validate_agent,generator__verify__main,packages__nl2uri__nl2uri__planner_validation__is_structured_uri_tree,meta_agent__planner__infer_intent,meta_agent__planner__intent_to_agent_spec,meta_agent__repair__rules__repair_resource_read_capability,packages__resource_agent_hypervisor__hypervisor__config__uri_config__apply_uri_yaml_configs,hypervisor__config__env__apply_structured_env_overrides,packages__resource_agent_hypervisor__hypervisor__evolution__cli__main,hypervisor__contract_registry__loader__load_contract_registry,packages__resource_agent_hypervisor__hypervisor__contract_registry__cross_checks__capabilities__validate_capability_cross_refs,packages__resource_agent_hypervisor__hypervisor__deployment_registry__lifecycle__run_agent,packages__resource_agent_hypervisor__hypervisor__deployment_registry__docker_runner__verify_docker_deployment,packages__resource_agent_hypervisor__hypervisor__deployment_registry__status__deployment_from_uri_tree medCC
+    class packages__uri3__uri3__graph__dependency_graph__detect_cycles,packages__uri3__uri3__graph__graph_executor__run_workflow,packages__uri3__uri3__config__uri_yaml__resolve_uri_values,packages__nl2uri__nl2uri__graph_repair__sanitize_node,packages__nl2uri__nl2uri__output_classifier__classify_output_kind highCC
+    class packages__uri3__uri3__cli__scan,packages__uri3__uri3__logs__parsing__parse_json_entry,packages__uri3__uri3__logs__reader__read_logs,packages__uri3__uri3__graph__graph_serializer__normalize_graph_payload,packages__uri3__uri3__graph__dependency_graph__topological_sort,packages__uri3__uri3__graph__dependency_graph__dependency_summary,uri3__graph__uri_graph__build_graph_from_tree,packages__uri3__uri3__graph__models__GraphNode__to_dict,packages__uri3__uri3__graph__graph_validator__load_workflow_graph,packages__uri3__uri3__graph__graph_validator__validate_workflow_graph,packages__uri3__uri3__graph__adapters__browser_mock__BrowserMockAdapter__execute,packages__uri3__uri3__graph__adapters__registry__AssertionAdapter__execute,packages__uri3__uri3__graph__adapters__registry__HypervisorAdapter__execute,packages__uri3__uri3__graph__adapters__browser_playwright__PlaywrightBrowserAdapter__execute,packages__uri3__uri3__docker__controller__control_docker,packages__uri3__uri3__docker__actions__container__control_container,packages__uri3__uri3__docker__actions__compose__control_compose_up,packages__uri3__uri3__scanner__ssh_scanner___connectivity_item,packages__uri3__uri3__protocols__schemes__analyze___analyze_query,packages__uri3__uri3__config__ssh_auth___resolve_password_value,packages__uri3__uri3__config__ssh_auth__resolve_ssh_password,packages__uri3__uri3__config__llm_profiles__resolve_llm_profile,packages__uri3__uri3__resolvers__ssh_resolver__parse_ssh_uri,packages__uri3__uri3__resolvers__docker_resolver__parse_docker_uri,packages__uri3__uri3__resolvers__env_resolver__call_env,packages__uri3__uri3__resolvers__resolve_core__call,packages__uri3__uri3__resolvers__log_query__resolve_path,generator__validate__validate_agent,generator__verify__main,packages__nl2uri__nl2uri__graph_repair__extract_graph_payload medCC

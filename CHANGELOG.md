@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.10] - 2026-06-14
 
 ### Fixed
+- Fix unused-imports issues (ticket-87d349be)
+- Fix unused-imports issues (ticket-7beb6f42)
+- Fix unused-imports issues (ticket-1bfcaeeb)
+
+## [0.1.10] - 2026-06-14
+
+### Fixed
 - Fix unused-imports issues (ticket-e4a8078c)
 
 ## [0.1.10] - 2026-06-14
@@ -367,6 +374,44 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fix smart-return-type issues (ticket-780e8124)
 
 ## [Unreleased]
+
+## [0.5.11] - 2026-06-14
+
+### Docs
+- Update CHANGELOG.md
+- Update README.md
+- Update SUMD.md
+- Update SUMR.md
+- Update TODO.md
+- Update docs/OPERATOR_RUNTIME.md
+- Update docs/OPERATOR_SECURITY.md
+- Update docs/URI_OPERATION_REGISTRY.md
+- Update examples/10_browser_operator/README.md
+- Update examples/11_playwright_browser/README.md
+- ... and 8 more files
+
+### Test
+- Update tests/test_operation_registry.py
+- Update tests/test_operator_task.py
+- Update tests/test_uri2ops_android.py
+- Update tests/test_uri2ops_browser.py
+- Update tests/test_uri2ops_pcwin.py
+- Update tests/test_uri2ops_serve.py
+- Update tests/test_uri2ops_v01.py
+- Update tests/uri3/test_workflow_executor.py
+
+### Other
+- Update .gitignore
+- Update app.doql.less
+- Update config/extra_operator_registry.yaml
+- Update config/operator_policy.uri.yaml
+- Update config/operator_registry.uri.yaml
+- Update contracts/proto/operator/browser.proto
+- Update contracts/proto/operator/common.proto
+- Update contracts/proto/operator/events.proto
+- Update contracts/proto/operator/input.proto
+- Update contracts/proto/operator/screen.proto
+- ... and 63 more files
 
 ## [0.5.10] - 2026-06-14
 

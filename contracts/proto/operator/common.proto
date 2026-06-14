@@ -1,0 +1,20 @@
+syntax = "proto3";
+package operator.common.v1;
+
+message OperationContext {
+  string request_id = 1;
+  string actor = 2;
+  string target_uri = 3;
+  string operation = 4;
+  int64 requested_at = 5;
+  bool dry_run = 6;
+}
+
+message OperationResult {
+  bool ok = 1;
+  string target_uri = 2;
+  string operation = 3;
+  string artifact_uri = 4;
+  string error = 5;
+  string payload_json = 6;
+}

@@ -1,0 +1,35 @@
+task:
+  id: android-settings-smoke
+  description: Capture Android home screen, dump UI tree, and tap Settings.
+
+steps:
+  - id: screenshot_home
+    uri: android://device/emulator-5554/screenshot
+    operation: screenshot
+    kind: query
+
+  - id: dump_ui_tree
+    uri: android://device/emulator-5554/dump_ui
+    operation: dump_ui
+    kind: query
+    depends_on:
+      - screenshot_home
+
+  - id: tap_settings
+    uri: android://device/emulator-5554/tap
+    operation: tap
+    kind: command
+    payload:
+      selector: Settings
+    depends_on:
+      - dump_ui_tree
+
+  - id: verify_settings_visible
+    uri: assertion://contains
+    operation: check
+    kind: query
+    payload:
+      actual_from: dump_ui_tree.xml
+      expected: Settings
+    depends_on:
+      - tap_settings
