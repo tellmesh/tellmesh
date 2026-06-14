@@ -1,0 +1,1 @@
+Wygeneruj agenta pogodowego, uruchom go lokalnie, otwórz health w Chrome, sprawdź czy działa i jeśli nie działa pokaż logi.

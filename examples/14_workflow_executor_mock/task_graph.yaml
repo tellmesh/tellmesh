@@ -1,0 +1,28 @@
+task:
+  id: check-agent-health
+  description: Open browser mock, read DOM, assert health text.
+
+steps:
+  - id: open_health
+    uri: browser://chrome/page/open
+    operation: open
+    kind: command
+    payload:
+      url: http://localhost:8101/health
+
+  - id: extract_body
+    uri: dom://chrome/active/body
+    operation: read
+    kind: query
+    depends_on:
+      - open_health
+
+  - id: verify_ok
+    uri: assertion://contains
+    operation: check
+    kind: assertion
+    depends_on:
+      - extract_body
+    payload:
+      actual_from: extract_body.text
+      expected: ok

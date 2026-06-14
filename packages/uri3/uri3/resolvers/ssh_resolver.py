@@ -7,9 +7,6 @@ import subprocess
 from typing import Any
 from urllib.parse import urlparse
 
-from uri3.config.ssh_auth import resolve_ssh_password
-
-
 def parse_ssh_uri(uri: str) -> dict[str, Any]:
     parsed = urlparse(uri)
     if parsed.scheme != "ssh":
@@ -40,9 +37,15 @@ def parse_ssh_uri(uri: str) -> dict[str, Any]:
     }
 
 
+def _resolve_ssh_password(ref: dict[str, Any]) -> str | None:
+    from uri3.config.ssh_auth import resolve_ssh_password
+
+    return resolve_ssh_password(ref)
+
+
 def resolve_ssh(uri: str) -> dict[str, Any]:
     ref = parse_ssh_uri(uri)
-    password = resolve_ssh_password(ref)
+    password = _resolve_ssh_password(ref)
     payload = dict(ref)
     payload["password_configured"] = bool(password)
     payload["sshpass_available"] = bool(shutil.which("sshpass"))
@@ -74,7 +77,7 @@ def _ssh_options(ref: dict[str, Any], *, password: str | None) -> list[str]:
 
 
 def build_ssh_command(ref: dict[str, Any], remote_command: str | None = None) -> list[str]:
-    password = resolve_ssh_password(ref)
+    password = _resolve_ssh_password(ref)
     ssh_cmd = _ssh_options(ref, password=password)
     target = ref["target"]
     cmd = ssh_cmd + ([target, remote_command] if remote_command else [target])
@@ -89,7 +92,7 @@ def build_ssh_command(ref: dict[str, Any], remote_command: str | None = None) ->
 
 
 def ssh_transport_option(ref: dict[str, Any]) -> str:
-    password = resolve_ssh_password(ref)
+    password = _resolve_ssh_password(ref)
     ssh_cmd = " ".join(shlex.quote(part) for part in _ssh_options(ref, password=password))
     if password:
         if not shutil.which("sshpass"):

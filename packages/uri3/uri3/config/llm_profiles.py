@@ -4,20 +4,16 @@ import os
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
-from urllib.parse import parse_qs, urlparse
 
+from uri3.config.repo_root import config_repo_root as _repo_root
+from uri3.config.llm_profile_builder import (
+    chosen_profile_name,
+    normalize_model_name,
+    parse_llm_query,
+    resolve_profile_api_key,
+)
 from uri3.config.uri_yaml import load_uri_yaml
 from uri3.resolvers.llm_resolver import resolve_llm
-
-
-def _repo_root(root: Path | None = None) -> Path:
-    if root is not None:
-        return Path(root)
-    here = Path(__file__).resolve()
-    for parent in here.parents:
-        if (parent / "config" / "llm.uri.yaml").exists():
-            return parent
-    return Path.cwd()
 
 
 def llm_config_path(root: Path | None = None) -> Path:
@@ -29,20 +25,6 @@ def load_llm_config(root: Path | None = None) -> dict[str, Any]:
     if not path.exists():
         return {"version": 1, "defaults": {"profile": "default"}, "profiles": {}}
     return load_uri_yaml(path)
-
-
-def _parse_llm_query(model_uri: str) -> dict[str, Any]:
-    parsed = urlparse(model_uri)
-    query = parse_qs(parsed.query, keep_blank_values=True)
-    result: dict[str, Any] = {}
-    if "temp" in query or "temperature" in query:
-        raw = (query.get("temp") or query.get("temperature") or ["0.1"])[0]
-        result["temperature"] = float(raw)
-    if "max_tokens" in query:
-        result["max_tokens"] = int(query["max_tokens"][0])
-    if "format" in query:
-        result["format"] = query["format"][0]
-    return result
 
 
 @dataclass(frozen=True)
@@ -81,30 +63,17 @@ def resolve_llm_profile(
 ) -> LlmProfile:
     data = load_llm_config(root)
     profiles = data.get("profiles") or {}
-    chosen = (
-        profile_name
-        or os.environ.get("DEFAULT_LLM_PROFILE")
-        or (data.get("defaults") or {}).get("profile", "default")
-    )
+    chosen = chosen_profile_name(profile_name, data.get("defaults") or {})
     profile = profiles.get(chosen) or profiles.get("default") or {}
     model_uri = str(profile.get("model") or "llm://openrouter/qwen/qwen3-coder-next")
     llm_data = resolve_llm(model_uri)
-    query = _parse_llm_query(model_uri)
-    model = str(llm_data.get("model") or "")
-    if model.startswith("openrouter/"):
-        model = model.removeprefix("openrouter/")
-    api_key_uri = profile.get("api_key")
-    api_key = None
-    if resolve_secrets and isinstance(api_key_uri, str) and api_key_uri.startswith("env://"):
-        from uri3.resolvers.env_resolver import resolve_env
-
-        env = resolve_env(api_key_uri)
-        api_key = env.get("value")
+    query = parse_llm_query(model_uri)
+    model = normalize_model_name(str(llm_data.get("model") or ""))
     return LlmProfile(
         name=chosen,
         model_uri=model_uri,
         model=model,
-        api_key=api_key,
+        api_key=resolve_profile_api_key(profile.get("api_key"), resolve_secrets=resolve_secrets),
         provider=str(profile.get("provider") or llm_data.get("provider") or ""),
         base_url=str(llm_data.get("base_url") or os.getenv("LLM_BASE_URL", "https://openrouter.ai/api/v1")).rstrip("/"),
         temperature=float(query.get("temperature", os.getenv("LLM_TEMPERATURE", "0.1"))),

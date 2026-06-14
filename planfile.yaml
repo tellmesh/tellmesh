@@ -1291,19 +1291,6 @@ sprints:
     model_hints:
       planning: balanced
       implementation: balanced
-  - id: ticket-845746ab
-    name: Fix unused-imports issues
-    description: Resolve 4 unused-imports issues in packages/resource-agent-hypervisor/hypervisor/cli.py
-    task_type: prefactor
-    priority: medium
-    estimate: 2d
-    files:
-    - packages/resource-agent-hypervisor/hypervisor/cli.py
-    rule_id: unused-imports
-    count: 4
-    model_hints:
-      planning: balanced
-      implementation: balanced
   - id: ticket-8fe1ea3e
     name: Fix magic-numbers issues
     description: Resolve 1 magic-numbers issues in packages/resource-agent-hypervisor/hypervisor/cli.py
@@ -1314,6 +1301,19 @@ sprints:
     - packages/resource-agent-hypervisor/hypervisor/cli.py
     rule_id: magic-numbers
     count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-e4a8078c
+    name: Fix unused-imports issues
+    description: Resolve 14 unused-imports issues in packages/resource-agent-hypervisor/hypervisor/cli_commands.py
+    task_type: prefactor
+    priority: high
+    estimate: 3d
+    files:
+    - packages/resource-agent-hypervisor/hypervisor/cli_commands.py
+    rule_id: unused-imports
+    count: 14
     model_hints:
       planning: balanced
       implementation: balanced

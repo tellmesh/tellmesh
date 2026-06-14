@@ -1,35 +1,44 @@
-# redup/duplication | 8 groups | 159f 7322L | 2026-06-14
+# redup/duplication | 15 groups | 227f 10310L | 2026-06-14
 
 SUMMARY:
-  files_scanned: 159
-  total_lines:   7322
-  dup_groups:    8
-  dup_fragments: 20
-  saved_lines:   155
-  scan_ms:       2406
+  files_scanned: 227
+  total_lines:   10310
+  dup_groups:    15
+  dup_fragments: 41
+  saved_lines:   233
+  scan_ms:       2645
 
 HOTSPOTS[7] (files with most duplication):
-  packages/resource-agent-hypervisor/hypervisor/domain_pack/templates.py  dup=76L  groups=1  frags=3  (1.0%)
+  packages/resource-agent-hypervisor/hypervisor/domain_pack/templates.py  dup=76L  groups=1  frags=3  (0.7%)
+  packages/nl2uri/nl2uri/cli.py  dup=50L  groups=2  frags=4  (0.5%)
+  packages/uri3/uri3/protocols/schemes/instance_parser.py  dup=40L  groups=1  frags=10  (0.4%)
+  domains/weather_map/handlers/generate_weather_map.py  dup=18L  groups=1  frags=1  (0.2%)
+  packages/uri3/domains/weather_map/handlers/generate_weather_map.py  dup=18L  groups=1  frags=1  (0.2%)
   packages/resource-agent-factory/generator/header.py  dup=18L  groups=1  frags=3  (0.2%)
-  packages/uri3/uri3/protocols/schemes/a2a.py  dup=12L  groups=1  frags=1  (0.2%)
-  packages/uri3/uri3/protocols/schemes/mcp.py  dup=12L  groups=1  frags=1  (0.2%)
-  packages/uri3/uri3/resolvers/docker_resolver.py  dup=10L  groups=2  frags=2  (0.1%)
-  packages/uri3/uri3/resolvers/log_resolver.py  dup=10L  groups=2  frags=2  (0.1%)
-  packages/resource-agent-hypervisor/hypervisor/paths.py  dup=9L  groups=1  frags=1  (0.1%)
+  packages/uri3/uri3/cli.py  dup=14L  groups=1  frags=2  (0.1%)
 
-DUPLICATES[8] (ranked by impact):
+DUPLICATES[15] (ranked by impact):
   [49d1d03e6ce392a1] ! STRU  weather_proto  L=43 N=3 saved=86 sim=1.00
       packages/resource-agent-hypervisor/hypervisor/domain_pack/templates.py:36-78  (weather_proto)
       packages/resource-agent-hypervisor/hypervisor/domain_pack/templates.py:81-106  (weather_handler)
       packages/resource-agent-hypervisor/hypervisor/domain_pack/templates.py:109-115  (generic_handler)
-  [41a517b24660e0a8]   EXAC  find_repo_root  L=8 N=3 saved=16 sim=1.00
-      packages/resource-agent-factory/generator/paths.py:6-13  (find_repo_root)
-      packages/resource-agent-hypervisor/hypervisor/paths.py:6-14  (find_repo_root)
-      packages/uri3/uri3/paths.py:6-13  (find_repo_root)
-  [befef45cfb21329b]   STRU  _repo_root  L=8 N=3 saved=16 sim=1.00
-      packages/uri3/uri3/config/cli_shortcuts.py:9-16  (_repo_root)
-      packages/uri3/uri3/config/docker_stacks.py:9-16  (_repo_root)
-      packages/uri3/uri3/config/ssh_auth.py:10-17  (_repo_root)
+  [5ec23e21699e8ab6] ! STRU  _parse_env  L=4 N=10 saved=36 sim=1.00
+      packages/uri3/uri3/protocols/schemes/instance_parser.py:27-30  (_parse_env)
+      packages/uri3/uri3/protocols/schemes/instance_parser.py:33-36  (_parse_python)
+      packages/uri3/uri3/protocols/schemes/instance_parser.py:39-42  (_parse_llm)
+      packages/uri3/uri3/protocols/schemes/instance_parser.py:45-48  (_parse_pypi)
+      packages/uri3/uri3/protocols/schemes/instance_parser.py:51-54  (_parse_http)
+      packages/uri3/uri3/protocols/schemes/instance_parser.py:57-60  (_parse_a2a)
+      packages/uri3/uri3/protocols/schemes/instance_parser.py:63-66  (_parse_mcp)
+      packages/uri3/uri3/protocols/schemes/instance_parser.py:69-72  (_parse_docker)
+      packages/uri3/uri3/protocols/schemes/instance_parser.py:75-78  (_parse_ssh)
+      packages/uri3/uri3/protocols/schemes/instance_parser.py:81-84  (_parse_resource)
+  [3923fa783ad8b9c2]   STRU  task  L=19 N=2 saved=19 sim=1.00
+      packages/nl2uri/nl2uri/cli.py:130-148  (task)
+      packages/nl2uri/nl2uri/cli.py:152-170  (graph)
+  [1b86825b8b7cb469]   EXAC  handler  L=18 N=2 saved=18 sim=1.00
+      domains/weather_map/handlers/generate_weather_map.py:7-24  (handler)
+      packages/uri3/domains/weather_map/handlers/generate_weather_map.py:7-24  (handler)
   [277a3a34943f29ee]   STRU  python_file_header  L=6 N=3 saved=12 sim=1.00
       packages/resource-agent-factory/generator/header.py:21-26  (python_file_header)
       packages/resource-agent-factory/generator/header.py:29-34  (dockerfile_header)
@@ -37,64 +46,122 @@ DUPLICATES[8] (ranked by impact):
   [71dc3d2f70a63bf5]   STRU  spec  L=12 N=2 saved=12 sim=1.00
       packages/uri3/uri3/protocols/schemes/a2a.py:4-15  (spec)
       packages/uri3/uri3/protocols/schemes/mcp.py:4-15  (spec)
-  [603bddb5515ef0cd]   EXAC  _first  L=5 N=2 saved=5 sim=1.00
-      packages/uri3/uri3/resolvers/docker_resolver.py:59-63  (_first)
-      packages/uri3/uri3/resolvers/log_resolver.py:45-49  (_first)
-  [e83b50c620326a75]   EXAC  _bool  L=5 N=2 saved=5 sim=1.00
-      packages/uri3/uri3/resolvers/docker_resolver.py:66-70  (_bool)
-      packages/uri3/uri3/resolvers/log_resolver.py:62-66  (_bool)
+  [f69df3cd4d46eb5f]   STRU  _slug  L=4 N=3 saved=8 sim=1.00
+      packages/nl2uri/nl2uri/graph_planner.py:15-18  (_slug)
+      packages/nl2uri/nl2uri/graph_repair.py:30-33  (_slug)
+      packages/nl2uri/nl2uri/planner_templates.py:10-13  (slug)
+  [08d26c604b41d098]   STRU  validate_tree  L=7 N=2 saved=7 sim=1.00
+      packages/uri3/uri3/cli.py:120-126  (validate_tree)
+      packages/uri3/uri3/cli.py:145-151  (validate_workflow)
+  [c3b5ea290d7363ba]   STRU  single  L=6 N=2 saved=6 sim=1.00
+      packages/nl2uri/nl2uri/cli.py:91-96  (single)
+      packages/nl2uri/nl2uri/cli.py:100-105  (list_cmd)
+  [fdc7786ef049b370]   STRU  deploy_agent_cmd  L=6 N=2 saved=6 sim=1.00
+      packages/resource-agent-hypervisor/hypervisor/cli.py:111-116  (deploy_agent_cmd)
+      packages/resource-agent-hypervisor/hypervisor/cli.py:129-134  (docker_cmd)
+  [25db8c6fcea03672]   STRU  adjacency  L=6 N=2 saved=6 sim=1.00
+      packages/uri3/uri3/graph/dependency_graph.py:9-14  (adjacency)
+      packages/uri3/uri3/graph/dependency_graph.py:17-22  (reverse_adjacency)
+  [9a928c6cb43e19ba]   STRU  _first  L=5 N=2 saved=5 sim=1.00
+      packages/uri3/uri3/resolvers/docker_resolver.py:61-65  (_first)
+      packages/uri3/uri3/resolvers/log_query.py:7-11  (first)
+  [06621f22a60e830d]   STRU  _bool  L=5 N=2 saved=5 sim=1.00
+      packages/uri3/uri3/resolvers/docker_resolver.py:68-72  (_bool)
+      packages/uri3/uri3/resolvers/log_query.py:24-28  (query_bool)
+  [060fe645d32f78c5]   STRU  run_build_command  L=4 N=2 saved=4 sim=1.00
+      packages/resource-agent-hypervisor/hypervisor/contract_registry/cli_commands.py:33-36  (run_build_command)
+      packages/resource-agent-hypervisor/hypervisor/contract_registry/cli_commands.py:39-42  (run_export_md_command)
   [bc6d855bfb035b8b]   STRU  resolve_a2a  L=3 N=2 saved=3 sim=1.00
       packages/uri3/uri3/resolvers/protocol_resolver.py:10-12  (resolve_a2a)
       packages/uri3/uri3/resolvers/protocol_resolver.py:15-17  (resolve_mcp)
 
-REFACTOR[8] (ranked by priority):
+REFACTOR[15] (ranked by priority):
   [1] ○ extract_function   → packages/resource-agent-hypervisor/hypervisor/domain_pack/utils/weather_proto.py
       WHY: 3 occurrences of 43-line block across 1 files — saves 86 lines
       FILES: packages/resource-agent-hypervisor/hypervisor/domain_pack/templates.py
-  [2] ○ extract_function   → packages/utils/find_repo_root.py
-      WHY: 3 occurrences of 8-line block across 3 files — saves 16 lines
-      FILES: packages/resource-agent-factory/generator/paths.py, packages/resource-agent-hypervisor/hypervisor/paths.py, packages/uri3/uri3/paths.py
-  [3] ○ extract_function   → packages/uri3/uri3/config/utils/_repo_root.py
-      WHY: 3 occurrences of 8-line block across 3 files — saves 16 lines
-      FILES: packages/uri3/uri3/config/cli_shortcuts.py, packages/uri3/uri3/config/docker_stacks.py, packages/uri3/uri3/config/ssh_auth.py
-  [4] ○ extract_function   → packages/resource-agent-factory/generator/utils/python_file_header.py
+  [2] ○ extract_function   → packages/uri3/uri3/protocols/schemes/utils/_parse_env.py
+      WHY: 10 occurrences of 4-line block across 1 files — saves 36 lines
+      FILES: packages/uri3/uri3/protocols/schemes/instance_parser.py
+  [3] ○ extract_function   → packages/nl2uri/nl2uri/utils/task.py
+      WHY: 2 occurrences of 19-line block across 1 files — saves 19 lines
+      FILES: packages/nl2uri/nl2uri/cli.py
+  [4] ○ extract_function   → utils/handler.py
+      WHY: 2 occurrences of 18-line block across 2 files — saves 18 lines
+      FILES: domains/weather_map/handlers/generate_weather_map.py, packages/uri3/domains/weather_map/handlers/generate_weather_map.py
+  [5] ○ extract_function   → packages/resource-agent-factory/generator/utils/python_file_header.py
       WHY: 3 occurrences of 6-line block across 1 files — saves 12 lines
       FILES: packages/resource-agent-factory/generator/header.py
-  [5] ○ extract_function   → packages/uri3/uri3/protocols/schemes/utils/spec.py
+  [6] ○ extract_function   → packages/uri3/uri3/protocols/schemes/utils/spec.py
       WHY: 2 occurrences of 12-line block across 2 files — saves 12 lines
       FILES: packages/uri3/uri3/protocols/schemes/a2a.py, packages/uri3/uri3/protocols/schemes/mcp.py
-  [6] ○ extract_function   → packages/uri3/uri3/resolvers/utils/_first.py
+  [7] ○ extract_function   → packages/nl2uri/nl2uri/utils/_slug.py
+      WHY: 3 occurrences of 4-line block across 3 files — saves 8 lines
+      FILES: packages/nl2uri/nl2uri/graph_planner.py, packages/nl2uri/nl2uri/graph_repair.py, packages/nl2uri/nl2uri/planner_templates.py
+  [8] ○ extract_function   → packages/uri3/uri3/utils/validate_tree.py
+      WHY: 2 occurrences of 7-line block across 1 files — saves 7 lines
+      FILES: packages/uri3/uri3/cli.py
+  [9] ○ extract_function   → packages/nl2uri/nl2uri/utils/single.py
+      WHY: 2 occurrences of 6-line block across 1 files — saves 6 lines
+      FILES: packages/nl2uri/nl2uri/cli.py
+  [10] ○ extract_function   → packages/resource-agent-hypervisor/hypervisor/utils/deploy_agent_cmd.py
+      WHY: 2 occurrences of 6-line block across 1 files — saves 6 lines
+      FILES: packages/resource-agent-hypervisor/hypervisor/cli.py
+  [11] ○ extract_function   → packages/uri3/uri3/graph/utils/adjacency.py
+      WHY: 2 occurrences of 6-line block across 1 files — saves 6 lines
+      FILES: packages/uri3/uri3/graph/dependency_graph.py
+  [12] ○ extract_function   → packages/uri3/uri3/resolvers/utils/_first.py
       WHY: 2 occurrences of 5-line block across 2 files — saves 5 lines
-      FILES: packages/uri3/uri3/resolvers/docker_resolver.py, packages/uri3/uri3/resolvers/log_resolver.py
-  [7] ○ extract_function   → packages/uri3/uri3/resolvers/utils/_bool.py
+      FILES: packages/uri3/uri3/resolvers/docker_resolver.py, packages/uri3/uri3/resolvers/log_query.py
+  [13] ○ extract_function   → packages/uri3/uri3/resolvers/utils/_bool.py
       WHY: 2 occurrences of 5-line block across 2 files — saves 5 lines
-      FILES: packages/uri3/uri3/resolvers/docker_resolver.py, packages/uri3/uri3/resolvers/log_resolver.py
-  [8] ○ extract_function   → packages/uri3/uri3/resolvers/utils/resolve_a2a.py
+      FILES: packages/uri3/uri3/resolvers/docker_resolver.py, packages/uri3/uri3/resolvers/log_query.py
+  [14] ○ extract_function   → packages/resource-agent-hypervisor/hypervisor/contract_registry/utils/run_build_command.py
+      WHY: 2 occurrences of 4-line block across 1 files — saves 4 lines
+      FILES: packages/resource-agent-hypervisor/hypervisor/contract_registry/cli_commands.py
+  [15] ○ extract_function   → packages/uri3/uri3/resolvers/utils/resolve_a2a.py
       WHY: 2 occurrences of 3-line block across 1 files — saves 3 lines
       FILES: packages/uri3/uri3/resolvers/protocol_resolver.py
 
-QUICK_WINS[5] (low risk, high savings — do first):
+QUICK_WINS[11] (low risk, high savings — do first):
   [1] extract_function   saved=86L  → packages/resource-agent-hypervisor/hypervisor/domain_pack/utils/weather_proto.py
       FILES: templates.py
-  [2] extract_function   saved=16L  → packages/utils/find_repo_root.py
-      FILES: paths.py, paths.py, paths.py
-  [3] extract_function   saved=16L  → packages/uri3/uri3/config/utils/_repo_root.py
-      FILES: cli_shortcuts.py, docker_stacks.py, ssh_auth.py
-  [4] extract_function   saved=12L  → packages/resource-agent-factory/generator/utils/python_file_header.py
+  [2] extract_function   saved=36L  → packages/uri3/uri3/protocols/schemes/utils/_parse_env.py
+      FILES: instance_parser.py
+  [3] extract_function   saved=19L  → packages/nl2uri/nl2uri/utils/task.py
+      FILES: cli.py
+  [4] extract_function   saved=18L  → utils/handler.py
+      FILES: generate_weather_map.py, generate_weather_map.py
+  [5] extract_function   saved=12L  → packages/resource-agent-factory/generator/utils/python_file_header.py
       FILES: header.py
-  [5] extract_function   saved=12L  → packages/uri3/uri3/protocols/schemes/utils/spec.py
+  [6] extract_function   saved=12L  → packages/uri3/uri3/protocols/schemes/utils/spec.py
       FILES: a2a.py, mcp.py
+  [7] extract_function   saved=8L  → packages/nl2uri/nl2uri/utils/_slug.py
+      FILES: graph_planner.py, graph_repair.py, planner_templates.py
+  [8] extract_function   saved=7L  → packages/uri3/uri3/utils/validate_tree.py
+      FILES: cli.py
+  [9] extract_function   saved=6L  → packages/nl2uri/nl2uri/utils/single.py
+      FILES: cli.py
+  [10] extract_function   saved=6L  → packages/resource-agent-hypervisor/hypervisor/utils/deploy_agent_cmd.py
+      FILES: cli.py
 
-EFFORT_ESTIMATE (total ≈ 6.6h):
+DEPENDENCY_RISK[1] (duplicates spanning multiple packages):
+  handler  packages=2  files=2
+      domains/weather_map/handlers/generate_weather_map.py
+      packages/uri3/domains/weather_map/handlers/generate_weather_map.py
+
+EFFORT_ESTIMATE (total ≈ 9.8h):
   hard   weather_proto                       saved=86L  ~258min
-  medium find_repo_root                      saved=16L  ~32min
-  medium _repo_root                          saved=16L  ~32min
+  medium _parse_env                          saved=36L  ~72min
+  medium task                                saved=19L  ~38min
+  medium handler                             saved=18L  ~72min
   easy   python_file_header                  saved=12L  ~24min
   easy   spec                                saved=12L  ~24min
-  easy   _first                              saved=5L  ~10min
-  easy   _bool                               saved=5L  ~10min
-  easy   resolve_a2a                         saved=3L  ~6min
+  easy   _slug                               saved=8L  ~16min
+  easy   validate_tree                       saved=7L  ~14min
+  easy   single                              saved=6L  ~12min
+  easy   deploy_agent_cmd                    saved=6L  ~12min
+  ... +5 more (~46min)
 
 METRICS-TARGET:
-  dup_groups:  8 → 0
-  saved_lines: 155 lines recoverable
+  dup_groups:  15 → 0
+  saved_lines: 233 lines recoverable

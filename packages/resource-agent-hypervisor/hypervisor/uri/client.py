@@ -4,7 +4,6 @@ from uri3.graph.uri_graph import build_graph_from_tree
 from uri3.logs.reader import read_logs, summarize_logs
 from uri3.resolvers.router import Uri3Router, UriResolution, call, resolve
 from uri3.scanner.scanner import scan
-from nl2uri.planner import rule_based_plan
 
 
 class Uri3Client:
@@ -34,4 +33,6 @@ class Uri3Client:
         return build_graph_from_tree(path)
 
     def nl2uri(self, prompt: str):
+        from nl2uri.planner import rule_based_plan
+
         return rule_based_plan(prompt).tree

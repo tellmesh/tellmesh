@@ -4,17 +4,8 @@ import os
 from pathlib import Path
 from typing import Any
 
+from uri3.config.repo_root import config_repo_root as _repo_root
 from uri3.config.uri_yaml import load_uri_yaml, resolve_uri_values
-
-
-def _repo_root(root: Path | None = None) -> Path:
-    if root is not None:
-        return Path(root)
-    here = Path(__file__).resolve()
-    for parent in here.parents:
-        if (parent / "config" / "ssh.uri.yaml").exists() or (parent / "config" / "llm.uri.yaml").exists():
-            return parent
-    return Path.cwd()
 
 
 def ssh_config_path(root: Path | None = None) -> Path:
@@ -57,7 +48,12 @@ def _password_from_env_file(root: Path) -> str | None:
 def _resolve_password_value(value: Any) -> str | None:
     if value is None:
         return None
-    if isinstance(value, str) and value.startswith(("env://", "secret://")):
+    if isinstance(value, str) and value.startswith("env://"):
+        from uri3.resolvers.env_resolver import resolve_env
+
+        resolved = resolve_env(value).get("value")
+        return str(resolved) if resolved else None
+    if isinstance(value, str) and value.startswith("secret://"):
         resolved = resolve_uri_values(value, resolve_secrets=True)
         return str(resolved) if resolved else None
     return str(value)

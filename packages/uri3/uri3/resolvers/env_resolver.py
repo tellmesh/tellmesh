@@ -6,17 +6,8 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import parse_qs, urlparse
 
+from uri3.config.repo_root import config_repo_root as _repo_root
 from uri3.protocols.parser import parse_uri
-
-
-def _repo_root(root: Path | None = None) -> Path:
-    if root is not None:
-        return Path(root)
-    here = Path(__file__).resolve()
-    for parent in here.parents:
-        if (parent / "config" / "ssh.uri.yaml").exists() or (parent / "config" / "llm.uri.yaml").exists():
-            return parent
-    return Path.cwd()
 
 
 def _env_var_name(uri: str) -> str:

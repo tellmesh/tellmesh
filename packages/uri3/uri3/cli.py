@@ -6,7 +6,14 @@ from typing import Any
 import typer
 
 from uri3.config.cli_shortcuts import cli_examples, resolve_scan_target, scan_shortcuts
-from uri3.graph.uri_graph import build_graph_from_tree
+from uri3.graph import (
+    build_execution_plan,
+    build_graph_from_tree,
+    dry_run_workflow,
+    load_workflow_graph,
+    run_workflow,
+    validate_workflow_graph,
+)
 from uri3.logs.reader import read_logs_result, summarize_logs
 from uri3.protocols.scheme_registry import analyze_uri, describe_uri, list_schemes
 from uri3.resolvers.router import Uri3Router
@@ -69,6 +76,9 @@ def _list_payload(*, schemes_only: bool = False) -> dict[str, Any]:
         {"name": "validate", "summary": "Validate URI syntax"},
         {"name": "logs", "summary": "Read filtered logs via log:// URI"},
         {"name": "graph", "summary": "Build dependency graph from URI tree YAML"},
+        {"name": "validate-workflow", "summary": "Validate task/workflow graph YAML"},
+        {"name": "plan-workflow", "summary": "Topological execution plan for workflow graph"},
+        {"name": "run-workflow", "summary": "Execute workflow (mock adapters); command nodes need --approve"},
     ]
     return payload
 
@@ -129,6 +139,40 @@ def graph(path: str) -> None:
             ensure_ascii=False,
         )
     )
+
+
+@app.command("validate-workflow")
+def validate_workflow(path: str) -> None:
+    errors = validate_workflow_graph(path)
+    if errors:
+        for error in errors:
+            typer.echo(error)
+        raise typer.Exit(1)
+    typer.echo("OK")
+
+
+@app.command("plan-workflow")
+def plan_workflow(path: str) -> None:
+    payload = build_execution_plan(load_workflow_graph(path))
+    typer.echo(json.dumps(payload, indent=2, ensure_ascii=False))
+
+
+@app.command("run-workflow")
+def run_workflow_cmd(
+    path: str,
+    dry_run: bool = typer.Option(False, "--dry-run", help="Simulate all steps without policy blocks"),
+    approve: bool = typer.Option(False, "--approve", help="Allow command nodes with side effects"),
+    browser: str = typer.Option("auto", "--browser", help="Browser adapter: auto, mock, playwright"),
+) -> None:
+    result = run_workflow(
+        load_workflow_graph(path),
+        approve=approve,
+        dry_run=dry_run,
+        browser_mode=browser,
+    )
+    typer.echo(json.dumps(result.to_dict(), indent=2, ensure_ascii=False))
+    if not result.ok:
+        raise typer.Exit(1)
 
 
 @app.command()

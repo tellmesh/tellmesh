@@ -3,17 +3,8 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
+from uri3.config.repo_root import config_repo_root as _repo_root
 from uri3.config.uri_yaml import load_uri_yaml
-
-
-def _repo_root(root: Path | None = None) -> Path:
-    if root is not None:
-        return Path(root)
-    here = Path(__file__).resolve()
-    for parent in here.parents:
-        if (parent / "config" / "uri3.uri.yaml").exists() or (parent / "config" / "llm.uri.yaml").exists():
-            return parent
-    return Path.cwd()
 
 
 def cli_config_path(root: Path | None = None) -> Path:

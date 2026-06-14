@@ -19,4 +19,9 @@ SUPPORTED_SCHEMES = {
     "command",
     "event",
     "local",
+    "browser",
+    "dom",
+    "screen",
+    "assertion",
+    "hypervisor",
 }

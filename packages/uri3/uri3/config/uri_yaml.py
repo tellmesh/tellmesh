@@ -6,8 +6,6 @@ from urllib.parse import urlparse
 
 import yaml
 
-from uri3.resolvers.router import resolve
-
 
 URI_SCHEMES = {
     "env",
@@ -31,6 +29,11 @@ URI_SCHEMES = {
     "docker",
     "git",
     "secret",
+    "browser",
+    "dom",
+    "screen",
+    "assertion",
+    "hypervisor",
 }
 
 
@@ -67,9 +70,16 @@ def resolve_uri_values(
         return None
     if not is_uri(value):
         return value
-    if not resolve_secrets and urlparse(value).scheme in {"env", "secret"}:
+    parsed = urlparse(value)
+    if not resolve_secrets and parsed.scheme in {"env", "secret"}:
         return value
+    if resolve_secrets and parsed.scheme == "env":
+        from uri3.resolvers.env_resolver import resolve_env
+
+        return resolve_env(value).get("value")
     try:
+        from uri3.resolvers.resolve_core import resolve
+
         result = resolve(value)
         target = result.target if hasattr(result, "target") else result
         if isinstance(target, dict) and "value" in target:

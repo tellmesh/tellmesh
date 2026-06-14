@@ -1,11 +1,11 @@
-# hypervisor | 219f 9694L | yaml:35,yml:3,toml:5,txt:2,shell:3,json:10,python:153,j2:1,proto:2 | 2026-06-14
-# generated in 0.02s
-# stats: 418 func | 0 cls | 219 mod | CC̄=3.6 | critical:8 | cycles:0
-# alerts[5]: fan-out resolve_llm_profile=23; fan-out merge_main_contracts=20; CC validate_cross_references=22; CC main=20; CC validate_registry=20
-# hotspots[5]: resolve_llm_profile fan=23; merge_main_contracts fan=20; generate_agent fan=17; infer_intent fan=17; main fan=16
-# evolution: CC̄ 3.9→3.6 (improved -0.3)
+# hypervisor | 294f 13166L | yaml:40,yml:3,txt:4,shell:6,json:12,python:214,proto:2,toml:5,j2:1 | 2026-06-14
+# generated in 0.03s
+# stats: 556 func | 0 cls | 294 mod | CC̄=3.5 | critical:5 | cycles:0
+# alerts[5]: fan-out run_workflow=24; CC run_workflow=21; CC classify_output_kind=20; fan-out PlaywrightBrowserAdapter.execute=19; fan-out resolve_llm_profile=18
+# hotspots[5]: run_workflow fan=24; PlaywrightBrowserAdapter.execute fan=19; resolve_llm_profile fan=18; generate_agent fan=17; infer_intent fan=17
+# evolution: CC̄ 3.3→3.5 (regressed +0.2)
 # Keys: M=modules, D=details, i=imports, e=exports, c=classes, f=functions, m=methods
-M[219]:
+M[294]:
   Dockerfile,13
   Makefile,72
   agents/generated/user_agent/__init__.py,4
@@ -20,7 +20,7 @@ M[219]:
   agents/generated/weather_map_agent/main.py,16
   config/deployments.uri.yaml,18
   config/docker.uri.yaml,25
-  config/llm.uri.yaml,43
+  config/llm.uri.yaml,50
   config/runtime.uri.yaml,12
   config/ssh.uri.yaml,15
   config/uri3.uri.yaml,17
@@ -47,6 +47,12 @@ M[219]:
   evolution/proposals/add_orders_agent.yaml,0
   examples/01_quickstart_local/run.sh,7
   examples/03_ssh_remote_agent/docker-compose.yml,10
+  examples/13_nl2uri_multi_uri_graph/prompt.txt,1
+  examples/13_nl2uri_multi_uri_graph/run.sh,41
+  examples/14_workflow_executor_mock/run.sh,38
+  examples/14_workflow_executor_mock/task_graph.yaml,28
+  examples/16_llm_graph_planner/prompt.txt,1
+  examples/16_llm_graph_planner/run.sh,17
   examples/broken_agent.yaml,0
   examples/create_invoices_agent_prompt.txt,0
   examples/create_orders_agent.yaml,0
@@ -63,16 +69,11 @@ M[219]:
   hypervisor/config/__init__.py,0
   hypervisor/config/env.py,0
   hypervisor/config/models.py,0
-  hypervisor/config/validators.py,0
-  hypervisor/contract_registry/cli.py,0
-  hypervisor/contract_registry/cross_validator.py,0
   hypervisor/contract_registry/loader.py,0
-  hypervisor/contract_registry/merger.py,0
   hypervisor/contract_registry/models.py,0
   hypervisor/contract_registry/registry_builder.py,0
   hypervisor/contract_registry/registry_exporter.py,0
   hypervisor/contract_registry/schema_validator.py,0
-  hypervisor/contract_registry/validate.py,0
   hypervisor/deployment_registry/writer.py,0
   hypervisor/domain_pack/__init__.py,0
   hypervisor/domain_pack/templates.py,0
@@ -90,7 +91,6 @@ M[219]:
   hypervisor/verifier/cli.py,0
   meta_agent/__init__.py,0
   meta_agent/api.py,0
-  meta_agent/cli.py,0
   meta_agent/domain_planner/__init__.py,0
   meta_agent/domain_planner/domain_pack_generator.py,0
   meta_agent/domain_planner/llm_planner.py,0
@@ -104,31 +104,74 @@ M[219]:
   nl2uri/writer.py,0
   nlp2uri.yaml,8
   output/contract_registry.resolved.json,174
-  packages/nl2uri/nl2uri/cli.py,42
-  packages/nl2uri/nl2uri/domain_planner.py,236
+  packages/nl2uri/nl2uri/cli.py,200
+  packages/nl2uri/nl2uri/domain_planner.py,33
+  packages/nl2uri/nl2uri/graph_planner.py,318
+  packages/nl2uri/nl2uri/graph_planner_llm.py,147
+  packages/nl2uri/nl2uri/graph_repair.py,195
   packages/nl2uri/nl2uri/llm_planner.py,8
-  packages/nl2uri/nl2uri/pipeline.py,135
+  packages/nl2uri/nl2uri/output_classifier.py,63
+  packages/nl2uri/nl2uri/pipeline.py,141
   packages/nl2uri/nl2uri/planner.py,13
+  packages/nl2uri/nl2uri/planner_llm.py,59
+  packages/nl2uri/nl2uri/planner_templates.py,102
+  packages/nl2uri/nl2uri/planner_validation.py,65
   packages/nl2uri/pyproject.toml,31
+  packages/resource-agent-factory/agents/generated/orders_agent/__init__.py,4
+  packages/resource-agent-factory/agents/generated/orders_agent/.generated.yaml,4
+  packages/resource-agent-factory/agents/generated/orders_agent/Dockerfile,9
+  packages/resource-agent-factory/agents/generated/orders_agent/agent_card.py,37
+  packages/resource-agent-factory/agents/generated/orders_agent/main.py,16
+  packages/resource-agent-factory/agents/generated/user_agent/__init__.py,4
+  packages/resource-agent-factory/agents/generated/user_agent/.generated.yaml,4
+  packages/resource-agent-factory/agents/generated/user_agent/Dockerfile,9
+  packages/resource-agent-factory/agents/generated/user_agent/agent_card.py,63
+  packages/resource-agent-factory/agents/generated/user_agent/main.py,16
   packages/resource-agent-factory/generator/agent_generator.py,106
   packages/resource-agent-factory/generator/header.py,51
-  packages/resource-agent-factory/generator/paths.py,17
+  packages/resource-agent-factory/generator/paths.py,12
   packages/resource-agent-factory/pyproject.toml,25
   packages/resource-agent-hypervisor/hypervisor/cli.py,148
   packages/resource-agent-hypervisor/hypervisor/cli_commands.py,128
+  packages/resource-agent-hypervisor/hypervisor/config/config_checks.py,50
   packages/resource-agent-hypervisor/hypervisor/config/defaults.py,63
   packages/resource-agent-hypervisor/hypervisor/config/loader.py,96
   packages/resource-agent-hypervisor/hypervisor/config/uri_config.py,40
+  packages/resource-agent-hypervisor/hypervisor/config/validators.py,33
+  packages/resource-agent-hypervisor/hypervisor/contract_registry/cli.py,41
+  packages/resource-agent-hypervisor/hypervisor/contract_registry/cli_commands.py,65
+  packages/resource-agent-hypervisor/hypervisor/contract_registry/cross_checks/__init__.py,9
+  packages/resource-agent-hypervisor/hypervisor/contract_registry/cross_checks/capabilities.py,32
+  packages/resource-agent-hypervisor/hypervisor/contract_registry/cross_checks/proto_index.py,16
+  packages/resource-agent-hypervisor/hypervisor/contract_registry/cross_checks/resources.py,22
+  packages/resource-agent-hypervisor/hypervisor/contract_registry/cross_validator.py,36
+  packages/resource-agent-hypervisor/hypervisor/contract_registry/merge_helpers.py,61
+  packages/resource-agent-hypervisor/hypervisor/contract_registry/merger.py,26
+  packages/resource-agent-hypervisor/hypervisor/contract_registry/registry_checks/__init__.py,4
+  packages/resource-agent-hypervisor/hypervisor/contract_registry/registry_checks/capabilities.py,40
+  packages/resource-agent-hypervisor/hypervisor/contract_registry/registry_checks/resources.py,26
+  packages/resource-agent-hypervisor/hypervisor/contract_registry/validate.py,13
   packages/resource-agent-hypervisor/hypervisor/core.py,84
   packages/resource-agent-hypervisor/hypervisor/data/nlp2uri.yaml,50
   packages/resource-agent-hypervisor/hypervisor/deployment_registry/__init__.py,59
   packages/resource-agent-hypervisor/hypervisor/deployment_registry/docker_runner.py,76
-  packages/resource-agent-hypervisor/hypervisor/deployment_registry/env.py,71
+  packages/resource-agent-hypervisor/hypervisor/deployment_registry/env.py,50
+  packages/resource-agent-hypervisor/hypervisor/deployment_registry/env_config.py,28
+  packages/resource-agent-hypervisor/hypervisor/deployment_registry/env_merge.py,31
+  packages/resource-agent-hypervisor/hypervisor/deployment_registry/lifecycle.py,166
   packages/resource-agent-hypervisor/hypervisor/deployment_registry/loader.py,44
+  packages/resource-agent-hypervisor/hypervisor/deployment_registry/local_targets.py,75
   packages/resource-agent-hypervisor/hypervisor/deployment_registry/models.py,50
-  packages/resource-agent-hypervisor/hypervisor/deployment_registry/remote_runner.py,186
-  packages/resource-agent-hypervisor/hypervisor/deployment_registry/runner.py,286
+  packages/resource-agent-hypervisor/hypervisor/deployment_registry/process.py,30
+  packages/resource-agent-hypervisor/hypervisor/deployment_registry/remote_runner.py,15
+  packages/resource-agent-hypervisor/hypervisor/deployment_registry/run_plans.py,33
+  packages/resource-agent-hypervisor/hypervisor/deployment_registry/runner.py,24
   packages/resource-agent-hypervisor/hypervisor/deployment_registry/runtime_state.py,65
+  packages/resource-agent-hypervisor/hypervisor/deployment_registry/selector.py,25
+  packages/resource-agent-hypervisor/hypervisor/deployment_registry/ssh_deploy.py,95
+  packages/resource-agent-hypervisor/hypervisor/deployment_registry/ssh_helpers.py,14
+  packages/resource-agent-hypervisor/hypervisor/deployment_registry/ssh_run.py,58
+  packages/resource-agent-hypervisor/hypervisor/deployment_registry/ssh_verify.py,38
   packages/resource-agent-hypervisor/hypervisor/deployment_registry/status.py,151
   packages/resource-agent-hypervisor/hypervisor/domain_pack/artifact_generators/agent_contract.py,48
   packages/resource-agent-hypervisor/hypervisor/domain_pack/artifact_generators/commands.py,18
@@ -143,52 +186,82 @@ M[219]:
   packages/resource-agent-hypervisor/hypervisor/domain_pack/parser.py,17
   packages/resource-agent-hypervisor/hypervisor/domain_pack/writer.py,11
   packages/resource-agent-hypervisor/hypervisor/evolution/cli.py,33
-  packages/resource-agent-hypervisor/hypervisor/paths.py,18
-  packages/resource-agent-hypervisor/hypervisor/uri/client.py,37
-  packages/resource-agent-hypervisor/meta_agent/orchestrator.py,72
+  packages/resource-agent-hypervisor/hypervisor/paths.py,5
+  packages/resource-agent-hypervisor/hypervisor/uri/client.py,38
+  packages/resource-agent-hypervisor/meta_agent/cli.py,51
+  packages/resource-agent-hypervisor/meta_agent/cli_commands.py,69
+  packages/resource-agent-hypervisor/meta_agent/orchestrator.py,73
   packages/resource-agent-hypervisor/pyproject.toml,33
-  packages/uri3/pyproject.toml,27
-  packages/uri3/uri3/cli.py,203
+  packages/uri3/contracts/resources.yaml,15
+  packages/uri3/contracts/views.yaml,17
+  packages/uri3/pyproject.toml,30
+  packages/uri3/uri3/cli.py,247
   packages/uri3/uri3/config/__init__.py,12
-  packages/uri3/uri3/config/cli_shortcuts.py,50
-  packages/uri3/uri3/config/docker_stacks.py,66
-  packages/uri3/uri3/config/llm_profiles.py,114
-  packages/uri3/uri3/config/ssh_auth.py,100
-  packages/uri3/uri3/config/uri_yaml.py,79
+  packages/uri3/uri3/config/cli_shortcuts.py,41
+  packages/uri3/uri3/config/docker_stacks.py,57
+  packages/uri3/uri3/config/llm_profile_builder.py,44
+  packages/uri3/uri3/config/llm_profiles.py,83
+  packages/uri3/uri3/config/repo_root.py,44
+  packages/uri3/uri3/config/ssh_auth.py,96
+  packages/uri3/uri3/config/uri_yaml.py,89
   packages/uri3/uri3/docker/actions/__init__.py,4
   packages/uri3/uri3/docker/actions/compose.py,99
   packages/uri3/uri3/docker/actions/container.py,37
   packages/uri3/uri3/docker/compose_generator.py,46
   packages/uri3/uri3/docker/controller.py,36
   packages/uri3/uri3/docker/runner.py,23
+  packages/uri3/uri3/graph/__init__.py,57
+  packages/uri3/uri3/graph/adapters/__init__.py,3
+  packages/uri3/uri3/graph/adapters/base.py,12
+  packages/uri3/uri3/graph/adapters/browser_mock.py,44
+  packages/uri3/uri3/graph/adapters/browser_playwright.py,77
+  packages/uri3/uri3/graph/adapters/browser_router.py,58
+  packages/uri3/uri3/graph/adapters/registry.py,93
+  packages/uri3/uri3/graph/artifacts.py,33
+  packages/uri3/uri3/graph/conditions.py,24
+  packages/uri3/uri3/graph/dependency_graph.py,82
+  packages/uri3/uri3/graph/event_log.py,20
+  packages/uri3/uri3/graph/execution_models.py,122
+  packages/uri3/uri3/graph/graph_executor.py,250
+  packages/uri3/uri3/graph/graph_serializer.py,63
+  packages/uri3/uri3/graph/graph_validator.py,71
+  packages/uri3/uri3/graph/models.py,88
+  packages/uri3/uri3/graph/operation_registry.py,71
+  packages/uri3/uri3/graph/policy.py,20
   packages/uri3/uri3/logs/__init__.py,3
   packages/uri3/uri3/logs/filters.py,73
   packages/uri3/uri3/logs/parsing.py,73
   packages/uri3/uri3/logs/reader.py,104
   packages/uri3/uri3/logs/writer.py,34
-  packages/uri3/uri3/paths.py,17
+  packages/uri3/uri3/paths.py,5
   packages/uri3/uri3/protocols/scheme_registry.py,24
   packages/uri3/uri3/protocols/schemes/__init__.py,4
   packages/uri3/uri3/protocols/schemes/a2a.py,15
+  packages/uri3/uri3/protocols/schemes/analyze.py,73
   packages/uri3/uri3/protocols/schemes/base.py,67
-  packages/uri3/uri3/protocols/schemes/constants.py,22
+  packages/uri3/uri3/protocols/schemes/constants.py,27
   packages/uri3/uri3/protocols/schemes/docker.py,43
   packages/uri3/uri3/protocols/schemes/env.py,22
   packages/uri3/uri3/protocols/schemes/http.py,15
+  packages/uri3/uri3/protocols/schemes/instance_parser.py,119
   packages/uri3/uri3/protocols/schemes/llm.py,16
   packages/uri3/uri3/protocols/schemes/log.py,76
   packages/uri3/uri3/protocols/schemes/mcp.py,15
   packages/uri3/uri3/protocols/schemes/pypi.py,15
   packages/uri3/uri3/protocols/schemes/python.py,18
-  packages/uri3/uri3/protocols/schemes/registry.py,220
+  packages/uri3/uri3/protocols/schemes/registry.py,27
   packages/uri3/uri3/protocols/schemes/resource_like.py,16
-  packages/uri3/uri3/resolvers/docker_resolver.py,160
-  packages/uri3/uri3/resolvers/env_resolver.py,103
+  packages/uri3/uri3/protocols/schemes/spec_registry.py,99
+  packages/uri3/uri3/resolvers/dispatch.py,67
+  packages/uri3/uri3/resolvers/docker_resolver.py,154
+  packages/uri3/uri3/resolvers/env_resolver.py,94
   packages/uri3/uri3/resolvers/log_query.py,55
   packages/uri3/uri3/resolvers/log_resolver.py,85
   packages/uri3/uri3/resolvers/protocol_resolver.py,27
-  packages/uri3/uri3/resolvers/router.py,109
-  packages/uri3/uri3/resolvers/ssh_resolver.py,107
+  packages/uri3/uri3/resolvers/registry.py,21
+  packages/uri3/uri3/resolvers/resolve_core.py,45
+  packages/uri3/uri3/resolvers/router.py,28
+  packages/uri3/uri3/resolvers/ssh_resolver.py,110
   packages/uri3/uri3/scanner/docker_scanner.py,91
   packages/uri3/uri3/scanner/http_scanner.py,76
   packages/uri3/uri3/scanner/scanner.py,42
@@ -197,7 +270,7 @@ M[219]:
   planfile.yaml,1319
   prefact.yaml,97
   project.sh,59
-  pyproject.toml,126
+  pyproject.toml,129
   runtime_client/client.py,0
   schemas/agent_contract.schema.json,79
   schemas/command_contract.schema.json,43
@@ -206,8 +279,10 @@ M[219]:
   schemas/evolution_proposal.schema.json,48
   schemas/renderer_contract.schema.json,35
   schemas/resources.schema.json,56
+  schemas/uri_graph.schema.json,31
   schemas/uri_tree.schema.json,78
   schemas/views.schema.json,54
+  schemas/workflow_graph.schema.json,69
   testenv/docker-compose.ssh.yml,10
   testenv/ssh_agent_host/Dockerfile,20
   testenv/ssh_agent_host/entrypoint.sh,7
@@ -226,65 +301,54 @@ M[219]:
   uri3/scanner/base.py,0
   uri3/validators/uri_validator.py,0
 D:
-  hypervisor/contract_registry/cross_validator.py:
-    e: _load_proto_text,_schema_exists,validate_cross_references,validate_root
-    _load_proto_text(root)
-    _schema_exists(proto_text;schema_ref)
-    validate_cross_references(registry)
-    validate_root(root)
-  hypervisor/contract_registry/cli.py:
-    e: main
-    main(argv)
-  hypervisor/contract_registry/validate.py:
-    e: validate_registry
-    validate_registry(registry)
-  hypervisor/config/validators.py:
-    e: merge_config,validate_config
-    merge_config(base;overlay)
-    validate_config(cfg)
-  packages/uri3/uri3/config/llm_profiles.py:
-    e: LlmProfile,_repo_root,llm_config_path,load_llm_config,_parse_llm_query,resolve_llm_profile
-    LlmProfile: to_dict(0)
-    _repo_root(root)
-    llm_config_path(root)
-    load_llm_config(root)
-    _parse_llm_query(model_uri)
-    resolve_llm_profile(profile_name)
-  meta_agent/cli.py:
-    e: main
-    main()
-  packages/uri3/uri3/protocols/schemes/registry.py:
-    e: _build_registry,normalize_scheme,is_concrete_uri,get_scheme_schema,list_schemes,_query_names,_parse_instance,analyze_uri,describe_uri
-    _build_registry()
-    normalize_scheme(value)
-    is_concrete_uri(value)
-    get_scheme_schema(scheme_or_uri)
-    list_schemes()
-    _query_names(spec)
-    _parse_instance(scheme;uri)
-    analyze_uri(uri)
-    describe_uri(value)
-  packages/resource-agent-hypervisor/hypervisor/deployment_registry/env.py:
-    e: _repo_config_dir,load_deployments_uri_config,load_runtime_uri_config,resolve_deployment_env,default_log_uri
-    _repo_config_dir(root)
-    load_deployments_uri_config(root)
-    load_runtime_uri_config(root)
-    resolve_deployment_env(deployment_id;agent_ref;deployment_env)
-    default_log_uri(deployment_id;agent_ref)
+  packages/uri3/uri3/graph/graph_executor.py:
+    e: build_execution_plan,dry_run_workflow,_dependencies_ok,_execute_step,run_workflow
+    build_execution_plan(graph)
+    dry_run_workflow(source)
+    _dependencies_ok(node;completed)
+    _execute_step(node;context)
+    run_workflow(source)
+  packages/nl2uri/nl2uri/output_classifier.py:
+    e: classify_output_kind
+    classify_output_kind(prompt)
+  packages/nl2uri/nl2uri/graph_repair.py:
+    e: _slug,_coerce_operation,extract_graph_payload,normalize_to_kind,sanitize_node,_sanitize_nodes,repair_graph_body,repair_and_validate_graph
+    _slug(text)
+    _coerce_operation(scheme;operation)
+    extract_graph_payload(raw)
+    normalize_to_kind(body)
+    sanitize_node(node)
+    _sanitize_nodes(nodes)
+    repair_graph_body(raw;prompt)
+    repair_and_validate_graph(raw;prompt)
+  packages/uri3/uri3/config/uri_yaml.py:
+    e: is_uri,load_uri_yaml,resolve_uri_values
+    is_uri(value)
+    load_uri_yaml(path)
+    resolve_uri_values(value)
+  packages/uri3/uri3/graph/dependency_graph.py:
+    e: adjacency,reverse_adjacency,detect_cycles,topological_sort,dependency_summary
+    adjacency(graph)
+    reverse_adjacency(graph)
+    detect_cycles(graph)
+    topological_sort(graph)
+    dependency_summary(graph)
   packages/uri3/uri3/logs/parsing.py:
     e: empty_entry,parse_json_entry,parse_text_entry,parse_log_line
     empty_entry(line;line_no)
     parse_json_entry(line;line_no)
     parse_text_entry(line;line_no)
     parse_log_line(line;line_no)
-  packages/uri3/uri3/config/uri_yaml.py:
-    e: is_uri,load_uri_yaml,resolve_uri_values
-    is_uri(value)
-    load_uri_yaml(path)
-    resolve_uri_values(value)
+  packages/uri3/uri3/protocols/schemes/analyze.py:
+    e: _analyze_query,analyze_uri,describe_uri
+    _analyze_query(uri;spec)
+    analyze_uri(uri)
+    describe_uri(value)
+  packages/resource-agent-hypervisor/hypervisor/contract_registry/cross_checks/capabilities.py:
+    e: validate_capability_cross_refs
+    validate_capability_cross_refs(registry)
   packages/uri3/uri3/config/ssh_auth.py:
-    e: _repo_root,ssh_config_path,load_ssh_config,_profile_matches,_password_from_env_file,_resolve_password_value,resolve_ssh_password,ssh_auth_hint
-    _repo_root(root)
+    e: ssh_config_path,load_ssh_config,_profile_matches,_password_from_env_file,_resolve_password_value,resolve_ssh_password,ssh_auth_hint
     ssh_config_path(root)
     load_ssh_config(root)
     _profile_matches(ref;match)
@@ -293,32 +357,39 @@ D:
     resolve_ssh_password(ref)
     ssh_auth_hint(ref)
   packages/uri3/uri3/resolvers/docker_resolver.py:
-    e: DockerRef,_first,_bool,_int,parse_docker_uri,_find_repo_root,resolve_docker,resolve_docker_target
+    e: DockerRef,_first,_bool,_int,parse_docker_uri,resolve_docker,resolve_docker_target
     DockerRef: to_dict(0)
     _first(query;key;default)
     _bool(query;key;default)
     _int(query;key;default)
     parse_docker_uri(uri)
-    _find_repo_root()
     resolve_docker(uri)
     resolve_docker_target(uri)
-  packages/uri3/uri3/resolvers/router.py:
-    e: UriResolution,Uri3Router,resolve,call
-    UriResolution:
-    Uri3Router: __init__(0),resolve(1),call(2)
-    resolve(uri)
-    call(uri;payload)
-  hypervisor/contract_registry/merger.py:
-    e: merge_main_contracts
-    merge_main_contracts(domain_id;resources;views;proto_text)
-  packages/resource-agent-hypervisor/hypervisor/deployment_registry/remote_runner.py:
-    e: generated_agent_dir,remote_module_for,build_ssh_deploy_plan,build_ssh_run_plan,verify_remote_deployment,apply_ssh_deploy_plan
-    generated_agent_dir(agent_ref;root)
-    remote_module_for(deployment)
-    build_ssh_deploy_plan(deployment)
-    build_ssh_run_plan(deployment)
+  packages/resource-agent-hypervisor/hypervisor/deployment_registry/ssh_verify.py:
+    e: verify_remote_deployment
     verify_remote_deployment(deployment)
-    apply_ssh_deploy_plan(plan)
+  packages/nl2uri/nl2uri/graph_planner.py:
+    e: _slug,_detect_agent_id,_detect_health_uri,wrap_nl2uri_output,plan_single,plan_list,plan_tree,plan_task,plan_workflow_graph,plan_auto,plan_by_kind
+    _slug(text)
+    _detect_agent_id(prompt)
+    _detect_health_uri(prompt)
+    wrap_nl2uri_output(kind;prompt;body)
+    plan_single(prompt)
+    plan_list(prompt)
+    plan_tree(prompt)
+    plan_task(prompt)
+    plan_workflow_graph(prompt)
+    plan_auto(prompt)
+    plan_by_kind(prompt)
+  packages/uri3/uri3/graph/graph_serializer.py:
+    e: edges_from_depends_on,normalize_graph_payload,task_steps_to_graph,workflow_manifest
+    edges_from_depends_on(nodes)
+    normalize_graph_payload(data)
+    task_steps_to_graph(task;steps)
+    workflow_manifest(graph)
+  packages/uri3/uri3/docker/controller.py:
+    e: control_docker
+    control_docker(uri)
   generator/validate.py:
     e: validate_agent,iter_agent_specs,main
     validate_agent(path)
@@ -336,28 +407,33 @@ D:
     list_deployments(registry)
     get_deployment_for_agent(agent_ref)
     registry_summary(registry)
-  packages/uri3/uri3/docker/controller.py:
-    e: control_docker
-    control_docker(uri)
+  packages/uri3/uri3/graph/adapters/browser_playwright.py:
+    e: PlaywrightBrowserAdapter,_session_state,close_playwright_session
+    PlaywrightBrowserAdapter: execute(2)
+    _session_state(context)
+    close_playwright_session(context)
+  packages/uri3/uri3/graph/adapters/registry.py:
+    e: AssertionAdapter,HypervisorAdapter,adapter_for_uri
+    AssertionAdapter: execute(2)
+    HypervisorAdapter: execute(2)
+    adapter_for_uri(uri)
   uri3/graph/uri_graph.py:
     e: UriNode,UriEdge,UriGraph,build_graph_from_tree
     UriNode:
     UriEdge:
     UriGraph: add_node(3),add_edge(3)
     build_graph_from_tree(path)
-  packages/nl2uri/nl2uri/domain_planner.py:
-    e: _slug,_llm_uri_from_env,_deterministic_weather_plan,_generic_plan,_is_weather_prompt,_validate_tree_data,_is_structured_uri_tree,_normalize_llm_tree,_extract_json,_call_openrouter,plan_from_prompt
-    _slug(text)
-    _llm_uri_from_env()
-    _deterministic_weather_plan(prompt)
-    _generic_plan(prompt)
-    _is_weather_prompt(prompt)
-    _validate_tree_data(tree)
-    _is_structured_uri_tree(tree)
-    _normalize_llm_tree(prompt;candidate)
-    _extract_json(text)
-    _call_openrouter(prompt)
-    plan_from_prompt(prompt;use_llm)
+  packages/uri3/uri3/config/llm_profiles.py:
+    e: LlmProfile,llm_config_path,load_llm_config,resolve_llm_profile
+    LlmProfile: to_dict(0)
+    llm_config_path(root)
+    load_llm_config(root)
+    resolve_llm_profile(profile_name)
+  packages/nl2uri/nl2uri/planner_validation.py:
+    e: validate_tree_data,is_structured_uri_tree,normalize_llm_tree
+    validate_tree_data(tree)
+    is_structured_uri_tree(tree)
+    normalize_llm_tree(prompt;candidate)
   packages/resource-agent-hypervisor/hypervisor/config/uri_config.py:
     e: _repo_config_dir,apply_uri_yaml_configs
     _repo_config_dir(root)
@@ -365,18 +441,23 @@ D:
   packages/resource-agent-hypervisor/hypervisor/evolution/cli.py:
     e: main
     main(argv)
-  packages/resource-agent-hypervisor/hypervisor/deployment_registry/runner.py:
-    e: local_target_to_relative_path,local_target_to_module,resolve_deployment,build_run_plan,_start_process,run_agent,stop_agent,restart_agent,agent_status,agent_logs_uri
-    local_target_to_relative_path(target_uri)
-    local_target_to_module(target_uri)
-    resolve_deployment(selector)
-    build_run_plan(deployment)
-    _start_process(plan)
-    run_agent(selector)
-    stop_agent(selector)
-    restart_agent(selector)
-    agent_status(selector)
-    agent_logs_uri(selector)
+  packages/uri3/uri3/logs/reader.py:
+    e: resolve_log_path,_parse_since,read_logs,read_logs_result,summarize_logs
+    resolve_log_path(ref)
+    _parse_since(value)
+    read_logs(uri)
+    read_logs_result(uri)
+    summarize_logs(uri)
+  packages/uri3/uri3/docker/actions/compose.py:
+    e: compose_base,_parse_ps_stdout,control_compose_ps,control_compose_up,control_compose_down,control_compose_lifecycle,control_compose_logs,control_compose
+    compose_base(ref)
+    _parse_ps_stdout(stdout)
+    control_compose_ps(ref)
+    control_compose_up(ref)
+    control_compose_down(ref)
+    control_compose_lifecycle(ref)
+    control_compose_logs(ref)
+    control_compose(ref)
   generator/verify.py:
     e: verify_generated_agent,verify_generated,main
     verify_generated_agent(agent_dir)
@@ -407,67 +488,17 @@ D:
     apply_docker_deploy(deployment)
     stop_docker_deployment(deployment)
     verify_docker_deployment(deployment)
-  packages/uri3/uri3/logs/reader.py:
-    e: resolve_log_path,_parse_since,read_logs,read_logs_result,summarize_logs
-    resolve_log_path(ref)
-    _parse_since(value)
-    read_logs(uri)
-    read_logs_result(uri)
-    summarize_logs(uri)
-  packages/uri3/uri3/docker/actions/compose.py:
-    e: compose_base,_parse_ps_stdout,control_compose_ps,control_compose_up,control_compose_down,control_compose_lifecycle,control_compose_logs,control_compose
-    compose_base(ref)
-    _parse_ps_stdout(stdout)
-    control_compose_ps(ref)
-    control_compose_up(ref)
-    control_compose_down(ref)
-    control_compose_lifecycle(ref)
-    control_compose_logs(ref)
-    control_compose(ref)
-  packages/uri3/uri3/cli.py:
-    e: _quick_reference,_list_payload,main,list_cmd,validate,validate_tree,graph,resolve,call,scan,logs,schema,main
-    _quick_reference()
-    _list_payload()
-    main()
-    list_cmd(schemes;json_out)
-    validate(uri)
-    validate_tree(path)
-    graph(path)
-    resolve(uri)
-    call(uri)
-    scan(target;all_shortcuts)
-    logs(uri;summary)
-    schema(target;list_all;analyze)
-    main()
-  packages/uri3/uri3/resolvers/ssh_resolver.py:
-    e: parse_ssh_uri,resolve_ssh,_ssh_options,build_ssh_command,ssh_transport_option,run_ssh
-    parse_ssh_uri(uri)
-    resolve_ssh(uri)
-    _ssh_options(ref)
-    build_ssh_command(ref;remote_command)
-    ssh_transport_option(ref)
-    run_ssh(ref;remote_command)
-  packages/uri3/uri3/resolvers/env_resolver.py:
-    e: EnvResolver,_repo_root,_env_var_name,resolve_env,_upsert_env_file,_first,call_env
-    EnvResolver: resolve(1),call(2)
-    _repo_root(root)
-    _env_var_name(uri)
-    resolve_env(uri)
-    _upsert_env_file(path;name;value)
-    _first(query;key)
-    call_env(uri;payload)
-  meta_agent/repair/rules.py:
-    e: repair_agent_block,repair_duplicate_capability_names,repair_missing_capability_type,repair_resource_read_capability,repair_command_capability,repair_capabilities
-    repair_agent_block(data;path_stem;warnings)
-    repair_duplicate_capability_names(capabilities;warnings)
-    repair_missing_capability_type(cap;warnings)
-    repair_resource_read_capability(cap;warnings)
-    repair_command_capability(cap;warnings)
-    repair_capabilities(data;warnings)
-  hypervisor/compatibility/checker.py:
-    e: _load_policy,classify_registry_change
-    _load_policy(root)
-    classify_registry_change(old_root;new_root)
+  packages/resource-agent-hypervisor/hypervisor/deployment_registry/env.py:
+    e: build_deployment_env_map,resolve_deployment_env,default_log_uri
+    build_deployment_env_map(deployment_id;agent_ref;deployment_env)
+    resolve_deployment_env(deployment_id;agent_ref;deployment_env)
+    default_log_uri(deployment_id;agent_ref)
+  packages/uri3/uri3/graph/graph_validator.py:
+    e: _schema_path,load_workflow_graph,validate_workflow_schema,validate_workflow_graph
+    _schema_path(name)
+    load_workflow_graph(source)
+    validate_workflow_schema(graph)
+    validate_workflow_graph(source)
   packages/uri3/uri3/docker/actions/container.py:
     e: _container_name,handles_container_action,control_container
     _container_name(ref)
@@ -481,6 +512,28 @@ D:
     _remote_path_item(item_uri;ref)
     _remote_listing_item(item_uri;ref)
     scan_ssh(uri)
+  packages/uri3/uri3/resolvers/ssh_resolver.py:
+    e: parse_ssh_uri,_resolve_ssh_password,resolve_ssh,_ssh_options,build_ssh_command,ssh_transport_option,run_ssh
+    parse_ssh_uri(uri)
+    _resolve_ssh_password(ref)
+    resolve_ssh(uri)
+    _ssh_options(ref)
+    build_ssh_command(ref;remote_command)
+    ssh_transport_option(ref)
+    run_ssh(ref;remote_command)
+  packages/uri3/uri3/resolvers/env_resolver.py:
+    e: EnvResolver,_env_var_name,resolve_env,_upsert_env_file,_first,call_env
+    EnvResolver: resolve(1),call(2)
+    _env_var_name(uri)
+    resolve_env(uri)
+    _upsert_env_file(path;name;value)
+    _first(query;key)
+    call_env(uri;payload)
+  packages/uri3/uri3/resolvers/resolve_core.py:
+    e: UriResolution,resolve,call
+    UriResolution:
+    resolve(uri)
+    call(uri;payload)
   packages/uri3/uri3/resolvers/log_query.py:
     e: first,query_int,query_bool,resolve_path,resolve_level,parse_query
     first(query;key;default)
@@ -489,26 +542,53 @@ D:
     resolve_path(parsed)
     resolve_level(query)
     parse_query(uri)
-  packages/uri3/uri3/scanner/http_scanner.py:
-    e: _origin,_kind_for_path,_status_for,_probe,health_scan_ok,scan_http
-    _origin(url)
-    _kind_for_path(path)
-    _status_for(kind;status_code)
-    _probe(url)
-    health_scan_ok(items)
-    scan_http(base_url)
-  generator/model.py:
-    e: Capability,AgentSpec,load_agent_spec,spec_to_plain_dict
-    Capability:
-    AgentSpec:
-    load_agent_spec(path)
-    spec_to_plain_dict(spec;contract_hash)
-  packages/resource-agent-hypervisor/meta_agent/orchestrator.py:
-    e: save_proposal_from_prompt,validate_repair_generate,pipeline_from_prompt,asdict_result
-    save_proposal_from_prompt(prompt;output_path)
-    validate_repair_generate(spec_path)
-    pipeline_from_prompt(prompt)
-    asdict_result(result)
+  meta_agent/repair/rules.py:
+    e: repair_agent_block,repair_duplicate_capability_names,repair_missing_capability_type,repair_resource_read_capability,repair_command_capability,repair_capabilities
+    repair_agent_block(data;path_stem;warnings)
+    repair_duplicate_capability_names(capabilities;warnings)
+    repair_missing_capability_type(cap;warnings)
+    repair_resource_read_capability(cap;warnings)
+    repair_command_capability(cap;warnings)
+    repair_capabilities(data;warnings)
+  packages/resource-agent-hypervisor/hypervisor/deployment_registry/lifecycle.py:
+    e: _repo_root,run_agent,stop_agent,restart_agent,agent_status,agent_logs_uri
+    _repo_root(root)
+    run_agent(selector)
+    stop_agent(selector)
+    restart_agent(selector)
+    agent_status(selector)
+    agent_logs_uri(selector)
+  hypervisor/compatibility/checker.py:
+    e: _load_policy,classify_registry_change
+    _load_policy(root)
+    classify_registry_change(old_root;new_root)
+  packages/uri3/uri3/graph/adapters/browser_mock.py:
+    e: BrowserMockAdapter,json_dumps
+    BrowserMockAdapter: execute(2)
+    json_dumps(payload)
+  packages/uri3/uri3/cli.py:
+    e: _quick_reference,_list_payload,main,list_cmd,validate,validate_tree,graph,validate_workflow,plan_workflow,run_workflow_cmd,resolve,call,scan,logs,schema,main
+    _quick_reference()
+    _list_payload()
+    main()
+    list_cmd(schemes;json_out)
+    validate(uri)
+    validate_tree(path)
+    graph(path)
+    validate_workflow(path)
+    plan_workflow(path)
+    run_workflow_cmd(path;dry_run;approve;browser)
+    resolve(uri)
+    call(uri)
+    scan(target;all_shortcuts)
+    logs(uri;summary)
+    schema(target;list_all;analyze)
+    main()
+  packages/uri3/uri3/graph/models.py:
+    e: GraphNode,GraphEdge,WorkflowGraph
+    GraphNode: from_dict(1),to_dict(0)
+    GraphEdge: to_dict(0)
+    WorkflowGraph: add_node(1),to_dict(0)
   packages/uri3/uri3/logs/filters.py:
     e: level_rank,entry_timestamp,matches_level,matches_logger,matches_grep,matches_time_window,matches_filters
     level_rank(level)
@@ -518,12 +598,50 @@ D:
     matches_grep(entry;ref)
     matches_time_window(entry;since_dt;until_dt)
     matches_filters(entry;ref;since_dt;until_dt)
+  packages/uri3/uri3/scanner/http_scanner.py:
+    e: _origin,_kind_for_path,_status_for,_probe,health_scan_ok,scan_http
+    _origin(url)
+    _kind_for_path(path)
+    _status_for(kind;status_code)
+    _probe(url)
+    health_scan_ok(items)
+    scan_http(base_url)
+  packages/uri3/uri3/config/llm_profile_builder.py:
+    e: parse_llm_query,chosen_profile_name,resolve_profile_api_key,normalize_model_name
+    parse_llm_query(model_uri)
+    chosen_profile_name(profile_name;defaults)
+    resolve_profile_api_key(api_key_uri)
+    normalize_model_name(model)
+  packages/uri3/uri3/config/repo_root.py:
+    e: _walk_up,find_repo_root,config_repo_root,repo_root
+    _walk_up(start)
+    find_repo_root(start)
+    config_repo_root(root)
+    repo_root()
   packages/uri3/uri3/resolvers/log_resolver.py:
     e: LogRef,LogResolver,parse_log_uri,resolve_log
     LogRef: to_dict(0)
     LogResolver: resolve(1),read(1)
     parse_log_uri(uri)
     resolve_log(uri)
+  generator/model.py:
+    e: Capability,AgentSpec,load_agent_spec,spec_to_plain_dict
+    Capability:
+    AgentSpec:
+    load_agent_spec(path)
+    spec_to_plain_dict(spec;contract_hash)
+  packages/nl2uri/nl2uri/domain_planner.py:
+    e: plan_from_prompt
+    plan_from_prompt(prompt;use_llm)
+  packages/resource-agent-hypervisor/meta_agent/cli.py:
+    e: main
+    main()
+  packages/resource-agent-hypervisor/meta_agent/orchestrator.py:
+    e: save_proposal_from_prompt,validate_repair_generate,pipeline_from_prompt,asdict_result
+    save_proposal_from_prompt(prompt;output_path)
+    validate_repair_generate(spec_path)
+    pipeline_from_prompt(prompt)
+    asdict_result(result)
   packages/resource-agent-hypervisor/hypervisor/cli_commands.py:
     e: echo_json,run_local_agent,deploy_agent,verify_agent,read_agent_logs,call_docker
     echo_json(payload)
@@ -532,25 +650,48 @@ D:
     verify_agent(selector)
     read_agent_logs(selector)
     call_docker(uri)
-  packages/uri3/uri3/paths.py:
-    e: find_repo_root,repo_root
-    find_repo_root(start)
-    repo_root()
-  packages/resource-agent-factory/generator/paths.py:
-    e: find_repo_root,project_root
-    find_repo_root(start)
-    project_root()
-  packages/nl2uri/nl2uri/pipeline.py:
-    e: PipelineResult,FullPipelineResult,generate_tree,run_generate_pipeline,run_full_pipeline
-    PipelineResult:
-    FullPipelineResult(PipelineResult):
-    generate_tree(prompt)
-    run_generate_pipeline(prompt)
-    run_full_pipeline(prompt)
-  packages/resource-agent-hypervisor/hypervisor/paths.py:
-    e: find_repo_root,repo_root
-    find_repo_root(start)
-    repo_root()
+  packages/resource-agent-hypervisor/hypervisor/config/config_checks.py:
+    e: validate_hypervisor,validate_llm,validate_uri3,validate_path_sections
+    validate_hypervisor(cfg)
+    validate_llm(cfg)
+    validate_uri3(cfg)
+    validate_path_sections(cfg)
+  packages/resource-agent-hypervisor/hypervisor/contract_registry/registry_checks/resources.py:
+    e: validate_resources,validate_views
+    validate_resources(registry)
+    validate_views(registry)
+  packages/resource-agent-hypervisor/hypervisor/contract_registry/registry_checks/capabilities.py:
+    e: validate_resource_read_capability,validate_command_capability,validate_capabilities
+    validate_resource_read_capability(registry;cap)
+    validate_command_capability(cap)
+    validate_capabilities(registry)
+  packages/resource-agent-hypervisor/hypervisor/deployment_registry/ssh_run.py:
+    e: build_ssh_run_plan
+    build_ssh_run_plan(deployment)
+  packages/resource-agent-hypervisor/hypervisor/deployment_registry/ssh_deploy.py:
+    e: build_ssh_deploy_plan,apply_ssh_deploy_plan
+    build_ssh_deploy_plan(deployment)
+    apply_ssh_deploy_plan(plan)
+  packages/resource-agent-hypervisor/hypervisor/deployment_registry/selector.py:
+    e: resolve_deployment
+    resolve_deployment(selector)
+  packages/uri3/uri3/graph/conditions.py:
+    e: evaluate_condition
+    evaluate_condition(condition;context)
+  packages/uri3/uri3/scanner/docker_scanner.py:
+    e: _inspect_container,scan_container,_compose_ps,scan_compose_stack,scan_docker
+    _inspect_container(name)
+    scan_container(uri;ref)
+    _compose_ps(ref)
+    scan_compose_stack(uri;ref)
+    scan_docker(uri)
+  packages/nl2uri/nl2uri/planner_templates.py:
+    e: slug,llm_uri_from_env,is_weather_prompt,deterministic_weather_plan,generic_plan
+    slug(text)
+    llm_uri_from_env()
+    is_weather_prompt(prompt)
+    deterministic_weather_plan(prompt)
+    generic_plan(prompt)
   packages/resource-agent-hypervisor/hypervisor/config/loader.py:
     e: config_search_paths,resolve_config_path,load_config,get_config,load_hypervisor_config
     config_search_paths()
@@ -572,6 +713,23 @@ D:
     _read_json(path)
     validate_file(data_path;schema_path)
     validate_contract_files(root)
+  packages/resource-agent-hypervisor/hypervisor/contract_registry/merge_helpers.py:
+    e: merge_proto_contract,merge_resources_contract,merge_views_contract
+    merge_proto_contract(contracts_dir;domain_id;proto_text)
+    merge_resources_contract(contracts_dir;resources)
+    merge_views_contract(contracts_dir;views)
+  packages/resource-agent-hypervisor/hypervisor/contract_registry/cross_checks/resources.py:
+    e: validate_resource_cross_refs
+    validate_resource_cross_refs(registry)
+  packages/resource-agent-hypervisor/hypervisor/deployment_registry/local_targets.py:
+    e: local_target_to_relative_path,local_target_to_module,build_local_run_plan
+    local_target_to_relative_path(target_uri)
+    local_target_to_module(target_uri)
+    build_local_run_plan(deployment)
+  packages/resource-agent-hypervisor/hypervisor/deployment_registry/env_merge.py:
+    e: merge_runtime_defaults,materialize_env_values
+    merge_runtime_defaults(merged)
+    materialize_env_values(merged)
   packages/resource-agent-hypervisor/hypervisor/deployment_registry/runtime_state.py:
     e: runtime_root,state_path,load_runtime_state,save_runtime_state,clear_runtime_state,is_process_alive,runtime_status,now_iso
     runtime_root(root)
@@ -582,32 +740,19 @@ D:
     is_process_alive(pid)
     runtime_status(deployment_id;root)
     now_iso()
-  packages/uri3/uri3/scanner/docker_scanner.py:
-    e: _inspect_container,scan_container,_compose_ps,scan_compose_stack,scan_docker
-    _inspect_container(name)
-    scan_container(uri;ref)
-    _compose_ps(ref)
-    scan_compose_stack(uri;ref)
-    scan_docker(uri)
+  packages/uri3/uri3/graph/policy.py:
+    e: can_execute_step
+    can_execute_step(node)
   packages/uri3/uri3/scanner/scanner.py:
     e: scan_log,scan
     scan_log(uri)
     scan(uri)
   packages/uri3/uri3/config/docker_stacks.py:
-    e: _repo_root,docker_config_path,load_docker_config,resolve_stack,resolve_agent_stack
-    _repo_root(root)
+    e: docker_config_path,load_docker_config,resolve_stack,resolve_agent_stack
     docker_config_path(root)
     load_docker_config(root)
     resolve_stack(stack_id)
     resolve_agent_stack(agent_id)
-  packages/uri3/uri3/config/cli_shortcuts.py:
-    e: _repo_root,cli_config_path,load_cli_config,scan_shortcuts,resolve_scan_target,cli_examples
-    _repo_root(root)
-    cli_config_path(root)
-    load_cli_config(root)
-    scan_shortcuts(root)
-    resolve_scan_target(name_or_uri)
-    cli_examples(root)
   uri3/resolvers/llm_resolver.py:
     e: LLMRef,LLMResolver,resolve_llm
     LLMRef:
@@ -619,10 +764,6 @@ D:
     generate_agent(spec_path)
     expand_paths(patterns)
     main(argv)
-  packages/nl2uri/nl2uri/cli.py:
-    e: generate,main
-    generate(prompt;out;no_llm;json_out)
-    main()
   hypervisor/verifier/cli.py:
     e: main
     main(argv)
@@ -630,22 +771,44 @@ D:
     e: GateDecision,evaluate_change
     GateDecision:
     evaluate_change(change_report;approved)
+  packages/resource-agent-hypervisor/hypervisor/config/validators.py:
+    e: merge_config,validate_config
+    merge_config(base;overlay)
+    validate_config(cfg)
   hypervisor/evolution/models.py:
     e: EvolutionProposal,load_proposal
     EvolutionProposal:
     load_proposal(path)
+  packages/resource-agent-hypervisor/hypervisor/contract_registry/cli.py:
+    e: _parse_args,main
+    _parse_args(argv)
+    main(argv)
+  packages/resource-agent-hypervisor/hypervisor/contract_registry/cross_validator.py:
+    e: validate_cross_references,validate_root
+    validate_cross_references(registry)
+    validate_root(root)
   hypervisor/contract_registry/registry_builder.py:
     e: _hash_file,_contract_hash,build_registry_manifest,write_registry_manifest
     _hash_file(path)
     _contract_hash(root)
     build_registry_manifest(root)
     write_registry_manifest(root;output)
+  packages/resource-agent-hypervisor/hypervisor/contract_registry/cli_commands.py:
+    e: run_schema_command,run_cross_command,run_build_command,run_export_md_command,run_check_command
+    run_schema_command(root)
+    run_cross_command(root)
+    run_build_command(root)
+    run_export_md_command(root)
+    run_check_command(root)
   packages/resource-agent-hypervisor/hypervisor/deployment_registry/loader.py:
     e: default_registry_path,_read_yaml,_parse_deployment,load_deployment_registry
     default_registry_path(root)
     _read_yaml(path)
     _parse_deployment(item)
     load_deployment_registry(root)
+  packages/resource-agent-hypervisor/hypervisor/deployment_registry/run_plans.py:
+    e: build_run_plan
+    build_run_plan(deployment)
   packages/resource-agent-hypervisor/hypervisor/deployment_registry/models.py:
     e: AgentDeployment,DeploymentRegistry
     AgentDeployment: to_dict(0)
@@ -653,16 +816,98 @@ D:
   testenv/ssh_agent_host/mock_agent_server.py:
     e: Handler
     Handler(BaseHTTPRequestHandler): _json(2),do_GET(0),log_message(1)
+  packages/uri3/uri3/graph/adapters/browser_router.py:
+    e: BrowserRouterAdapter,_playwright_ready,resolve_browser_mode,cleanup_browser_adapters
+    BrowserRouterAdapter: __init__(0),execute(2)
+    _playwright_ready()
+    resolve_browser_mode(context)
+    cleanup_browser_adapters(context)
+  packages/uri3/uri3/protocols/schemes/spec_registry.py:
+    e: build_scheme_registry,is_concrete_uri,get_scheme_schema,list_schemes,query_names
+    build_scheme_registry()
+    is_concrete_uri(value)
+    get_scheme_schema(scheme_or_uri)
+    list_schemes()
+    query_names(spec)
+  packages/nl2uri/nl2uri/cli.py:
+    e: _default_use_llm,_resolve_use_llm,_emit,_plan_command,plan,classify,single,list_cmd,tree,task,graph,generate,main
+    _default_use_llm()
+    _resolve_use_llm()
+    _emit(payload)
+    _plan_command(prompt)
+    plan(prompt;json_out;llm;no_llm;validate)
+    classify(prompt;json_out)
+    single(prompt;json_out;no_llm)
+    list_cmd(prompt;json_out;no_llm)
+    tree(prompt;out;json_out;no_llm)
+    task(prompt;json_out;llm;no_llm;validate;dry_run)
+    graph(prompt;json_out;llm;no_llm;validate;dry_run)
+    generate(prompt;out;no_llm;json_out)
+    main()
+  packages/uri3/uri3/docker/runner.py:
+    e: run_command
+    run_command(cmd)
   packages/uri3/uri3/protocols/schemes/base.py:
     e: QueryOption,SchemeSpec
     QueryOption: to_dict(0)
     SchemeSpec: to_dict(0)
+  packages/uri3/uri3/protocols/schemes/instance_parser.py:
+    e: _parse_log,_parse_env,_parse_python,_parse_llm,_parse_pypi,_parse_http,_parse_a2a,_parse_mcp,_parse_docker,_parse_ssh,_parse_resource,parse_instance,normalize_scheme
+    _parse_log(uri)
+    _parse_env(uri)
+    _parse_python(uri)
+    _parse_llm(uri)
+    _parse_pypi(uri)
+    _parse_http(uri)
+    _parse_a2a(uri)
+    _parse_mcp(uri)
+    _parse_docker(uri)
+    _parse_ssh(uri)
+    _parse_resource(uri)
+    parse_instance(scheme;uri)
+    normalize_scheme(value)
+  packages/uri3/uri3/config/cli_shortcuts.py:
+    e: cli_config_path,load_cli_config,scan_shortcuts,resolve_scan_target,cli_examples
+    cli_config_path(root)
+    load_cli_config(root)
+    scan_shortcuts(root)
+    resolve_scan_target(name_or_uri)
+    cli_examples(root)
   packages/uri3/uri3/resolvers/protocol_resolver.py:
     e: resolve_http_like,resolve_a2a,resolve_mcp,resolve_resource
     resolve_http_like(uri)
     resolve_a2a(uri)
     resolve_mcp(uri)
     resolve_resource(uri)
+  packages/nl2uri/nl2uri/planner_llm.py:
+    e: extract_json,call_openrouter
+    extract_json(text)
+    call_openrouter(prompt)
+  packages/nl2uri/nl2uri/pipeline.py:
+    e: PipelineResult,FullPipelineResult,generate_tree,_append_pipeline_logs,run_generate_pipeline,run_full_pipeline
+    PipelineResult:
+    FullPipelineResult(PipelineResult):
+    generate_tree(prompt)
+    _append_pipeline_logs()
+    run_generate_pipeline(prompt)
+    run_full_pipeline(prompt)
+  packages/resource-agent-hypervisor/hypervisor/cli.py:
+    e: call,scan,resolve,status,config_cmd,deployments_list,run_agent_cmd,stop_agent_cmd,restart_agent_cmd,agent_status_cmd,logs_cmd,deploy_agent_cmd,verify_agent_cmd,docker_cmd,main
+    call(uri)
+    scan(uri)
+    resolve(uri)
+    status()
+    config_cmd(path)
+    deployments_list()
+    run_agent_cmd(selector;port;host;reload;detach;dry_run)
+    stop_agent_cmd(selector)
+    restart_agent_cmd(selector;port;host;reload;detach)
+    agent_status_cmd(selector;no_health)
+    logs_cmd(selector;limit)
+    deploy_agent_cmd(selector;apply)
+    verify_agent_cmd(selector;no_health)
+    docker_cmd(uri;dry_run)
+    main(argv)
   hypervisor/verifier/capability_tests.py:
     e: build_capability_test_plan
     build_capability_test_plan(registry)
@@ -688,26 +933,22 @@ D:
     ViewContract:
     CapabilityContract:
     ContractRegistry: resource_by_uri(1),view_by_name(1),capability_by_name(2)
-  packages/uri3/uri3/docker/runner.py:
-    e: run_command
-    run_command(cmd)
-  packages/resource-agent-hypervisor/hypervisor/cli.py:
-    e: call,scan,resolve,status,config_cmd,deployments_list,run_agent_cmd,stop_agent_cmd,restart_agent_cmd,agent_status_cmd,logs_cmd,deploy_agent_cmd,verify_agent_cmd,docker_cmd,main
-    call(uri)
-    scan(uri)
-    resolve(uri)
-    status()
-    config_cmd(path)
-    deployments_list()
-    run_agent_cmd(selector;port;host;reload;detach;dry_run)
-    stop_agent_cmd(selector)
-    restart_agent_cmd(selector;port;host;reload;detach)
-    agent_status_cmd(selector;no_health)
-    logs_cmd(selector;limit)
-    deploy_agent_cmd(selector;apply)
-    verify_agent_cmd(selector;no_health)
-    docker_cmd(uri;dry_run)
-    main(argv)
+  packages/resource-agent-hypervisor/hypervisor/deployment_registry/process.py:
+    e: start_process
+    start_process(plan)
+  packages/nl2uri/nl2uri/graph_planner_llm.py:
+    e: build_graph_planner_system_prompt,call_graph_planner_llm,plan_graph_with_llm
+    build_graph_planner_system_prompt()
+    call_graph_planner_llm(prompt)
+    plan_graph_with_llm(prompt)
+  packages/uri3/uri3/graph/execution_models.py:
+    e: ExecutionContext,StepExecutionResult,GraphExecutionPlan,GraphExecutionResult,utc_now_iso,new_execution_context
+    ExecutionContext: resolve_ref(1)
+    StepExecutionResult: to_dict(0)
+    GraphExecutionPlan: to_dict(0)
+    GraphExecutionResult: to_dict(0)
+    utc_now_iso()
+    new_execution_context(workflow_id)
   packages/uri3/uri3/logs/writer.py:
     e: append_log
     append_log(stream;message)
@@ -717,6 +958,9 @@ D:
   packages/uri3/uri3/protocols/schemes/log.py:
     e: spec
     spec()
+  domains/weather_map/handlers/generate_weather_map.py:
+    e: handler
+    handler(payload)
   packages/resource-agent-factory/generator/header.py:
     e: contract_source_ref,python_file_header,dockerfile_header,markdown_generated_banner,generated_marker_payload
     contract_source_ref(spec_path;root)
@@ -724,6 +968,14 @@ D:
     dockerfile_header(source_ref;contract_hash)
     markdown_generated_banner(source_ref;contract_hash)
     generated_marker_payload(source_ref;contract_hash)
+  packages/resource-agent-hypervisor/meta_agent/cli_commands.py:
+    e: cmd_plan,cmd_validate,cmd_repair,cmd_generate,cmd_pipeline,cmd_verify
+    cmd_plan(prompt;out)
+    cmd_validate(spec)
+    cmd_repair(spec)
+    cmd_generate(spec)
+    cmd_pipeline(prompt;out)
+    cmd_verify()
   packages/resource-agent-hypervisor/hypervisor/core.py:
     e: Hypervisor
     Hypervisor: __post_init__(0),from_config(1),start(0),stop(0),register_agent(1),status(0),__repr__(0)  # Main Hypervisor controller.
@@ -745,9 +997,11 @@ Example:
     upsert_deployment(registry;deployment)
     remove_deployment(registry;deployment_id)
     write_deployment_registry(deployments)
-  domains/weather_map/handlers/generate_weather_map.py:
-    e: handler
-    handler(payload)
+  packages/uri3/uri3/resolvers/dispatch.py:
+    e: _resolve_docker,resolve_target,scheme_from_uri
+    _resolve_docker(uri)
+    resolve_target(scheme;uri)
+    scheme_from_uri(uri)
   uri3/validators/uri_validator.py:
     e: validate_uri
     validate_uri(uri)
@@ -766,6 +1020,9 @@ Example:
   uri3/resolvers/http_resolver.py:
     e: HttpResolver
     HttpResolver: resolve(1),fetch(1)
+  packages/uri3/uri3/resolvers/router.py:
+    e: Uri3Router
+    Uri3Router: __init__(0),resolve(1),call(2)
   uri3/resolvers/python_resolver.py:
     e: PythonResolver,_split_python_uri,resolve_python,call_python
     PythonResolver: resolve(1),call(2)
@@ -815,11 +1072,40 @@ Example:
   packages/resource-agent-hypervisor/hypervisor/uri/client.py:
     e: Uri3Client
     Uri3Client: __init__(0),resolve(1),call(2),scan(1),logs(1),schema(1),graph(1),nl2uri(1)  # Thin hypervisor adapter over uri3 routing, scanning and grap...
+  packages/resource-agent-hypervisor/hypervisor/contract_registry/merger.py:
+    e: merge_main_contracts
+    merge_main_contracts(domain_id;resources;views;proto_text)
+  packages/resource-agent-hypervisor/hypervisor/contract_registry/cross_checks/proto_index.py:
+    e: load_proto_text,schema_exists
+    load_proto_text(root)
+    schema_exists(proto_text;schema_ref)
+  packages/resource-agent-hypervisor/hypervisor/deployment_registry/env_config.py:
+    e: repo_config_dir,load_deployments_uri_config,load_runtime_uri_config
+    repo_config_dir(root)
+    load_deployments_uri_config(root)
+    load_runtime_uri_config(root)
+  packages/resource-agent-hypervisor/hypervisor/deployment_registry/ssh_helpers.py:
+    e: generated_agent_dir,remote_module_for
+    generated_agent_dir(agent_ref;root)
+    remote_module_for(deployment)
   runtime_client/client.py:
     e: ResourceRuntimeClient
     ResourceRuntimeClient: __init__(2),read_resource(1),dispatch_command(2)  # Small HTTP client used by generated thin agents.
 
 Expected r...
+  packages/uri3/uri3/graph/operation_registry.py:
+    e: scheme_from_uri,effective_kind,requires_approval,allowed_operations,validate_node_operation,operation_registry_summary
+    scheme_from_uri(uri)
+    effective_kind(node)
+    requires_approval(node)
+    allowed_operations(scheme)
+    validate_node_operation(node)
+    operation_registry_summary()
+  packages/uri3/uri3/graph/artifacts.py:
+    e: artifact_path,artifact_uri,write_artifact
+    artifact_path(context;step_id;suffix)
+    artifact_uri(context;step_id;suffix)
+    write_artifact(context;step_id;suffix;content)
   packages/uri3/uri3/protocols/schemes/mcp.py:
     e: spec
     spec()
@@ -847,9 +1133,15 @@ Expected r...
   packages/uri3/uri3/protocols/schemes/env.py:
     e: spec
     spec()
+  packages/uri3/uri3/resolvers/registry.py:
+    e: build_resolver_registry
+    build_resolver_registry()
   generator/hashutil.py:
     e: file_sha256
     file_sha256(path)
+  packages/resource-agent-factory/generator/paths.py:
+    e: project_root
+    project_root()
   packages/nl2uri/nl2uri/planner.py:
     e: PlanResult,rule_based_plan
     PlanResult:
@@ -884,11 +1176,21 @@ Expected r...
   packages/resource-agent-hypervisor/hypervisor/domain_pack/model.py:
     e: DomainModel
     DomainModel: from_uri_tree(2)
+  packages/resource-agent-hypervisor/hypervisor/contract_registry/validate.py:
+    e: validate_registry
+    validate_registry(registry)
+  packages/uri3/uri3/graph/event_log.py:
+    e: workflow_event_path,append_workflow_event
+    workflow_event_path(workflow_id;root)
+    append_workflow_event(workflow_id;event)
+  packages/uri3/uri3/graph/adapters/base.py:
+    e: StepAdapter
+    StepAdapter(Protocol): execute(2)
   goal.yaml:
+  planfile.yaml:
   Makefile:
   docker-compose.yml:
   nlp2uri.yaml:
-  pyproject.toml:
   tree.txt:
   prefact.yaml:
   Dockerfile:
@@ -902,20 +1204,35 @@ Expected r...
   schemas/uri_tree.schema.json:
   schemas/views.schema.json:
   schemas/evolution_proposal.schema.json:
-  packages/uri3/pyproject.toml:
   generator/__init__.py:
+  packages/uri3/uri3/paths.py:
   packages/uri3/uri3/logs/__init__.py:
+  packages/uri3/uri3/docker/actions/__init__.py:
   uri3/scanner/base.py:
     e: ScanItem
     ScanItem:
   packages/uri3/uri3/protocols/scheme_registry.py:
+  packages/uri3/uri3/protocols/schemes/registry.py:
   packages/uri3/uri3/protocols/schemes/__init__.py:
-  packages/uri3/uri3/protocols/schemes/constants.py:
   packages/uri3/uri3/config/__init__.py:
   hypervisor/uri2llm/pypi_resolver.py:
   uri3/resolvers/__init__.py:
+  packages/uri3/contracts/views.yaml:
+  packages/uri3/contracts/resources.yaml:
+  domains/weather_map/proto/weather_map.proto:
+  contracts/agents/weather_map_agent.yaml:
   packages/resource-agent-factory/pyproject.toml:
   generator/templates/Dockerfile.j2:
+  packages/resource-agent-factory/agents/generated/orders_agent/__init__.py:
+  packages/resource-agent-factory/agents/generated/orders_agent/agent_card.py:
+  packages/resource-agent-factory/agents/generated/orders_agent/main.py:
+  packages/resource-agent-factory/agents/generated/orders_agent/Dockerfile:
+  packages/resource-agent-factory/agents/generated/orders_agent/.generated.yaml:
+  packages/resource-agent-factory/agents/generated/user_agent/__init__.py:
+  packages/resource-agent-factory/agents/generated/user_agent/agent_card.py:
+  packages/resource-agent-factory/agents/generated/user_agent/main.py:
+  packages/resource-agent-factory/agents/generated/user_agent/Dockerfile:
+  packages/resource-agent-factory/agents/generated/user_agent/.generated.yaml:
   packages/nl2uri/pyproject.toml:
   packages/resource-agent-hypervisor/pyproject.toml:
   meta_agent/__init__.py:
@@ -925,6 +1242,7 @@ Expected r...
   meta_agent/domain_planner/__init__.py:
   hypervisor/_version.py:
   hypervisor/__init__.py:
+  packages/resource-agent-hypervisor/hypervisor/paths.py:
   hypervisor/domain_pack/__init__.py:
   hypervisor/uri2llm/function_resolver.py:
   hypervisor/uri2llm/protocol_resolver.py:
@@ -933,8 +1251,12 @@ Expected r...
   hypervisor/uri2llm/router.py:
   hypervisor/uri2llm/env_resolver.py:
   hypervisor/config/__init__.py:
+  packages/resource-agent-hypervisor/hypervisor/contract_registry/registry_checks/__init__.py:
+  packages/resource-agent-hypervisor/hypervisor/contract_registry/cross_checks/__init__.py:
   packages/resource-agent-hypervisor/hypervisor/data/nlp2uri.yaml:
+  packages/resource-agent-hypervisor/hypervisor/deployment_registry/runner.py:
   packages/resource-agent-hypervisor/hypervisor/deployment_registry/__init__.py:
+  packages/resource-agent-hypervisor/hypervisor/deployment_registry/remote_runner.py:
   testenv/docker-compose.ssh.yml:
   testenv/ssh_agent_host/entrypoint.sh:
   testenv/ssh_agent_host/Dockerfile:
@@ -945,19 +1267,19 @@ Expected r...
   examples/create_orders_agent.yaml:
   examples/broken_agent.yaml:
   examples/create_invoices_agent_prompt.txt:
+  deployments/agent_deployments.yaml:
   output/contract_registry.resolved.json:
   testql-scenarios/generated-from-pytests.testql.toon.yaml:
   testql-scenarios/generated-cli-tests.testql.toon.yaml:
   testql-scenarios/generated-api-smoke.testql.toon.yaml:
   domains/weather_map/domain.yaml:
+  domains/weather_map/uri_tree.yaml:
   domains/weather_map/commands.yaml:
   domains/weather_map/views.yaml:
   domains/weather_map/registry.fragment.yaml:
   domains/weather_map/renderers.yaml:
   domains/weather_map/resources.yaml:
-  domains/weather_map/proto/weather_map.proto:
   config/deployments.uri.yaml:
-  config/llm.uri.yaml:
   config/runtime.uri.yaml:
   config/docker.uri.yaml:
   config/uri3.uri.yaml:
@@ -967,7 +1289,6 @@ Expected r...
   contracts/registry.yaml:
   contracts/resources.yaml:
   contracts/proto/user.proto:
-  contracts/agents/weather_map_agent.yaml:
   contracts/agents/user_agent.yaml:
   contracts/compatibility/policy.yaml:
   agents/generated/weather_map_agent/__init__.py:
@@ -980,7 +1301,17 @@ Expected r...
   agents/generated/user_agent/main.py:
   agents/generated/user_agent/Dockerfile:
   agents/generated/user_agent/.generated.yaml:
-  planfile.yaml:
-  packages/uri3/uri3/docker/actions/__init__.py:
-  deployments/agent_deployments.yaml:
-  domains/weather_map/uri_tree.yaml:
+  pyproject.toml:
+  schemas/workflow_graph.schema.json:
+  schemas/uri_graph.schema.json:
+  packages/uri3/pyproject.toml:
+  packages/uri3/uri3/graph/__init__.py:
+  packages/uri3/uri3/graph/adapters/__init__.py:
+  packages/uri3/uri3/protocols/schemes/constants.py:
+  examples/14_workflow_executor_mock/run.sh:
+  examples/14_workflow_executor_mock/task_graph.yaml:
+  examples/13_nl2uri_multi_uri_graph/run.sh:
+  examples/16_llm_graph_planner/run.sh:
+  examples/13_nl2uri_multi_uri_graph/prompt.txt:
+  config/llm.uri.yaml:
+  examples/16_llm_graph_planner/prompt.txt:

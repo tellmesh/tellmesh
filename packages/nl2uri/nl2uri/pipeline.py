@@ -3,11 +3,6 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from generator.agent_generator import generate_agent
-from generator.verify import verify_generated_agent
-from hypervisor.contract_registry.registry_builder import write_registry_manifest
-from hypervisor.deployment_registry.status import sync_from_uri_tree
-from hypervisor.domain_pack.generator import generate_domain_pack
 from nl2uri.domain_planner import plan_from_prompt
 from nl2uri.writer import write_uri_tree
 from uri3.validators.uri_tree_validator import validate_uri_tree
@@ -35,6 +30,29 @@ def generate_tree(prompt: str, *, no_llm: bool = False) -> dict:
     return plan_from_prompt(prompt, use_llm=not no_llm)
 
 
+def _append_pipeline_logs(*, tree: dict, deployment_id: str | None, root: Path) -> None:
+    try:
+        from uri3.logs.writer import append_log
+
+        append_log(
+            "nl2a",
+            "Domain pack generated",
+            logger="nl2uri.pipeline",
+            domain_id=tree.get("domain", {}).get("id"),
+            deployment_id=deployment_id,
+            root=root,
+        )
+        append_log(
+            "hypervisor",
+            "Deployment registry synced",
+            logger="hypervisor.deployment_registry",
+            deployment_id=deployment_id,
+            root=root,
+        )
+    except FileNotFoundError:
+        pass
+
+
 def run_generate_pipeline(
     prompt: str,
     *,
@@ -42,6 +60,9 @@ def run_generate_pipeline(
     out_dir: str = "domains",
     root: str | Path = ".",
 ) -> PipelineResult:
+    from hypervisor.deployment_registry.status import sync_from_uri_tree
+    from hypervisor.domain_pack.generator import generate_domain_pack
+
     tree = generate_tree(prompt, no_llm=no_llm)
     domain_dir = Path(out_dir) / tree["domain"]["id"]
     tree_path = write_uri_tree(tree, domain_dir / "uri_tree.yaml")
@@ -52,26 +73,7 @@ def run_generate_pipeline(
 
     files = generate_domain_pack(tree_path, domain_dir, root=Path(root))
     deployment = sync_from_uri_tree(tree, root=root)
-    try:
-        from uri3.logs.writer import append_log
-
-        append_log(
-            "nl2a",
-            "Domain pack generated",
-            logger="nl2uri.pipeline",
-            domain_id=tree.get("domain", {}).get("id"),
-            deployment_id=deployment.id if deployment else None,
-            root=Path(root),
-        )
-        append_log(
-            "hypervisor",
-            "Deployment registry synced",
-            logger="hypervisor.deployment_registry",
-            deployment_id=deployment.id if deployment else None,
-            root=Path(root),
-        )
-    except FileNotFoundError:
-        pass
+    _append_pipeline_logs(tree=tree, deployment_id=deployment.id if deployment else None, root=Path(root))
     return PipelineResult(
         domain_dir=domain_dir,
         tree_path=Path(tree_path),
@@ -87,6 +89,10 @@ def run_full_pipeline(
     out_dir: str = "domains",
     root: str | Path = ".",
 ) -> FullPipelineResult:
+    from generator.agent_generator import generate_agent
+    from generator.verify import verify_generated_agent
+    from hypervisor.contract_registry.registry_builder import write_registry_manifest
+
     root = Path(root)
     base = run_generate_pipeline(prompt, no_llm=no_llm, out_dir=out_dir, root=root)
 

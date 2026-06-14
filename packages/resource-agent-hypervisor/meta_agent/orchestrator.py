@@ -5,13 +5,10 @@ from typing import Any
 
 import yaml
 
-from generator.agent_generator import generate_agent
-from generator.validate import validate_agent
-from generator.verify import verify_generated_agent
 from meta_agent.models import PipelineResult
 from meta_agent.planner import infer_intent, intent_to_agent_spec, package_name
-from hypervisor.paths import find_repo_root
 from meta_agent.repair import repair_agent_spec
+from uri3.config.repo_root import find_repo_root
 
 ROOT = find_repo_root(Path(__file__))
 CONTRACTS_AGENTS = ROOT / "contracts" / "agents"
@@ -27,6 +24,10 @@ def save_proposal_from_prompt(prompt: str, output_path: Path | None = None) -> P
 
 
 def validate_repair_generate(spec_path: Path, *, auto_repair: bool = True) -> PipelineResult:
+    from generator.agent_generator import generate_agent
+    from generator.validate import validate_agent
+    from generator.verify import verify_generated_agent
+
     validation_errors = validate_agent(spec_path)
     repair_warnings: list[str] = []
 

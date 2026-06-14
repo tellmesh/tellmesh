@@ -47,14 +47,14 @@ def test_verify_remote_deployment(monkeypatch: pytest.MonkeyPatch):
     )
 
     monkeypatch.setattr(
-        "hypervisor.deployment_registry.remote_runner.scan_ssh",
+        "hypervisor.deployment_registry.ssh_verify.scan_ssh",
         lambda uri: [
             MagicMock(kind="ssh_connectivity", status="reachable", uri=uri, metadata={}),
             MagicMock(kind="remote_path", status="present", uri=uri, metadata={}),
         ],
     )
     monkeypatch.setattr(
-        "hypervisor.deployment_registry.remote_runner.scan_http",
+        "hypervisor.deployment_registry.ssh_verify.scan_http",
         lambda uri: [MagicMock(kind="health", status="ok", uri=uri, metadata={"status_code": 200})],
     )
     payload = verify_remote_deployment(deployment)

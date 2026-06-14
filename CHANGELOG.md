@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.10] - 2026-06-14
 
 ### Fixed
+- Fix unused-imports issues (ticket-e4a8078c)
+
+## [0.1.10] - 2026-06-14
+
+### Fixed
 - Fix string-concat issues (ticket-0df86be1)
 - Fix unused-imports issues (ticket-845746ab)
 - Fix magic-numbers issues (ticket-8fe1ea3e)
@@ -362,6 +367,43 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fix smart-return-type issues (ticket-780e8124)
 
 ## [Unreleased]
+
+## [0.5.10] - 2026-06-14
+
+### Docs
+- Update CHANGELOG.md
+- Update README.md
+- Update SUMD.md
+- Update SUMR.md
+- Update TODO.md
+- Update examples/13_nl2uri_multi_uri_graph/README.md
+- Update examples/14_workflow_executor_mock/README.md
+- Update examples/15_playwright_browser/README.md
+- Update examples/16_llm_graph_planner/README.md
+- Update examples/README.md
+- ... and 4 more files
+
+### Test
+- Update tests/hypervisor/test_remote_runner.py
+- Update tests/nl2uri/test_graph_planner.py
+- Update tests/nl2uri/test_graph_planner_llm.py
+- Update tests/uri3/test_browser_adapter.py
+- Update tests/uri3/test_dispatch.py
+- Update tests/uri3/test_workflow_executor.py
+- Update tests/uri3/test_workflow_graph.py
+
+### Other
+- Update app.doql.less
+- Update config/llm.uri.yaml
+- Update examples/13_nl2uri_multi_uri_graph/prompt.txt
+- Update examples/13_nl2uri_multi_uri_graph/run.sh
+- Update examples/14_workflow_executor_mock/run.sh
+- Update examples/14_workflow_executor_mock/task_graph.yaml
+- Update examples/16_llm_graph_planner/prompt.txt
+- Update examples/16_llm_graph_planner/run.sh
+- Update output/events/workflows/check-agent-health.jsonl
+- Update output/events/workflows/otw-rz-chrome-i-sprawd-localhost-8101-health.jsonl
+- ... and 130 more files
 
 ## [0.5.9] - 2026-06-14
 

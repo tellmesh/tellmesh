@@ -8,6 +8,8 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import parse_qs, urlparse
 
+from uri3.config.repo_root import config_repo_root
+
 
 DOCKER_ACTIONS = (
     "status",
@@ -105,7 +107,7 @@ def parse_docker_uri(uri: str, *, root: Path | None = None) -> DockerRef:
         project = stack.get("project")
         container_name = stack.get("container_name")
     elif kind == "compose":
-        repo_root = root or _find_repo_root()
+        repo_root = root or config_repo_root()
         compose_file = str((repo_root / name).resolve())
     elif kind == "container":
         container_name = name
@@ -135,14 +137,6 @@ def parse_docker_uri(uri: str, *, root: Path | None = None) -> DockerRef:
         tail=_int(query, "tail", 100),
         query=query,
     )
-
-
-def _find_repo_root() -> Path:
-    here = Path(__file__).resolve()
-    for parent in here.parents:
-        if (parent / "pyproject.toml").exists() or (parent / "config" / "docker.uri.yaml").exists():
-            return parent
-    return Path.cwd()
 
 
 def resolve_docker(uri: str, *, root: Path | None = None) -> dict[str, Any]:

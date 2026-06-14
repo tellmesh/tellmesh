@@ -1,54 +1,54 @@
-# hypervisor | 384 func | 115f | 9493L | python | 2026-06-14
+# hypervisor | 556 func | 168f | 13166L | python | 2026-06-14
 # generated in 0.00s
 
 HEALTH:
-  CC̄=3.9  critical=28 (limit:10)  dup=1  cycles=4
+  CC̄=3.5  critical=30 (limit:10)  dup=1  cycles=0
 
 ALERTS[20]:
-  !!! cc_exceeded      control_docker = 41 (limit:15)
-  !!! high_fan_out     resolve_llm_profile = 23 (limit:10)
-  !!! high_fan_out     merge_main_contracts = 20 (limit:10)
-  !!  cc_exceeded      validate_cross_references = 22 (limit:15)
-  !!  cc_exceeded      main = 20 (limit:15)
-  !!  cc_exceeded      validate_registry = 20 (limit:15)
-  !!  high_fan_out     control_docker = 19 (limit:10)
+  !!! high_fan_out     run_workflow = 24 (limit:10)
+  !!  cc_exceeded      run_workflow = 21 (limit:15)
+  !!  cc_exceeded      classify_output_kind = 20 (limit:15)
+  !!  high_fan_out     PlaywrightBrowserAdapter.execute = 19 (limit:10)
+  !!  high_fan_out     resolve_llm_profile = 18 (limit:10)
   !!  high_fan_out     generate_agent = 17 (limit:10)
   !!  high_fan_out     infer_intent = 17 (limit:10)
-  !!  high_fan_out     main = 16 (limit:10)
+  !!  high_fan_out     parse_docker_uri = 15 (limit:10)
+  !!  high_fan_out     main = 15 (limit:10)
+  !!  high_fan_out     load_contract_registry = 15 (limit:10)
 
-MODULES[212] (top by size):
+MODULES[294] (top by size):
   M[planfile.yaml] 1319L C:0 F:0 CC↑0 D:0 (yaml)
   M[goal.yaml] 511L C:0 F:0 CC↑0 D:0 (yaml)
-  M[packages/resource-agent-hypervisor/hypervisor/deployment_registry/runner.py] 286L C:0 F:10 CC↑10 D:1 (python)
+  M[packages/nl2uri/nl2uri/graph_planner.py] 318L C:0 F:11 CC↑12 D:2 (python)
+  M[packages/uri3/uri3/graph/graph_executor.py] 250L C:0 F:5 CC↑21 D:2 (python)
+  M[packages/uri3/uri3/cli.py] 247L C:0 F:15 CC↑8 D:0 (python)
   M[tree.txt] 240L C:0 F:0 CC↑0 D:0 (txt)
-  M[packages/resource-agent-hypervisor/hypervisor/cli.py] 238L C:0 F:15 CC↑7 D:0 (python)
-  M[packages/nl2uri/nl2uri/domain_planner.py] 236L C:0 F:11 CC↑10 D:4 (python)
-  M[packages/uri3/uri3/protocols/schemes/registry.py] 220L C:0 F:9 CC↑15 D:2 (python)
-  M[packages/uri3/uri3/cli.py] 203L C:0 F:12 CC↑8 D:0 (python)
-  M[packages/uri3/uri3/logs/reader.py] 188L C:0 F:9 CC↑17 D:5 (python)
-  M[packages/resource-agent-hypervisor/hypervisor/deployment_registry/remote_runner.py] 186L C:0 F:6 CC↑12 D:2 (python)
+  M[packages/nl2uri/nl2uri/cli.py] 200L C:0 F:13 CC↑5 D:0 (python)
+  M[packages/nl2uri/nl2uri/graph_repair.py] 195L C:0 F:8 CC↑16 D:1 (python)
   M[output/contract_registry.resolved.json] 174L C:0 F:0 CC↑0 D:0 (json)
-  M[packages/uri3/uri3/resolvers/docker_resolver.py] 160L C:1 F:8 CC↑12 D:5 (python)
-  M[packages/resource-agent-hypervisor/hypervisor/deployment_registry/status.py] 151L C:0 F:10 CC↑11 D:4 (python)
-  M[packages/nl2uri/nl2uri/pipeline.py] 135L C:2 F:3 CC↑6 D:1 (python)
-  M[packages/uri3/uri3/docker/controller.py] 130L C:0 F:4 CC↑41 D:2 (python)
-  LANGS: python:146/yaml:35/json:10/other:5/toml:5/yml:3/shell:3/proto:2/txt:2/j2:1
+  M[packages/resource-agent-hypervisor/hypervisor/deployment_registry/lifecycle.py] 166L C:0 F:6 CC↑8 D:8 (python)
+  M[packages/uri3/uri3/resolvers/docker_resolver.py] 154L C:1 F:7 CC↑12 D:5 (python)
+  M[packages/resource-agent-hypervisor/hypervisor/deployment_registry/status.py] 151L C:0 F:10 CC↑11 D:5 (python)
+  M[packages/resource-agent-hypervisor/hypervisor/cli.py] 148L C:0 F:15 CC↑4 D:0 (python)
+  M[packages/nl2uri/nl2uri/graph_planner_llm.py] 147L C:0 F:3 CC↑4 D:1 (python)
+  M[packages/nl2uri/nl2uri/pipeline.py] 141L C:2 F:4 CC↑4 D:1 (python)
+  LANGS: python:214/yaml:40/json:12/other:7/shell:6/toml:5/txt:4/yml:3/proto:2/j2:1
 
 HOTSPOTS[10]:
-  ★ resolve_llm_profile fan=23  // Orchestrates 23 calls
-  ★ merge_main_contracts fan=20  // Register generated domain artifacts in global contracts.
-  ★ control_docker fan=19  // Orchestrates 19 calls
+  ★ run_workflow fan=24  // Orchestrates 24 calls
+  ★ PlaywrightBrowserAdapter.execute fan=19  // Orchestrates 19 calls
+  ★ resolve_llm_profile fan=18  // Orchestrates 18 calls
   ★ generate_agent fan=17  // Orchestrates 17 calls
   ★ infer_intent fan=17  // Rule-based planner used as safe default before any LLM integration.
 
 This intent
 
-REFACTOR[15]:
-  [1] H/L Split control_docker (CC=41)
-  [2] H/H Split god module goal.yaml (511L, 0 classes)
-  [3] H/H Split god module planfile.yaml (1319L, 0 classes)
-  [4] M/L Split parse_log_uri (CC=17)
-  [5] M/L Split main (CC=16)
+REFACTOR[10]:
+  [1] H/H Split god module goal.yaml (511L, 0 classes)
+  [2] H/H Split god module planfile.yaml (1319L, 0 classes)
+  [3] M/L Split resolve_uri_values (CC=15)
+  [4] M/L Split classify_output_kind (CC=20)
+  [5] M/L Split detect_cycles (CC=15)
 
 EVOLUTION:
-  2026-06-14 CC̄=3.9 crit=28 9493L // Automated analysis
+  2026-06-14 CC̄=3.5 crit=30 13166L // Automated analysis
