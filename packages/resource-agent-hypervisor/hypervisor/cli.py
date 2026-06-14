@@ -134,6 +134,24 @@ def docker_cmd(
     call_docker(uri, dry_run=dry_run)
 
 
+@app.command("replay-failure")
+def replay_failure_cmd(
+    source: str = typer.Argument(..., help="Workflow id or path to JSONL event log"),
+    create_test: str = typer.Option("", "--create-test", help="Write pytest regression file to this path"),
+    json_out: bool = typer.Option(False, "--json", help="Output JSON summary"),
+):
+    """Summarize failed workflow logs or generate a regression pytest file."""
+    from uri3.graph.replay import create_regression_test, replay_workflow_events
+
+    if create_test:
+        payload = create_regression_test(source, out=create_test)
+    else:
+        payload = replay_workflow_events(source)
+        if json_out:
+            payload = {key: value for key, value in payload.items() if key != "timeline"}
+    echo_json(payload)
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     """Entry point that accepts optional argv (for tests and scripts)."""
     args = list(argv) if argv is not None else None

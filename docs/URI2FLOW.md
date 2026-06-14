@@ -48,6 +48,16 @@ uri2flow expand examples/15_compact_uri_flow/weather.uri.flow.yaml --out output/
 uri2flow print examples/15_compact_uri_flow/weather.uri.flow.yaml
 ```
 
+`uri2flow` accepts compact flows embedded in README files as
+`markpact:flow` blocks:
+
+```bash
+uri2flow expand markpact://examples/22_markpact_weather/README.md#weather-health \
+  --out output/weather-health.uri.graph.yaml
+```
+
+See [`MARKPACT_WITH_TOURI.md`](./MARKPACT_WITH_TOURI.md).
+
 Makefile:
 
 ```bash

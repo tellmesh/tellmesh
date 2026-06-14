@@ -23,7 +23,12 @@ class ServiceResult:
     warnings: list[str] = field(default_factory=list)
     meta: dict[str, Any] = field(default_factory=dict)
 
-    def finalize(self, *, execution_completed: bool = True, refresh_statuses: bool = False) -> ServiceResult:
+    def finalize(
+        self,
+        *,
+        execution_completed: bool = True,
+        refresh_statuses: bool = False,
+    ) -> ServiceResult:
         if (
             refresh_statuses
             or self.workflow_status is None
@@ -40,7 +45,10 @@ class ServiceResult:
                 self.execution_status = execution_status
             if refresh_statuses or self.service_result_status is None:
                 self.service_result_status = service_result_status
-        self.errors = [normalize_error(item, default_source=self._default_error_source()) for item in self.errors]
+        self.errors = [
+            normalize_error(item, default_source=self._default_error_source())
+            for item in self.errors
+        ]
         return self
 
     def _default_error_source(self) -> str:

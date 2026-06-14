@@ -1,0 +1,19 @@
+version: 1
+
+capability:
+  id: workflow.check_health.graph
+  scheme: workflow
+  uri_template: workflow://graph/check-agent-health/dry-run
+  operation: plan
+  kind: query
+  description: Dry-run mock workflow graph for agent health check.
+
+backend:
+  type: uri_graph
+  graph: examples/14_workflow_executor_mock/task_graph.yaml
+  dry_run: true
+  browser: mock
+
+policy:
+  side_effects: false
+  requires_approval: false

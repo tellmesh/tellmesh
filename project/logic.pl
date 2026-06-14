@@ -1,5 +1,5 @@
 % ── Project Metadata ─────────────────────────────────────
-project_metadata('hypervisor', '0.5.12', 'python').
+project_metadata('hypervisor', '0.5.13', 'python').
 
 % ── Project Files ────────────────────────────────────────
 project_file('agents/__init__.py', 1, 'python').
@@ -15,7 +15,7 @@ project_file('agents/generated/weather_map_agent/agent_card.py', 40, 'python').
 project_file('agents/generated/weather_map_agent/main.py', 16, 'python').
 project_file('agents/generated/weather_map_agent/routes.py', 85, 'python').
 project_file('agents/generated/weather_map_agent/tests/test_contract.py', 18, 'python').
-project_file('app.doql.less', 214, 'less').
+project_file('app.doql.less', 241, 'less').
 project_file('domains/__init__.py', 1, 'python').
 project_file('domains/weather_map/__init__.py', 1, 'python').
 project_file('domains/weather_map/handlers/__init__.py', 1, 'python').
@@ -33,6 +33,12 @@ project_file('examples/16_llm_graph_planner/run.sh', 18, 'shell').
 project_file('examples/17_flow_vs_graph/run.sh', 18, 'shell').
 project_file('examples/18_llm_flow_planner/run.sh', 32, 'shell').
 project_file('examples/20_touri_capabilities/run.sh', 8, 'shell').
+project_file('examples/21_touri_voice/run.sh', 68, 'shell').
+project_file('examples/21_touri_voice/touri_examples_voice/__init__.py', 1, 'python').
+project_file('examples/21_touri_voice/touri_examples_voice/stt.py', 36, 'python').
+project_file('examples/21_touri_voice/touri_examples_voice/tts.py', 49, 'python').
+project_file('examples/21_touri_voice/touri_examples_voice/voice_command.py', 67, 'python').
+project_file('examples/22_markpact_weather/run.sh', 19, 'shell').
 project_file('packages/nl2uri/nl2a/__init__.py', 1, 'python').
 project_file('packages/nl2uri/nl2a/cli.py', 26, 'python').
 project_file('packages/nl2uri/nl2uri/__init__.py', 1, 'python').
@@ -73,7 +79,7 @@ project_file('packages/resource-agent-factory/generator/validate.py', 70, 'pytho
 project_file('packages/resource-agent-factory/generator/verify.py', 74, 'python').
 project_file('packages/resource-agent-hypervisor/hypervisor/__init__.py', 14, 'python').
 project_file('packages/resource-agent-hypervisor/hypervisor/_version.py', 21, 'python').
-project_file('packages/resource-agent-hypervisor/hypervisor/cli.py', 149, 'python').
+project_file('packages/resource-agent-hypervisor/hypervisor/cli.py', 167, 'python').
 project_file('packages/resource-agent-hypervisor/hypervisor/cli_commands.py', 129, 'python').
 project_file('packages/resource-agent-hypervisor/hypervisor/compatibility/__init__.py', 1, 'python').
 project_file('packages/resource-agent-hypervisor/hypervisor/compatibility/checker.py', 44, 'python').
@@ -110,7 +116,7 @@ project_file('packages/resource-agent-hypervisor/hypervisor/deployment_registry/
 project_file('packages/resource-agent-hypervisor/hypervisor/deployment_registry/env.py', 51, 'python').
 project_file('packages/resource-agent-hypervisor/hypervisor/deployment_registry/env_config.py', 29, 'python').
 project_file('packages/resource-agent-hypervisor/hypervisor/deployment_registry/env_merge.py', 32, 'python').
-project_file('packages/resource-agent-hypervisor/hypervisor/deployment_registry/lifecycle.py', 167, 'python').
+project_file('packages/resource-agent-hypervisor/hypervisor/deployment_registry/lifecycle.py', 173, 'python').
 project_file('packages/resource-agent-hypervisor/hypervisor/deployment_registry/loader.py', 45, 'python').
 project_file('packages/resource-agent-hypervisor/hypervisor/deployment_registry/local_targets.py', 76, 'python').
 project_file('packages/resource-agent-hypervisor/hypervisor/deployment_registry/models.py', 51, 'python').
@@ -175,18 +181,30 @@ project_file('packages/resource-agent-hypervisor/meta_agent/repair/pipeline.py',
 project_file('packages/resource-agent-hypervisor/meta_agent/repair/rules.py', 83, 'python').
 project_file('packages/resource-agent-hypervisor/runtime_client/__init__.py', 1, 'python').
 project_file('packages/resource-agent-hypervisor/runtime_client/client.py', 48, 'python').
-project_file('packages/touri/touri/__init__.py', 18, 'python').
-project_file('packages/touri/touri/backends/__init__.py', 6, 'python').
+project_file('packages/touri/touri/__init__.py', 19, 'python').
+project_file('packages/touri/touri/backends/__init__.py', 16, 'python').
 project_file('packages/touri/touri/backends/mock_backend.py', 10, 'python').
-project_file('packages/touri/touri/backends/python_backend.py', 37, 'python').
+project_file('packages/touri/touri/backends/python_backend.py', 42, 'python').
 project_file('packages/touri/touri/backends/shell_backend.py', 16, 'python').
-project_file('packages/touri/touri/cli.py', 72, 'python').
-project_file('packages/touri/touri/executor.py', 46, 'python').
-project_file('packages/touri/touri/loader.py', 66, 'python').
+project_file('packages/touri/touri/backends/uri2ops_backend.py', 105, 'python').
+project_file('packages/touri/touri/backends/uri_flow_backend.py', 88, 'python').
+project_file('packages/touri/touri/backends/uri_graph_backend.py', 96, 'python').
+project_file('packages/touri/touri/cli.py', 96, 'python').
+project_file('packages/touri/touri/data_quality.py', 84, 'python').
+project_file('packages/touri/touri/executor.py', 154, 'python').
+project_file('packages/touri/touri/loader.py', 25, 'python').
+project_file('packages/touri/touri/loaders/__init__.py', 21, 'python').
+project_file('packages/touri/touri/loaders/file_loader.py', 19, 'python').
+project_file('packages/touri/touri/loaders/markpact_loader.py', 107, 'python').
+project_file('packages/touri/touri/loaders/registry_loader.py', 15, 'python').
+project_file('packages/touri/touri/manifest.py', 64, 'python').
 project_file('packages/touri/touri/matcher.py', 36, 'python').
-project_file('packages/touri/touri/models.py', 63, 'python').
-project_file('packages/touri/touri/validator.py', 24, 'python').
+project_file('packages/touri/touri/models.py', 85, 'python').
+project_file('packages/touri/touri/redaction.py', 26, 'python').
+project_file('packages/touri/touri/register.py', 72, 'python').
+project_file('packages/touri/touri/validator.py', 30, 'python').
 project_file('packages/touri/touri_examples/__init__.py', 1, 'python').
+project_file('packages/touri/touri_examples/validators.py', 26, 'python').
 project_file('packages/touri/touri_examples/weather.py', 15, 'python').
 project_file('packages/uri2flow/uri2flow/__init__.py', 17, 'python').
 project_file('packages/uri2flow/uri2flow/cli.py', 67, 'python').
@@ -218,12 +236,14 @@ project_file('packages/uri3/uri3/__init__.py', 1, 'python').
 project_file('packages/uri3/uri3/cli/__init__.py', 6, 'python').
 project_file('packages/uri3/uri3/cli/commands/__init__.py', 1, 'python').
 project_file('packages/uri3/uri3/cli/commands/discovery.py', 80, 'python').
+project_file('packages/uri3/uri3/cli/commands/explain.py', 43, 'python').
 project_file('packages/uri3/uri3/cli/commands/flow.py', 101, 'python').
 project_file('packages/uri3/uri3/cli/commands/graph.py', 24, 'python').
+project_file('packages/uri3/uri3/cli/commands/replay.py', 47, 'python').
 project_file('packages/uri3/uri3/cli/commands/resolve.py', 37, 'python').
 project_file('packages/uri3/uri3/cli/commands/workflow.py', 46, 'python').
-project_file('packages/uri3/uri3/cli/helpers.py', 65, 'python').
-project_file('packages/uri3/uri3/cli/main.py', 30, 'python').
+project_file('packages/uri3/uri3/cli/helpers.py', 67, 'python').
+project_file('packages/uri3/uri3/cli/main.py', 32, 'python').
 project_file('packages/uri3/uri3/config/__init__.py', 13, 'python').
 project_file('packages/uri3/uri3/config/cli_shortcuts.py', 42, 'python').
 project_file('packages/uri3/uri3/config/docker_stacks.py', 58, 'python').
@@ -252,13 +272,14 @@ project_file('packages/uri3/uri3/graph/artifacts.py', 34, 'python').
 project_file('packages/uri3/uri3/graph/conditions.py', 25, 'python').
 project_file('packages/uri3/uri3/graph/dependency_graph.py', 83, 'python').
 project_file('packages/uri3/uri3/graph/event_log.py', 21, 'python').
-project_file('packages/uri3/uri3/graph/execution_models.py', 123, 'python').
-project_file('packages/uri3/uri3/graph/graph_executor.py', 251, 'python').
+project_file('packages/uri3/uri3/graph/execution_models.py', 136, 'python').
+project_file('packages/uri3/uri3/graph/graph_executor.py', 291, 'python').
 project_file('packages/uri3/uri3/graph/graph_serializer.py', 64, 'python').
 project_file('packages/uri3/uri3/graph/graph_validator.py', 74, 'python').
 project_file('packages/uri3/uri3/graph/models.py', 89, 'python').
 project_file('packages/uri3/uri3/graph/operation_registry.py', 72, 'python').
 project_file('packages/uri3/uri3/graph/policy.py', 21, 'python').
+project_file('packages/uri3/uri3/graph/replay.py', 157, 'python').
 project_file('packages/uri3/uri3/graph/uri_graph.py', 52, 'python').
 project_file('packages/uri3/uri3/logs/__init__.py', 4, 'python').
 project_file('packages/uri3/uri3/logs/filters.py', 74, 'python').
@@ -291,6 +312,7 @@ project_file('packages/uri3/uri3/resolvers/__init__.py', 4, 'python').
 project_file('packages/uri3/uri3/resolvers/dispatch.py', 68, 'python').
 project_file('packages/uri3/uri3/resolvers/docker_resolver.py', 155, 'python').
 project_file('packages/uri3/uri3/resolvers/env_resolver.py', 95, 'python').
+project_file('packages/uri3/uri3/resolvers/explain.py', 170, 'python').
 project_file('packages/uri3/uri3/resolvers/http_resolver.py', 21, 'python').
 project_file('packages/uri3/uri3/resolvers/llm_resolver.py', 46, 'python').
 project_file('packages/uri3/uri3/resolvers/log_query.py', 56, 'python').
@@ -302,6 +324,11 @@ project_file('packages/uri3/uri3/resolvers/registry.py', 22, 'python').
 project_file('packages/uri3/uri3/resolvers/resolve_core.py', 46, 'python').
 project_file('packages/uri3/uri3/resolvers/router.py', 29, 'python').
 project_file('packages/uri3/uri3/resolvers/ssh_resolver.py', 111, 'python').
+project_file('packages/uri3/uri3/results/__init__.py', 32, 'python').
+project_file('packages/uri3/uri3/results/envelope.py', 176, 'python').
+project_file('packages/uri3/uri3/results/errors.py', 36, 'python').
+project_file('packages/uri3/uri3/results/service_result.py', 103, 'python').
+project_file('packages/uri3/uri3/results/statuses.py', 22, 'python').
 project_file('packages/uri3/uri3/scanner/__init__.py', 1, 'python').
 project_file('packages/uri3/uri3/scanner/base.py', 8, 'python').
 project_file('packages/uri3/uri3/scanner/docker_scanner.py', 92, 'python').
@@ -315,6 +342,7 @@ project_file('project.sh', 59, 'shell').
 project_file('testenv/ssh_agent_host/entrypoint.sh', 8, 'shell').
 project_file('testenv/ssh_agent_host/mock_agent_server.py', 58, 'python').
 project_file('tests/__init__.py', 1, 'python').
+project_file('tests/capabilities/weather_forecast/test_fixtures.py', 23, 'python').
 project_file('tests/conftest.py', 15, 'python').
 project_file('tests/domain_pack/__init__.py', 2, 'python').
 project_file('tests/domain_pack/test_generator.py', 84, 'python').
@@ -364,7 +392,14 @@ project_file('tests/test_uri2ops_v01.py', 64, 'python').
 project_file('tests/test_uri3.py', 12, 'python').
 project_file('tests/test_uri_tree_validator.py', 5, 'python').
 project_file('tests/test_validate.py', 9, 'python').
+project_file('tests/touri/test_data_quality.py', 50, 'python').
+project_file('tests/touri/test_fallbacks.py', 45, 'python').
+project_file('tests/touri/test_markpact_loader.py', 67, 'python').
+project_file('tests/touri/test_register.py', 22, 'python').
 project_file('tests/touri/test_touri.py', 38, 'python').
+project_file('tests/touri/test_uri2ops_backend.py', 45, 'python').
+project_file('tests/touri/test_uri_flow_backend.py', 30, 'python').
+project_file('tests/touri/test_voice_capabilities.py', 133, 'python').
 project_file('tests/uri2flow/conftest.py', 15, 'python').
 project_file('tests/uri2flow/test_cli.py', 13, 'python').
 project_file('tests/uri2flow/test_expand_branching_flow.py', 14, 'python').
@@ -376,17 +411,22 @@ project_file('tests/uri3/test_browser_adapter.py', 109, 'python').
 project_file('tests/uri3/test_cli.py', 88, 'python').
 project_file('tests/uri3/test_dispatch.py', 23, 'python').
 project_file('tests/uri3/test_docker_control.py', 93, 'python').
+project_file('tests/uri3/test_explain_uri.py', 34, 'python').
 project_file('tests/uri3/test_http_scanner.py', 43, 'python').
+project_file('tests/uri3/test_lifecycle_envelope.py', 33, 'python').
 project_file('tests/uri3/test_llm_profiles.py', 34, 'python').
 project_file('tests/uri3/test_log_reader_meta.py', 20, 'python').
 project_file('tests/uri3/test_log_uri.py', 87, 'python').
+project_file('tests/uri3/test_replay.py', 60, 'python').
 project_file('tests/uri3/test_resolvers.py', 107, 'python').
+project_file('tests/uri3/test_result_envelope.py', 58, 'python').
 project_file('tests/uri3/test_router_call.py', 20, 'python').
 project_file('tests/uri3/test_schema.py', 99, 'python').
+project_file('tests/uri3/test_service_result.py', 32, 'python').
 project_file('tests/uri3/test_ssh_auth.py', 55, 'python').
 project_file('tests/uri3/test_ssh_scanner.py', 65, 'python').
 project_file('tests/uri3/test_uri_yaml.py', 27, 'python').
-project_file('tests/uri3/test_workflow_executor.py', 96, 'python').
+project_file('tests/uri3/test_workflow_executor.py', 145, 'python').
 project_file('tests/uri3/test_workflow_graph.py', 53, 'python').
 project_file('tree.sh', 2, 'shell').
 
@@ -398,6 +438,12 @@ python_function('agents/generated/weather_map_agent/tests/test_contract.py', 'te
 python_function('agents/generated/weather_map_agent/tests/test_contract.py', 'test_agent_card_has_capabilities', 0, 3, 0).
 python_function('agents/generated/weather_map_agent/tests/test_contract.py', 'test_agent_card_has_contract_hash', 0, 2, 0).
 python_function('domains/weather_map/handlers/generate_weather_map.py', 'handler', 1, 3, 7).
+python_function('examples/21_touri_voice/touri_examples_voice/stt.py', '_default_transcript', 0, 1, 0).
+python_function('examples/21_touri_voice/touri_examples_voice/stt.py', 'transcribe', 2, 5, 5).
+python_function('examples/21_touri_voice/touri_examples_voice/tts.py', '_artifact_dir', 1, 3, 3).
+python_function('examples/21_touri_voice/touri_examples_voice/tts.py', 'speak', 2, 3, 7).
+python_function('examples/21_touri_voice/touri_examples_voice/voice_command.py', '_artifact_dir', 1, 3, 3).
+python_function('examples/21_touri_voice/touri_examples_voice/voice_command.py', 'plan_voice_command', 2, 7, 7).
 python_function('packages/nl2uri/nl2a/cli.py', 'generate', 3, 1, 5).
 python_function('packages/nl2uri/nl2a/cli.py', 'main', 0, 1, 1).
 python_function('packages/nl2uri/nl2uri/cli.py', '_default_use_llm', 0, 1, 1).
@@ -516,6 +562,7 @@ python_function('packages/resource-agent-hypervisor/hypervisor/cli.py', 'logs_cm
 python_function('packages/resource-agent-hypervisor/hypervisor/cli.py', 'deploy_agent_cmd', 2, 1, 4).
 python_function('packages/resource-agent-hypervisor/hypervisor/cli.py', 'verify_agent_cmd', 2, 1, 4).
 python_function('packages/resource-agent-hypervisor/hypervisor/cli.py', 'docker_cmd', 2, 1, 4).
+python_function('packages/resource-agent-hypervisor/hypervisor/cli.py', 'replay_failure_cmd', 3, 5, 7).
 python_function('packages/resource-agent-hypervisor/hypervisor/cli.py', 'main', 1, 4, 3).
 python_function('packages/resource-agent-hypervisor/hypervisor/cli_commands.py', 'echo_json', 1, 2, 5).
 python_function('packages/resource-agent-hypervisor/hypervisor/cli_commands.py', 'run_local_agent', 1, 6, 11).
@@ -595,11 +642,12 @@ python_function('packages/resource-agent-hypervisor/hypervisor/deployment_regist
 python_function('packages/resource-agent-hypervisor/hypervisor/deployment_registry/env_config.py', 'load_runtime_uri_config', 1, 2, 3).
 python_function('packages/resource-agent-hypervisor/hypervisor/deployment_registry/env_merge.py', 'merge_runtime_defaults', 1, 3, 2).
 python_function('packages/resource-agent-hypervisor/hypervisor/deployment_registry/env_merge.py', 'materialize_env_values', 1, 6, 5).
+python_function('packages/resource-agent-hypervisor/hypervisor/deployment_registry/lifecycle.py', '_lifecycle_payload', 1, 1, 1).
 python_function('packages/resource-agent-hypervisor/hypervisor/deployment_registry/lifecycle.py', '_repo_root', 1, 2, 3).
-python_function('packages/resource-agent-hypervisor/hypervisor/deployment_registry/lifecycle.py', 'run_agent', 1, 8, 14).
-python_function('packages/resource-agent-hypervisor/hypervisor/deployment_registry/lifecycle.py', 'stop_agent', 1, 7, 13).
+python_function('packages/resource-agent-hypervisor/hypervisor/deployment_registry/lifecycle.py', 'run_agent', 1, 8, 15).
+python_function('packages/resource-agent-hypervisor/hypervisor/deployment_registry/lifecycle.py', 'stop_agent', 1, 7, 14).
 python_function('packages/resource-agent-hypervisor/hypervisor/deployment_registry/lifecycle.py', 'restart_agent', 1, 1, 2).
-python_function('packages/resource-agent-hypervisor/hypervisor/deployment_registry/lifecycle.py', 'agent_status', 1, 5, 8).
+python_function('packages/resource-agent-hypervisor/hypervisor/deployment_registry/lifecycle.py', 'agent_status', 1, 5, 9).
 python_function('packages/resource-agent-hypervisor/hypervisor/deployment_registry/lifecycle.py', 'agent_logs_uri', 1, 3, 6).
 python_function('packages/resource-agent-hypervisor/hypervisor/deployment_registry/loader.py', 'default_registry_path', 1, 1, 1).
 python_function('packages/resource-agent-hypervisor/hypervisor/deployment_registry/loader.py', '_read_yaml', 1, 3, 4).
@@ -698,25 +746,59 @@ python_function('packages/resource-agent-hypervisor/meta_agent/repair/rules.py',
 python_function('packages/resource-agent-hypervisor/meta_agent/repair/rules.py', 'repair_capabilities', 2, 6, 7).
 python_function('packages/touri/touri/backends/mock_backend.py', 'call_mock_backend', 2, 1, 1).
 python_function('packages/touri/touri/backends/python_backend.py', '_split_python_uri', 1, 3, 4).
-python_function('packages/touri/touri/backends/python_backend.py', 'call_python_backend', 3, 5, 10).
+python_function('packages/touri/touri/backends/python_backend.py', 'call_python_backend', 3, 9, 14).
 python_function('packages/touri/touri/backends/shell_backend.py', 'call_shell_backend', 3, 1, 2).
+python_function('packages/touri/touri/backends/uri2ops_backend.py', '_registry_scheme', 1, 2, 0).
+python_function('packages/touri/touri/backends/uri2ops_backend.py', '_registry_operation', 2, 1, 1).
+python_function('packages/touri/touri/backends/uri2ops_backend.py', '_resolve_root', 1, 2, 3).
+python_function('packages/touri/touri/backends/uri2ops_backend.py', 'call_uri2ops_backend', 5, 17, 16).
+python_function('packages/touri/touri/backends/uri_flow_backend.py', '_resolve_path', 2, 3, 4).
+python_function('packages/touri/touri/backends/uri_flow_backend.py', '_execution_options', 2, 1, 3).
+python_function('packages/touri/touri/backends/uri_flow_backend.py', 'call_uri_flow_backend', 3, 9, 16).
+python_function('packages/touri/touri/backends/uri_graph_backend.py', '_resolve_path', 2, 3, 4).
+python_function('packages/touri/touri/backends/uri_graph_backend.py', '_execution_options', 2, 1, 3).
+python_function('packages/touri/touri/backends/uri_graph_backend.py', '_load_graph', 1, 3, 4).
+python_function('packages/touri/touri/backends/uri_graph_backend.py', 'call_uri_graph_backend', 3, 9, 16).
 python_function('packages/touri/touri/cli.py', '_print', 1, 1, 2).
 python_function('packages/touri/touri/cli.py', 'cmd_list', 1, 2, 3).
 python_function('packages/touri/touri/cli.py', 'cmd_validate', 1, 2, 2).
 python_function('packages/touri/touri/cli.py', 'cmd_call', 1, 4, 6).
+python_function('packages/touri/touri/cli.py', 'cmd_register', 1, 2, 3).
 python_function('packages/touri/touri/cli.py', 'build_parser', 0, 1, 5).
 python_function('packages/touri/touri/cli.py', 'main', 1, 1, 3).
+python_function('packages/touri/touri/data_quality.py', 'apply_data_quality', 4, 18, 10).
 python_function('packages/touri/touri/executor.py', '_payload_from_params', 2, 2, 2).
-python_function('packages/touri/touri/executor.py', 'call_uri', 4, 7, 9).
-python_function('packages/touri/touri/loader.py', '_read_yaml', 1, 3, 4).
-python_function('packages/touri/touri/loader.py', 'load_manifest', 1, 13, 10).
-python_function('packages/touri/touri/loader.py', 'iter_manifest_paths', 1, 2, 4).
-python_function('packages/touri/touri/loader.py', 'load_registry', 1, 2, 2).
+python_function('packages/touri/touri/executor.py', '_error_codes', 1, 5, 5).
+python_function('packages/touri/touri/executor.py', '_fallback_matches', 2, 3, 1).
+python_function('packages/touri/touri/executor.py', '_call_backend', 3, 18, 9).
+python_function('packages/touri/touri/executor.py', '_apply_fallbacks', 4, 11, 7).
+python_function('packages/touri/touri/executor.py', 'call_uri', 4, 13, 15).
+python_function('packages/touri/touri/loader.py', 'iter_manifest_paths', 1, 1, 1).
+python_function('packages/touri/touri/loader.py', 'load_registry', 1, 1, 1).
+python_function('packages/touri/touri/loaders/file_loader.py', 'iter_manifest_paths', 1, 2, 4).
+python_function('packages/touri/touri/loaders/file_loader.py', 'load_file_registry', 1, 2, 2).
+python_function('packages/touri/touri/loaders/markpact_loader.py', 'is_markpact_registry', 1, 1, 2).
+python_function('packages/touri/touri/loaders/markpact_loader.py', '_find_repo_root', 1, 5, 4).
+python_function('packages/touri/touri/loaders/markpact_loader.py', 'resolve_markpact_ref', 1, 7, 13).
+python_function('packages/touri/touri/loaders/markpact_loader.py', 'extract_markpact_blocks', 2, 4, 4).
+python_function('packages/touri/touri/loaders/markpact_loader.py', '_block_capability_id', 2, 4, 3).
+python_function('packages/touri/touri/loaders/markpact_loader.py', '_load_capability_block', 1, 3, 5).
+python_function('packages/touri/touri/loaders/markpact_loader.py', 'load_markpact_capabilities', 1, 9, 9).
+python_function('packages/touri/touri/loaders/registry_loader.py', 'load_registry', 1, 2, 4).
+python_function('packages/touri/touri/manifest.py', '_read_yaml', 1, 3, 4).
+python_function('packages/touri/touri/manifest.py', 'load_manifest_from_dict', 1, 16, 9).
+python_function('packages/touri/touri/manifest.py', 'load_manifest', 1, 1, 4).
 python_function('packages/touri/touri/matcher.py', 'template_to_regex', 1, 1, 3).
 python_function('packages/touri/touri/matcher.py', 'match_uri', 2, 3, 4).
 python_function('packages/touri/touri/matcher.py', 'require_match', 2, 2, 2).
-python_function('packages/touri/touri/models.py', 'service_result', 2, 1, 1).
-python_function('packages/touri/touri/validator.py', 'validate_manifest', 1, 9, 3).
+python_function('packages/touri/touri/redaction.py', 'should_redact', 1, 2, 1).
+python_function('packages/touri/touri/redaction.py', 'apply_redaction', 2, 7, 3).
+python_function('packages/touri/touri/register.py', 'sample_uri_from_template', 1, 1, 3).
+python_function('packages/touri/touri/register.py', 'register_capability', 1, 6, 10).
+python_function('packages/touri/touri/validator.py', 'validate_manifest', 1, 15, 3).
+python_function('packages/touri/touri_examples/validators.py', 'always_pass', 2, 1, 1).
+python_function('packages/touri/touri_examples/validators.py', 'reject_low_confidence', 2, 4, 3).
+python_function('packages/touri/touri_examples/validators.py', 'low_confidence_backend', 2, 1, 2).
 python_function('packages/touri/touri_examples/weather.py', 'handler', 2, 1, 2).
 python_function('packages/uri2flow/uri2flow/cli.py', 'cmd_validate', 1, 2, 4).
 python_function('packages/uri2flow/uri2flow/cli.py', 'cmd_expand', 1, 3, 7).
@@ -778,10 +860,14 @@ python_function('packages/uri2ops/uri2ops/server/mcp_wrapper.py', 'list_mcp_tool
 python_function('packages/uri2ops/uri2ops/server/mcp_wrapper.py', 'mcp_tool_name_for_operation', 2, 1, 0).
 python_function('packages/uri3/domains/weather_map/handlers/generate_weather_map.py', 'handler', 1, 3, 7).
 python_function('packages/uri3/uri3/cli/commands/discovery.py', 'register', 1, 1, 19).
+python_function('packages/uri3/uri3/cli/commands/explain.py', 'register', 1, 1, 6).
+python_function('packages/uri3/uri3/cli/commands/explain.py', '_render', 1, 12, 4).
 python_function('packages/uri3/uri3/cli/commands/flow.py', 'expand_flow_cmd', 1, 3, 8).
 python_function('packages/uri3/uri3/cli/commands/flow.py', 'run_flow_cmd', 1, 6, 15).
 python_function('packages/uri3/uri3/cli/commands/flow.py', 'register', 1, 1, 4).
 python_function('packages/uri3/uri3/cli/commands/graph.py', 'register', 1, 1, 5).
+python_function('packages/uri3/uri3/cli/commands/replay.py', 'register', 1, 1, 8).
+python_function('packages/uri3/uri3/cli/commands/replay.py', '_render', 1, 9, 4).
 python_function('packages/uri3/uri3/cli/commands/resolve.py', 'register', 1, 1, 12).
 python_function('packages/uri3/uri3/cli/commands/workflow.py', 'register', 1, 1, 10).
 python_function('packages/uri3/uri3/cli/helpers.py', 'quick_reference', 0, 5, 4).
@@ -862,11 +948,12 @@ python_function('packages/uri3/uri3/graph/event_log.py', 'workflow_event_path', 
 python_function('packages/uri3/uri3/graph/event_log.py', 'append_workflow_event', 2, 1, 6).
 python_function('packages/uri3/uri3/graph/execution_models.py', 'utc_now_iso', 0, 1, 3).
 python_function('packages/uri3/uri3/graph/execution_models.py', 'new_execution_context', 1, 2, 3).
+python_function('packages/uri3/uri3/graph/graph_executor.py', '_redact_step_payload', 1, 2, 1).
 python_function('packages/uri3/uri3/graph/graph_executor.py', 'build_execution_plan', 1, 3, 9).
 python_function('packages/uri3/uri3/graph/graph_executor.py', 'dry_run_workflow', 1, 1, 2).
 python_function('packages/uri3/uri3/graph/graph_executor.py', '_dependencies_ok', 2, 6, 1).
 python_function('packages/uri3/uri3/graph/graph_executor.py', '_execute_step', 2, 2, 2).
-python_function('packages/uri3/uri3/graph/graph_executor.py', 'run_workflow', 1, 21, 23).
+python_function('packages/uri3/uri3/graph/graph_executor.py', 'run_workflow', 1, 22, 24).
 python_function('packages/uri3/uri3/graph/graph_serializer.py', 'edges_from_depends_on', 1, 4, 5).
 python_function('packages/uri3/uri3/graph/graph_serializer.py', 'normalize_graph_payload', 1, 12, 13).
 python_function('packages/uri3/uri3/graph/graph_serializer.py', 'task_steps_to_graph', 2, 3, 6).
@@ -882,6 +969,12 @@ python_function('packages/uri3/uri3/graph/operation_registry.py', 'allowed_opera
 python_function('packages/uri3/uri3/graph/operation_registry.py', 'validate_node_operation', 1, 2, 4).
 python_function('packages/uri3/uri3/graph/operation_registry.py', 'operation_registry_summary', 0, 2, 3).
 python_function('packages/uri3/uri3/graph/policy.py', 'can_execute_step', 1, 6, 2).
+python_function('packages/uri3/uri3/graph/replay.py', '_resolve_event_path', 2, 3, 5).
+python_function('packages/uri3/uri3/graph/replay.py', 'load_workflow_events', 1, 4, 7).
+python_function('packages/uri3/uri3/graph/replay.py', 'replay_workflow_events', 1, 10, 8).
+python_function('packages/uri3/uri3/graph/replay.py', 'build_task_payload_from_events', 1, 8, 5).
+python_function('packages/uri3/uri3/graph/replay.py', 'render_regression_test', 1, 5, 3).
+python_function('packages/uri3/uri3/graph/replay.py', 'create_regression_test', 1, 11, 11).
 python_function('packages/uri3/uri3/graph/uri_graph.py', 'build_graph_from_tree', 1, 10, 9).
 python_function('packages/uri3/uri3/logs/filters.py', 'level_rank', 1, 3, 2).
 python_function('packages/uri3/uri3/logs/filters.py', 'entry_timestamp', 1, 4, 4).
@@ -947,6 +1040,14 @@ python_function('packages/uri3/uri3/resolvers/env_resolver.py', 'resolve_env', 1
 python_function('packages/uri3/uri3/resolvers/env_resolver.py', '_upsert_env_file', 3, 7, 13).
 python_function('packages/uri3/uri3/resolvers/env_resolver.py', '_first', 2, 2, 1).
 python_function('packages/uri3/uri3/resolvers/env_resolver.py', 'call_env', 2, 8, 12).
+python_function('packages/uri3/uri3/resolvers/explain.py', '_find_repo_root', 1, 5, 4).
+python_function('packages/uri3/uri3/resolvers/explain.py', 'load_touri_config', 1, 5, 6).
+python_function('packages/uri3/uri3/resolvers/explain.py', 'default_touri_registry', 1, 5, 5).
+python_function('packages/uri3/uri3/resolvers/explain.py', '_match_uri3', 2, 4, 0).
+python_function('packages/uri3/uri3/resolvers/explain.py', '_match_touri', 2, 3, 3).
+python_function('packages/uri3/uri3/resolvers/explain.py', '_match_uri2ops', 3, 5, 2).
+python_function('packages/uri3/uri3/resolvers/explain.py', '_match_hypervisor', 2, 8, 3).
+python_function('packages/uri3/uri3/resolvers/explain.py', 'explain_uri', 1, 14, 13).
 python_function('packages/uri3/uri3/resolvers/llm_resolver.py', 'resolve_llm', 1, 5, 4).
 python_function('packages/uri3/uri3/resolvers/log_query.py', 'first', 3, 2, 1).
 python_function('packages/uri3/uri3/resolvers/log_query.py', 'query_int', 3, 3, 3).
@@ -974,6 +1075,17 @@ python_function('packages/uri3/uri3/resolvers/ssh_resolver.py', '_ssh_options', 
 python_function('packages/uri3/uri3/resolvers/ssh_resolver.py', 'build_ssh_command', 2, 4, 4).
 python_function('packages/uri3/uri3/resolvers/ssh_resolver.py', 'ssh_transport_option', 1, 4, 6).
 python_function('packages/uri3/uri3/resolvers/ssh_resolver.py', 'run_ssh', 2, 1, 2).
+python_function('packages/uri3/uri3/results/envelope.py', 'step_execution_status', 0, 5, 0).
+python_function('packages/uri3/uri3/results/envelope.py', 'step_service_result_status', 0, 4, 0).
+python_function('packages/uri3/uri3/results/envelope.py', 'workflow_aggregate_statuses', 0, 15, 2).
+python_function('packages/uri3/uri3/results/envelope.py', 'enrich_step_dict', 1, 5, 8).
+python_function('packages/uri3/uri3/results/envelope.py', 'enrich_workflow_dict', 1, 12, 11).
+python_function('packages/uri3/uri3/results/envelope.py', '_workflow_step_error_code', 1, 3, 1).
+python_function('packages/uri3/uri3/results/envelope.py', '_workflow_step_error_detail', 1, 5, 3).
+python_function('packages/uri3/uri3/results/envelope.py', 'enrich_lifecycle_dict', 1, 13, 8).
+python_function('packages/uri3/uri3/results/errors.py', 'normalize_error', 1, 10, 7).
+python_function('packages/uri3/uri3/results/service_result.py', 'service_result', 2, 3, 8).
+python_function('packages/uri3/uri3/results/statuses.py', 'derive_statuses', 1, 5, 0).
 python_function('packages/uri3/uri3/scanner/docker_scanner.py', '_inspect_container', 1, 5, 4).
 python_function('packages/uri3/uri3/scanner/docker_scanner.py', 'scan_container', 2, 2, 2).
 python_function('packages/uri3/uri3/scanner/docker_scanner.py', '_compose_ps', 1, 6, 6).
@@ -996,6 +1108,8 @@ python_function('packages/uri3/uri3/scanner/ssh_scanner.py', 'scan_ssh', 1, 3, 6
 python_function('packages/uri3/uri3/validators/uri_tree_validator.py', 'load_yaml', 1, 1, 2).
 python_function('packages/uri3/uri3/validators/uri_tree_validator.py', 'validate_uri_tree', 1, 2, 7).
 python_function('packages/uri3/uri3/validators/uri_validator.py', 'validate_uri', 1, 2, 2).
+python_function('tests/capabilities/weather_forecast/test_fixtures.py', 'test_weather_forecast_fixtures_exist', 1, 3, 2).
+python_function('tests/capabilities/weather_forecast/test_fixtures.py', 'test_good_fixture_contains_expected_marker', 1, 3, 1).
 python_function('tests/conftest.py', 'repo_root', 0, 4, 6).
 python_function('tests/domain_pack/test_generator.py', '_weather_tree', 0, 1, 0).
 python_function('tests/domain_pack/test_generator.py', 'test_derive_domain_model', 0, 3, 3).
@@ -1155,10 +1269,35 @@ python_function('tests/test_uri3.py', 'test_validate_uri', 0, 3, 1).
 python_function('tests/test_uri3.py', 'test_graph_weather_tree', 0, 3, 3).
 python_function('tests/test_uri_tree_validator.py', 'test_uri_tree_schema_ok', 0, 2, 1).
 python_function('tests/test_validate.py', 'test_user_agent_contract_is_valid', 0, 2, 2).
+python_function('tests/touri/test_data_quality.py', '_write_capability', 2, 1, 2).
+python_function('tests/touri/test_data_quality.py', 'test_data_quality_validator_rejects_low_confidence', 1, 4, 3).
+python_function('tests/touri/test_data_quality.py', 'test_touri_call_includes_status_envelope', 1, 3, 2).
+python_function('tests/touri/test_fallbacks.py', 'test_fallback_applies_mock_after_data_quality_failure', 1, 5, 6).
+python_function('tests/touri/test_markpact_loader.py', '_markpact_ref', 2, 2, 0).
+python_function('tests/touri/test_markpact_loader.py', 'test_extract_markpact_capability_blocks', 0, 4, 2).
+python_function('tests/touri/test_markpact_loader.py', 'test_load_registry_from_markpact_readme', 1, 5, 3).
+python_function('tests/touri/test_markpact_loader.py', 'test_load_registry_from_markpact_fragment', 1, 2, 2).
+python_function('tests/touri/test_markpact_loader.py', 'test_call_uri_from_markpact_registry', 1, 5, 3).
+python_function('tests/touri/test_markpact_loader.py', 'test_touri_list_markpact_registry_cli', 2, 3, 4).
+python_function('tests/touri/test_register.py', 'test_sample_uri_from_template', 0, 2, 1).
+python_function('tests/touri/test_register.py', 'test_register_capability_matches_uri3_explain', 2, 5, 2).
 python_function('tests/touri/test_touri.py', 'test_load_registry', 1, 4, 1).
 python_function('tests/touri/test_touri.py', 'test_match_weather_uri', 1, 3, 2).
 python_function('tests/touri/test_touri.py', 'test_call_mock_uri', 1, 3, 1).
 python_function('tests/touri/test_touri.py', 'test_call_python_weather_uri', 1, 5, 1).
+python_function('tests/touri/test_uri2ops_backend.py', 'test_uri2ops_backend_open_page', 1, 4, 2).
+python_function('tests/touri/test_uri2ops_backend.py', 'test_redaction_masks_secret_payload_fields', 1, 3, 4).
+python_function('tests/touri/test_uri_flow_backend.py', 'test_uri_flow_backend_dry_run', 1, 6, 2).
+python_function('tests/touri/test_uri_flow_backend.py', 'test_uri_graph_backend_dry_run', 1, 6, 2).
+python_function('tests/touri/test_voice_capabilities.py', 'voice_registry', 2, 1, 2).
+python_function('tests/touri/test_voice_capabilities.py', 'test_voice_registry_lists_capabilities', 1, 5, 1).
+python_function('tests/touri/test_voice_capabilities.py', 'test_stt_mock_transcribes', 1, 5, 2).
+python_function('tests/touri/test_voice_capabilities.py', 'test_stt_mock_default_transcript_when_empty', 1, 3, 3).
+python_function('tests/touri/test_voice_capabilities.py', 'test_stt_mock_reads_transcript_file', 2, 3, 4).
+python_function('tests/touri/test_voice_capabilities.py', 'test_tts_mock_speaks', 2, 5, 6).
+python_function('tests/touri/test_voice_capabilities.py', 'test_voice_command_plans_flow', 2, 8, 7).
+python_function('tests/touri/test_voice_capabilities.py', 'test_voice_command_rejects_empty_text', 1, 3, 2).
+python_function('tests/touri/test_voice_capabilities.py', 'test_full_mock_voice_pipeline', 2, 4, 7).
 python_function('tests/uri2flow/conftest.py', 'repo_root', 0, 4, 6).
 python_function('tests/uri2flow/test_cli.py', 'test_cli_expand', 2, 4, 3).
 python_function('tests/uri2flow/test_expand_branching_flow.py', 'test_expand_branching_flow', 1, 6, 1).
@@ -1196,9 +1335,15 @@ python_function('tests/uri3/test_docker_control.py', 'test_control_docker_up_dry
 python_function('tests/uri3/test_docker_control.py', 'test_control_docker_generate_writes_file', 2, 3, 5).
 python_function('tests/uri3/test_docker_control.py', 'test_control_docker_container_stop_dry_run', 0, 2, 1).
 python_function('tests/uri3/test_docker_control.py', 'test_control_docker_up_recovers_from_name_conflict', 1, 4, 5).
+python_function('tests/uri3/test_explain_uri.py', 'test_explain_weather_uri_matches_touri', 1, 5, 1).
+python_function('tests/uri3/test_explain_uri.py', 'test_explain_http_uri_matches_uri3', 1, 3, 1).
+python_function('tests/uri3/test_explain_uri.py', 'test_explain_browser_uri_matches_uri2ops', 1, 3, 1).
+python_function('tests/uri3/test_explain_uri.py', 'test_explain_unknown_scheme_denied', 1, 3, 1).
 python_function('tests/uri3/test_http_scanner.py', 'test_scan_http_health_uri_does_not_double_path', 1, 6, 7).
 python_function('tests/uri3/test_http_scanner.py', 'test_scan_http_404_health_is_error', 1, 5, 5).
 python_function('tests/uri3/test_http_scanner.py', 'test_health_scan_ok_requires_200', 0, 2, 2).
+python_function('tests/uri3/test_lifecycle_envelope.py', 'test_lifecycle_plan_payload_has_status_envelope', 0, 6, 1).
+python_function('tests/uri3/test_lifecycle_envelope.py', 'test_lifecycle_stopped_payload_has_status_envelope', 0, 3, 1).
 python_function('tests/uri3/test_llm_profiles.py', 'test_load_llm_config_has_domain_planner', 0, 3, 2).
 python_function('tests/uri3/test_llm_profiles.py', 'test_resolve_llm_profile_domain_planner', 1, 6, 3).
 python_function('tests/uri3/test_llm_profiles.py', 'test_resolve_llm_profile_respects_default_env', 1, 3, 2).
@@ -1210,6 +1355,10 @@ python_function('tests/uri3/test_log_uri.py', 'test_read_logs_from_explicit_file
 python_function('tests/uri3/test_log_uri.py', 'test_call_log_uri_returns_entries', 2, 3, 3).
 python_function('tests/uri3/test_log_uri.py', 'test_scan_log_uri', 2, 5, 4).
 python_function('tests/uri3/test_log_uri.py', 'test_summarize_logs', 2, 4, 3).
+python_function('tests/uri3/test_replay.py', 'test_replay_workflow_events_by_id', 1, 5, 2).
+python_function('tests/uri3/test_replay.py', 'test_replay_workflow_events_by_path', 1, 3, 3).
+python_function('tests/uri3/test_replay.py', 'test_build_task_payload_from_step_started_events', 1, 4, 3).
+python_function('tests/uri3/test_replay.py', 'test_create_regression_test_writes_pytest', 1, 5, 4).
 python_function('tests/uri3/test_resolvers.py', 'test_env_uri_resolution', 1, 4, 2).
 python_function('tests/uri3/test_resolvers.py', 'test_llm_uri_resolution', 0, 4, 1).
 python_function('tests/uri3/test_resolvers.py', 'test_pypi_uri_resolution', 0, 2, 1).
@@ -1224,6 +1373,9 @@ python_function('tests/uri3/test_resolvers.py', 'test_env_call_set_updates_exist
 python_function('tests/uri3/test_resolvers.py', 'test_router_resolve_returns_uri_resolution', 0, 2, 4).
 python_function('tests/uri3/test_resolvers.py', 'test_unsupported_scheme', 0, 1, 2).
 python_function('tests/uri3/test_resolvers.py', 'test_deprecated_uri2llm_reexport', 0, 3, 5).
+python_function('tests/uri3/test_result_envelope.py', 'test_uri3_workflow_result_includes_status_envelope', 1, 6, 2).
+python_function('tests/uri3/test_result_envelope.py', 'test_uri3_workflow_blocked_has_failed_service_status', 0, 4, 2).
+python_function('tests/uri3/test_result_envelope.py', 'test_uri2ops_task_result_includes_status_envelope', 1, 3, 3).
 python_function('tests/uri3/test_router_call.py', 'test_resolve_docker_stack', 0, 4, 1).
 python_function('tests/uri3/test_router_call.py', 'test_call_docker_stack_dry_run', 0, 4, 1).
 python_function('tests/uri3/test_schema.py', 'test_normalize_scheme', 0, 4, 1).
@@ -1237,6 +1389,9 @@ python_function('tests/uri3/test_schema.py', 'test_describe_concrete_uri', 0, 3,
 python_function('tests/uri3/test_schema.py', 'test_cli_schema_log_scheme', 0, 4, 3).
 python_function('tests/uri3/test_schema.py', 'test_cli_schema_list', 0, 3, 3).
 python_function('tests/uri3/test_schema.py', 'test_cli_schema_analyze', 0, 4, 3).
+python_function('tests/uri3/test_service_result.py', 'test_service_result_finalize_sets_three_status_levels', 0, 6, 2).
+python_function('tests/uri3/test_service_result.py', 'test_error_envelope_normalizes_legacy_detail', 0, 3, 3).
+python_function('tests/uri3/test_service_result.py', 'test_success_service_result', 0, 3, 2).
 python_function('tests/uri3/test_ssh_auth.py', 'test_resolve_ssh_password_from_env', 1, 2, 3).
 python_function('tests/uri3/test_ssh_auth.py', 'test_resolve_ssh_password_from_profile', 2, 2, 5).
 python_function('tests/uri3/test_ssh_auth.py', 'test_build_ssh_command_uses_sshpass_when_password_set', 1, 3, 3).
@@ -1250,11 +1405,12 @@ python_function('tests/uri3/test_ssh_scanner.py', 'test_scan_ssh_success', 1, 2,
 python_function('tests/uri3/test_uri_yaml.py', 'test_is_uri', 0, 5, 1).
 python_function('tests/uri3/test_uri_yaml.py', 'test_load_llm_uri_yaml', 0, 5, 2).
 python_function('tests/uri3/test_uri_yaml.py', 'test_resolve_uri_values_keeps_secrets_by_default', 0, 2, 2).
-python_function('tests/uri3/test_workflow_executor.py', 'test_run_workflow_dry_run_completes', 0, 5, 3).
-python_function('tests/uri3/test_workflow_executor.py', 'test_run_workflow_blocks_command_without_approve', 0, 4, 1).
+python_function('tests/uri3/test_workflow_executor.py', 'test_run_workflow_dry_run_completes', 0, 9, 4).
+python_function('tests/uri3/test_workflow_executor.py', 'test_run_workflow_blocks_command_without_approve', 0, 9, 2).
 python_function('tests/uri3/test_workflow_executor.py', 'test_run_workflow_execute_mock_with_approve', 1, 8, 7).
 python_function('tests/uri3/test_workflow_executor.py', 'test_run_workflow_accepts_workflow_graph_object', 1, 3, 2).
 python_function('tests/uri3/test_workflow_executor.py', 'test_run_workflow_skips_conditional_branch', 1, 5, 1).
+python_function('tests/uri3/test_workflow_executor.py', 'test_run_workflow_service_failure_uses_completed_with_service_error', 1, 7, 2).
 python_function('tests/uri3/test_workflow_graph.py', 'test_load_task_payload', 0, 4, 2).
 python_function('tests/uri3/test_workflow_graph.py', 'test_validate_task_payload', 0, 2, 1).
 python_function('tests/uri3/test_workflow_graph.py', 'test_execution_plan_order', 0, 2, 1).
@@ -1332,8 +1488,6 @@ python_class('packages/touri/touri/models.py', 'CapabilityRef').
 python_class('packages/touri/touri/models.py', 'BackendRef').
 python_class('packages/touri/touri/models.py', 'CapabilityManifest').
 python_method('CapabilityManifest', 'to_dict', 0, 1, 1).
-python_class('packages/touri/touri/models.py', 'ServiceResult').
-python_method('ServiceResult', 'to_dict', 0, 1, 1).
 python_class('packages/uri2flow/uri2flow/models.py', 'FlowStep').
 python_class('packages/uri2flow/uri2flow/models.py', 'FlowDocument').
 python_method('FlowDocument', 'to_dict', 0, 11, 2).
@@ -1380,11 +1534,11 @@ python_method('Uri2OpsAdapter', 'execute', 2, 3, 12).
 python_class('packages/uri3/uri3/graph/execution_models.py', 'ExecutionContext').
 python_method('ExecutionContext', 'resolve_ref', 1, 2, 2).
 python_class('packages/uri3/uri3/graph/execution_models.py', 'StepExecutionResult').
-python_method('StepExecutionResult', 'to_dict', 0, 4, 0).
+python_method('StepExecutionResult', 'to_dict', 0, 5, 1).
 python_class('packages/uri3/uri3/graph/execution_models.py', 'GraphExecutionPlan').
-python_method('GraphExecutionPlan', 'to_dict', 0, 4, 0).
+python_method('GraphExecutionPlan', 'to_dict', 0, 5, 0).
 python_class('packages/uri3/uri3/graph/execution_models.py', 'GraphExecutionResult').
-python_method('GraphExecutionResult', 'to_dict', 0, 4, 1).
+python_method('GraphExecutionResult', 'to_dict', 0, 5, 2).
 python_class('packages/uri3/uri3/graph/models.py', 'GraphNode').
 python_method('GraphNode', 'from_dict', 2, 5, 5).
 python_method('GraphNode', 'to_dict', 0, 4, 0).
@@ -1427,6 +1581,12 @@ python_class('packages/uri3/uri3/resolvers/router.py', 'Uri3Router').
 python_method('Uri3Router', '__init__', 0, 1, 1).
 python_method('Uri3Router', 'resolve', 1, 2, 3).
 python_method('Uri3Router', 'call', 2, 1, 1).
+python_class('packages/uri3/uri3/results/errors.py', 'ErrorEnvelope').
+python_method('ErrorEnvelope', 'to_dict', 0, 2, 1).
+python_class('packages/uri3/uri3/results/service_result.py', 'ServiceResult').
+python_method('ServiceResult', 'finalize', 0, 12, 3).
+python_method('ServiceResult', '_default_error_source', 0, 3, 0).
+python_method('ServiceResult', 'to_dict', 0, 10, 2).
 python_class('packages/uri3/uri3/scanner/base.py', 'ScanItem').
 python_class('testenv/ssh_agent_host/mock_agent_server.py', 'Handler').
 python_method('Handler', '_json', 2, 1, 8).
@@ -1448,6 +1608,8 @@ makefile_target('nl2uri-flow-validate', '').
 makefile_target('example-18', '').
 makefile_target('touri-test', '').
 makefile_target('touri-demo', '').
+makefile_target('voice-test', '').
+makefile_target('voice-demo', '').
 makefile_target('uri-tree', '').
 makefile_target('graph', '').
 makefile_target('nl2a-weather', '').
@@ -1522,6 +1684,18 @@ sumd_workflow('nl2uri-flow-validate', 'manual').
 sumd_workflow_step('nl2uri-flow-validate', 1, 'nl2uri flow -p "wygeneruj agenta pogodowego, uruchom go lokalnie i sprawdź health w Chrome" --validate').
 sumd_workflow('example-18', 'manual').
 sumd_workflow_step('example-18', 1, 'bash examples/18_llm_flow_planner/run.sh').
+sumd_workflow('touri-test', 'manual').
+sumd_workflow_step('touri-test', 1, 'pytest tests/touri -q').
+sumd_workflow('touri-demo', 'manual').
+sumd_workflow_step('touri-demo', 1, 'touri validate examples/20_touri_capabilities/weather_forecast.uri.capability.yaml').
+sumd_workflow_step('touri-demo', 2, 'touri list examples/20_touri_capabilities').
+sumd_workflow_step('touri-demo', 3, 'touri call weather://forecast/Gdansk/14/html --registry examples/20_touri_capabilities').
+sumd_workflow_step('touri-demo', 4, 'touri call echo://Adam --registry examples/20_touri_capabilities').
+sumd_workflow('voice-test', 'manual').
+sumd_workflow_step('voice-test', 1, 'pytest tests/touri/test_voice_capabilities.py -q').
+sumd_workflow('voice-demo', 'manual').
+sumd_workflow_step('voice-demo', 1, 'touri validate examples/21_touri_voice/stt_mock.uri.capability.yaml').
+sumd_workflow_step('voice-demo', 2, 'touri list examples/21_touri_voice').
 sumd_workflow('uri-tree', 'manual').
 sumd_workflow_step('uri-tree', 1, 'python -m nl2uri.cli --no-llm -p "$(WEATHER_PROMPT)" --out domains/weather_map/uri_tree.yaml').
 sumd_workflow('graph', 'manual').

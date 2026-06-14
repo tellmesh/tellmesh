@@ -1,0 +1,36 @@
+version: 1
+
+capability:
+  id: voice.command.from_text
+  scheme: voice
+  uri_template: voice://command/from-text
+  operation: plan
+  kind: command
+  description: Convert spoken text into compact URI flow using nl2uri.
+
+input:
+  payload_schema:
+    type: object
+    required:
+      - text
+    properties:
+      text:
+        type: string
+
+output:
+  result_type: uri_flow
+  schema:
+    type: object
+
+backend:
+  type: python
+  target: python://touri_examples_voice.voice_command:plan_voice_command
+
+policy:
+  side_effects: false
+  requires_approval: false
+
+events:
+  emits:
+    - VoiceCommandParsed
+    - UriFlowPlanned

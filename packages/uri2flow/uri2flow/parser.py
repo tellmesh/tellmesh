@@ -5,6 +5,7 @@ from typing import Any
 
 import yaml
 
+from .loaders.markpact_loader import is_markpact_registry, load_markpact_flow_dict
 from .models import FlowDocument, FlowStep
 from .utils import slugify
 
@@ -83,8 +84,11 @@ def parse_flow(data: dict[str, Any]) -> FlowDocument:
 
 
 def load_flow(path: str | Path) -> FlowDocument:
-    with Path(path).open("r", encoding="utf-8") as fh:
-        data = yaml.safe_load(fh) or {}
+    if is_markpact_registry(path):
+        data = load_markpact_flow_dict(path)
+    else:
+        with Path(path).open("r", encoding="utf-8") as fh:
+            data = yaml.safe_load(fh) or {}
     if not isinstance(data, dict):
         raise FlowParseError("flow document must be a YAML mapping")
     return parse_flow(data)

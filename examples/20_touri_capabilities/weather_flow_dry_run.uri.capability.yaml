@@ -1,0 +1,19 @@
+version: 1
+
+capability:
+  id: workflow.weather.flow
+  scheme: workflow
+  uri_template: workflow://flow/weather/dry-run
+  operation: plan
+  kind: query
+  description: Expand weather compact flow and return uri3 dry-run plan.
+
+backend:
+  type: uri_flow
+  flow: examples/15_compact_uri_flow/weather.uri.flow.yaml
+  dry_run: true
+  browser: mock
+
+policy:
+  side_effects: false
+  requires_approval: false

@@ -1,0 +1,43 @@
+version: 1
+
+capability:
+  id: stt.mock.transcribe
+  scheme: stt
+  uri_template: stt://mock/transcribe
+  operation: transcribe
+  kind: command
+  description: Mock STT transcription based on text or transcript file.
+
+input:
+  payload_schema:
+    type: object
+    properties:
+      text:
+        type: string
+      transcript_file:
+        type: string
+      audio_uri:
+        type: string
+
+output:
+  result_type: transcript
+  schema:
+    type: object
+    properties:
+      text:
+        type: string
+      language:
+        type: string
+
+backend:
+  type: python
+  target: python://touri_examples_voice.stt:transcribe
+
+policy:
+  side_effects: false
+  requires_approval: false
+
+events:
+  emits:
+    - SpeechTranscriptionRequested
+    - SpeechTranscribed

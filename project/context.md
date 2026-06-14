@@ -1,24 +1,24 @@
 # System Architecture Analysis
-<!-- generated in 0.00s -->
+<!-- generated in 0.01s -->
 
 ## Overview
 
 - **Project**: /home/tom/github/wronai/hypervisor
 - **Primary Language**: python
-- **Languages**: python: 267, yaml: 57, shell: 15, json: 15, toml: 10
+- **Languages**: python: 280, yaml: 63, shell: 17, json: 15, toml: 10
 - **Analysis Mode**: static
-- **Total Functions**: 709
+- **Total Functions**: 762
 - **Total Classes**: 81
-- **Modules**: 384
-- **Entry Points**: 217
+- **Modules**: 404
+- **Entry Points**: 226
 
 ## Architecture by Module
 
-### packages.nl2uri.nl2uri.cli
-- **Functions**: 15
+### packages.resource-agent-hypervisor.hypervisor.cli
+- **Functions**: 16
 - **File**: `cli.py`
 
-### packages.resource-agent-hypervisor.hypervisor.cli
+### packages.nl2uri.nl2uri.cli
 - **Functions**: 15
 - **File**: `cli.py`
 
@@ -70,6 +70,14 @@
 - **Functions**: 8
 - **File**: `compose.py`
 
+### packages.uri3.uri3.results.envelope
+- **Functions**: 8
+- **File**: `envelope.py`
+
+### packages.uri3.uri3.resolvers.explain
+- **Functions**: 8
+- **File**: `explain.py`
+
 ### packages.nl2uri.nl2uri.graph_repair
 - **Functions**: 8
 - **File**: `graph_repair.py`
@@ -83,10 +91,6 @@
 - **Functions**: 8
 - **File**: `runtime_state.py`
 
-### packages.uri3.uri3.resolvers.explain
-- **Functions**: 8
-- **File**: `explain.py`
-
 ### packages.uri3.uri3.logs.filters
 - **Functions**: 7
 - **File**: `filters.py`
@@ -94,10 +98,6 @@
 ### packages.uri3.uri3.config.ssh_auth
 - **Functions**: 7
 - **File**: `ssh_auth.py`
-
-### packages.uri3.uri3.resolvers.ssh_resolver
-- **Functions**: 7
-- **File**: `ssh_resolver.py`
 
 ## Key Entry Points
 
@@ -164,7 +164,13 @@ Main execution flows into the system:
 - **Calls**: SchemeSpec, QueryOption, QueryOption, QueryOption, QueryOption, QueryOption, QueryOption, QueryOption
 
 ### packages.resource-agent-hypervisor.hypervisor.contract_registry.cli_commands.run_check_command
-- **Calls**: hypervisor.contract_registry.schema_validator.validate_contract_files, hypervisor.contract_registry.loader.load_contract_registry, packages.resource-agent-hypervisor.hypervisor.contract_registry.validate.validate_registry, packages.resource-agent-hypervisor.hypervisor.contract_registry.cross_validator.validate_root, hypervisor.contract_registry.registry_builder.write_registry_manifest, print, print, len
+- **Calls**: hypervisor.contract_registry.schema_validator.validate_contract_files, hypervisor.contract_registry.loader.load_contract_registry, packages.resource-agent-hypervisor.hypervisor.contract_registry.validate.validate_registry, packages.resource-agent-hypervisor.hypervisor.contract_registry.cross_validator.validate_root, hypervisor.contract_registry.registry_builder.write_registry_manifest, examples.21_touri_voice.run.print, examples.21_touri_voice.run.print, len
+
+### packages.uri3.uri3.cli.commands.replay.register
+- **Calls**: app.command, typer.Option, typer.Option, typer.Option, packages.uri3.uri3.graph.replay.replay_workflow_events, typer.echo, packages.uri3.uri3.graph.replay.create_regression_test, typer.echo
+
+### examples.21_touri_voice.touri_examples_voice.voice_command.plan_voice_command
+- **Calls**: None.strip, examples.21_touri_voice.touri_examples_voice.voice_command._artifact_dir, out_file.write_text, packages.nl2uri.nl2uri.flow_planner.plan_flow, yaml.safe_dump, str, str, None.get
 
 ### uri2ops.cli.operations_cmd
 - **Calls**: uri2ops.remote_registry.loader.resolve_operation_registry, SystemExit, uri2ops.cli._print, registry.require, uri2ops.cli._print, uri2ops.operation_registry.validator.validate_operation_registry, uri2ops.cli._print, spec.to_dict
@@ -176,7 +182,7 @@ Main execution flows into the system:
 - **Calls**: data.get, cls, str, int, str, bool, str, data.get
 
 ### packages.resource-agent-hypervisor.hypervisor.evolution.cli.main
-- **Calls**: print, print, sorted, hypervisor.evolution.models.load_proposal, hypervisor.evolution.validator.validate_proposal, print, None.glob, Path
+- **Calls**: examples.21_touri_voice.run.print, examples.21_touri_voice.run.print, sorted, hypervisor.evolution.models.load_proposal, hypervisor.evolution.validator.validate_proposal, examples.21_touri_voice.run.print, None.glob, Path
 
 ### hypervisor.compatibility.checker.classify_registry_change
 - **Calls**: Path, Path, hypervisor.contract_registry.loader.load_contract_registry, hypervisor.contract_registry.loader.load_contract_registry, sorted, sorted, sorted, sorted
@@ -185,16 +191,10 @@ Main execution flows into the system:
 - **Calls**: payload.get, int, None.hexdigest, payload.get, payload.get, payload.get, None.isoformat, hashlib.sha256
 
 ### generator.verify.main
-- **Calls**: Path, generator.verify.verify_generated, print, root.exists, print, print, print, root.iterdir
+- **Calls**: Path, generator.verify.verify_generated, examples.21_touri_voice.run.print, root.exists, examples.21_touri_voice.run.print, examples.21_touri_voice.run.print, examples.21_touri_voice.run.print, root.iterdir
 
 ### uri2ops.cli.registry_cmd
 - **Calls**: SystemExit, uri2ops.cli._print, uri2ops.remote_registry.loader.resolve_operation_registry, uri2ops.operation_registry.validator.validate_operation_registry, uri2ops.cli._print, uri2ops.cli._print, uri2ops.remote_registry.loader.list_remote_sources, len
-
-### generator.validate.main
-- **Calls**: Path, generator.validate.iter_agent_specs, print, print, all_errors.extend, print, generator.validate.validate_agent, print
-
-### hypervisor.policy_gate.gate.evaluate_change
-- **Calls**: bool, change_report.get, change_report.get, bool, GateDecision, change_report.get, reasons.append, reasons.append
 
 ## Process Flows
 
@@ -276,6 +276,10 @@ Example:
 - **Methods**: 3
 - **Key Methods**: uri2ops.operation_registry.models.OperationRegistry.get, uri2ops.operation_registry.models.OperationRegistry.require, uri2ops.operation_registry.models.OperationRegistry.list
 
+### packages.uri3.uri3.results.service_result.ServiceResult
+- **Methods**: 3
+- **Key Methods**: packages.uri3.uri3.results.service_result.ServiceResult.finalize, packages.uri3.uri3.results.service_result.ServiceResult._default_error_source, packages.uri3.uri3.results.service_result.ServiceResult.to_dict
+
 ### packages.uri3.uri3.resolvers.router.Uri3Router
 - **Methods**: 3
 - **Key Methods**: packages.uri3.uri3.resolvers.router.Uri3Router.__init__, packages.uri3.uri3.resolvers.router.Uri3Router.resolve, packages.uri3.uri3.resolvers.router.Uri3Router.call
@@ -296,10 +300,6 @@ Expected runtime API:
 - **Methods**: 3
 - **Key Methods**: testenv.ssh_agent_host.mock_agent_server.Handler._json, testenv.ssh_agent_host.mock_agent_server.Handler.do_GET, testenv.ssh_agent_host.mock_agent_server.Handler.log_message
 - **Inherits**: BaseHTTPRequestHandler
-
-### packages.uri3.uri3.results.service_result.ServiceResult
-- **Methods**: 3
-- **Key Methods**: packages.uri3.uri3.results.service_result.ServiceResult.finalize, packages.uri3.uri3.results.service_result.ServiceResult._default_error_source, packages.uri3.uri3.results.service_result.ServiceResult.to_dict
 
 ### uri2ops.operation_registry.models.OperationSpec
 - **Methods**: 2
@@ -468,8 +468,9 @@ Functions exposed as public API (no underscore prefix):
 
 - `uri2ops.server.app.create_app` - 62 calls
 - `packages.uri3.uri3.cli.commands.discovery.register` - 47 calls
-- `packages.touri.touri.loader.load_manifest` - 40 calls
-- `packages.uri3.uri3.graph.graph_executor.run_workflow` - 39 calls
+- `packages.touri.touri.backends.uri2ops_backend.call_uri2ops_backend` - 45 calls
+- `packages.uri3.uri3.graph.graph_executor.run_workflow` - 40 calls
+- `packages.touri.touri.manifest.load_manifest_from_dict` - 38 calls
 - `uri2ops.cli.main` - 33 calls
 - `hypervisor.contract_registry.loader.load_contract_registry` - 33 calls
 - `packages.uri3.uri3.config.llm_profiles.resolve_llm_profile` - 32 calls
@@ -479,31 +480,30 @@ Functions exposed as public API (no underscore prefix):
 - `packages.nl2uri.nl2uri.flow_planner.plan_flow` - 29 calls
 - `uri3.graph.uri_graph.build_graph_from_tree` - 28 calls
 - `packages.nl2uri.nl2uri.flow_repair.extract_flow_payload` - 28 calls
+- `packages.touri.touri.backends.uri_graph_backend.call_uri_graph_backend` - 26 calls
+- `packages.touri.touri.backends.uri_flow_backend.call_uri_flow_backend` - 26 calls
 - `hypervisor.config.models.HypervisorConfig.from_dict` - 26 calls
 - `packages.uri3.uri3.protocols.schemes.spec_registry.build_scheme_registry` - 25 calls
+- `packages.touri.touri.backends.python_backend.call_python_backend` - 25 calls
 - `packages.nl2uri.nl2uri.graph_repair.sanitize_node` - 25 calls
 - `packages.nl2uri.nl2uri.graph_repair.repair_graph_body` - 25 calls
 - `packages.resource-agent-hypervisor.meta_agent.cli.main` - 25 calls
-- `packages.touri.touri.backends.python_backend.call_python_backend` - 25 calls
 - `packages.uri3.uri3.graph.graph_serializer.normalize_graph_payload` - 24 calls
 - `packages.uri3.uri3.cli.commands.resolve.register` - 24 calls
+- `packages.uri3.uri3.results.envelope.enrich_workflow_dict` - 24 calls
 - `generator.model.load_agent_spec` - 24 calls
 - `packages.nl2uri.nl2uri.flow_repair.sanitize_flow_step` - 24 calls
 - `packages.uri3.uri3.graph.adapters.browser_playwright.PlaywrightBrowserAdapter.execute` - 23 calls
 - `packages.uri3.uri3.resolvers.docker_resolver.parse_docker_uri` - 23 calls
+- `packages.uri3.uri3.graph.replay.create_regression_test` - 22 calls
 - `packages.uri3.uri3.cli.commands.workflow.register` - 20 calls
 - `packages.uri3.uri3.cli.commands.flow.run_flow_cmd` - 20 calls
+- `packages.resource-agent-hypervisor.hypervisor.deployment_registry.lifecycle.stop_agent` - 20 calls
+- `packages.touri.touri.executor.call_uri` - 19 calls
+- `packages.touri.touri.cli.build_parser` - 19 calls
 - `uri2ops.remote_registry.loader.resolve_operation_registry` - 18 calls
 - `packages.uri3.uri3.logs.reader.summarize_logs` - 18 calls
 - `packages.uri3.uri3.graph.adapters.registry.AssertionAdapter.execute` - 18 calls
-- `packages.uri3.uri3.resolvers.env_resolver.call_env` - 17 calls
-- `packages.resource-agent-factory.generator.agent_generator.generate_agent` - 17 calls
-- `packages.nl2uri.nl2uri.cli.flow` - 17 calls
-- `packages.nl2uri.nl2uri.flow_repair.repair_flow_body` - 17 calls
-- `packages.resource-agent-hypervisor.hypervisor.config.defaults.apply_builtin_defaults` - 17 calls
-- `hypervisor.config.env.apply_structured_env_overrides` - 17 calls
-- `packages.resource-agent-hypervisor.hypervisor.deployment_registry.lifecycle.stop_agent` - 17 calls
-- `packages.resource-agent-hypervisor.hypervisor.deployment_registry.status.deployment_from_uri_tree` - 17 calls
 - `packages.uri3.uri3.results.errors.normalize_error` - 17 calls
 - `packages.uri3.uri3.resolvers.explain.explain_uri` - 17 calls
 

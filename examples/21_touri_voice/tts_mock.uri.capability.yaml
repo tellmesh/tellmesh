@@ -1,0 +1,43 @@
+version: 1
+
+capability:
+  id: tts.mock.speak
+  scheme: tts
+  uri_template: tts://mock/speak
+  operation: speak
+  kind: command
+  description: Mock TTS that stores spoken text as artifact metadata.
+
+input:
+  payload_schema:
+    type: object
+    required:
+      - text
+    properties:
+      text:
+        type: string
+      voice:
+        type: string
+
+output:
+  result_type: artifact
+  schema:
+    type: object
+    properties:
+      audio_uri:
+        type: string
+      text:
+        type: string
+
+backend:
+  type: python
+  target: python://touri_examples_voice.tts:speak
+
+policy:
+  side_effects: true
+  requires_approval: false
+
+events:
+  emits:
+    - SpeechSynthesisRequested
+    - SpeechSynthesized

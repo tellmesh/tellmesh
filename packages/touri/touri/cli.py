@@ -9,6 +9,7 @@ import yaml
 
 from .executor import call_uri
 from .loader import load_registry
+from .register import register_capability
 from .validator import validate_manifest
 
 
@@ -39,12 +40,25 @@ def cmd_call(args):
     return 0 if result.ok else 1
 
 
+def cmd_register(args):
+    result = register_capability(
+        args.path,
+        registry_root=args.registry,
+        install=args.install,
+    )
+    _print(result)
+    return 0 if result.get("ok") else 1
+
+
 def build_parser():
     parser = argparse.ArgumentParser(prog="touri", description="Generic URI-to-capability manifest runtime")
     sub = parser.add_subparsers(dest="cmd", required=True)
 
     p = sub.add_parser("list", help="List capability manifests")
-    p.add_argument("registry", help="Directory or manifest file")
+    p.add_argument(
+        "registry",
+        help="Directory, *.uri.capability.yaml file, or markpact://path/to/README.md",
+    )
     p.set_defaults(func=cmd_list)
 
     p = sub.add_parser("validate", help="Validate one capability manifest")
@@ -53,10 +67,20 @@ def build_parser():
 
     p = sub.add_parser("call", help="Call URI via matching capability manifest")
     p.add_argument("uri")
-    p.add_argument("--registry", required=True)
+    p.add_argument(
+        "--registry",
+        required=True,
+        help="Registry directory/file or markpact://path/to/README.md",
+    )
     p.add_argument("--payload")
     p.add_argument("--payload-file")
     p.set_defaults(func=cmd_call)
+
+    p = sub.add_parser("register", help="Validate manifest and verify uri3 explain resolution")
+    p.add_argument("path", help="Capability manifest (*.uri.capability.yaml)")
+    p.add_argument("--registry", required=True, help="Registry directory for touri/uri3")
+    p.add_argument("--install", action="store_true", help="Copy manifest into registry directory")
+    p.set_defaults(func=cmd_register)
 
     return parser
 

@@ -2,7 +2,15 @@ from __future__ import annotations
 
 from typing import Any
 
-from .backends import call_mock_backend, call_python_backend, call_shell_backend
+from .backends import (
+    call_mock_backend,
+    call_python_backend,
+    call_shell_backend,
+    call_uri2ops_backend,
+    call_uri_flow_backend,
+    call_uri_graph_backend,
+)
+from .redaction import apply_redaction
 from .data_quality import apply_data_quality
 from .loader import load_registry
 from .matcher import require_match
@@ -45,6 +53,23 @@ def _call_backend(backend: dict[str, Any], payload: dict[str, Any], context: dic
         return call_shell_backend(str(command), payload, context)
     if backend_type == "mock":
         return call_mock_backend(payload, context)
+    if backend_type == "uri_flow":
+        flow = backend.get("flow")
+        if not flow:
+            return service_result(ok=False, result_type="error", errors=[{"code": "FALLBACK_BACKEND_INVALID", "detail": "uri_flow fallback missing flow"}])
+        return call_uri_flow_backend(str(flow), payload, context, backend_extra=backend)
+    if backend_type == "uri_graph":
+        graph = backend.get("graph")
+        if not graph:
+            return service_result(ok=False, result_type="error", errors=[{"code": "FALLBACK_BACKEND_INVALID", "detail": "uri_graph fallback missing graph"}])
+        return call_uri_graph_backend(str(graph), payload, context, backend_extra=backend)
+    if backend_type == "uri2ops":
+        scheme = str(context.get("scheme") or "")
+        operation = str(backend.get("operation") or context.get("operation") or "call")
+        uri = str(context.get("uri") or "")
+        if not uri or not scheme:
+            return service_result(ok=False, result_type="error", errors=[{"code": "FALLBACK_BACKEND_INVALID", "detail": "uri2ops fallback missing uri/scheme context"}])
+        return call_uri2ops_backend(uri, scheme, operation, payload, context, backend_extra=backend)
     return service_result(
         ok=False,
         result_type="unsupported_backend",
@@ -68,6 +93,9 @@ def _apply_fallbacks(
         if not isinstance(backend, dict) or not _fallback_matches(str(when) if when else None, result):
             continue
         fallback_result = _call_backend(backend, payload, context)
+        fallback_result.uri = result.uri
+        fallback_result.capability = manifest.capability.id
+        fallback_result.backend = str(backend.get("type") or "fallback")
         fallback_result.meta = {**fallback_result.meta, "fallback_from": manifest.capability.id, "fallback_when": when}
         if fallback_result.ok:
             fallback_result.warnings.append(f"fallback applied for {when or 'any'}")
@@ -80,7 +108,7 @@ def call_uri(uri: str, registry_root: str, payload: dict[str, Any] | None = None
     match = require_match(uri, registry)
     manifest = match.manifest
     ctx = dict(context or {})
-    ctx.update({"uri": uri, "capability": manifest.capability.id})
+    ctx.update({"uri": uri, "capability": manifest.capability.id, "scheme": manifest.capability.scheme, "operation": manifest.capability.operation})
     final_payload = _payload_from_params(match.params, payload)
     backend = manifest.backend
     if backend.type == "python":
@@ -93,6 +121,23 @@ def call_uri(uri: str, registry_root: str, payload: dict[str, Any] | None = None
         result = call_shell_backend(backend.command, final_payload, ctx)
     elif backend.type == "mock":
         result = call_mock_backend(final_payload, ctx)
+    elif backend.type == "uri_flow":
+        if not backend.flow:
+            return service_result(ok=False, result_type="error", errors=[{"detail": "uri_flow backend missing flow"}])
+        result = call_uri_flow_backend(backend.flow, final_payload, ctx, backend_extra=backend.extra)
+    elif backend.type == "uri_graph":
+        if not backend.graph:
+            return service_result(ok=False, result_type="error", errors=[{"detail": "uri_graph backend missing graph"}])
+        result = call_uri_graph_backend(backend.graph, final_payload, ctx, backend_extra=backend.extra)
+    elif backend.type == "uri2ops":
+        result = call_uri2ops_backend(
+            uri,
+            manifest.capability.scheme,
+            backend.operation or manifest.capability.operation,
+            final_payload,
+            ctx,
+            backend_extra=backend.extra,
+        )
     else:
         result = service_result(
             ok=False,
@@ -104,4 +149,5 @@ def call_uri(uri: str, registry_root: str, payload: dict[str, Any] | None = None
     result.backend = backend.type
     result = apply_data_quality(manifest, result, final_payload, ctx)
     result = _apply_fallbacks(manifest, result, final_payload, ctx)
+    result = apply_redaction(result, manifest.policy)
     return result

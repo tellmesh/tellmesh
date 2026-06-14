@@ -39,18 +39,27 @@ def build_parser() -> argparse.ArgumentParser:
     sub = parser.add_subparsers(dest="cmd", required=True)
 
     p = sub.add_parser("validate", help="validate compact *.uri.flow.yaml")
-    p.add_argument("path")
+    p.add_argument(
+        "path",
+        help="Flow file or markpact://path/to/README.md[#flow.id]",
+    )
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=cmd_validate)
 
     p = sub.add_parser("expand", help="expand compact flow into full workflow graph")
-    p.add_argument("path")
+    p.add_argument(
+        "path",
+        help="Flow file or markpact://path/to/README.md[#flow.id]",
+    )
     p.add_argument("--out")
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=cmd_expand)
 
     p = sub.add_parser("print", help="normalize and print compact flow")
-    p.add_argument("path")
+    p.add_argument(
+        "path",
+        help="Flow file or markpact://path/to/README.md[#flow.id]",
+    )
     p.set_defaults(func=cmd_print)
 
     return parser

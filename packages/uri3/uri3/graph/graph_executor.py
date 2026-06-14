@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from typing import Any
 
-from uri3.graph.adapters.uri2ops_adapter import cleanup_operator_adapters
 from uri3.graph.adapters.registry import adapter_for_uri
+from uri3.graph.adapters.uri2ops_adapter import cleanup_operator_adapters
 from uri3.graph.conditions import evaluate_condition
 from uri3.graph.dependency_graph import topological_sort
 from uri3.graph.event_log import append_workflow_event
@@ -20,6 +20,15 @@ from uri3.graph.graph_validator import load_workflow_graph, validate_workflow_gr
 from uri3.graph.models import GraphNode, WorkflowGraph
 from uri3.graph.operation_registry import effective_kind, validate_node_operation
 from uri3.graph.policy import can_execute_step
+
+
+def _redact_step_payload(payload: dict[str, Any]) -> dict[str, Any]:
+    try:
+        from uri2ops.operator.redaction import redact_payload
+
+        return redact_payload(payload)
+    except ImportError:
+        return payload
 
 
 def build_execution_plan(graph: WorkflowGraph | dict[str, Any]) -> dict[str, Any]:
@@ -50,7 +59,10 @@ def dry_run_workflow(source: WorkflowGraph | dict[str, Any]) -> dict[str, Any]:
     return run_workflow(source, dry_run=True).to_dict()
 
 
-def _dependencies_ok(node: GraphNode, completed: dict[str, StepExecutionResult]) -> tuple[bool, str | None]:
+def _dependencies_ok(
+    node: GraphNode,
+    completed: dict[str, StepExecutionResult],
+) -> tuple[bool, str | None]:
     for dependency in node.depends_on:
         prior = completed.get(dependency)
         if prior is None:
@@ -101,7 +113,12 @@ def run_workflow(
     started_at = utc_now_iso()
     append_workflow_event(
         workflow.id,
-        {"type": "WorkflowStarted", "workflow_id": workflow.id, "run_id": context.run_id, "mode": "dry_run" if dry_run else "execute"},
+        {
+            "type": "WorkflowStarted",
+            "workflow_id": workflow.id,
+            "run_id": context.run_id,
+            "mode": "dry_run" if dry_run else "execute",
+        },
         root=context.root,
     )
 
@@ -148,12 +165,35 @@ def run_workflow(
                 workflow_ok = False
                 append_workflow_event(
                     workflow.id,
-                    {"type": "StepFailed", "workflow_id": workflow.id, "step_id": node.id, "error": dep_error},
+                    {
+                        "type": "StepFailed",
+                        "workflow_id": workflow.id,
+                        "step_id": node.id,
+                        "error": dep_error,
+                    },
                     root=context.root,
                 )
                 break
 
-            allowed, policy_error = can_execute_step(node, approve_commands=approve, dry_run=dry_run)
+            append_workflow_event(
+                workflow.id,
+                {
+                    "type": "StepStarted",
+                    "workflow_id": workflow.id,
+                    "step_id": node.id,
+                    "uri": node.uri,
+                    "operation": node.operation,
+                    "kind": kind,
+                    "payload": _redact_step_payload(node.payload or {}),
+                },
+                root=context.root,
+            )
+
+            allowed, policy_error = can_execute_step(
+                node,
+                approve_commands=approve,
+                dry_run=dry_run,
+            )
             if not allowed:
                 blocked = StepExecutionResult(
                     id=node.id,
@@ -170,16 +210,15 @@ def run_workflow(
                 workflow_ok = False
                 append_workflow_event(
                     workflow.id,
-                    {"type": "StepBlocked", "workflow_id": workflow.id, "step_id": node.id, "reason": policy_error},
+                    {
+                        "type": "StepBlocked",
+                        "workflow_id": workflow.id,
+                        "step_id": node.id,
+                        "reason": policy_error,
+                    },
                     root=context.root,
                 )
                 break
-
-            append_workflow_event(
-                workflow.id,
-                {"type": "StepStarted", "workflow_id": workflow.id, "step_id": node.id, "uri": node.uri, "operation": node.operation},
-                root=context.root,
-            )
 
             if dry_run:
                 result_payload = {
@@ -244,6 +283,7 @@ def run_workflow(
         started_at=started_at,
         completed_at=completed_at,
         mode=mode,
+        run_id=context.run_id,
         steps=step_results,
         pending_approval=pending_approval,
         message=message,

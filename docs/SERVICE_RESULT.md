@@ -57,9 +57,9 @@ payload = result.to_dict()
 
 | Layer | Status |
 |-------|--------|
-| `touri` | uses shared envelope + data_quality |
-| `uri3 graph_executor` | planned |
-| `uri2ops run_task` | planned |
-| `hypervisor lifecycle` | planned |
+| `touri` | uses shared envelope + data_quality + fallbacks |
+| `uri3 graph_executor` | envelope in `to_dict()` |
+| `uri2ops run_task` | envelope in `to_dict()` |
+| `hypervisor lifecycle` | envelope via `enrich_lifecycle_dict()` |
 
-See [`ANTI_TELLM.md`](./ANTI_TELLM.md) for rationale.
+See also [`TOURI.md`](./TOURI.md) and [`VOICE_WITH_TOURI.md`](./VOICE_WITH_TOURI.md) for capability manifests.

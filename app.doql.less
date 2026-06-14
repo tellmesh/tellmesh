@@ -2,7 +2,7 @@
 
 app {
   name: resource-agent-system;
-  version: 0.5.12;
+  version: 0.5.13;
 }
 
 dependencies {
@@ -92,6 +92,33 @@ workflow[name="nl2uri-flow-validate"] {
 workflow[name="example-18"] {
   trigger: manual;
   step-1: run cmd=bash examples/18_llm_flow_planner/run.sh;
+}
+
+workflow[name="touri-test"] {
+  trigger: manual;
+  step-1: run cmd=pytest tests/touri -q;
+}
+
+workflow[name="touri-demo"] {
+  trigger: manual;
+  step-1: run cmd=touri validate examples/20_touri_capabilities/weather_forecast.uri.capability.yaml;
+  step-2: run cmd=touri list examples/20_touri_capabilities;
+  step-3: run cmd=touri call weather://forecast/Gdansk/14/html --registry examples/20_touri_capabilities;
+  step-4: run cmd=touri call echo://Adam --registry examples/20_touri_capabilities;
+}
+
+workflow[name="voice-test"] {
+  trigger: manual;
+  step-1: run cmd=pytest tests/touri/test_voice_capabilities.py -q;
+}
+
+workflow[name="voice-demo"] {
+  trigger: manual;
+  step-1: run cmd=touri validate examples/21_touri_voice/stt_mock.uri.capability.yaml;
+  step-2: run cmd=touri list examples/21_touri_voice;
+  step-3: run cmd=touri call stt://mock/transcribe --registry examples/21_touri_voice --payload '{"text":"otwórz Chrome i sprawdź health"}';
+  step-4: run cmd=touri call voice://command/from-text --registry examples/21_touri_voice --payload '{"text":"wygeneruj agenta pogodowego, uruchom go lokalnie i sprawdź health w Chrome"}';
+  step-5: run cmd=touri call tts://mock/speak --registry examples/21_touri_voice --payload '{"text":"Agent działa poprawnie"}';
 }
 
 workflow[name="uri-tree"] {

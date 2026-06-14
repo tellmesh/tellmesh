@@ -103,6 +103,22 @@ tests/capabilities/<id>/
 
 Use fixture HTML → parser → `ServiceResult`, not live internet in unit tests.
 
+## Replay workflow logs
+
+```bash
+uri3 replay check-agent-health
+uri3 replay output/events/workflows/check-agent-health.jsonl --timeline
+```
+
+Use event logs under `output/events/workflows/` for regression analysis instead of relying on stale view IDs.
+
+Generate a pytest regression file from a failed run:
+
+```bash
+uri3 replay replay-demo --create-test tests/regression/test_replay_demo.py
+hypervisor replay-failure replay-demo --create-test tests/regression/test_replay_demo.py
+```
+
 ## LLM boundaries
 
 LLM **may** produce:

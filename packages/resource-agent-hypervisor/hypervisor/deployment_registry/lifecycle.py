@@ -22,6 +22,12 @@ from hypervisor.deployment_registry.status import resolve_status
 from hypervisor.paths import find_repo_root
 
 
+def _lifecycle_payload(payload: dict[str, Any]) -> dict[str, Any]:
+    from uri3.results.envelope import enrich_lifecycle_dict
+
+    return enrich_lifecycle_dict(payload)
+
+
 def _repo_root(root: str | Path) -> Path:
     return Path(root) if str(root) != "." else find_repo_root()
 
@@ -46,7 +52,7 @@ def run_agent(
         )
     plan = build_run_plan(deployment, root=repo, port=port, host=host, reload=reload)
     if dry_run:
-        return plan
+        return _lifecycle_payload(plan)
     if deployment.target_uri.startswith("ssh://"):
         raise ValueError(
             "SSH targets support dry-run plans only. "
@@ -75,7 +81,7 @@ def run_agent(
         save_runtime_state(deployment.id, state, repo)
         plan["pid"] = process.pid
         plan["runtime_status"] = "running"
-    return plan
+    return _lifecycle_payload(plan)
 
 
 def stop_agent(
@@ -92,11 +98,11 @@ def stop_agent(
         return stop_docker_deployment(deployment, root=repo)
     state = load_runtime_state(deployment.id, repo)
     if not state:
-        return {"id": deployment.id, "status": "stopped", "message": "No runtime state found"}
+        return _lifecycle_payload({"id": deployment.id, "status": "stopped", "message": "No runtime state found"})
     pid = state.get("pid")
     if not is_process_alive(pid):
         clear_runtime_state(deployment.id, repo)
-        return {"id": deployment.id, "status": "stopped", "message": "Process not alive; state cleared"}
+        return _lifecycle_payload({"id": deployment.id, "status": "stopped", "message": "Process not alive; state cleared"})
     os.kill(pid, signal.SIGTERM)
     deadline = time.time() + timeout
     while time.time() < deadline and is_process_alive(pid):
@@ -110,7 +116,7 @@ def stop_agent(
         "stopped_at": now_iso(),
     }
     save_runtime_state(deployment.id, stopped, repo)
-    return stopped
+    return _lifecycle_payload(stopped)
 
 
 def restart_agent(
@@ -154,7 +160,7 @@ def agent_status(
             payload["run_plan"] = build_run_plan(deployment, root=repo)
         except (ValueError, FileNotFoundError):
             payload["run_plan"] = None
-    return payload
+    return _lifecycle_payload(payload)
 
 
 def agent_logs_uri(selector: str, *, root: str | Path = ".") -> str:

@@ -14,6 +14,8 @@
 | [`URI2FLOW.md`](./URI2FLOW.md) | Kompilator compact flow → workflow graph |
 | [`URI2OPS.md`](./URI2OPS.md) | Operator runtime, adaptery, `uri2ops serve` |
 | [`TOURI.md`](./TOURI.md) | Capability manifests `*.uri.capability.yaml`, backend routing |
+| [`MARKPACT_WITH_TOURI.md`](./MARKPACT_WITH_TOURI.md) | `markpact://` capability loader for `touri`, flow loader for `uri2flow` |
+| [`VOICE_WITH_TOURI.md`](./VOICE_WITH_TOURI.md) | STT/TTS as a `touri` capability pack |
 | [`SERVICE_RESULT.md`](./SERVICE_RESULT.md) | Shared result envelope (`workflow_status`, `ErrorEnvelope`) |
 | [`ANTI_TELLM.md`](./ANTI_TELLM.md) | Safeguards vs tellm-style LLM/provider failures |
 | [`OPERATOR_RUNTIME.md`](./OPERATOR_RUNTIME.md) | Przepływ validate → plan → run |

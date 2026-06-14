@@ -1,10 +1,14 @@
 """Tests for shared ServiceResult envelope."""
 
-from uri3.results import ErrorEnvelope, ServiceResult, service_result
+from uri3.results import ServiceResult, service_result
 
 
 def test_service_result_finalize_sets_three_status_levels():
-    result = service_result(ok=False, result_type="error", errors=[{"code": "PRICE_RESULT_NOT_RELEVANT", "recoverable": True}])
+    result = service_result(
+        ok=False,
+        result_type="error",
+        errors=[{"code": "PRICE_RESULT_NOT_RELEVANT", "recoverable": True}],
+    )
     payload = result.to_dict()
     assert payload["ok"] is False
     assert payload["workflow_status"] == "completed_with_service_error"

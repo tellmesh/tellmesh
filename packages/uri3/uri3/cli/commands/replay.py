@@ -4,7 +4,7 @@ import json
 
 import typer
 
-from uri3.graph.replay import replay_workflow_events
+from uri3.graph.replay import create_regression_test, replay_workflow_events
 
 
 def register(app: typer.Typer) -> None:
@@ -13,8 +13,13 @@ def register(app: typer.Typer) -> None:
         source: str,
         json_out: bool = typer.Option(False, "--json", help="Output JSON"),
         timeline: bool = typer.Option(False, "--timeline", help="Include full event timeline"),
+        create_test: str = typer.Option("", "--create-test", help="Write pytest regression file to this path"),
     ) -> None:
         """Summarize a workflow JSONL event log for debugging and regression replay."""
+        if create_test:
+            payload = create_regression_test(source, out=create_test)
+            typer.echo(json.dumps(payload, indent=2, ensure_ascii=False))
+            return
         payload = replay_workflow_events(source)
         if not timeline:
             payload = {key: value for key, value in payload.items() if key != "timeline"}

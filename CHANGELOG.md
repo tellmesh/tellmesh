@@ -384,6 +384,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - **touri v0.1** — generic URI-to-capability manifest runtime (`validate`, `list`, `call`); package at `packages/touri/`, example `20_touri_capabilities`, docs `TOURI.md`.
 - **ServiceResult envelope** — shared `uri3.results` with `workflow_status` / `execution_status` / `service_result_status`, `ErrorEnvelope`, touri `data_quality` validators; `uri3 explain` for resolution order diagnostics; docs `SERVICE_RESULT.md`, `ANTI_TELLM.md`.
+- **Envelope migration** — `uri3 run-workflow` and `uri2ops run` outputs include three-level status fields; touri `fallbacks` in capability manifests; `uri3 replay` for workflow JSONL logs.
 - **v0.6.1 flow as primary input** — `nl2uri flow`, `uri3 expand-flow` / `run-flow`, `config/flow_defaults.uri.yaml`, `examples/17_flow_vs_graph/`, `docs/FLOW_FORMAT.md`.
 - **v0.6.2 flow defaults registry** — `default_operation_for_uri` reads only `config/flow_defaults.uri.yaml` (scheme defaults, patterns, fallback); expanded patterns for dom/screen/input/hypervisor browser ops.
 - **v0.6.3 uri3 → uri2ops delegation** — workflow executor delegates `browser://`, `dom://`, `screen://`, `input://` to uri2ops; uri3 browser adapters deprecated (`URI3_USE_LEGACY_BROWSER=1` escape hatch).
@@ -399,6 +400,47 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - `load_workflow_graph()` accepts in-memory `WorkflowGraph` objects (fixes `uri3 run-workflow` TypeError).
 - `pcwin_uri` parsing for netloc+path form (`pcwin://window/Notepad/focus`).
+
+## [0.5.14] - 2026-06-14
+
+### Docs
+- Update CHANGELOG.md
+- Update README.md
+- Update SUMD.md
+- Update SUMR.md
+- Update TODO.md
+- Update docs/ANTI_TELLM.md
+- Update docs/MARKPACT_WITH_TOURI.md
+- Update docs/README.md
+- Update docs/SERVICE_RESULT.md
+- Update docs/TOURI.md
+- ... and 10 more files
+
+### Test
+- Update tests/capabilities/weather_forecast/fixtures/blocked/error.html
+- Update tests/capabilities/weather_forecast/fixtures/fallback/simple.html
+- Update tests/capabilities/weather_forecast/fixtures/good/forecast.html
+- Update tests/capabilities/weather_forecast/fixtures/irrelevant/empty.html
+- Update tests/capabilities/weather_forecast/test_fixtures.py
+- Update tests/touri/test_fallbacks.py
+- Update tests/touri/test_markpact_loader.py
+- Update tests/touri/test_register.py
+- Update tests/touri/test_uri2ops_backend.py
+- Update tests/touri/test_uri_flow_backend.py
+- ... and 7 more files
+
+### Other
+- Update Makefile
+- Update app.doql.less
+- Update examples/20_touri_capabilities/browser_open_mock.uri.capability.yaml
+- Update examples/20_touri_capabilities/check_health_graph.uri.capability.yaml
+- Update examples/20_touri_capabilities/weather_flow_dry_run.uri.capability.yaml
+- Update examples/21_touri_voice/run.sh
+- Update examples/21_touri_voice/stt_mock.uri.capability.yaml
+- Update examples/21_touri_voice/touri_examples_voice/__init__.py
+- Update examples/21_touri_voice/touri_examples_voice/stt.py
+- Update examples/21_touri_voice/touri_examples_voice/tts.py
+- ... and 55 more files
 
 ## [0.5.13] - 2026-06-14
 

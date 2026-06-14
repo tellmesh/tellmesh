@@ -25,6 +25,29 @@ Use:
 *.uri.capability.yaml
 ```
 
+`touri` can also load capability manifests from README code blocks:
+
+````md
+```markpact:capability weather.forecast.markpact
+version: 1
+capability:
+  id: weather.forecast.markpact
+  scheme: weather
+  uri_template: weather://markpact/{place}/{days}/html
+backend:
+  type: python
+  target: python://touri_examples.weather:handler
+```
+````
+
+```bash
+touri list markpact://examples/22_markpact_weather/README.md
+touri call weather://markpact/Gdansk/14/html \
+  --registry markpact://examples/22_markpact_weather/README.md
+```
+
+See [`MARKPACT_WITH_TOURI.md`](./MARKPACT_WITH_TOURI.md).
+
 Example:
 
 ```yaml
@@ -47,10 +70,36 @@ MVP supports:
 - `python`
 - `mock`
 - `shell`
+- `uri_flow` — expand `*.uri.flow.yaml` via uri2flow, run/dry-run via uri3
+- `uri_graph` — load workflow graph YAML, run/dry-run via uri3
+- `uri2ops` — dispatch operator schemes through uri2ops operation registry
 
 Planned:
 
-- `http`, `docker`, `mcp`, `a2a`, `uri_flow`, `uri_graph`, `uri2ops`
+- `http`, `docker`, `mcp`, `a2a`
+
+```yaml
+backend:
+  type: uri_flow
+  flow: examples/15_compact_uri_flow/weather.uri.flow.yaml
+  dry_run: true
+  browser: mock
+```
+
+Register a manifest and verify uri3 resolution:
+
+```bash
+touri register examples/20_touri_capabilities/weather_forecast.uri.capability.yaml \
+  --registry examples/20_touri_capabilities --install
+uri3 explain weather://forecast/Gdansk/14/html
+```
+
+Redact secret-like fields in results (default on):
+
+```yaml
+policy:
+  redact_secrets: true
+```
 
 ## Data quality
 
@@ -66,6 +115,21 @@ data_quality:
 ```
 
 Results use the shared [`ServiceResult`](./SERVICE_RESULT.md) envelope with three status levels. See [`ANTI_TELLM.md`](./ANTI_TELLM.md).
+
+## Fallbacks
+
+When primary backend or data quality fails, optional fallbacks may run:
+
+```yaml
+fallbacks:
+  - when: PRICE_RESULT_NOT_RELEVANT
+    backend:
+      type: mock
+  - when: any
+    backend:
+      type: python
+      target: python://providers.ceneo:search
+```
 
 ## URI resolution
 
@@ -84,3 +148,5 @@ api_key: env://OPENROUTER_API_KEY
 ```
 
 `touri` should return structured service results and avoid logging secret payloads.
+
+Voice capability pack (STT/TTS): [`VOICE_WITH_TOURI.md`](./VOICE_WITH_TOURI.md).

@@ -20,4 +20,10 @@ def validate_manifest(path: str | Path) -> dict[str, Any]:
         errors.append("shell backend requires backend.command")
     if manifest.backend.type == "http" and not manifest.backend.url:
         errors.append("http backend requires backend.url")
+    if manifest.backend.type == "uri_flow" and not manifest.backend.flow:
+        errors.append("uri_flow backend requires backend.flow")
+    if manifest.backend.type == "uri_graph" and not manifest.backend.graph:
+        errors.append("uri_graph backend requires backend.graph")
+    if manifest.backend.type == "uri2ops" and manifest.capability.scheme not in {"browser", "dom", "screen", "input", "android", "pcwin"}:
+        warnings.append("uri2ops backend is intended for operator schemes (browser/dom/screen/input/android/pcwin)")
     return {"ok": not errors, "errors": errors, "warnings": warnings, "capability": manifest.capability.id}

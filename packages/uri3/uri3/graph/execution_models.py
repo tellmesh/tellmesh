@@ -85,6 +85,7 @@ class GraphExecutionResult:
     started_at: str
     completed_at: str | None
     mode: str
+    run_id: str | None = None
     steps: list[StepExecutionResult] = field(default_factory=list)
     pending_approval: list[str] = field(default_factory=list)
     message: str | None = None
@@ -96,12 +97,17 @@ class GraphExecutionResult:
             {
                 "workflow_result": {
                     "id": self.id,
+                    **({"run_id": self.run_id} if self.run_id else {}),
                     "ok": self.ok,
                     "started_at": self.started_at,
                     "completed_at": self.completed_at,
                     "mode": self.mode,
                     **({"message": self.message} if self.message else {}),
-                    **({"pending_approval": self.pending_approval} if self.pending_approval else {}),
+                    **(
+                        {"pending_approval": self.pending_approval}
+                        if self.pending_approval
+                        else {}
+                    ),
                 },
                 "steps": [step.to_dict() for step in self.steps],
             },
