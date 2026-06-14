@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-06-14
+
+### Docs
+- Update README.md
+
+### Test
+- Update tests/__init__.py
+- Update tests/test_hypervisor.py
+
+### Other
+- Update VERSION
+- Update hypervisor/__init__.py
+- Update hypervisor/_version.py
+- Update hypervisor/cli.py
+- Update hypervisor/config.py
+- Update hypervisor/core.py
+- Update hypervisor/data/nlp2uri.yaml
+- Update hypervisor/py.typed
+- Update uv.lock
+
 ## [0.0.1] - 2026-06-14
 
 ### Other
