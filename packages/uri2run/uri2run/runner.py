@@ -1,12 +1,24 @@
 from __future__ import annotations
 
+import time
 from collections.abc import Callable
 from typing import Any
 
-from uri2run.result import error_result
-from uri2run.transports import run_http, run_mock, run_python, run_shell
-from uri2run.transports import run_uri2ops, run_uri_flow, run_uri_graph
 from uri3.results import ServiceResult
+
+from uri2run.result import error_result
+from uri2run.transports import (
+    run_http,
+    run_mock,
+    run_python,
+    run_shell,
+    run_sse,
+    run_stdio,
+    run_uri2ops,
+    run_uri_flow,
+    run_uri_graph,
+    run_ws,
+)
 
 
 def unsupported_backend(backend_type: str) -> ServiceResult:
@@ -32,17 +44,31 @@ def _run_python(backend: dict[str, Any], payload: dict[str, Any], context: dict[
 
 
 def _run_shell(backend: dict[str, Any], payload: dict[str, Any], context: dict[str, Any]):
-    command = _backend_target(backend, "command", "shell backend missing command")
-    if isinstance(command, ServiceResult):
-        return command
-    return run_shell(command, payload, context)
+    command = backend.get("command") or backend.get("target")
+    if not command:
+        return error_result("BACKEND_INVALID", "shell backend missing command")
+    return run_shell(str(command), {**backend, **payload}, context)
 
 
 def _run_http(backend: dict[str, Any], payload: dict[str, Any], context: dict[str, Any]):
     target = backend.get("target") or backend.get("url")
     if not target:
         return error_result("BACKEND_INVALID", "http backend missing target/url")
-    return run_http(str(target), payload, context)
+    http_payload = dict(payload)
+    for key in (
+        "method",
+        "timeout",
+        "json",
+        "params",
+        "headers",
+        "data",
+        "body",
+        "content",
+        "retries",
+    ):
+        if key in backend and key not in http_payload:
+            http_payload[key] = backend[key]
+    return run_http(str(target), http_payload, context)
 
 
 def _run_flow(backend: dict[str, Any], payload: dict[str, Any], context: dict[str, Any]):
@@ -68,6 +94,27 @@ def _run_uri2ops(backend: dict[str, Any], payload: dict[str, Any], context: dict
     return run_uri2ops(uri, scheme, operation, payload, context, backend_extra=backend)
 
 
+def _run_stdio(backend: dict[str, Any], payload: dict[str, Any], context: dict[str, Any]):
+    command = backend.get("command") or backend.get("target")
+    if not command:
+        return error_result("BACKEND_INVALID", "stdio backend missing command")
+    return run_stdio(str(command), payload, context)
+
+
+def _run_sse(backend: dict[str, Any], payload: dict[str, Any], context: dict[str, Any]):
+    target = backend.get("target") or backend.get("url")
+    if not target:
+        return error_result("BACKEND_INVALID", "sse backend missing target/url")
+    return run_sse(str(target), payload, context)
+
+
+def _run_ws(backend: dict[str, Any], payload: dict[str, Any], context: dict[str, Any]):
+    target = backend.get("target") or backend.get("url")
+    if not target:
+        return error_result("BACKEND_INVALID", "ws backend missing target/url")
+    return run_ws(str(target), payload, context)
+
+
 _BACKEND_HANDLERS: dict[
     str, Callable[[dict[str, Any], dict[str, Any], dict[str, Any]], ServiceResult]
 ] = {
@@ -75,6 +122,9 @@ _BACKEND_HANDLERS: dict[
     "shell": _run_shell,
     "http": _run_http,
     "https": _run_http,
+    "stdio": _run_stdio,
+    "sse": _run_sse,
+    "ws": _run_ws,
     "mock": lambda _backend, payload, context: run_mock(payload, context),
     "uri_flow": _run_flow,
     "uri_graph": _run_graph,
@@ -87,11 +137,47 @@ def run_backend(
     payload: dict[str, Any] | None = None,
     context: dict[str, Any] | None = None,
 ) -> ServiceResult:
-    backend_type = str(backend.get("type") or "")
+    """Execute one backend spec through the matching uri2run transport."""
+    started = time.monotonic()
+    backend_body = dict(backend)
+    backend_type = str(backend_body.get("type") or "")
     handler = _BACKEND_HANDLERS.get(backend_type)
     if handler is None:
-        return unsupported_backend(backend_type)
-    return handler(dict(backend), dict(payload or {}), dict(context or {}))
+        return _stamp_runtime_meta(
+            unsupported_backend(backend_type),
+            transport=backend_type,
+            backend=backend_body,
+            duration_ms=int((time.monotonic() - started) * 1000),
+        )
+    result = handler(backend_body, dict(payload or {}), dict(context or {}))
+    return _stamp_runtime_meta(
+        result,
+        transport=backend_type,
+        backend=backend_body,
+        duration_ms=int((time.monotonic() - started) * 1000),
+    )
+
+
+def _stamp_runtime_meta(
+    result: ServiceResult,
+    *,
+    transport: str,
+    backend: dict[str, Any],
+    duration_ms: int,
+) -> ServiceResult:
+    target = (
+        backend.get("target")
+        or backend.get("url")
+        or backend.get("command")
+        or backend.get("flow")
+        or backend.get("graph")
+    )
+    result.meta.setdefault("runtime", "uri2run")
+    result.meta.setdefault("transport", transport)
+    result.meta.setdefault("duration_ms", duration_ms)
+    if target:
+        result.meta.setdefault("target", str(target))
+    return result.finalize()
 
 
 def run_target(
@@ -99,10 +185,21 @@ def run_target(
     payload: dict[str, Any] | None = None,
     context: dict[str, Any] | None = None,
 ) -> ServiceResult:
+    """Execute a concrete runtime URI target."""
     if target.startswith("python://"):
         return run_backend({"type": "python", "target": target}, payload, context)
     if target.startswith("shell://"):
-        return run_backend({"type": "shell", "command": target.removeprefix("shell://")}, payload, context)
+        return run_backend(
+            {"type": "shell", "command": target.removeprefix("shell://")}, payload, context
+        )
     if target.startswith(("http://", "https://")):
         return run_backend({"type": "http", "target": target}, payload, context)
+    if target.startswith("stdio://"):
+        return run_backend(
+            {"type": "stdio", "command": target.removeprefix("stdio://")}, payload, context
+        )
+    if target.startswith("sse://"):
+        return run_backend({"type": "sse", "url": target}, payload, context)
+    if target.startswith("ws://") or target.startswith("wss://"):
+        return run_backend({"type": "ws", "url": target}, payload, context)
     return unsupported_backend(target.split(":", 1)[0] if ":" in target else target)

@@ -27,7 +27,7 @@ def _assert_explain_contract(payload: dict) -> None:
 def test_explain_weather_contract(repo_root: Path):
     payload = explain_uri("weather://forecast/Gdansk/14/html", root=repo_root)
     _assert_explain_contract(payload)
-    assert payload["runtime_transport"] == "touri:python"
+    assert payload["runtime_transport"] == "uri2run:python"
 
 
 def test_explain_browser_contract(repo_root: Path):

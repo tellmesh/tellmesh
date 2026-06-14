@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "resource-agent-system"
-version = "0.5.16"
+version = "0.5.17"
 description = "WronAI resource agent monorepo — uri3, nl2uri, uri2flow, uri2ops, touri, hypervisor, agent factory"
 readme = "README.md"
 license = "Apache-2.0"
@@ -50,6 +50,7 @@ hypervisor = "hypervisor.cli:main"
 uri3 = "uri3.cli:main"
 uri2ops = "uri2ops.cli:main"
 uri2flow = "uri2flow.cli:main"
+uri2run = "uri2run.cli:main"
 touri = "touri.cli:main"
 uri2verify = "uri2verify.cli:main"
 nl2uri = "nl2uri.cli:main"
@@ -74,6 +75,7 @@ uri2ops = { workspace = true }
 touri = { workspace = true }
 uri2voice = { workspace = true }
 uri2pact = { workspace = true }
+uri2run = { workspace = true }
 uri2verify = { workspace = true }
 
 [tool.setuptools.packages.find]
@@ -85,6 +87,7 @@ where = [
     "packages/touri",
     "packages/uri2voice",
     "packages/uri2pact",
+    "packages/uri2run",
     "packages/uri2verify",
     "packages/resource-agent-hypervisor",
     "packages/resource-agent-factory",
@@ -94,6 +97,7 @@ include = [
     "uri2ops*",
     "uri2flow*",
     "uri2pact*",
+    "uri2run*",
     "uri2verify*",
     "uri2voice*",
     "touri*",
@@ -133,6 +137,7 @@ pythonpath = [
     "packages/touri",
     "packages/uri2voice",
     "packages/uri2pact",
+    "packages/uri2run",
     "packages/uri2verify",
     "packages/resource-agent-hypervisor",
     "packages/resource-agent-factory",

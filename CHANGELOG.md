@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Documented that current `markpact://` support in `touri` and `uri2flow`
   parses README fenced blocks locally and does not require the `markpact`
   runtime.
+- Completed the `uri2run` MVP runtime package with Python, shell, HTTP,
+  `uri_flow`, `uri_graph`, `uri2ops` and mock transport entry points.
+- Added `stdio`, `sse` and `ws` `uri2run` transports plus runtime metadata
+  (`meta.runtime`, `meta.transport`, `meta.duration_ms`) on backend results.
 
 ### Changed
 
@@ -24,6 +28,44 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `iterun` / `intract` integration sequence.
 - Added manual integration backlog items to `TODO.md` for `pactown`,
   `nlp2dsl`, `intract`, `iterun` and environment wrapper alignment.
+- Delegated `touri` backend wrappers to `uri2run.run_backend` while preserving
+  the existing `ServiceResult` envelope.
+- Extended `uri3 explain` to report `runtime_transport` for `uri2run` backends.
+
+## [0.5.17] - 2026-06-14
+
+### Docs
+- Update CHANGELOG.md
+- Update README.md
+- Update TODO.md
+- Update docs/PACKAGE_BOUNDARIES.md
+- Update docs/PACKAGE_BOUNDARIES.yaml
+- Update docs/README.md
+- Update docs/URI2RUN_ARCHITECTURE.md
+- Update packages/README.md
+- Update packages/uri2run/README.md
+- Update project/README.md
+- ... and 1 more files
+
+### Test
+- Update tests/architecture/import_scanner.py
+- Update tests/architecture/test_explain_contract.py
+- Update tests/uri2run/test_stream_transports.py
+- Update tests/uri2run/test_transport_matrix.py
+- Update tests/uri2run/test_uri2run.py
+
+### Other
+- Update packages/touri/pyproject.toml
+- Update packages/touri/touri/backend_dispatch.py
+- Update packages/touri/touri/backends/__init__.py
+- Update packages/touri/touri/backends/mock_backend.py
+- Update packages/touri/touri/backends/python_backend.py
+- Update packages/touri/touri/backends/shell_backend.py
+- Update packages/touri/touri/backends/uri2ops_backend.py
+- Update packages/touri/touri/backends/uri_flow_backend.py
+- Update packages/touri/touri/backends/uri_graph_backend.py
+- Update packages/touri/touri/runtime_adapter.py
+- ... and 38 more files
 
 ## [0.5.16] - 2026-06-14
 

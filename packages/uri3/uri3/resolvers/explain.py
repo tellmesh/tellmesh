@@ -7,8 +7,8 @@ from urllib.parse import urlparse
 
 import yaml
 
-from uri3.resolvers.explain_verification import build_verification_hints, summarize_fallbacks
 from uri3.resolvers.dispatch import RESOLVE_BY_SCHEME, RESOURCE_SCHEMES, scheme_from_uri
+from uri3.resolvers.explain_verification import build_verification_hints, summarize_fallbacks
 
 RESOLUTION_ORDER = ("uri3", "touri", "uri2ops", "hypervisor", "denied")
 _CONFIG_NAME = "config/touri.uri.yaml"
@@ -45,6 +45,9 @@ def default_touri_registry(root: Path | None = None) -> Path:
 
 
 OPERATOR_SCHEMES = frozenset({"browser", "dom", "screen", "input", "android", "pcwin"})
+_URI2RUN_BACKEND_TYPES = frozenset(
+    {"python", "shell", "http", "https", "stdio", "sse", "ws", "uri_flow", "uri_graph"}
+)
 
 
 def runtime_transport_for_match(match: dict[str, Any]) -> str:
@@ -57,6 +60,8 @@ def runtime_transport_for_match(match: dict[str, Any]) -> str:
         return "hypervisor:lifecycle"
     if registry == "touri":
         backend_type = str((match.get("backend") or {}).get("type") or "unknown")
+        if backend_type in _URI2RUN_BACKEND_TYPES:
+            return f"uri2run:{backend_type}"
         return f"touri:{backend_type}"
     return "denied"
 
@@ -143,7 +148,13 @@ def _match_hypervisor(scheme: str, uri: str) -> dict[str, Any] | None:
     parsed = urlparse(uri)
     parts = [part for part in parsed.path.split("/") if part]
     action = parts[-1] if parts else "unknown"
-    deployment_id = parts[1] if len(parts) >= 2 and parts[0] == "deployment" else parts[0] if parts else "unknown"
+    deployment_id = (
+        parts[1]
+        if len(parts) >= 2 and parts[0] == "deployment"
+        else parts[0]
+        if parts
+        else "unknown"
+    )
     return {
         "matched_registry": "hypervisor",
         "uri": uri,
@@ -180,7 +191,13 @@ def explain_uri(
                 return {"uri": uri, "resolution_order": order, "checks": checks, **match}
         elif step == "touri":
             match = _match_touri(uri, registry_path)
-            checks.append({"registry": "touri", "matched": match is not None, "registry_path": str(registry_path)})
+            checks.append(
+                {
+                    "registry": "touri",
+                    "matched": match is not None,
+                    "registry_path": str(registry_path),
+                }
+            )
             if match:
                 match["runtime_transport"] = runtime_transport_for_match(match)
                 return {"uri": uri, "resolution_order": order, "checks": checks, **match}

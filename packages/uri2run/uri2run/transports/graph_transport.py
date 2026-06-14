@@ -3,12 +3,17 @@ from __future__ import annotations
 from typing import Any
 
 import yaml
+from uri3.graph import (
+    build_execution_plan,
+    dry_run_workflow,
+    load_workflow_graph,
+    run_workflow,
+    validate_workflow_graph,
+)
+from uri3.results import ServiceResult, service_result
 
 from uri2run.result import error_result
 from uri2run.transports.paths import execution_options, resolve_path
-from uri3.graph import build_execution_plan, dry_run_workflow, load_workflow_graph, run_workflow
-from uri3.graph import validate_workflow_graph
-from uri3.results import ServiceResult, service_result
 
 
 def _load_graph(path) -> dict[str, Any]:
@@ -63,3 +68,14 @@ def run_uri_graph(
     body = result.to_dict()
     ok = bool((body.get("workflow_result") or {}).get("ok", False))
     return service_result(ok=ok, result_type="workflow", data=body, meta={"transport": "uri_graph"})
+
+
+def run_graph_transport(
+    backend: dict[str, Any],
+    payload: dict[str, Any],
+    context: dict[str, Any],
+) -> ServiceResult:
+    graph = backend.get("graph")
+    if not graph:
+        return error_result("BACKEND_INVALID", "uri_graph backend missing graph")
+    return run_uri_graph(str(graph), payload, context, backend_extra=backend)

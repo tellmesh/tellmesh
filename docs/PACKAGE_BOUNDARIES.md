@@ -7,7 +7,7 @@ without adding new features first. Implementation status is noted per sprint.
 
 1. **uri3** = URI core, graph, replay, result envelope (foundation)
 2. **uri2ops** = operator runtime (browser, OS, Android, PCWin)
-3. **touri** = capability registry + dispatch (not voice/publish/verify)
+3. **touri** = capability registry + fallback policy (not transport execution)
 4. **nl2uri** = prompt → URI plan (no execution)
 5. **hypervisor** = policy, lifecycle, deployment, contract registry
 6. **One result envelope** — all packages return `uri3.results` / `ServiceResult` shape
@@ -19,7 +19,8 @@ packages/
   uri3                  # URI core, resolver, graph, replay, envelope
   uri2flow              # compact flow → workflow graph
   uri2ops               # operator runtime
-  touri                 # capability registry/runtime
+  uri2run               # runtime transport layer (Sprint 5 MVP)
+  touri                 # capability registry/runtime policy
   nl2uri                # prompt → URI/flow/graph
   hypervisor-core       # policy, lifecycle, deployment (future split from resource-agent-hypervisor)
   hypervisor-cli        # Typer commands (future split)
@@ -83,7 +84,7 @@ Implemented:
 - `touri explain <uri>` — delegates to `uri3.resolvers.explain.explain_uri`
 - `WorkflowCompleted` events now include `workflow_status`, `execution_status`, `service_result_status`
 
-## Sprint 5 — `uri2run` + architecture tests (next)
+## Sprint 5 — `uri2run` + architecture tests (MVP done)
 
 See [`URI2RUN_ARCHITECTURE.md`](./URI2RUN_ARCHITECTURE.md) and [`ARCHITECTURE_RUNTIME_AND_TESTING.md`](./ARCHITECTURE_RUNTIME_AND_TESTING.md).
 
@@ -97,12 +98,26 @@ tests/architecture/test_doctor_contract.py
 docs/PACKAGE_BOUNDARIES.yaml
 ```
 
-Sprint B (planned):
+Sprint B (done in repo):
 
 ```txt
 packages/uri2run — python/shell/http/flow/graph transports
 touri/backend_dispatch -> uri2run.run_backend (wrappers)
-uri3 explain.runtime_transport -> uri2run:* when migrated
+tests/uri2run/test_uri2run.py — transport matrix + touri delegation smoke
+```
+
+Still planned:
+
+```txt
+docker, ssh, mcp, a2a transports
+```
+
+Sprint B.2 (done in repo):
+
+```txt
+stdio, sse, ws transports in uri2run
+uri3/graph/adapters/runtime_adapter.py -> uri2run for python/shell/http/ws/sse/stdio steps
+tests/uri2run/test_stream_transports.py
 ```
 
 ## Result envelope (mandatory standard)

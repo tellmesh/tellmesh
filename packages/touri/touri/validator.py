@@ -9,6 +9,10 @@ _BACKEND_REQUIRED_FIELDS: dict[str, tuple[str, str]] = {
     "python": ("target", "python backend requires backend.target"),
     "shell": ("command", "shell backend requires backend.command"),
     "http": ("url", "http backend requires backend.url"),
+    "https": ("url", "https backend requires backend.url"),
+    "stdio": ("command", "stdio backend requires backend.command"),
+    "sse": ("url", "sse backend requires backend.url"),
+    "ws": ("url", "ws backend requires backend.url"),
     "uri_flow": ("flow", "uri_flow backend requires backend.flow"),
     "uri_graph": ("graph", "uri_graph backend requires backend.graph"),
 }

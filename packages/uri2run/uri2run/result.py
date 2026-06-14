@@ -25,4 +25,22 @@ def result_from_output(output: Any, *, default_result_type: str = "data") -> Ser
 
 
 def error_result(code: str, detail: str, *, result_type: str = "error") -> ServiceResult:
-    return service_result(ok=False, result_type=result_type, errors=[{"code": code, "detail": detail}])
+    return service_result(
+        ok=False, result_type=result_type, errors=[{"code": code, "detail": detail}]
+    )
+
+
+def with_transport_meta(
+    result: ServiceResult,
+    *,
+    transport: str,
+    target: str | None = None,
+    **extra: Any,
+) -> ServiceResult:
+    meta = dict(result.meta or {})
+    meta["transport"] = transport
+    if target:
+        meta["target"] = target
+    meta.update({key: value for key, value in extra.items() if value is not None})
+    result.meta = meta
+    return result.finalize()

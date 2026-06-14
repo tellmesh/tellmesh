@@ -3,8 +3,9 @@ from __future__ import annotations
 import importlib
 from typing import Any
 
-from uri2run.result import result_from_output
 from uri3.results import ServiceResult
+
+from uri2run.result import error_result, result_from_output
 
 
 def split_python_uri(uri: str) -> tuple[str, str]:
@@ -18,8 +19,22 @@ def split_python_uri(uri: str) -> tuple[str, str]:
 
 
 def run_python(target: str, payload: dict[str, Any], context: dict[str, Any]) -> ServiceResult:
-    module_name, func_name = split_python_uri(target)
-    module = importlib.import_module(module_name)
-    func = getattr(module, func_name)
-    output = func(payload, context) if callable(func) else func
+    try:
+        module_name, func_name = split_python_uri(target)
+        module = importlib.import_module(module_name)
+        func = getattr(module, func_name)
+        output = func(payload, context) if callable(func) else func
+    except Exception as exc:
+        return error_result("PYTHON_TRANSPORT_FAILED", str(exc))
     return result_from_output(output)
+
+
+def run_python_transport(
+    backend: dict[str, Any],
+    payload: dict[str, Any],
+    context: dict[str, Any],
+) -> ServiceResult:
+    target = backend.get("target")
+    if not target:
+        return error_result("BACKEND_INVALID", "python backend missing target")
+    return run_python(str(target), payload, context)

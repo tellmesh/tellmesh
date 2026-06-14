@@ -1,5 +1,4 @@
 # Import boundary rules for architecture tests (tests/architecture/).
-# Target state — some packages still have documented exceptions until uri2run lands.
 
 packages:
   uri2flow:
@@ -22,6 +21,16 @@ packages:
     root: packages/touri/touri
     forbidden:
       - hypervisor
+    allowed_import_prefixes:
+      - uri2run
+
+  uri2run:
+    root: packages/uri2run/uri2run
+    forbidden:
+      - hypervisor
+      - nl2uri
+      - uri2verify
+      - touri
 
   uri2voice:
     root: packages/uri2voice/uri2voice
@@ -39,6 +48,8 @@ packages:
     root: packages/uri3/uri3
     forbidden:
       - playwright
+    allowed_import_prefixes:
+      - uri2run
     allowed_path_prefixes:
       - graph/adapters/browser_
 
@@ -47,12 +58,3 @@ packages:
     forbidden:
       - uri3.graph.graph_executor
       - touri.executor
-    # TODO(Sprint uri2run): narrow nl2uri -> hypervisor imports in pipeline.py
-
-  uri2run:
-    root: packages/uri2run/uri2run
-    forbidden:
-      - hypervisor
-      - nl2uri
-      - uri2verify
-    optional: true

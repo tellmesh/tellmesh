@@ -5,8 +5,9 @@ from typing import Any
 from urllib.parse import urlparse
 
 from uri2ops.operation_registry.dispatcher import dispatch
-from uri2run.result import error_result, result_from_output
 from uri3.results import ServiceResult
+
+from uri2run.result import error_result, result_from_output
 
 _OPERATOR_SCHEMES = frozenset({"browser", "dom", "screen", "input", "android", "pcwin"})
 _OPERATION_MAP: dict[tuple[str, str], str] = {
@@ -69,7 +70,9 @@ def run_uri2ops(
 ) -> ServiceResult:
     extra = backend_extra or {}
     if scheme not in _OPERATOR_SCHEMES:
-        return error_result("URI2OPS_SCHEME_UNSUPPORTED", f"scheme not supported by uri2ops: {scheme}")
+        return error_result(
+            "URI2OPS_SCHEME_UNSUPPORTED", f"scheme not supported by uri2ops: {scheme}"
+        )
 
     registry_scheme = _registry_scheme(scheme)
     registry_operation = _registry_operation(scheme, str(extra.get("operation") or operation))
@@ -86,3 +89,16 @@ def run_uri2ops(
         return error_result("URI2OPS_DISPATCH_FAILED", str(exc))
 
     return result_from_output(output)
+
+
+def run_uri2ops_transport(
+    backend: dict[str, Any],
+    payload: dict[str, Any],
+    context: dict[str, Any],
+) -> ServiceResult:
+    scheme = str(context.get("scheme") or backend.get("scheme") or "")
+    operation = str(backend.get("operation") or context.get("operation") or "call")
+    uri = str(context.get("uri") or backend.get("uri") or "")
+    if not uri or not scheme:
+        return error_result("BACKEND_INVALID", "uri2ops backend missing uri/scheme context")
+    return run_uri2ops(uri, scheme, operation, payload, context, backend_extra=backend)

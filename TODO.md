@@ -6,6 +6,15 @@
 
 ---
 
+## Runtime Architecture
+
+- [x] Add `packages/uri2run` MVP for `python`, `shell`, `http`, `uri_flow`,
+  `uri_graph`, `uri2ops` and `mock` transports.
+- [x] Delegate `touri` backend wrappers to `uri2run.run_backend`.
+- [x] Add `uri2run` stream transports: `stdio`, `sse`, `ws`.
+- [x] Surface `uri2run` runtime transport hints in `uri3 explain`.
+- [ ] Add next `uri2run` transports: `mcp`, `a2a`, `docker`, `ssh`.
+
 ## ✅ Completed Tasks
 
 - [x] packages/nl2uri/nl2uri/flow_repair.py:229 - String concatenation can be converted to f-string

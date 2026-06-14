@@ -3,11 +3,11 @@
 
 ## AI Cost Tracking
 
-![PyPI](https://img.shields.io/badge/pypi-costs-blue) ![Version](https://img.shields.io/badge/version-0.5.16-blue) ![Python](https://img.shields.io/badge/python-3.9+-blue) ![License](https://img.shields.io/badge/license-Apache--2.0-green)
-![AI Cost](https://img.shields.io/badge/AI%20Cost-$9.27-orange) ![Human Time](https://img.shields.io/badge/Human%20Time-7.9h-blue) ![Model](https://img.shields.io/badge/Model-openrouter%2Fqwen%2Fqwen3--coder--next-lightgrey)
+![PyPI](https://img.shields.io/badge/pypi-costs-blue) ![Version](https://img.shields.io/badge/version-0.5.17-blue) ![Python](https://img.shields.io/badge/python-3.9+-blue) ![License](https://img.shields.io/badge/license-Apache--2.0-green)
+![AI Cost](https://img.shields.io/badge/AI%20Cost-$9.86-orange) ![Human Time](https://img.shields.io/badge/Human%20Time-8.0h-blue) ![Model](https://img.shields.io/badge/Model-openrouter%2Fqwen%2Fqwen3--coder--next-lightgrey)
 
-- 🤖 **LLM usage:** $9.2729 (15 commits)
-- 👤 **Human dev:** ~$789 (7.9h @ $100/h, 30min dedup)
+- 🤖 **LLM usage:** $9.8592 (16 commits)
+- 👤 **Human dev:** ~$799 (8.0h @ $100/h, 30min dedup)
 
 Generated on 2026-06-14 using [openrouter/qwen/qwen3-coder-next](https://openrouter.ai/qwen/qwen3-coder-next)
 
@@ -24,6 +24,7 @@ uri2flow   = compact URI flow → expanded workflow graph (bez wykonania)
 uri2ops    = operation registry + operator adapters + policy + serve (A2A/MCP)
 uri2voice  = STT/TTS/voice command execution (mock MVP; touri manifests)
 uri2pact   = markpact:// README import (capabilities + flows)
+uri2run    = neutral runtime transport layer for python/shell/http/stdio/sse/ws/flow/graph
 uri2verify = data quality gates, workflow replay, regression tests
 nl2a       = prompt → URI Tree → Domain Pack → agent contract → generated agent
 hypervisor = registry, policy, deployment, lifecycle
@@ -138,6 +139,15 @@ uri3 doctor --capability-plan --replay-failures
 ```
 
 Zobacz [`docs/URI3.md`](docs/URI3.md) · [`packages/uri2verify/README.md`](packages/uri2verify/README.md) · [`docs/PACKAGE_BOUNDARIES.md`](docs/PACKAGE_BOUNDARIES.md).
+
+## uri2run — runtime transports
+
+```bash
+uri2run call python://uri2voice.stt:transcribe --payload '{"text":"test"}'
+uri2run call shell://echo --payload '{"args":["hello"]}'
+```
+
+`touri` keeps capability matching, fallbacks and data quality gates; backend execution is delegated to `uri2run`.
 
 ## uri2ops — operator runtime
 

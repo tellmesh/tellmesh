@@ -27,7 +27,7 @@
 | [`ROADMAP.md`](./ROADMAP.md) | v0.6 done + v0.7 plan |
 | [`PACKAGE_BOUNDARIES.md`](./PACKAGE_BOUNDARIES.md) | Target package split, sprints, duplicate policy |
 | [`PACKAGE_BOUNDARIES.yaml`](./PACKAGE_BOUNDARIES.yaml) | Machine-readable import boundary rules |
-| [`URI2RUN_ARCHITECTURE.md`](./URI2RUN_ARCHITECTURE.md) | Proposed `uri2run` runtime layer + test matrix |
+| [`URI2RUN_ARCHITECTURE.md`](./URI2RUN_ARCHITECTURE.md) | `uri2run` runtime layer + transport test matrix |
 | [`ARCHITECTURE_RUNTIME_AND_TESTING.md`](./ARCHITECTURE_RUNTIME_AND_TESTING.md) | Runtime roles, deficits, CI test plan |
 | [`URI3.md`](./URI3.md) | uri3 CLI, `doctor`, `explain`, workflow |
 

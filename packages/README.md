@@ -10,7 +10,9 @@ Physical Python packages live under `packages/`:
 | `packages/uri2ops/` | `uri2ops` | `uri2ops` |
 | `packages/uri2voice/` | `uri2voice` | `uri2voice` |
 | `packages/uri2pact/` | `uri2pact` | `uri2pact` |
+| `packages/uri2run/` | `uri2run` | `uri2run` |
 | `packages/uri2verify/` | `uri2verify` | `uri2verify` |
+| `packages/uri2run/` | `uri2run` | `uri2run` |
 | `packages/touri/` | `touri` | `touri`, `touri_examples` |
 | `packages/resource-agent-hypervisor/` | `resource-agent-hypervisor` | `hypervisor`, `meta_agent`, `runtime_client` |
 | `packages/resource-agent-factory/` | `resource-agent-factory` | `generator` |
@@ -46,8 +48,10 @@ nl2uri --help
 nl2a --help
 hypervisor --help
 uri2ops --help
+uri2run --help
 touri --help
 uri2verify --help
+uri2run --help
 ```
 
 Governance:

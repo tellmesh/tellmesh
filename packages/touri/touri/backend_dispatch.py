@@ -3,9 +3,15 @@ from __future__ import annotations
 from collections.abc import Callable
 from typing import Any
 
+from uri2run import run_backend
+
 from touri.backends import call_mock_backend
-from touri.backends.python_backend import call_python_backend
 from touri.models import ServiceResult, service_result
+from touri.runtime_adapter import backend_to_dict
+
+_URI2RUN_TYPES = frozenset(
+    {"python", "shell", "http", "https", "stdio", "sse", "ws", "uri_flow", "uri_graph"}
+)
 
 
 def invalid_backend(code: str, detail: str) -> ServiceResult:
@@ -32,13 +38,19 @@ def backend_error(detail: str) -> ServiceResult:
     return service_result(ok=False, result_type="error", errors=[{"detail": detail}])
 
 
+def _dispatch_uri2run(
+    backend: dict[str, Any], payload: dict[str, Any], context: dict[str, Any]
+) -> ServiceResult:
+    return run_backend(backend, payload, context)
+
+
 def _call_python_backend(
     backend: dict[str, Any], payload: dict[str, Any], context: dict[str, Any]
 ) -> ServiceResult:
     target = backend.get("target")
     if not target:
         return invalid_backend("FALLBACK_BACKEND_INVALID", "python fallback missing target")
-    return call_python_backend(str(target), payload, context)
+    return _dispatch_uri2run({**backend, "type": "python", "target": str(target)}, payload, context)
 
 
 def _call_shell_backend(
@@ -47,9 +59,9 @@ def _call_shell_backend(
     command = backend.get("command")
     if not command:
         return invalid_backend("FALLBACK_BACKEND_INVALID", "shell fallback missing command")
-    from touri.backends import call_shell_backend
-
-    return call_shell_backend(str(command), payload, context)
+    return _dispatch_uri2run(
+        {**backend, "type": "shell", "command": str(command)}, payload, context
+    )
 
 
 def _call_uri_flow_backend(
@@ -58,9 +70,7 @@ def _call_uri_flow_backend(
     flow = backend.get("flow")
     if not flow:
         return invalid_backend("FALLBACK_BACKEND_INVALID", "uri_flow fallback missing flow")
-    from touri.backends import call_uri_flow_backend
-
-    return call_uri_flow_backend(str(flow), payload, context, backend_extra=backend)
+    return _dispatch_uri2run({**backend, "type": "uri_flow", "flow": str(flow)}, payload, context)
 
 
 def _call_uri_graph_backend(
@@ -69,9 +79,9 @@ def _call_uri_graph_backend(
     graph = backend.get("graph")
     if not graph:
         return invalid_backend("FALLBACK_BACKEND_INVALID", "uri_graph fallback missing graph")
-    from touri.backends import call_uri_graph_backend
-
-    return call_uri_graph_backend(str(graph), payload, context, backend_extra=backend)
+    return _dispatch_uri2run(
+        {**backend, "type": "uri_graph", "graph": str(graph)}, payload, context
+    )
 
 
 def _call_uri2ops_fallback(
@@ -94,6 +104,11 @@ _BACKEND_HANDLERS: dict[
 ] = {
     "python": _call_python_backend,
     "shell": _call_shell_backend,
+    "http": lambda backend, payload, context: _dispatch_uri2run(backend, payload, context),
+    "https": lambda backend, payload, context: _dispatch_uri2run(backend, payload, context),
+    "stdio": lambda backend, payload, context: _dispatch_uri2run(backend, payload, context),
+    "sse": lambda backend, payload, context: _dispatch_uri2run(backend, payload, context),
+    "ws": lambda backend, payload, context: _dispatch_uri2run(backend, payload, context),
     "mock": lambda _backend, payload, context: call_mock_backend(payload, context),
     "uri_flow": _call_uri_flow_backend,
     "uri_graph": _call_uri_graph_backend,
@@ -105,6 +120,8 @@ def call_backend(
     backend: dict[str, Any], payload: dict[str, Any], context: dict[str, Any]
 ) -> ServiceResult:
     backend_type = str(backend.get("type") or "")
+    if backend_type in _URI2RUN_TYPES:
+        return _dispatch_uri2run(backend, payload, context)
     handler = _BACKEND_HANDLERS.get(backend_type)
     if handler is None:
         return unsupported_backend(backend_type, fallback=True)
@@ -114,17 +131,19 @@ def call_backend(
 def _call_primary_python(backend, _manifest, _uri, final_payload, ctx) -> ServiceResult:
     if not backend.target:
         return backend_error("python backend missing target")
-    from touri.backends import call_python_backend
-
-    return call_python_backend(backend.target, final_payload, ctx)
+    return run_backend(backend_to_dict(backend), final_payload, ctx)
 
 
 def _call_primary_shell(backend, _manifest, _uri, final_payload, ctx) -> ServiceResult:
     if not backend.command:
         return backend_error("shell backend missing command")
-    from touri.backends import call_shell_backend
+    return run_backend(backend_to_dict(backend), final_payload, ctx)
 
-    return call_shell_backend(backend.command, final_payload, ctx)
+
+def _call_primary_http(backend, _manifest, _uri, final_payload, ctx) -> ServiceResult:
+    if not backend.url:
+        return backend_error("http backend missing url")
+    return run_backend(backend_to_dict(backend), final_payload, ctx)
 
 
 def _call_primary_mock(_backend, _manifest, _uri, final_payload, ctx) -> ServiceResult:
@@ -136,17 +155,13 @@ def _call_primary_mock(_backend, _manifest, _uri, final_payload, ctx) -> Service
 def _call_primary_uri_flow(backend, _manifest, _uri, final_payload, ctx) -> ServiceResult:
     if not backend.flow:
         return backend_error("uri_flow backend missing flow")
-    from touri.backends import call_uri_flow_backend
-
-    return call_uri_flow_backend(backend.flow, final_payload, ctx, backend_extra=backend.extra)
+    return run_backend(backend_to_dict(backend), final_payload, ctx)
 
 
 def _call_primary_uri_graph(backend, _manifest, _uri, final_payload, ctx) -> ServiceResult:
     if not backend.graph:
         return backend_error("uri_graph backend missing graph")
-    from touri.backends import call_uri_graph_backend
-
-    return call_uri_graph_backend(backend.graph, final_payload, ctx, backend_extra=backend.extra)
+    return run_backend(backend_to_dict(backend), final_payload, ctx)
 
 
 def _call_primary_uri2ops(backend, manifest, uri, final_payload, ctx) -> ServiceResult:
@@ -165,6 +180,7 @@ def _call_primary_uri2ops(backend, manifest, uri, final_payload, ctx) -> Service
 _PRIMARY_BACKEND_HANDLERS: dict[str, Callable[..., ServiceResult]] = {
     "python": _call_primary_python,
     "shell": _call_primary_shell,
+    "http": _call_primary_http,
     "mock": _call_primary_mock,
     "uri_flow": _call_primary_uri_flow,
     "uri_graph": _call_primary_uri_graph,

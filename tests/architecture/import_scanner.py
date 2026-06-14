@@ -51,6 +51,11 @@ def scan_package_boundaries(rules: dict[str, Any] | None = None) -> list[str]:
     violations: list[str] = []
 
     for package_name, spec in rules.items():
+        if not isinstance(spec, dict):
+            violations.append(
+                f"{package_name}: invalid boundary spec (expected mapping, got {type(spec).__name__})"
+            )
+            continue
         if spec.get("optional") and not (root / spec["root"]).exists():
             continue
         package_root = root / spec["root"]

@@ -2,8 +2,9 @@ from __future__ import annotations
 
 from typing import Any
 
-from touri.models import service_result
+from uri2run import run_backend
+from uri3.results import ServiceResult
 
 
-def call_mock_backend(payload: dict[str, Any], context: dict[str, Any]):
-    return service_result(ok=True, result_type="mock", data={"payload": payload, "context": context})
+def call_mock_backend(payload: dict[str, Any], context: dict[str, Any]) -> ServiceResult:
+    return run_backend({"type": "mock"}, payload, context)
