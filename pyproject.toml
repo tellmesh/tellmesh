@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "resource-agent-system"
-version = "0.5.14"
+version = "0.5.15"
 description = "WronAI resource agent monorepo — uri3, nl2uri, uri2flow, uri2ops, touri, hypervisor, agent factory"
 readme = "README.md"
 license = "Apache-2.0"
@@ -51,6 +51,7 @@ uri3 = "uri3.cli:main"
 uri2ops = "uri2ops.cli:main"
 uri2flow = "uri2flow.cli:main"
 touri = "touri.cli:main"
+uri2verify = "uri2verify.cli:main"
 nl2uri = "nl2uri.cli:main"
 nl2a = "nl2a.cli:main"
 
@@ -71,6 +72,9 @@ resource-agent-factory = { workspace = true }
 uri2flow = { workspace = true }
 uri2ops = { workspace = true }
 touri = { workspace = true }
+uri2voice = { workspace = true }
+uri2pact = { workspace = true }
+uri2verify = { workspace = true }
 
 [tool.setuptools.packages.find]
 where = [
@@ -79,6 +83,9 @@ where = [
     "packages/uri2flow",
     "packages/uri2ops",
     "packages/touri",
+    "packages/uri2voice",
+    "packages/uri2pact",
+    "packages/uri2verify",
     "packages/resource-agent-hypervisor",
     "packages/resource-agent-factory",
     "examples/21_touri_voice",
@@ -86,6 +93,9 @@ where = [
 include = [
     "uri2ops*",
     "uri2flow*",
+    "uri2pact*",
+    "uri2verify*",
+    "uri2voice*",
     "touri*",
     "touri_examples*",
     "touri_examples_voice*",
@@ -114,12 +124,16 @@ touri = [
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+addopts = "--import-mode=importlib"
 pythonpath = [
     "packages/uri3",
     "packages/nl2uri",
     "packages/uri2flow",
     "packages/uri2ops",
     "packages/touri",
+    "packages/uri2voice",
+    "packages/uri2pact",
+    "packages/uri2verify",
     "packages/resource-agent-hypervisor",
     "packages/resource-agent-factory",
     "examples/21_touri_voice",

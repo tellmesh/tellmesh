@@ -1,2 +1,4 @@
 {% include '_python_header.j2' %}
-AGENT_CARD = {{ agent_card | tojson(indent=2) }}
+import json
+
+AGENT_CARD = json.loads({{ agent_card | tojson | tojson }})

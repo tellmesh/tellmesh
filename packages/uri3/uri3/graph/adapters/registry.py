@@ -43,26 +43,32 @@ class HypervisorAdapter:
 
     def execute(self, node: GraphNode, context: ExecutionContext) -> dict[str, Any]:
         parsed = urlparse(node.uri)
-        parts = [part for part in parsed.path.split("/") if part]
-        deployment_id = parts[1] if len(parts) >= 2 and parts[0] == "deployment" else parts[0] if parts else "unknown"
-        action = parts[-1] if parts else node.operation
+        from hypervisor.deployment_registry.selector import parse_hypervisor_uri, resolve_deployment
+
+        deployment_selector, action = parse_hypervisor_uri(node.uri)
+        prefer_local = parsed.netloc == "local"
         if context.dry_run or not context.approve_commands:
             return {
                 "ok": True,
                 "dry_run": True,
-                "deployment_id": deployment_id,
+                "deployment_id": deployment_selector,
                 "action": action,
                 "plan": {
-                    "deployment_id": deployment_id,
+                    "deployment_id": deployment_selector,
                     "action": action,
                     "uri": node.uri,
                     "hint": "Use uri3 run-workflow --approve to delegate to hypervisor lifecycle.",
                 },
             }
-        from hypervisor.deployment_registry.run_plans import build_run_plan
-        from hypervisor.deployment_registry.selector import resolve_deployment
 
-        deployment = resolve_deployment(deployment_id, root=context.root)
+        deployment = resolve_deployment(
+            deployment_selector,
+            root=context.root,
+            prefer_local=prefer_local,
+        )
+        from hypervisor.deployment_registry.run_plans import build_run_plan
+
+        deployment_id = deployment.id
         if action in {"run", "restart"}:
             plan = build_run_plan(deployment, root=context.root)
             return {"ok": True, "deployment_id": deployment_id, "action": action, "plan": plan}

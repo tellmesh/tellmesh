@@ -40,6 +40,28 @@ uri3 schema 'log://hypervisor?level=ERROR'
 uri3 schema --list
 ```
 
+## Governance (Sprint 4)
+
+Diagnostyka konfiguracji, rejestrów i spójności envelope:
+
+```bash
+uri3 doctor
+uri3 doctor --json
+uri3 doctor --build-registry          # zapis .registry/*.json
+uri3 doctor --capability-plan         # uri2verify capability test plan
+uri3 doctor --replay-failures         # skan logów z failed/blocked steps
+uri3 doctor --strict-envelope         # fail gdy stare logi bez statusów
+uri3 doctor --migrate-envelope      # uzupełnij statusy w starych logach JSONL
+uri3 explain weather://forecast/Gdansk/14/html
+touri explain weather://forecast/Gdansk/14/html --registry examples/20_touri_capabilities
+```
+
+Indeksy w `.registry/`:
+
+- `capability_index.json` — manifesty touri
+- `operation_index.json` — operacje uri2ops
+- `uri_index.json` — przykładowe URI + matched registry
+
 ## Workflow executor (v0.6)
 
 Graf zadań YAML (z `nl2uri task` / `nl2uri graph` lub ręcznie):

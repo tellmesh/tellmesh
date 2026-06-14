@@ -16,7 +16,7 @@ inputs:
   days:
     uri: input://weather-map/days
     type: integer
-    default: 7
+    default: 14
   forecast_model:
     uri: input://weather-map/forecast-model
     type: string
@@ -83,3 +83,5 @@ dependencies:
 - pypi://httpx
 - pypi://jinja2
 - pypi://pydantic
+planner_warning: 'LLM planner failed, deterministic fallback used: OPENROUTER_API_KEY
+  is missing'

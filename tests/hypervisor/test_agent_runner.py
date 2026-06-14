@@ -5,14 +5,13 @@ from __future__ import annotations
 from pathlib import Path
 
 import pytest
-
+from hypervisor.deployment_registry.models import AgentDeployment
 from hypervisor.deployment_registry.runner import (
     agent_status,
     build_run_plan,
     local_target_to_module,
     resolve_deployment,
 )
-from hypervisor.deployment_registry.models import AgentDeployment
 
 
 def test_local_target_to_module():
@@ -29,6 +28,14 @@ def test_build_run_plan_for_local_deployment():
     assert "uvicorn" in plan["command"]
     assert plan["health_uri"] == "http://localhost:8101/health"
     assert plan["env"]["RESOURCE_RUNTIME_URL"] == "http://localhost:8000"
+
+
+def test_build_run_plan_with_port_override_updates_local_endpoints():
+    deployment = resolve_deployment("weather-map-agent.local")
+    plan = build_run_plan(deployment, port=8111)
+    assert plan["port"] == 8111
+    assert plan["health_uri"] == "http://localhost:8111/health"
+    assert plan["card_uri"] == "http://localhost:8111/.well-known/agent-card.json"
 
 
 def test_build_run_plan_missing_path(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):

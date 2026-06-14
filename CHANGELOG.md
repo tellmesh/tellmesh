@@ -5,6 +5,67 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- Added `docs/EXTERNAL_PACKAGES.md` with the local `semcod/*` and `wronai/*`
+  package audit, version snapshot, integration boundary and recommended next
+  package work.
+- Documented that current `markpact://` support in `touri` and `uri2flow`
+  parses README fenced blocks locally and does not require the `markpact`
+  runtime.
+
+### Changed
+
+- Updated README with the external package boundary and examples `17`, `18`,
+  `20`, `21`, `22`.
+- Updated `docs/ROADMAP.md` with the `markpact` / `pactown` / `nlp2dsl` /
+  `iterun` / `intract` integration sequence.
+- Added manual integration backlog items to `TODO.md` for `pactown`,
+  `nlp2dsl`, `intract`, `iterun` and environment wrapper alignment.
+
+## [0.5.15] - 2026-06-14
+
+### Docs
+- Update .registry/README.md
+- Update CHANGELOG.md
+- Update README.md
+- Update SUMD.md
+- Update SUMR.md
+- Update TODO.md
+- Update docs/EXTERNAL_PACKAGES.md
+- Update docs/PACKAGE_BOUNDARIES.md
+- Update docs/README.md
+- Update docs/ROADMAP.md
+- ... and 12 more files
+
+### Test
+- Update tests/hypervisor/test_agent_runner.py
+- Update tests/hypervisor/test_deployment_selector.py
+- Update tests/touri/test_explain.py
+- Update tests/touri/test_voice_capabilities.py
+- Update tests/uri2verify/test_capability_tests.py
+- Update tests/uri2verify/test_replay.py
+- Update tests/uri2verify/test_result_checks.py
+- Update tests/uri2verify/test_uri2verify_data_quality.py
+- Update tests/uri3/test_doctor.py
+- Update tests/uri3/test_envelope_migrate.py
+- ... and 2 more files
+
+### Other
+- Update .registry/capability_index.json
+- Update .registry/operation_index.json
+- Update .registry/uri_index.json
+- Update Makefile
+- Update agents/generated/user_agent/agent_card.py
+- Update agents/generated/user_agent/routes.py
+- Update agents/generated/weather_map_agent/agent_card.py
+- Update agents/generated/weather_map_agent/routes.py
+- Update app.doql.less
+- Update contracts/agents/invoices_agent.yaml
+- ... and 111 more files
+
 ## [0.1.10] - 2026-06-14
 
 ### Fixed
@@ -821,4 +882,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update nlp2uri.yaml
 - Update project.sh
 - Update tree.sh
-

@@ -33,6 +33,16 @@ def _render(payload: dict) -> str:
         lines.append(f"policy: {json.dumps(payload['policy'], ensure_ascii=False)}")
     if payload.get("data_quality"):
         lines.append(f"data_quality: {json.dumps(payload['data_quality'], ensure_ascii=False)}")
+    if payload.get("fallbacks"):
+        lines.append(f"fallbacks: {json.dumps(payload['fallbacks'], ensure_ascii=False)}")
+    if payload.get("verification"):
+        verification = payload["verification"]
+        lines.append(f"verification: data_quality={verification.get('data_quality_enabled')} fallbacks={verification.get('fallback_count', 0)}")
+        if verification.get("data_quality"):
+            lines.append(f"  failure_code: {verification['data_quality'].get('failure_code')}")
+        if verification.get("fallbacks"):
+            for item in verification["fallbacks"]:
+                lines.append(f"  - when={item.get('when')} backend={item.get('backend_type')}")
     if payload.get("operations"):
         lines.append(f"uri2ops operations: {', '.join(payload['operations'])}")
     if payload.get("checks"):

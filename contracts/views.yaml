@@ -32,3 +32,21 @@ views:
   - days
   - html_url
   rendererHint: html
+- name: invoices_view
+  viewKind: detail
+  mimeType: application/json
+  columns:
+  - invoice_id
+  - customer_id
+  - amount_cents
+  - currency
+  - status
+  - created_at
+  rendererHint: invoice-detail
+- name: invoice_events_view
+  viewKind: timeline
+  mimeType: application/json
+  columns:
+  - invoice_id
+  - events
+  rendererHint: invoice-timeline

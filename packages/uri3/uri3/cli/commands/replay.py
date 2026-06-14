@@ -4,7 +4,7 @@ import json
 
 import typer
 
-from uri3.graph.replay import create_regression_test, replay_workflow_events
+from uri2verify.replay import create_regression_test, replay_workflow_events
 
 
 def register(app: typer.Typer) -> None:

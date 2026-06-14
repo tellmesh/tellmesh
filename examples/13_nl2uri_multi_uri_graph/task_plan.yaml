@@ -1,0 +1,61 @@
+workflow_result:
+  id: otw-rz-chrome-i-sprawd-localhost-8101-health
+  run_id: 890a27c977a9
+  ok: true
+  started_at: '2026-06-14T13:21:24+00:00'
+  completed_at: '2026-06-14T13:21:24+00:00'
+  mode: dry_run
+  message: Dry-run completed without side effects
+  workflow_status: completed
+  execution_status: completed
+  service_result_status: succeeded
+steps:
+- id: open_health
+  uri: browser://chrome/page/open
+  operation: open
+  kind: command
+  status: completed
+  ok: true
+  result:
+    ok: true
+    dry_run: true
+    uri: browser://chrome/page/open
+    operation: open
+    workflow_status: completed
+    execution_status: completed
+    service_result_status: succeeded
+  execution_status: completed
+  service_result_status: succeeded
+- id: extract_body
+  uri: dom://chrome/active/body
+  operation: read
+  kind: query
+  status: completed
+  ok: true
+  result:
+    ok: true
+    dry_run: true
+    uri: dom://chrome/active/body
+    operation: read
+    workflow_status: completed
+    execution_status: completed
+    service_result_status: succeeded
+  execution_status: completed
+  service_result_status: succeeded
+- id: verify_ok
+  uri: assertion://contains
+  operation: check
+  kind: assertion
+  status: completed
+  ok: true
+  result:
+    ok: true
+    dry_run: true
+    uri: assertion://contains
+    operation: check
+    workflow_status: completed
+    execution_status: completed
+    service_result_status: succeeded
+  execution_status: completed
+  service_result_status: succeeded
+

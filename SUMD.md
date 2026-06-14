@@ -22,7 +22,7 @@ WronAI resource agent monorepo — uri3, nl2uri, uri2flow, uri2ops, touri, hyper
 ## Metadata
 
 - **name**: `resource-agent-system`
-- **version**: `0.5.13`
+- **version**: `0.5.14`
 - **python_requires**: `>=3.10`
 - **license**: Apache-2.0
 - **ai_model**: `openrouter/qwen/qwen3-coder-next`
@@ -42,7 +42,7 @@ SUMD (description) → DOQL/source (code) → taskfile (automation) → testql (
 
 app {
   name: resource-agent-system;
-  version: 0.5.13;
+  version: 0.5.14;
 }
 
 dependencies {
@@ -163,17 +163,17 @@ workflow[name="voice-demo"] {
 
 workflow[name="uri-tree"] {
   trigger: manual;
-  step-1: run cmd=python -m nl2uri.cli --no-llm -p "$(WEATHER_PROMPT)" --out domains/weather_map/uri_tree.yaml;
+  step-1: run cmd=python -m nl2uri.cli tree --no-llm -p "$(WEATHER_PROMPT)" --out domains/weather_map/uri_tree.yaml;
 }
 
 workflow[name="graph"] {
   trigger: manual;
-  step-1: run cmd=python -m uri3.cli graph domains/weather_map/uri_tree.yaml;
+  step-1: run cmd=uri3 graph domains/weather_map/uri_tree.yaml;
 }
 
 workflow[name="nl2a-weather"] {
   trigger: manual;
-  step-1: run cmd=python -m nl2a.cli --no-llm -p "$(WEATHER_PROMPT)";
+  step-1: run cmd=python -m nl2a.cli generate --no-llm -p "$(WEATHER_PROMPT)";
 }
 
 workflow[name="run-user-agent"] {
@@ -385,7 +385,7 @@ ASSERT[4]{field, operator, expected}:
 ```yaml
 project:
   name: resource-agent-system
-  version: 0.5.13
+  version: 0.5.14
   env: local
 ```
 
@@ -499,13 +499,13 @@ pip install -e .[dev]
 ### `project/map.toon.yaml`
 
 ```toon markpact:analysis path=project/map.toon.yaml
-# hypervisor | 427f 20365L | python:408,shell:18,less:1 | 2026-06-14
-# stats: 984 func | 80 cls | 427 mod | CC̄=3.9 | critical:59 | cycles:0
-# alerts[5]: CC classify_output_kind=23; CC run_workflow=22; CC extract_flow_payload=20; CC test_nl2a_full_pipeline_weather_map=20; CC _ensure_step_ids=19
-# hotspots[5]: create_app fan=24; run_workflow fan=24; test_playwright_task_executes_against_local_server fan=21; register fan=19; test_playwright_browser_workflow fan=18
+# hypervisor | 433f 21499L | python:412,shell:20,less:1 | 2026-06-14
+# stats: 1060 func | 81 cls | 433 mod | CC̄=3.7 | critical:51 | cycles:0
+# alerts[5]: CC test_nl2a_full_pipeline_weather_map=20; CC extract_graph_payload=14; CC parse_hypervisor_uri=14; CC validate_operation_registry=14; CC _load_source=14
+# hotspots[5]: create_app fan=24; test_playwright_task_executes_against_local_server fan=21; register fan=19; run_workflow fan=18; test_playwright_browser_workflow fan=18
 # evolution: baseline
 # Keys: M=modules, D=details, i=imports, e=exports, c=classes, f=functions, m=methods
-M[427]:
+M[433]:
   agents/__init__.py,1
   agents/custom/__init__.py,1
   agents/generated/__init__.py,1
@@ -542,7 +542,8 @@ M[427]:
   examples/21_touri_voice/touri_examples_voice/stt.py,36
   examples/21_touri_voice/touri_examples_voice/tts.py,49
   examples/21_touri_voice/touri_examples_voice/voice_command.py,67
-  examples/22_markpact_weather/run.sh,19
+  examples/22_markpact_weather/run.sh,26
+  examples/23_nl_to_agent_tutorial/run.sh,168
   packages/nl2uri/nl2a/__init__.py,1
   packages/nl2uri/nl2a/cli.py,26
   packages/nl2uri/nl2uri/__init__.py,1
@@ -550,12 +551,12 @@ M[427]:
   packages/nl2uri/nl2uri/domain_planner.py,34
   packages/nl2uri/nl2uri/flow_planner.py,107
   packages/nl2uri/nl2uri/flow_planner_llm.py,113
-  packages/nl2uri/nl2uri/flow_repair.py,230
+  packages/nl2uri/nl2uri/flow_repair.py,277
   packages/nl2uri/nl2uri/graph_planner.py,323
   packages/nl2uri/nl2uri/graph_planner_llm.py,148
-  packages/nl2uri/nl2uri/graph_repair.py,196
+  packages/nl2uri/nl2uri/graph_repair.py,201
   packages/nl2uri/nl2uri/llm_planner.py,9
-  packages/nl2uri/nl2uri/output_classifier.py,79
+  packages/nl2uri/nl2uri/output_classifier.py,150
   packages/nl2uri/nl2uri/pipeline.py,142
   packages/nl2uri/nl2uri/planner.py,14
   packages/nl2uri/nl2uri/planner_llm.py,60
@@ -629,7 +630,7 @@ M[427]:
   packages/resource-agent-hypervisor/hypervisor/deployment_registry/run_plans.py,34
   packages/resource-agent-hypervisor/hypervisor/deployment_registry/runner.py,25
   packages/resource-agent-hypervisor/hypervisor/deployment_registry/runtime_state.py,66
-  packages/resource-agent-hypervisor/hypervisor/deployment_registry/selector.py,26
+  packages/resource-agent-hypervisor/hypervisor/deployment_registry/selector.py,78
   packages/resource-agent-hypervisor/hypervisor/deployment_registry/ssh_deploy.py,96
   packages/resource-agent-hypervisor/hypervisor/deployment_registry/ssh_helpers.py,15
   packages/resource-agent-hypervisor/hypervisor/deployment_registry/ssh_run.py,59
@@ -690,31 +691,33 @@ M[427]:
   packages/touri/touri/backends/mock_backend.py,10
   packages/touri/touri/backends/python_backend.py,42
   packages/touri/touri/backends/shell_backend.py,16
-  packages/touri/touri/backends/uri2ops_backend.py,105
+  packages/touri/touri/backends/uri2ops_backend.py,127
   packages/touri/touri/backends/uri_flow_backend.py,88
   packages/touri/touri/backends/uri_graph_backend.py,96
   packages/touri/touri/cli.py,96
-  packages/touri/touri/data_quality.py,84
-  packages/touri/touri/executor.py,154
+  packages/touri/touri/data_quality.py,147
+  packages/touri/touri/executor.py,253
   packages/touri/touri/loader.py,25
   packages/touri/touri/loaders/__init__.py,21
   packages/touri/touri/loaders/file_loader.py,19
   packages/touri/touri/loaders/markpact_loader.py,107
   packages/touri/touri/loaders/registry_loader.py,15
-  packages/touri/touri/manifest.py,64
+  packages/touri/touri/manifest.py,72
   packages/touri/touri/matcher.py,36
   packages/touri/touri/models.py,85
   packages/touri/touri/redaction.py,26
   packages/touri/touri/register.py,72
-  packages/touri/touri/validator.py,30
+  packages/touri/touri/validator.py,51
   packages/touri/touri_examples/__init__.py,1
   packages/touri/touri_examples/validators.py,26
   packages/touri/touri_examples/weather.py,15
   packages/uri2flow/uri2flow/__init__.py,17
-  packages/uri2flow/uri2flow/cli.py,67
+  packages/uri2flow/uri2flow/cli.py,76
   packages/uri2flow/uri2flow/expander.py,82
+  packages/uri2flow/uri2flow/loaders/__init__.py,20
+  packages/uri2flow/uri2flow/loaders/markpact_loader.py,105
   packages/uri2flow/uri2flow/models.py,48
-  packages/uri2flow/uri2flow/parser.py,91
+  packages/uri2flow/uri2flow/parser.py,100
   packages/uri2flow/uri2flow/resolver.py,108
   packages/uri2flow/uri2flow/utils.py,39
   packages/uri2flow/uri2flow/validator.py,65
@@ -755,7 +758,7 @@ M[427]:
   packages/uri3/uri3/config/llm_profiles.py,84
   packages/uri3/uri3/config/repo_root.py,45
   packages/uri3/uri3/config/ssh_auth.py,97
-  packages/uri3/uri3/config/uri_yaml.py,90
+  packages/uri3/uri3/config/uri_yaml.py,103
   packages/uri3/uri3/discovery/__init__.py,1
   packages/uri3/uri3/docker/__init__.py,1
   packages/uri3/uri3/docker/actions/__init__.py,5
@@ -770,14 +773,14 @@ M[427]:
   packages/uri3/uri3/graph/adapters/browser_mock.py,45
   packages/uri3/uri3/graph/adapters/browser_playwright.py,78
   packages/uri3/uri3/graph/adapters/browser_router.py,67
-  packages/uri3/uri3/graph/adapters/registry.py,114
+  packages/uri3/uri3/graph/adapters/registry.py,120
   packages/uri3/uri3/graph/adapters/uri2ops_adapter.py,123
   packages/uri3/uri3/graph/artifacts.py,34
   packages/uri3/uri3/graph/conditions.py,25
-  packages/uri3/uri3/graph/dependency_graph.py,83
+  packages/uri3/uri3/graph/dependency_graph.py,90
   packages/uri3/uri3/graph/event_log.py,21
   packages/uri3/uri3/graph/execution_models.py,136
-  packages/uri3/uri3/graph/graph_executor.py,291
+  packages/uri3/uri3/graph/graph_executor.py,371
   packages/uri3/uri3/graph/graph_serializer.py,64
   packages/uri3/uri3/graph/graph_validator.py,74
   packages/uri3/uri3/graph/models.py,89
@@ -829,7 +832,7 @@ M[427]:
   packages/uri3/uri3/resolvers/router.py,29
   packages/uri3/uri3/resolvers/ssh_resolver.py,111
   packages/uri3/uri3/results/__init__.py,32
-  packages/uri3/uri3/results/envelope.py,176
+  packages/uri3/uri3/results/envelope.py,190
   packages/uri3/uri3/results/errors.py,36
   packages/uri3/uri3/results/service_result.py,103
   packages/uri3/uri3/results/statuses.py,22
@@ -843,6 +846,7 @@ M[427]:
   packages/uri3/uri3/validators/uri_tree_validator.py,21
   packages/uri3/uri3/validators/uri_validator.py,10
   project.sh,59
+  scripts/test-all-examples.sh,162
   testenv/ssh_agent_host/entrypoint.sh,8
   testenv/ssh_agent_host/mock_agent_server.py,58
   tests/__init__.py,1
@@ -856,6 +860,7 @@ M[427]:
   tests/hypervisor/test_agent_runner.py,64
   tests/hypervisor/test_config.py,82
   tests/hypervisor/test_deployment_registry.py,97
+  tests/hypervisor/test_deployment_selector.py,21
   tests/hypervisor/test_docker_runner.py,22
   tests/hypervisor/test_hypervisor_cli.py,45
   tests/hypervisor/test_remote_runner.py,64
@@ -910,6 +915,7 @@ M[427]:
   tests/uri2flow/test_expand_linear_flow.py,15
   tests/uri2flow/test_flow_defaults.py,58
   tests/uri2flow/test_parser_forms.py,16
+  tests/uri2flow/test_uri2flow_markpact_loader.py,125
   tests/uri3/__init__.py,2
   tests/uri3/test_browser_adapter.py,109
   tests/uri3/test_cli.py,88
@@ -1013,15 +1019,25 @@ D:
     call_flow_planner_llm(prompt)
     plan_flow_with_llm(prompt)
   packages/nl2uri/nl2uri/flow_repair.py:
-    e: _slug,_supported_scheme,_normalize_step_raw,_node_to_compact_step,_nodes_to_compact_steps,extract_flow_payload,sanitize_flow_step,_needs_explicit_ids,_ensure_step_ids,repair_flow_body,validate_flow_document,validate_expanded_flow,repair_and_validate_flow
+    e: _slug,_supported_scheme,_normalize_step_raw,_node_to_compact_step,_nodes_to_compact_steps,_normalize_node_list,_extract_from_flow_do,_extract_from_steps,_extract_from_graph,extract_flow_payload,_build_sanitized_step,sanitize_flow_step,_needs_explicit_ids,_assign_missing_step_ids,_prune_unknown_after_refs,_after_refs,_set_after_refs,_remove_unknown_after_refs,_ensure_step_ids,repair_flow_body,validate_flow_document,validate_expanded_flow,repair_and_validate_flow
     _slug(text)
     _supported_scheme(uri)
     _normalize_step_raw(raw)
     _node_to_compact_step(node)
     _nodes_to_compact_steps(nodes)
+    _normalize_node_list(nodes)
+    _extract_from_flow_do(body)
+    _extract_from_steps(body)
+    _extract_from_graph(body)
     extract_flow_payload(raw)
+    _build_sanitized_step(normalized)
     sanitize_flow_step(raw)
     _needs_explicit_ids(steps)
+    _assign_missing_step_ids(steps)
+    _prune_unknown_after_refs(steps)
+    _after_refs(after)
+    _set_after_refs(step;refs)
+    _remove_unknown_after_refs(step;known_ids)
     _ensure_step_ids(steps)
     repair_flow_body(raw;prompt)
     validate_flow_document(data)
@@ -1046,11 +1062,12 @@ D:
     call_graph_planner_llm(prompt)
     plan_graph_with_llm(prompt)
   packages/nl2uri/nl2uri/graph_repair.py:
-    e: _slug,_coerce_operation,extract_graph_payload,normalize_to_kind,sanitize_node,_sanitize_nodes,repair_graph_body,repair_and_validate_graph
+    e: _slug,_coerce_operation,extract_graph_payload,normalize_to_kind,_optional_node_fields,sanitize_node,_sanitize_nodes,repair_graph_body,repair_and_validate_graph
     _slug(text)
     _coerce_operation(scheme;operation)
     extract_graph_payload(raw)
     normalize_to_kind(body)
+    _optional_node_fields(node;sanitized)
     sanitize_node(node)
     _sanitize_nodes(nodes)
     repair_graph_body(raw;prompt)
@@ -1059,7 +1076,20 @@ D:
     e: llm_plan
     llm_plan(prompt)
   packages/nl2uri/nl2uri/output_classifier.py:
-    e: classify_output_kind
+    e: _prompt_flags,_rule_parallel_workflow,_rule_conditional_workflow,_rule_sequential_flow,_rule_domain_only_tree,_rule_domain_with_actions,_rule_multi_read_list,_rule_browser_flow,_rule_action_only,_rule_read_list,_rule_single_uri_words,_rule_domain_fallback,classify_output_kind,_PromptFlags
+    _PromptFlags:
+    _prompt_flags(text)
+    _rule_parallel_workflow(flags;_text)
+    _rule_conditional_workflow(flags;_text)
+    _rule_sequential_flow(flags;_text)
+    _rule_domain_only_tree(flags;_text)
+    _rule_domain_with_actions(flags;_text)
+    _rule_multi_read_list(flags;_text)
+    _rule_browser_flow(flags;_text)
+    _rule_action_only(flags;_text)
+    _rule_read_list(flags;_text)
+    _rule_single_uri_words(_flags;text)
+    _rule_domain_fallback(flags;_text)
     classify_output_kind(prompt)
   packages/nl2uri/nl2uri/pipeline.py:
     e: generate_tree,_append_pipeline_logs,run_generate_pipeline,run_full_pipeline,PipelineResult,FullPipelineResult
@@ -1368,7 +1398,9 @@ D:
     runtime_status(deployment_id;root)
     now_iso()
   packages/resource-agent-hypervisor/hypervisor/deployment_registry/selector.py:
-    e: resolve_deployment
+    e: parse_hypervisor_uri,_prefer_local_deployment,resolve_deployment
+    parse_hypervisor_uri(uri)
+    _prefer_local_deployment(matches)
     resolve_deployment(selector)
   packages/resource-agent-hypervisor/hypervisor/deployment_registry/ssh_deploy.py:
     e: build_ssh_deploy_plan,apply_ssh_deploy_plan
@@ -1561,10 +1593,13 @@ D:
     e: call_shell_backend
     call_shell_backend(command;payload;context)
   packages/touri/touri/backends/uri2ops_backend.py:
-    e: _registry_scheme,_registry_operation,_resolve_root,call_uri2ops_backend
+    e: _registry_scheme,_registry_operation,_resolve_root,_build_runtime_context,_service_result_from_dict,_parse_dispatch_output,call_uri2ops_backend
     _registry_scheme(scheme)
     _registry_operation(scheme;operation)
     _resolve_root(context)
+    _build_runtime_context(uri;payload;context;extra)
+    _service_result_from_dict(output)
+    _parse_dispatch_output(output)
     call_uri2ops_backend(uri;scheme;operation;payload;context)
   packages/touri/touri/backends/uri_flow_backend.py:
     e: _resolve_path,_execution_options,call_uri_flow_backend
@@ -1587,15 +1622,25 @@ D:
     build_parser()
     main(argv)
   packages/touri/touri/data_quality.py:
-    e: apply_data_quality
+    e: _data_quality_error,_run_validators,_check_confidence,apply_data_quality
+    _data_quality_error()
+    _run_validators(manifest;result;payload;context)
+    _check_confidence(result)
     apply_data_quality(manifest;result;payload;context)
   packages/touri/touri/executor.py:
-    e: _payload_from_params,_error_codes,_fallback_matches,_call_backend,_apply_fallbacks,call_uri
+    e: _invalid_backend,_call_python_backend,_call_shell_backend,_call_uri_flow_backend,_call_uri_graph_backend,_call_uri2ops_fallback,_call_backend,_payload_from_params,_error_codes,_fallback_matches,_apply_fallbacks,_call_primary_backend,call_uri
+    _invalid_backend(code;detail)
+    _call_python_backend(backend;payload;context)
+    _call_shell_backend(backend;payload;context)
+    _call_uri_flow_backend(backend;payload;context)
+    _call_uri_graph_backend(backend;payload;context)
+    _call_uri2ops_fallback(backend;payload;context)
+    _call_backend(backend;payload;context)
     _payload_from_params(params;payload)
     _error_codes(result)
     _fallback_matches(when;result)
-    _call_backend(backend;payload;context)
     _apply_fallbacks(manifest;result;payload;context)
+    _call_primary_backend(manifest;uri;final_payload;ctx)
     call_uri(uri;registry_root;payload;context)
   packages/touri/touri/loader.py:
     e: iter_manifest_paths,load_registry
@@ -1619,8 +1664,10 @@ D:
     e: load_registry
     load_registry(root)
   packages/touri/touri/manifest.py:
-    e: _read_yaml,load_manifest_from_dict,load_manifest
+    e: _read_yaml,_parse_capability_block,_parse_backend_block,load_manifest_from_dict,load_manifest
     _read_yaml(path)
+    _parse_capability_block(cap)
+    _parse_backend_block(backend)
     load_manifest_from_dict(data)
     load_manifest(path)
   packages/touri/touri/matcher.py:
@@ -1643,7 +1690,8 @@ D:
     sample_uri_from_template(template)
     register_capability(manifest_path)
   packages/touri/touri/validator.py:
-    e: validate_manifest
+    e: _validate_backend,validate_manifest
+    _validate_backend(manifest;errors;warnings)
     validate_manifest(path)
   packages/touri/touri_examples/__init__.py:
   packages/touri/touri_examples/validators.py:
@@ -1668,6 +1716,15 @@ D:
     _edges_from_depends(nodes)
     expand_flow(flow)
     dump_yaml(data)
+  packages/uri2flow/uri2flow/loaders/__init__.py:
+  packages/uri2flow/uri2flow/loaders/markpact_loader.py:
+    e: is_markpact_registry,_find_repo_root,resolve_markpact_ref,extract_markpact_blocks,_block_flow_id,load_markpact_flow_dict
+    is_markpact_registry(ref)
+    _find_repo_root(start)
+    resolve_markpact_ref(ref)
+    extract_markpact_blocks(markdown;block_type)
+    _block_flow_id(block;data)
+    load_markpact_flow_dict(ref)
   packages/uri2flow/uri2flow/models.py:
     e: FlowStep,FlowDocument
     FlowStep:
@@ -1844,9 +1901,12 @@ D:
     resolve_ssh_password(ref)
     ssh_auth_hint(ref)
   packages/uri3/uri3/config/uri_yaml.py:
-    e: is_uri,load_uri_yaml,resolve_uri_values
+    e: is_uri,load_uri_yaml,_resolve_env_uri,_resolve_registered_uri,_resolve_scalar_uri,resolve_uri_values
     is_uri(value)
     load_uri_yaml(path)
+    _resolve_env_uri(value)
+    _resolve_registered_uri(value)
+    _resolve_scalar_uri(value)
     resolve_uri_values(value)
   packages/uri3/uri3/discovery/__init__.py:
   packages/uri3/uri3/docker/__init__.py:
@@ -1923,9 +1983,10 @@ D:
     e: evaluate_condition
     evaluate_condition(condition;context)
   packages/uri3/uri3/graph/dependency_graph.py:
-    e: adjacency,reverse_adjacency,detect_cycles,topological_sort,dependency_summary
+    e: adjacency,reverse_adjacency,_indegree_outgoing,detect_cycles,topological_sort,dependency_summary
     adjacency(graph)
     reverse_adjacency(graph)
+    _indegree_outgoing(graph)
     detect_cycles(graph)
     topological_sort(graph)
     dependency_summary(graph)
@@ -1942,12 +2003,19 @@ D:
     utc_now_iso()
     new_execution_context(workflow_id)
   packages/uri3/uri3/graph/graph_executor.py:
-    e: _redact_step_payload,build_execution_plan,dry_run_workflow,_dependencies_ok,_execute_step,run_workflow
+    e: _redact_step_payload,build_execution_plan,dry_run_workflow,_dependencies_ok,_execute_step,_step_result,_record_step,_handle_skipped_node,_handle_dependency_failure,_handle_blocked_node,_handle_completed_node,_prepare_workflow,run_workflow
     _redact_step_payload(payload)
     build_execution_plan(graph)
     dry_run_workflow(source)
     _dependencies_ok(node;completed)
     _execute_step(node;context)
+    _step_result(node)
+    _record_step(workflow_id;context;event)
+    _handle_skipped_node(node)
+    _handle_dependency_failure(node)
+    _handle_blocked_node(node)
+    _handle_completed_node(node)
+    _prepare_workflow(source)
     run_workflow(source)
   packages/uri3/uri3/graph/graph_serializer.py:
     e: edges_from_depends_on,normalize_graph_payload,task_steps_to_graph,workflow_manifest
@@ -2183,14 +2251,17 @@ D:
     run_ssh(ref;remote_command)
   packages/uri3/uri3/results/__init__.py:
   packages/uri3/uri3/results/envelope.py:
-    e: step_execution_status,step_service_result_status,workflow_aggregate_statuses,enrich_step_dict,enrich_workflow_dict,_workflow_step_error_code,_workflow_step_error_detail,enrich_lifecycle_dict
+    e: step_execution_status,step_service_result_status,_step_has_service_failure,_resolve_workflow_status,workflow_aggregate_statuses,enrich_step_dict,enrich_workflow_dict,_workflow_step_error_code,_workflow_step_error_detail,_lifecycle_ok,enrich_lifecycle_dict
     step_execution_status()
     step_service_result_status()
+    _step_has_service_failure(step)
+    _resolve_workflow_status()
     workflow_aggregate_statuses()
     enrich_step_dict(step)
     enrich_workflow_dict(payload)
     _workflow_step_error_code(step)
     _workflow_step_error_detail(step)
+    _lifecycle_ok(body;status;runtime_status)
     enrich_lifecycle_dict(payload)
   packages/uri3/uri3/results/errors.py:
     e: normalize_error,ErrorEnvelope
@@ -2294,6 +2365,11 @@ D:
     test_resolve_status_without_health_check()
     test_registry_summary()
     test_ssh_target_uri_supported_in_model(tmp_path)
+  tests/hypervisor/test_deployment_selector.py:
+    e: test_parse_hypervisor_local_uri,test_parse_hypervisor_deployment_uri,test_resolve_local_weather_agent_alias
+    test_parse_hypervisor_local_uri()
+    test_parse_hypervisor_deployment_uri()
+    test_resolve_local_weather_agent_alias()
   tests/hypervisor/test_docker_runner.py:
     e: test_build_docker_deploy_plan,test_build_docker_control_plan_up
     test_build_docker_deploy_plan()
@@ -2573,6 +2649,20 @@ D:
   tests/uri2flow/test_parser_forms.py:
     e: test_accepts_string_and_mapping_forms
     test_accepts_string_and_mapping_forms()
+  tests/uri2flow/test_uri2flow_markpact_loader.py:
+    e: _markpact_ref,test_is_markpact_registry,test_extract_markpact_flow_blocks,test_load_markpact_flow_dict,test_load_flow_markpact_ref,test_expand_flow_markpact_ref,test_markpact_flow_requires_fragment_when_ambiguous,test_markpact_flow_matches_yaml_flow,test_resolve_markpact_ref,test_uri2flow_expand_cli,test_missing_flow_fragment_raises,test_missing_markpact_readme_raises
+    _markpact_ref(repo_root;fragment)
+    test_is_markpact_registry()
+    test_extract_markpact_flow_blocks()
+    test_load_markpact_flow_dict(repo_root)
+    test_load_flow_markpact_ref(repo_root)
+    test_expand_flow_markpact_ref(repo_root)
+    test_markpact_flow_requires_fragment_when_ambiguous(tmp_path)
+    test_markpact_flow_matches_yaml_flow(repo_root)
+    test_resolve_markpact_ref(repo_root)
+    test_uri2flow_expand_cli(repo_root;tmp_path)
+    test_missing_flow_fragment_raises(repo_root)
+    test_missing_markpact_readme_raises(repo_root)
   tests/uri3/__init__.py:
   tests/uri3/test_browser_adapter.py:
     e: test_resolve_browser_mode_mock,test_mock_adapter_writes_artifact_files,test_playwright_browser_workflow
@@ -2725,7 +2815,7 @@ D:
 
 ```prolog markpact:analysis path=project/logic.pl
 % ── Project Metadata ─────────────────────────────────────
-project_metadata('hypervisor', '0.5.13', 'python').
+project_metadata('hypervisor', '0.5.14', 'python').
 
 % ── Project Files ────────────────────────────────────────
 project_file('agents/__init__.py', 1, 'python').
@@ -2764,7 +2854,8 @@ project_file('examples/21_touri_voice/touri_examples_voice/__init__.py', 1, 'pyt
 project_file('examples/21_touri_voice/touri_examples_voice/stt.py', 36, 'python').
 project_file('examples/21_touri_voice/touri_examples_voice/tts.py', 49, 'python').
 project_file('examples/21_touri_voice/touri_examples_voice/voice_command.py', 67, 'python').
-project_file('examples/22_markpact_weather/run.sh', 19, 'shell').
+project_file('examples/22_markpact_weather/run.sh', 26, 'shell').
+project_file('examples/23_nl_to_agent_tutorial/run.sh', 168, 'shell').
 project_file('packages/nl2uri/nl2a/__init__.py', 1, 'python').
 project_file('packages/nl2uri/nl2a/cli.py', 26, 'python').
 project_file('packages/nl2uri/nl2uri/__init__.py', 1, 'python').
@@ -2772,12 +2863,12 @@ project_file('packages/nl2uri/nl2uri/cli.py', 247, 'python').
 project_file('packages/nl2uri/nl2uri/domain_planner.py', 34, 'python').
 project_file('packages/nl2uri/nl2uri/flow_planner.py', 107, 'python').
 project_file('packages/nl2uri/nl2uri/flow_planner_llm.py', 113, 'python').
-project_file('packages/nl2uri/nl2uri/flow_repair.py', 230, 'python').
+project_file('packages/nl2uri/nl2uri/flow_repair.py', 277, 'python').
 project_file('packages/nl2uri/nl2uri/graph_planner.py', 323, 'python').
 project_file('packages/nl2uri/nl2uri/graph_planner_llm.py', 148, 'python').
-project_file('packages/nl2uri/nl2uri/graph_repair.py', 196, 'python').
+project_file('packages/nl2uri/nl2uri/graph_repair.py', 201, 'python').
 project_file('packages/nl2uri/nl2uri/llm_planner.py', 9, 'python').
-project_file('packages/nl2uri/nl2uri/output_classifier.py', 79, 'python').
+project_file('packages/nl2uri/nl2uri/output_classifier.py', 150, 'python').
 project_file('packages/nl2uri/nl2uri/pipeline.py', 142, 'python').
 project_file('packages/nl2uri/nl2uri/planner.py', 14, 'python').
 project_file('packages/nl2uri/nl2uri/planner_llm.py', 60, 'python').
@@ -2851,7 +2942,7 @@ project_file('packages/resource-agent-hypervisor/hypervisor/deployment_registry/
 project_file('packages/resource-agent-hypervisor/hypervisor/deployment_registry/run_plans.py', 34, 'python').
 project_file('packages/resource-agent-hypervisor/hypervisor/deployment_registry/runner.py', 25, 'python').
 project_file('packages/resource-agent-hypervisor/hypervisor/deployment_registry/runtime_state.py', 66, 'python').
-project_file('packages/resource-agent-hypervisor/hypervisor/deployment_registry/selector.py', 26, 'python').
+project_file('packages/resource-agent-hypervisor/hypervisor/deployment_registry/selector.py', 78, 'python').
 project_file('packages/resource-agent-hypervisor/hypervisor/deployment_registry/ssh_deploy.py', 96, 'python').
 project_file('packages/resource-agent-hypervisor/hypervisor/deployment_registry/ssh_helpers.py', 15, 'python').
 project_file('packages/resource-agent-hypervisor/hypervisor/deployment_registry/ssh_run.py', 59, 'python').
@@ -2912,31 +3003,33 @@ project_file('packages/touri/touri/backends/__init__.py', 16, 'python').
 project_file('packages/touri/touri/backends/mock_backend.py', 10, 'python').
 project_file('packages/touri/touri/backends/python_backend.py', 42, 'python').
 project_file('packages/touri/touri/backends/shell_backend.py', 16, 'python').
-project_file('packages/touri/touri/backends/uri2ops_backend.py', 105, 'python').
+project_file('packages/touri/touri/backends/uri2ops_backend.py', 127, 'python').
 project_file('packages/touri/touri/backends/uri_flow_backend.py', 88, 'python').
 project_file('packages/touri/touri/backends/uri_graph_backend.py', 96, 'python').
 project_file('packages/touri/touri/cli.py', 96, 'python').
-project_file('packages/touri/touri/data_quality.py', 84, 'python').
-project_file('packages/touri/touri/executor.py', 154, 'python').
+project_file('packages/touri/touri/data_quality.py', 147, 'python').
+project_file('packages/touri/touri/executor.py', 253, 'python').
 project_file('packages/touri/touri/loader.py', 25, 'python').
 project_file('packages/touri/touri/loaders/__init__.py', 21, 'python').
 project_file('packages/touri/touri/loaders/file_loader.py', 19, 'python').
 project_file('packages/touri/touri/loaders/markpact_loader.py', 107, 'python').
 project_file('packages/touri/touri/loaders/registry_loader.py', 15, 'python').
-project_file('packages/touri/touri/manifest.py', 64, 'python').
+project_file('packages/touri/touri/manifest.py', 72, 'python').
 project_file('packages/touri/touri/matcher.py', 36, 'python').
 project_file('packages/touri/touri/models.py', 85, 'python').
 project_file('packages/touri/touri/redaction.py', 26, 'python').
 project_file('packages/touri/touri/register.py', 72, 'python').
-project_file('packages/touri/touri/validator.py', 30, 'python').
+project_file('packages/touri/touri/validator.py', 51, 'python').
 project_file('packages/touri/touri_examples/__init__.py', 1, 'python').
 project_file('packages/touri/touri_examples/validators.py', 26, 'python').
 project_file('packages/touri/touri_examples/weather.py', 15, 'python').
 project_file('packages/uri2flow/uri2flow/__init__.py', 17, 'python').
-project_file('packages/uri2flow/uri2flow/cli.py', 67, 'python').
+project_file('packages/uri2flow/uri2flow/cli.py', 76, 'python').
 project_file('packages/uri2flow/uri2flow/expander.py', 82, 'python').
+project_file('packages/uri2flow/uri2flow/loaders/__init__.py', 20, 'python').
+project_file('packages/uri2flow/uri2flow/loaders/markpact_loader.py', 105, 'python').
 project_file('packages/uri2flow/uri2flow/models.py', 48, 'python').
-project_file('packages/uri2flow/uri2flow/parser.py', 91, 'python').
+project_file('packages/uri2flow/uri2flow/parser.py', 100, 'python').
 project_file('packages/uri2flow/uri2flow/resolver.py', 108, 'python').
 project_file('packages/uri2flow/uri2flow/utils.py', 39, 'python').
 project_file('packages/uri2flow/uri2flow/validator.py', 65, 'python').
@@ -2977,7 +3070,7 @@ project_file('packages/uri3/uri3/config/llm_profile_builder.py', 45, 'python').
 project_file('packages/uri3/uri3/config/llm_profiles.py', 84, 'python').
 project_file('packages/uri3/uri3/config/repo_root.py', 45, 'python').
 project_file('packages/uri3/uri3/config/ssh_auth.py', 97, 'python').
-project_file('packages/uri3/uri3/config/uri_yaml.py', 90, 'python').
+project_file('packages/uri3/uri3/config/uri_yaml.py', 103, 'python').
 project_file('packages/uri3/uri3/discovery/__init__.py', 1, 'python').
 project_file('packages/uri3/uri3/docker/__init__.py', 1, 'python').
 project_file('packages/uri3/uri3/docker/actions/__init__.py', 5, 'python').
@@ -2992,14 +3085,14 @@ project_file('packages/uri3/uri3/graph/adapters/base.py', 13, 'python').
 project_file('packages/uri3/uri3/graph/adapters/browser_mock.py', 45, 'python').
 project_file('packages/uri3/uri3/graph/adapters/browser_playwright.py', 78, 'python').
 project_file('packages/uri3/uri3/graph/adapters/browser_router.py', 67, 'python').
-project_file('packages/uri3/uri3/graph/adapters/registry.py', 114, 'python').
+project_file('packages/uri3/uri3/graph/adapters/registry.py', 120, 'python').
 project_file('packages/uri3/uri3/graph/adapters/uri2ops_adapter.py', 123, 'python').
 project_file('packages/uri3/uri3/graph/artifacts.py', 34, 'python').
 project_file('packages/uri3/uri3/graph/conditions.py', 25, 'python').
-project_file('packages/uri3/uri3/graph/dependency_graph.py', 83, 'python').
+project_file('packages/uri3/uri3/graph/dependency_graph.py', 90, 'python').
 project_file('packages/uri3/uri3/graph/event_log.py', 21, 'python').
 project_file('packages/uri3/uri3/graph/execution_models.py', 136, 'python').
-project_file('packages/uri3/uri3/graph/graph_executor.py', 291, 'python').
+project_file('packages/uri3/uri3/graph/graph_executor.py', 371, 'python').
 project_file('packages/uri3/uri3/graph/graph_serializer.py', 64, 'python').
 project_file('packages/uri3/uri3/graph/graph_validator.py', 74, 'python').
 project_file('packages/uri3/uri3/graph/models.py', 89, 'python').
@@ -3051,7 +3144,7 @@ project_file('packages/uri3/uri3/resolvers/resolve_core.py', 46, 'python').
 project_file('packages/uri3/uri3/resolvers/router.py', 29, 'python').
 project_file('packages/uri3/uri3/resolvers/ssh_resolver.py', 111, 'python').
 project_file('packages/uri3/uri3/results/__init__.py', 32, 'python').
-project_file('packages/uri3/uri3/results/envelope.py', 176, 'python').
+project_file('packages/uri3/uri3/results/envelope.py', 190, 'python').
 project_file('packages/uri3/uri3/results/errors.py', 36, 'python').
 project_file('packages/uri3/uri3/results/service_result.py', 103, 'python').
 project_file('packages/uri3/uri3/results/statuses.py', 22, 'python').
@@ -3065,6 +3158,7 @@ project_file('packages/uri3/uri3/validators/__init__.py', 1, 'python').
 project_file('packages/uri3/uri3/validators/uri_tree_validator.py', 21, 'python').
 project_file('packages/uri3/uri3/validators/uri_validator.py', 10, 'python').
 project_file('project.sh', 59, 'shell').
+project_file('scripts/test-all-examples.sh', 162, 'shell').
 project_file('testenv/ssh_agent_host/entrypoint.sh', 8, 'shell').
 project_file('testenv/ssh_agent_host/mock_agent_server.py', 58, 'python').
 project_file('tests/__init__.py', 1, 'python').
@@ -3078,6 +3172,7 @@ project_file('tests/hypervisor/__init__.py', 2, 'python').
 project_file('tests/hypervisor/test_agent_runner.py', 64, 'python').
 project_file('tests/hypervisor/test_config.py', 82, 'python').
 project_file('tests/hypervisor/test_deployment_registry.py', 97, 'python').
+project_file('tests/hypervisor/test_deployment_selector.py', 21, 'python').
 project_file('tests/hypervisor/test_docker_runner.py', 22, 'python').
 project_file('tests/hypervisor/test_hypervisor_cli.py', 45, 'python').
 project_file('tests/hypervisor/test_remote_runner.py', 64, 'python').
@@ -3132,6 +3227,7 @@ project_file('tests/uri2flow/test_expand_branching_flow.py', 14, 'python').
 project_file('tests/uri2flow/test_expand_linear_flow.py', 15, 'python').
 project_file('tests/uri2flow/test_flow_defaults.py', 58, 'python').
 project_file('tests/uri2flow/test_parser_forms.py', 16, 'python').
+project_file('tests/uri2flow/test_uri2flow_markpact_loader.py', 125, 'python').
 project_file('tests/uri3/__init__.py', 2, 'python').
 project_file('tests/uri3/test_browser_adapter.py', 109, 'python').
 project_file('tests/uri3/test_cli.py', 88, 'python').
@@ -3201,10 +3297,20 @@ python_function('packages/nl2uri/nl2uri/flow_repair.py', '_supported_scheme', 1,
 python_function('packages/nl2uri/nl2uri/flow_repair.py', '_normalize_step_raw', 1, 10, 9).
 python_function('packages/nl2uri/nl2uri/flow_repair.py', '_node_to_compact_step', 1, 13, 5).
 python_function('packages/nl2uri/nl2uri/flow_repair.py', '_nodes_to_compact_steps', 1, 4, 3).
-python_function('packages/nl2uri/nl2uri/flow_repair.py', 'extract_flow_payload', 1, 20, 7).
-python_function('packages/nl2uri/nl2uri/flow_repair.py', 'sanitize_flow_step', 1, 18, 8).
+python_function('packages/nl2uri/nl2uri/flow_repair.py', '_normalize_node_list', 1, 3, 4).
+python_function('packages/nl2uri/nl2uri/flow_repair.py', '_extract_from_flow_do', 1, 5, 1).
+python_function('packages/nl2uri/nl2uri/flow_repair.py', '_extract_from_steps', 1, 5, 2).
+python_function('packages/nl2uri/nl2uri/flow_repair.py', '_extract_from_graph', 1, 5, 4).
+python_function('packages/nl2uri/nl2uri/flow_repair.py', 'extract_flow_payload', 1, 6, 4).
+python_function('packages/nl2uri/nl2uri/flow_repair.py', '_build_sanitized_step', 1, 11, 5).
+python_function('packages/nl2uri/nl2uri/flow_repair.py', 'sanitize_flow_step', 1, 8, 8).
 python_function('packages/nl2uri/nl2uri/flow_repair.py', '_needs_explicit_ids', 1, 4, 3).
-python_function('packages/nl2uri/nl2uri/flow_repair.py', '_ensure_step_ids', 1, 19, 11).
+python_function('packages/nl2uri/nl2uri/flow_repair.py', '_assign_missing_step_ids', 1, 4, 8).
+python_function('packages/nl2uri/nl2uri/flow_repair.py', '_prune_unknown_after_refs', 1, 8, 5).
+python_function('packages/nl2uri/nl2uri/flow_repair.py', '_after_refs', 1, 4, 2).
+python_function('packages/nl2uri/nl2uri/flow_repair.py', '_set_after_refs', 2, 3, 2).
+python_function('packages/nl2uri/nl2uri/flow_repair.py', '_remove_unknown_after_refs', 2, 3, 5).
+python_function('packages/nl2uri/nl2uri/flow_repair.py', '_ensure_step_ids', 1, 2, 3).
 python_function('packages/nl2uri/nl2uri/flow_repair.py', 'repair_flow_body', 2, 8, 14).
 python_function('packages/nl2uri/nl2uri/flow_repair.py', 'validate_flow_document', 1, 1, 1).
 python_function('packages/nl2uri/nl2uri/flow_repair.py', 'validate_expanded_flow', 1, 1, 1).
@@ -3227,12 +3333,25 @@ python_function('packages/nl2uri/nl2uri/graph_repair.py', '_slug', 1, 2, 3).
 python_function('packages/nl2uri/nl2uri/graph_repair.py', '_coerce_operation', 2, 5, 6).
 python_function('packages/nl2uri/nl2uri/graph_repair.py', 'extract_graph_payload', 1, 14, 4).
 python_function('packages/nl2uri/nl2uri/graph_repair.py', 'normalize_to_kind', 1, 12, 10).
-python_function('packages/nl2uri/nl2uri/graph_repair.py', 'sanitize_node', 1, 16, 9).
+python_function('packages/nl2uri/nl2uri/graph_repair.py', '_optional_node_fields', 2, 5, 2).
+python_function('packages/nl2uri/nl2uri/graph_repair.py', 'sanitize_node', 1, 10, 9).
 python_function('packages/nl2uri/nl2uri/graph_repair.py', '_sanitize_nodes', 1, 12, 5).
 python_function('packages/nl2uri/nl2uri/graph_repair.py', 'repair_graph_body', 2, 12, 12).
 python_function('packages/nl2uri/nl2uri/graph_repair.py', 'repair_and_validate_graph', 2, 13, 8).
 python_function('packages/nl2uri/nl2uri/llm_planner.py', 'llm_plan', 1, 2, 4).
-python_function('packages/nl2uri/nl2uri/output_classifier.py', 'classify_output_kind', 1, 23, 5).
+python_function('packages/nl2uri/nl2uri/output_classifier.py', '_prompt_flags', 1, 1, 5).
+python_function('packages/nl2uri/nl2uri/output_classifier.py', '_rule_parallel_workflow', 2, 3, 0).
+python_function('packages/nl2uri/nl2uri/output_classifier.py', '_rule_conditional_workflow', 2, 4, 0).
+python_function('packages/nl2uri/nl2uri/output_classifier.py', '_rule_sequential_flow', 2, 2, 0).
+python_function('packages/nl2uri/nl2uri/output_classifier.py', '_rule_domain_only_tree', 2, 3, 0).
+python_function('packages/nl2uri/nl2uri/output_classifier.py', '_rule_domain_with_actions', 2, 3, 0).
+python_function('packages/nl2uri/nl2uri/output_classifier.py', '_rule_multi_read_list', 2, 4, 0).
+python_function('packages/nl2uri/nl2uri/output_classifier.py', '_rule_browser_flow', 2, 3, 0).
+python_function('packages/nl2uri/nl2uri/output_classifier.py', '_rule_action_only', 2, 4, 0).
+python_function('packages/nl2uri/nl2uri/output_classifier.py', '_rule_read_list', 2, 2, 0).
+python_function('packages/nl2uri/nl2uri/output_classifier.py', '_rule_single_uri_words', 2, 2, 1).
+python_function('packages/nl2uri/nl2uri/output_classifier.py', '_rule_domain_fallback', 2, 2, 0).
+python_function('packages/nl2uri/nl2uri/output_classifier.py', 'classify_output_kind', 1, 4, 3).
 python_function('packages/nl2uri/nl2uri/pipeline.py', 'generate_tree', 1, 1, 1).
 python_function('packages/nl2uri/nl2uri/pipeline.py', '_append_pipeline_logs', 0, 2, 2).
 python_function('packages/nl2uri/nl2uri/pipeline.py', 'run_generate_pipeline', 1, 4, 10).
@@ -3392,7 +3511,9 @@ python_function('packages/resource-agent-hypervisor/hypervisor/deployment_regist
 python_function('packages/resource-agent-hypervisor/hypervisor/deployment_registry/runtime_state.py', 'is_process_alive', 1, 4, 1).
 python_function('packages/resource-agent-hypervisor/hypervisor/deployment_registry/runtime_state.py', 'runtime_status', 2, 6, 4).
 python_function('packages/resource-agent-hypervisor/hypervisor/deployment_registry/runtime_state.py', 'now_iso', 0, 1, 3).
-python_function('packages/resource-agent-hypervisor/hypervisor/deployment_registry/selector.py', 'resolve_deployment', 1, 7, 7).
+python_function('packages/resource-agent-hypervisor/hypervisor/deployment_registry/selector.py', 'parse_hypervisor_uri', 1, 14, 3).
+python_function('packages/resource-agent-hypervisor/hypervisor/deployment_registry/selector.py', '_prefer_local_deployment', 1, 9, 4).
+python_function('packages/resource-agent-hypervisor/hypervisor/deployment_registry/selector.py', 'resolve_deployment', 1, 12, 9).
 python_function('packages/resource-agent-hypervisor/hypervisor/deployment_registry/ssh_deploy.py', 'build_ssh_deploy_plan', 1, 3, 9).
 python_function('packages/resource-agent-hypervisor/hypervisor/deployment_registry/ssh_deploy.py', 'apply_ssh_deploy_plan', 1, 7, 4).
 python_function('packages/resource-agent-hypervisor/hypervisor/deployment_registry/ssh_helpers.py', 'generated_agent_dir', 2, 1, 2).
@@ -3477,7 +3598,10 @@ python_function('packages/touri/touri/backends/shell_backend.py', 'call_shell_ba
 python_function('packages/touri/touri/backends/uri2ops_backend.py', '_registry_scheme', 1, 2, 0).
 python_function('packages/touri/touri/backends/uri2ops_backend.py', '_registry_operation', 2, 1, 1).
 python_function('packages/touri/touri/backends/uri2ops_backend.py', '_resolve_root', 1, 2, 3).
-python_function('packages/touri/touri/backends/uri2ops_backend.py', 'call_uri2ops_backend', 5, 17, 16).
+python_function('packages/touri/touri/backends/uri2ops_backend.py', '_build_runtime_context', 4, 4, 4).
+python_function('packages/touri/touri/backends/uri2ops_backend.py', '_service_result_from_dict', 1, 5, 7).
+python_function('packages/touri/touri/backends/uri2ops_backend.py', '_parse_dispatch_output', 1, 4, 4).
+python_function('packages/touri/touri/backends/uri2ops_backend.py', 'call_uri2ops_backend', 5, 7, 12).
 python_function('packages/touri/touri/backends/uri_flow_backend.py', '_resolve_path', 2, 3, 4).
 python_function('packages/touri/touri/backends/uri_flow_backend.py', '_execution_options', 2, 1, 3).
 python_function('packages/touri/touri/backends/uri_flow_backend.py', 'call_uri_flow_backend', 3, 9, 16).
@@ -3492,13 +3616,23 @@ python_function('packages/touri/touri/cli.py', 'cmd_call', 1, 4, 6).
 python_function('packages/touri/touri/cli.py', 'cmd_register', 1, 2, 3).
 python_function('packages/touri/touri/cli.py', 'build_parser', 0, 1, 5).
 python_function('packages/touri/touri/cli.py', 'main', 1, 1, 3).
-python_function('packages/touri/touri/data_quality.py', 'apply_data_quality', 4, 18, 10).
+python_function('packages/touri/touri/data_quality.py', '_data_quality_error', 0, 2, 2).
+python_function('packages/touri/touri/data_quality.py', '_run_validators', 4, 9, 8).
+python_function('packages/touri/touri/data_quality.py', '_check_confidence', 1, 5, 4).
+python_function('packages/touri/touri/data_quality.py', 'apply_data_quality', 4, 9, 8).
+python_function('packages/touri/touri/executor.py', '_invalid_backend', 2, 1, 1).
+python_function('packages/touri/touri/executor.py', '_call_python_backend', 3, 2, 4).
+python_function('packages/touri/touri/executor.py', '_call_shell_backend', 3, 2, 4).
+python_function('packages/touri/touri/executor.py', '_call_uri_flow_backend', 3, 2, 4).
+python_function('packages/touri/touri/executor.py', '_call_uri_graph_backend', 3, 2, 4).
+python_function('packages/touri/touri/executor.py', '_call_uri2ops_fallback', 3, 7, 4).
+python_function('packages/touri/touri/executor.py', '_call_backend', 3, 3, 4).
 python_function('packages/touri/touri/executor.py', '_payload_from_params', 2, 2, 2).
 python_function('packages/touri/touri/executor.py', '_error_codes', 1, 5, 5).
 python_function('packages/touri/touri/executor.py', '_fallback_matches', 2, 3, 1).
-python_function('packages/touri/touri/executor.py', '_call_backend', 3, 18, 9).
 python_function('packages/touri/touri/executor.py', '_apply_fallbacks', 4, 11, 7).
-python_function('packages/touri/touri/executor.py', 'call_uri', 4, 13, 15).
+python_function('packages/touri/touri/executor.py', '_call_primary_backend', 4, 12, 7).
+python_function('packages/touri/touri/executor.py', 'call_uri', 4, 2, 9).
 python_function('packages/touri/touri/loader.py', 'iter_manifest_paths', 1, 1, 1).
 python_function('packages/touri/touri/loader.py', 'load_registry', 1, 1, 1).
 python_function('packages/touri/touri/loaders/file_loader.py', 'iter_manifest_paths', 1, 2, 4).
@@ -3512,7 +3646,9 @@ python_function('packages/touri/touri/loaders/markpact_loader.py', '_load_capabi
 python_function('packages/touri/touri/loaders/markpact_loader.py', 'load_markpact_capabilities', 1, 9, 9).
 python_function('packages/touri/touri/loaders/registry_loader.py', 'load_registry', 1, 2, 4).
 python_function('packages/touri/touri/manifest.py', '_read_yaml', 1, 3, 4).
-python_function('packages/touri/touri/manifest.py', 'load_manifest_from_dict', 1, 16, 9).
+python_function('packages/touri/touri/manifest.py', '_parse_capability_block', 1, 4, 4).
+python_function('packages/touri/touri/manifest.py', '_parse_backend_block', 1, 4, 5).
+python_function('packages/touri/touri/manifest.py', 'load_manifest_from_dict', 1, 10, 6).
 python_function('packages/touri/touri/manifest.py', 'load_manifest', 1, 1, 4).
 python_function('packages/touri/touri/matcher.py', 'template_to_regex', 1, 1, 3).
 python_function('packages/touri/touri/matcher.py', 'match_uri', 2, 3, 4).
@@ -3521,7 +3657,8 @@ python_function('packages/touri/touri/redaction.py', 'should_redact', 1, 2, 1).
 python_function('packages/touri/touri/redaction.py', 'apply_redaction', 2, 7, 3).
 python_function('packages/touri/touri/register.py', 'sample_uri_from_template', 1, 1, 3).
 python_function('packages/touri/touri/register.py', 'register_capability', 1, 6, 10).
-python_function('packages/touri/touri/validator.py', 'validate_manifest', 1, 15, 3).
+python_function('packages/touri/touri/validator.py', '_validate_backend', 3, 5, 3).
+python_function('packages/touri/touri/validator.py', 'validate_manifest', 1, 3, 4).
 python_function('packages/touri/touri_examples/validators.py', 'always_pass', 2, 1, 1).
 python_function('packages/touri/touri_examples/validators.py', 'reject_low_confidence', 2, 4, 3).
 python_function('packages/touri/touri_examples/validators.py', 'low_confidence_backend', 2, 1, 2).
@@ -3535,10 +3672,16 @@ python_function('packages/uri2flow/uri2flow/expander.py', '_node_from_step', 3, 
 python_function('packages/uri2flow/uri2flow/expander.py', '_edges_from_depends', 1, 4, 2).
 python_function('packages/uri2flow/uri2flow/expander.py', 'expand_flow', 1, 6, 7).
 python_function('packages/uri2flow/uri2flow/expander.py', 'dump_yaml', 1, 1, 1).
+python_function('packages/uri2flow/uri2flow/loaders/markpact_loader.py', 'is_markpact_registry', 1, 1, 2).
+python_function('packages/uri2flow/uri2flow/loaders/markpact_loader.py', '_find_repo_root', 1, 5, 4).
+python_function('packages/uri2flow/uri2flow/loaders/markpact_loader.py', 'resolve_markpact_ref', 1, 7, 13).
+python_function('packages/uri2flow/uri2flow/loaders/markpact_loader.py', 'extract_markpact_blocks', 2, 4, 4).
+python_function('packages/uri2flow/uri2flow/loaders/markpact_loader.py', '_block_flow_id', 2, 4, 3).
+python_function('packages/uri2flow/uri2flow/loaders/markpact_loader.py', 'load_markpact_flow_dict', 1, 13, 11).
 python_function('packages/uri2flow/uri2flow/parser.py', '_as_list', 1, 5, 4).
 python_function('packages/uri2flow/uri2flow/parser.py', '_parse_step', 1, 10, 11).
 python_function('packages/uri2flow/uri2flow/parser.py', 'parse_flow', 1, 12, 7).
-python_function('packages/uri2flow/uri2flow/parser.py', 'load_flow', 1, 3, 6).
+python_function('packages/uri2flow/uri2flow/parser.py', 'load_flow', 1, 4, 8).
 python_function('packages/uri2flow/uri2flow/resolver.py', '_find_repo_root', 1, 7, 6).
 python_function('packages/uri2flow/uri2flow/resolver.py', '_pattern_to_regex', 1, 4, 7).
 python_function('packages/uri2flow/uri2flow/resolver.py', '_match_pattern', 2, 2, 3).
@@ -3629,7 +3772,10 @@ python_function('packages/uri3/uri3/config/ssh_auth.py', 'resolve_ssh_password',
 python_function('packages/uri3/uri3/config/ssh_auth.py', 'ssh_auth_hint', 1, 3, 2).
 python_function('packages/uri3/uri3/config/uri_yaml.py', 'is_uri', 1, 4, 3).
 python_function('packages/uri3/uri3/config/uri_yaml.py', 'load_uri_yaml', 1, 2, 5).
-python_function('packages/uri3/uri3/config/uri_yaml.py', 'resolve_uri_values', 1, 15, 9).
+python_function('packages/uri3/uri3/config/uri_yaml.py', '_resolve_env_uri', 1, 2, 2).
+python_function('packages/uri3/uri3/config/uri_yaml.py', '_resolve_registered_uri', 1, 4, 4).
+python_function('packages/uri3/uri3/config/uri_yaml.py', '_resolve_scalar_uri', 1, 6, 3).
+python_function('packages/uri3/uri3/config/uri_yaml.py', 'resolve_uri_values', 1, 7, 6).
 python_function('packages/uri3/uri3/docker/actions/compose.py', 'compose_base', 1, 3, 2).
 python_function('packages/uri3/uri3/docker/actions/compose.py', '_parse_ps_stdout', 1, 4, 4).
 python_function('packages/uri3/uri3/docker/actions/compose.py', 'control_compose_ps', 1, 3, 4).
@@ -3667,8 +3813,9 @@ python_function('packages/uri3/uri3/graph/artifacts.py', 'write_artifact', 4, 2,
 python_function('packages/uri3/uri3/graph/conditions.py', 'evaluate_condition', 2, 7, 7).
 python_function('packages/uri3/uri3/graph/dependency_graph.py', 'adjacency', 1, 3, 3).
 python_function('packages/uri3/uri3/graph/dependency_graph.py', 'reverse_adjacency', 1, 3, 3).
-python_function('packages/uri3/uri3/graph/dependency_graph.py', 'detect_cycles', 1, 15, 5).
-python_function('packages/uri3/uri3/graph/dependency_graph.py', 'topological_sort', 1, 13, 8).
+python_function('packages/uri3/uri3/graph/dependency_graph.py', '_indegree_outgoing', 1, 6, 1).
+python_function('packages/uri3/uri3/graph/dependency_graph.py', 'detect_cycles', 1, 10, 6).
+python_function('packages/uri3/uri3/graph/dependency_graph.py', 'topological_sort', 1, 8, 9).
 python_function('packages/uri3/uri3/graph/dependency_graph.py', 'dependency_summary', 1, 8, 4).
 python_function('packages/uri3/uri3/graph/event_log.py', 'workflow_event_path', 2, 1, 0).
 python_function('packages/uri3/uri3/graph/event_log.py', 'append_workflow_event', 2, 1, 6).
@@ -3679,7 +3826,14 @@ python_function('packages/uri3/uri3/graph/graph_executor.py', 'build_execution_p
 python_function('packages/uri3/uri3/graph/graph_executor.py', 'dry_run_workflow', 1, 1, 2).
 python_function('packages/uri3/uri3/graph/graph_executor.py', '_dependencies_ok', 2, 6, 1).
 python_function('packages/uri3/uri3/graph/graph_executor.py', '_execute_step', 2, 2, 2).
-python_function('packages/uri3/uri3/graph/graph_executor.py', 'run_workflow', 1, 22, 24).
+python_function('packages/uri3/uri3/graph/graph_executor.py', '_step_result', 1, 1, 1).
+python_function('packages/uri3/uri3/graph/graph_executor.py', '_record_step', 3, 1, 1).
+python_function('packages/uri3/uri3/graph/graph_executor.py', '_handle_skipped_node', 1, 1, 1).
+python_function('packages/uri3/uri3/graph/graph_executor.py', '_handle_dependency_failure', 1, 1, 2).
+python_function('packages/uri3/uri3/graph/graph_executor.py', '_handle_blocked_node', 1, 1, 3).
+python_function('packages/uri3/uri3/graph/graph_executor.py', '_handle_completed_node', 1, 5, 5).
+python_function('packages/uri3/uri3/graph/graph_executor.py', '_prepare_workflow', 1, 5, 7).
+python_function('packages/uri3/uri3/graph/graph_executor.py', 'run_workflow', 1, 13, 18).
 python_function('packages/uri3/uri3/graph/graph_serializer.py', 'edges_from_depends_on', 1, 4, 5).
 python_function('packages/uri3/uri3/graph/graph_serializer.py', 'normalize_graph_payload', 1, 12, 13).
 python_function('packages/uri3/uri3/graph/graph_serializer.py', 'task_steps_to_graph', 2, 3, 6).
@@ -3803,12 +3957,15 @@ python_function('packages/uri3/uri3/resolvers/ssh_resolver.py', 'ssh_transport_o
 python_function('packages/uri3/uri3/resolvers/ssh_resolver.py', 'run_ssh', 2, 1, 2).
 python_function('packages/uri3/uri3/results/envelope.py', 'step_execution_status', 0, 5, 0).
 python_function('packages/uri3/uri3/results/envelope.py', 'step_service_result_status', 0, 4, 0).
-python_function('packages/uri3/uri3/results/envelope.py', 'workflow_aggregate_statuses', 0, 15, 2).
+python_function('packages/uri3/uri3/results/envelope.py', '_step_has_service_failure', 1, 3, 1).
+python_function('packages/uri3/uri3/results/envelope.py', '_resolve_workflow_status', 0, 4, 0).
+python_function('packages/uri3/uri3/results/envelope.py', 'workflow_aggregate_statuses', 0, 9, 4).
 python_function('packages/uri3/uri3/results/envelope.py', 'enrich_step_dict', 1, 5, 8).
 python_function('packages/uri3/uri3/results/envelope.py', 'enrich_workflow_dict', 1, 12, 11).
 python_function('packages/uri3/uri3/results/envelope.py', '_workflow_step_error_code', 1, 3, 1).
 python_function('packages/uri3/uri3/results/envelope.py', '_workflow_step_error_detail', 1, 5, 3).
-python_function('packages/uri3/uri3/results/envelope.py', 'enrich_lifecycle_dict', 1, 13, 8).
+python_function('packages/uri3/uri3/results/envelope.py', '_lifecycle_ok', 3, 7, 2).
+python_function('packages/uri3/uri3/results/envelope.py', 'enrich_lifecycle_dict', 1, 7, 8).
 python_function('packages/uri3/uri3/results/errors.py', 'normalize_error', 1, 10, 7).
 python_function('packages/uri3/uri3/results/service_result.py', 'service_result', 2, 3, 8).
 python_function('packages/uri3/uri3/results/statuses.py', 'derive_statuses', 1, 5, 0).
@@ -3865,6 +4022,9 @@ python_function('tests/hypervisor/test_deployment_registry.py', 'test_upsert_rep
 python_function('tests/hypervisor/test_deployment_registry.py', 'test_resolve_status_without_health_check', 0, 2, 2).
 python_function('tests/hypervisor/test_deployment_registry.py', 'test_registry_summary', 0, 3, 4).
 python_function('tests/hypervisor/test_deployment_registry.py', 'test_ssh_target_uri_supported_in_model', 1, 2, 9).
+python_function('tests/hypervisor/test_deployment_selector.py', 'test_parse_hypervisor_local_uri', 0, 3, 1).
+python_function('tests/hypervisor/test_deployment_selector.py', 'test_parse_hypervisor_deployment_uri', 0, 3, 1).
+python_function('tests/hypervisor/test_deployment_selector.py', 'test_resolve_local_weather_agent_alias', 0, 2, 1).
 python_function('tests/hypervisor/test_docker_runner.py', 'test_build_docker_deploy_plan', 0, 4, 3).
 python_function('tests/hypervisor/test_docker_runner.py', 'test_build_docker_control_plan_up', 0, 3, 2).
 python_function('tests/hypervisor/test_hypervisor_cli.py', 'test_cli_deployments_and_run_agent_dry_run', 1, 7, 4).
@@ -4038,6 +4198,18 @@ python_function('tests/uri2flow/test_flow_defaults.py', 'test_pattern_match_inpu
 python_function('tests/uri2flow/test_flow_defaults.py', 'test_scheme_default_for_http', 0, 3, 1).
 python_function('tests/uri2flow/test_flow_defaults.py', 'test_fallback_for_unknown_scheme', 0, 3, 1).
 python_function('tests/uri2flow/test_parser_forms.py', 'test_accepts_string_and_mapping_forms', 0, 4, 2).
+python_function('tests/uri2flow/test_uri2flow_markpact_loader.py', '_markpact_ref', 2, 2, 0).
+python_function('tests/uri2flow/test_uri2flow_markpact_loader.py', 'test_is_markpact_registry', 0, 3, 1).
+python_function('tests/uri2flow/test_uri2flow_markpact_loader.py', 'test_extract_markpact_flow_blocks', 0, 4, 2).
+python_function('tests/uri2flow/test_uri2flow_markpact_loader.py', 'test_load_markpact_flow_dict', 1, 3, 3).
+python_function('tests/uri2flow/test_uri2flow_markpact_loader.py', 'test_load_flow_markpact_ref', 1, 4, 2).
+python_function('tests/uri2flow/test_uri2flow_markpact_loader.py', 'test_expand_flow_markpact_ref', 1, 5, 3).
+python_function('tests/uri2flow/test_uri2flow_markpact_loader.py', 'test_markpact_flow_requires_fragment_when_ambiguous', 1, 1, 3).
+python_function('tests/uri2flow/test_uri2flow_markpact_loader.py', 'test_markpact_flow_matches_yaml_flow', 1, 2, 2).
+python_function('tests/uri2flow/test_uri2flow_markpact_loader.py', 'test_resolve_markpact_ref', 1, 3, 3).
+python_function('tests/uri2flow/test_uri2flow_markpact_loader.py', 'test_uri2flow_expand_cli', 2, 4, 4).
+python_function('tests/uri2flow/test_uri2flow_markpact_loader.py', 'test_missing_flow_fragment_raises', 1, 1, 3).
+python_function('tests/uri2flow/test_uri2flow_markpact_loader.py', 'test_missing_markpact_readme_raises', 1, 1, 2).
 python_function('tests/uri3/test_browser_adapter.py', 'test_resolve_browser_mode_mock', 0, 2, 2).
 python_function('tests/uri3/test_browser_adapter.py', 'test_mock_adapter_writes_artifact_files', 1, 5, 4).
 python_function('tests/uri3/test_browser_adapter.py', 'test_playwright_browser_workflow', 1, 4, 18).
@@ -4143,6 +4315,7 @@ python_function('tests/uri3/test_workflow_graph.py', 'test_execution_plan_order'
 python_function('tests/uri3/test_workflow_graph.py', 'test_detect_cycle', 0, 4, 6).
 
 % ── Python Classes ───────────────────────────────────────
+python_class('packages/nl2uri/nl2uri/output_classifier.py', '_PromptFlags').
 python_class('packages/nl2uri/nl2uri/pipeline.py', 'PipelineResult').
 python_class('packages/nl2uri/nl2uri/pipeline.py', 'FullPipelineResult').
 python_class('packages/nl2uri/nl2uri/planner.py', 'PlanResult').
@@ -4252,7 +4425,7 @@ python_method('BrowserRouterAdapter', 'execute', 2, 2, 3).
 python_class('packages/uri3/uri3/graph/adapters/registry.py', 'AssertionAdapter').
 python_method('AssertionAdapter', 'execute', 2, 1, 6).
 python_class('packages/uri3/uri3/graph/adapters/registry.py', 'HypervisorAdapter').
-python_method('HypervisorAdapter', 'execute', 2, 1, 6).
+python_method('HypervisorAdapter', 'execute', 2, 1, 5).
 python_class('packages/uri3/uri3/graph/adapters/registry.py', 'LegacyBrowserRouterAdapter').
 python_method('LegacyBrowserRouterAdapter', 'execute', 2, 1, 3).
 python_class('packages/uri3/uri3/graph/adapters/uri2ops_adapter.py', 'Uri2OpsAdapter').
@@ -4423,11 +4596,11 @@ sumd_workflow('voice-demo', 'manual').
 sumd_workflow_step('voice-demo', 1, 'touri validate examples/21_touri_voice/stt_mock.uri.capability.yaml').
 sumd_workflow_step('voice-demo', 2, 'touri list examples/21_touri_voice').
 sumd_workflow('uri-tree', 'manual').
-sumd_workflow_step('uri-tree', 1, 'python -m nl2uri.cli --no-llm -p "$(WEATHER_PROMPT)" --out domains/weather_map/uri_tree.yaml').
+sumd_workflow_step('uri-tree', 1, 'python -m nl2uri.cli tree --no-llm -p "$(WEATHER_PROMPT)" --out domains/weather_map/uri_tree.yaml').
 sumd_workflow('graph', 'manual').
-sumd_workflow_step('graph', 1, 'python -m uri3.cli graph domains/weather_map/uri_tree.yaml').
+sumd_workflow_step('graph', 1, 'uri3 graph domains/weather_map/uri_tree.yaml').
 sumd_workflow('nl2a-weather', 'manual').
-sumd_workflow_step('nl2a-weather', 1, 'python -m nl2a.cli --no-llm -p "$(WEATHER_PROMPT)"').
+sumd_workflow_step('nl2a-weather', 1, 'python -m nl2a.cli generate --no-llm -p "$(WEATHER_PROMPT)"').
 sumd_workflow('run-user-agent', 'manual').
 sumd_workflow_step('run-user-agent', 1, 'uvicorn agents.generated.user_agent.main:app --reload --port 8101').
 sumd_workflow('run-meta-agent', 'manual').
@@ -4462,7 +4635,7 @@ sumd_deploy_compose_file('docker-compose.yml').
 
 ## Call Graph
 
-*395 nodes · 500 edges · 123 modules · CC̄=3.8*
+*398 nodes · 500 edges · 128 modules · CC̄=3.6*
 
 ### Hubs (by degree)
 
@@ -4470,60 +4643,60 @@ sumd_deploy_compose_file('docker-compose.yml').
 |----------|----|----|-----|-------|
 | `create_app` *(in uri2ops.server.app)* | 1 | 1 | 62 | **63** |
 | `register` *(in packages.uri3.uri3.cli.commands.discovery)* | 1 | 0 | 47 | **47** |
-| `run_workflow` *(in packages.uri3.uri3.graph.graph_executor)* | 22 ⚠ | 5 | 40 | **45** |
 | `print` *(in examples.21_touri_voice.run)* | 0 | 43 | 0 | **43** |
-| `service_result` *(in packages.uri3.uri3.results.service_result)* | 3 | 33 | 10 | **43** |
-| `list` *(in uri2ops.operation_registry.models.OperationRegistry)* | 1 | 40 | 2 | **42** |
+| `list` *(in uri2ops.operation_registry.models.OperationRegistry)* | 1 | 38 | 2 | **40** |
+| `service_result` *(in packages.uri3.uri3.results.service_result)* | 3 | 29 | 10 | **39** |
 | `resolve_llm_profile` *(in packages.uri3.uri3.config.llm_profiles)* | 10 ⚠ | 4 | 32 | **36** |
 | `plan_flow` *(in packages.nl2uri.nl2uri.flow_planner)* | 12 ⚠ | 4 | 29 | **33** |
+| `run_workflow` *(in packages.uri3.uri3.graph.graph_executor)* | 13 ⚠ | 5 | 26 | **31** |
 
 ```toon markpact:analysis path=project/calls.toon.yaml
 # code2llm call graph | /home/tom/github/wronai/hypervisor
-# generated in 0.21s
-# nodes: 395 | edges: 500 | modules: 123
-# CC̄=3.8
+# generated in 0.19s
+# nodes: 398 | edges: 500 | modules: 128
+# CC̄=3.6
 
 HUBS[20]:
   uri2ops.server.app.create_app
     CC=1  in:1  out:62  total:63
   packages.uri3.uri3.cli.commands.discovery.register
     CC=1  in:0  out:47  total:47
-  packages.uri3.uri3.graph.graph_executor.run_workflow
-    CC=22  in:5  out:40  total:45
   examples.21_touri_voice.run.print
     CC=0  in:43  out:0  total:43
-  packages.uri3.uri3.results.service_result.service_result
-    CC=3  in:33  out:10  total:43
   uri2ops.operation_registry.models.OperationRegistry.list
-    CC=1  in:40  out:2  total:42
+    CC=1  in:38  out:2  total:40
+  packages.uri3.uri3.results.service_result.service_result
+    CC=3  in:29  out:10  total:39
   packages.uri3.uri3.config.llm_profiles.resolve_llm_profile
     CC=10  in:4  out:32  total:36
   packages.nl2uri.nl2uri.flow_planner.plan_flow
     CC=12  in:4  out:29  total:33
-  packages.touri.touri.data_quality.apply_data_quality
-    CC=18  in:2  out:31  total:33
-  meta_agent.planner.infer_intent
-    CC=9  in:1  out:30  total:31
+  packages.uri3.uri3.graph.graph_executor.run_workflow
+    CC=13  in:5  out:26  total:31
   uri3.graph.uri_graph.build_graph_from_tree
     CC=10  in:2  out:28  total:30
   packages.uri2flow.uri2flow.parser._parse_step
     CC=10  in:1  out:29  total:30
-  packages.nl2uri.nl2uri.flow_repair.extract_flow_payload
-    CC=20  in:1  out:28  total:29
-  packages.uri3.uri3.resolvers.docker_resolver.parse_docker_uri
-    CC=12  in:5  out:23  total:28
-  packages.touri.touri.backends.python_backend.call_python_backend
-    CC=9  in:3  out:25  total:28
-  packages.nl2uri.nl2uri.flow_repair._ensure_step_ids
-    CC=19  in:1  out:27  total:28
+  packages.touri.touri.backends.uri_graph_backend.call_uri_graph_backend
+    CC=9  in:2  out:26  total:28
   packages.uri3.uri3.config.repo_root.find_repo_root
     CC=4  in:24  out:4  total:28
-  packages.nl2uri.nl2uri.graph_repair.repair_graph_body
+  packages.touri.touri.backends.python_backend.call_python_backend
+    CC=9  in:3  out:25  total:28
+  packages.touri.touri.backends.uri_flow_backend.call_uri_flow_backend
+    CC=9  in:2  out:26  total:28
+  packages.uri3.uri3.resolvers.docker_resolver.parse_docker_uri
+    CC=12  in:5  out:23  total:28
+  packages.uri3.uri3.cli.commands.explain._render
     CC=12  in:1  out:25  total:26
-  packages.nl2uri.nl2uri.graph_repair.sanitize_node
-    CC=16  in:1  out:25  total:26
   generator.model.load_agent_spec
     CC=7  in:2  out:24  total:26
+  packages.uri3.uri3.graph.graph_serializer.normalize_graph_payload
+    CC=12  in:2  out:24  total:26
+  packages.uri3.uri3.graph.graph_validator.validate_workflow_graph
+    CC=9  in:12  out:13  total:25
+  packages.uri3.uri3.results.envelope.enrich_workflow_dict
+    CC=12  in:1  out:24  total:25
 
 MODULES:
   examples.21_touri_voice.run  [1 funcs]
@@ -4540,24 +4713,8 @@ MODULES:
     main  CC=9  out:10
     verify_generated  CC=6  out:5
     verify_generated_agent  CC=7  out:10
-  hypervisor.contract_registry.registry_builder  [1 funcs]
-    write_registry_manifest  CC=2  out:6
   hypervisor.uri2llm.pypi_resolver  [1 funcs]
     resolve_pypi  CC=5  out:6
-  meta_agent.api  [4 funcs]
-    generate  CC=2  out:6
-    proposal_from_prompt  CC=2  out:6
-    repair  CC=2  out:5
-    validate  CC=2  out:5
-  meta_agent.planner  [4 funcs]
-    infer_intent  CC=9  out:30
-    intent_to_agent_spec  CC=8  out:11
-    package_name  CC=3  out:6
-    singularize  CC=4  out:3
-  meta_agent.repair.pipeline  [1 funcs]
-    repair_agent_spec  CC=2  out:12
-  nl2a.cli  [1 funcs]
-    generate  CC=1  out:5
   nl2uri.writer  [1 funcs]
     write_uri_tree  CC=1  out:4
   packages.nl2uri.nl2uri.cli  [14 funcs]
@@ -4579,17 +4736,8 @@ MODULES:
     build_flow_planner_system_prompt  CC=1  out:6
     call_flow_planner_llm  CC=4  out:9
     plan_flow_with_llm  CC=3  out:6
-  packages.nl2uri.nl2uri.flow_repair  [11 funcs]
-    _ensure_step_ids  CC=19  out:27
-    _needs_explicit_ids  CC=4  out:4
-    _node_to_compact_step  CC=13  out:16
-    _nodes_to_compact_steps  CC=4  out:3
-    _normalize_step_raw  CC=10  out:14
-    _supported_scheme  CC=2  out:2
-    extract_flow_payload  CC=20  out:28
+  packages.nl2uri.nl2uri.flow_repair  [1 funcs]
     repair_and_validate_flow  CC=2  out:4
-    repair_flow_body  CC=8  out:17
-    sanitize_flow_step  CC=18  out:24
   packages.nl2uri.nl2uri.graph_planner  [11 funcs]
     _detect_agent_id  CC=3  out:3
     _detect_health_uri  CC=4  out:6
@@ -4601,28 +4749,14 @@ MODULES:
     plan_task  CC=3  out:7
     plan_tree  CC=9  out:14
     plan_workflow_graph  CC=12  out:15
-  packages.nl2uri.nl2uri.graph_planner_llm  [3 funcs]
-    build_graph_planner_system_prompt  CC=2  out:5
-    call_graph_planner_llm  CC=4  out:9
+  packages.nl2uri.nl2uri.graph_planner_llm  [1 funcs]
     plan_graph_with_llm  CC=4  out:7
-  packages.nl2uri.nl2uri.graph_repair  [8 funcs]
-    _coerce_operation  CC=5  out:6
-    _sanitize_nodes  CC=12  out:8
-    _slug  CC=2  out:3
-    extract_graph_payload  CC=14  out:10
-    normalize_to_kind  CC=12  out:14
-    repair_and_validate_graph  CC=13  out:12
-    repair_graph_body  CC=12  out:25
-    sanitize_node  CC=16  out:25
   packages.nl2uri.nl2uri.llm_planner  [1 funcs]
     llm_plan  CC=2  out:4
   packages.nl2uri.nl2uri.output_classifier  [1 funcs]
-    classify_output_kind  CC=23  out:16
-  packages.nl2uri.nl2uri.pipeline  [4 funcs]
-    _append_pipeline_logs  CC=2  out:4
+    classify_output_kind  CC=23  out:3
+  packages.nl2uri.nl2uri.pipeline  [1 funcs]
     generate_tree  CC=1  out:1
-    run_full_pipeline  CC=3  out:15
-    run_generate_pipeline  CC=4  out:13
   packages.nl2uri.nl2uri.planner  [1 funcs]
     rule_based_plan  CC=1  out:2
   packages.nl2uri.nl2uri.planner_llm  [2 funcs]
@@ -4634,10 +4768,8 @@ MODULES:
     is_weather_prompt  CC=1  out:2
     llm_uri_from_env  CC=6  out:7
     slug  CC=2  out:3
-  packages.nl2uri.nl2uri.planner_validation  [3 funcs]
-    is_structured_uri_tree  CC=10  out:13
+  packages.nl2uri.nl2uri.planner_validation  [1 funcs]
     normalize_llm_tree  CC=7  out:12
-    validate_tree_data  CC=2  out:6
   packages.resource-agent-factory.generator.agent_generator  [3 funcs]
     expand_paths  CC=4  out:7
     generate_agent  CC=5  out:17
@@ -4648,20 +4780,8 @@ MODULES:
     python_file_header  CC=1  out:0
   packages.resource-agent-factory.generator.paths  [1 funcs]
     project_root  CC=1  out:1
-  packages.resource-agent-hypervisor.hypervisor.deployment_registry.lifecycle  [2 funcs]
+  packages.resource-agent-hypervisor.hypervisor.deployment_registry.lifecycle  [1 funcs]
     _repo_root  CC=2  out:3
-    agent_status  CC=5  out:10
-  packages.resource-agent-hypervisor.hypervisor.deployment_registry.run_plans  [1 funcs]
-    build_run_plan  CC=5  out:7
-  packages.resource-agent-hypervisor.hypervisor.deployment_registry.selector  [1 funcs]
-    resolve_deployment  CC=7  out:9
-  packages.resource-agent-hypervisor.hypervisor.deployment_registry.status  [1 funcs]
-    sync_from_uri_tree  CC=2  out:4
-  packages.resource-agent-hypervisor.hypervisor.domain_pack.generator  [1 funcs]
-    generate_domain_pack  CC=1  out:3
-  packages.resource-agent-hypervisor.meta_agent.orchestrator  [2 funcs]
-    asdict_result  CC=1  out:0
-    save_proposal_from_prompt  CC=2  out:6
   packages.touri.touri.backends.mock_backend  [1 funcs]
     call_mock_backend  CC=1  out:1
   packages.touri.touri.backends.python_backend  [2 funcs]
@@ -4669,14 +4789,53 @@ MODULES:
     call_python_backend  CC=9  out:25
   packages.touri.touri.backends.shell_backend  [1 funcs]
     call_shell_backend  CC=1  out:2
-  packages.touri.touri.data_quality  [1 funcs]
-    apply_data_quality  CC=18  out:31
+  packages.touri.touri.backends.uri_flow_backend  [3 funcs]
+    _execution_options  CC=1  out:9
+    _resolve_path  CC=3  out:5
+    call_uri_flow_backend  CC=9  out:26
+  packages.touri.touri.backends.uri_graph_backend  [3 funcs]
+    _execution_options  CC=1  out:9
+    _resolve_path  CC=3  out:5
+    call_uri_graph_backend  CC=9  out:26
+  packages.touri.touri.cli  [7 funcs]
+    _print  CC=1  out:2
+    build_parser  CC=1  out:19
+    cmd_call  CC=4  out:7
+    cmd_list  CC=2  out:3
+    cmd_register  CC=2  out:3
+    cmd_validate  CC=2  out:2
+    main  CC=1  out:3
+  packages.touri.touri.executor  [1 funcs]
+    call_uri  CC=2  out:9
+  packages.touri.touri.loader  [1 funcs]
+    load_registry  CC=1  out:1
+  packages.touri.touri.loaders.file_loader  [2 funcs]
+    iter_manifest_paths  CC=2  out:4
+    load_file_registry  CC=2  out:2
+  packages.touri.touri.loaders.markpact_loader  [6 funcs]
+    _block_capability_id  CC=4  out:6
+    _load_capability_block  CC=3  out:5
+    extract_markpact_blocks  CC=4  out:7
+    is_markpact_registry  CC=1  out:2
+    load_markpact_capabilities  CC=9  out:10
+    resolve_markpact_ref  CC=7  out:14
   packages.touri.touri.loaders.registry_loader  [1 funcs]
     load_registry  CC=2  out:4
+  packages.touri.touri.manifest  [2 funcs]
+    load_manifest  CC=1  out:4
+    load_manifest_from_dict  CC=10  out:14
   packages.touri.touri.matcher  [3 funcs]
     match_uri  CC=3  out:4
     require_match  CC=2  out:2
     template_to_regex  CC=1  out:3
+  packages.touri.touri.redaction  [2 funcs]
+    apply_redaction  CC=7  out:8
+    should_redact  CC=2  out:1
+  packages.touri.touri.register  [2 funcs]
+    register_capability  CC=6  out:13
+    sample_uri_from_template  CC=1  out:3
+  packages.touri.touri.validator  [1 funcs]
+    validate_manifest  CC=3  out:4
   packages.touri.touri_examples.validators  [3 funcs]
     always_pass  CC=1  out:1
     low_confidence_backend  CC=1  out:2
@@ -4692,10 +4851,16 @@ MODULES:
     _node_from_step  CC=11  out:3
     dump_yaml  CC=1  out:1
     expand_flow  CC=6  out:8
+  packages.uri2flow.uri2flow.loaders.markpact_loader  [5 funcs]
+    _block_flow_id  CC=4  out:6
+    extract_markpact_blocks  CC=4  out:7
+    is_markpact_registry  CC=1  out:2
+    load_markpact_flow_dict  CC=13  out:14
+    resolve_markpact_ref  CC=7  out:14
   packages.uri2flow.uri2flow.parser  [4 funcs]
     _as_list  CC=5  out:5
     _parse_step  CC=10  out:29
-    load_flow  CC=3  out:6
+    load_flow  CC=4  out:8
     parse_flow  CC=12  out:16
   packages.uri2flow.uri2flow.resolver  [9 funcs]
     _defaults_from_entry  CC=3  out:7
@@ -4727,12 +4892,17 @@ MODULES:
     run_flow_cmd  CC=6  out:20
   packages.uri3.uri3.cli.commands.graph  [1 funcs]
     register  CC=1  out:5
+  packages.uri3.uri3.cli.commands.replay  [1 funcs]
+    register  CC=1  out:12
   packages.uri3.uri3.cli.commands.resolve  [1 funcs]
     register  CC=1  out:24
   packages.uri3.uri3.cli.commands.workflow  [1 funcs]
     register  CC=1  out:20
-  packages.uri3.uri3.cli.helpers  [1 funcs]
+  packages.uri3.uri3.cli.helpers  [2 funcs]
     list_payload  CC=2  out:3
+    quick_reference  CC=5  out:5
+  packages.uri3.uri3.cli.main  [1 funcs]
+    main  CC=2  out:4
   packages.uri3.uri3.config.cli_shortcuts  [5 funcs]
     cli_config_path  CC=1  out:1
     cli_examples  CC=3  out:3
@@ -4765,10 +4935,9 @@ MODULES:
     resolve_ssh_password  CC=12  out:13
     ssh_auth_hint  CC=3  out:2
     ssh_config_path  CC=1  out:1
-  packages.uri3.uri3.config.uri_yaml  [3 funcs]
-    is_uri  CC=4  out:3
+  packages.uri3.uri3.config.uri_yaml  [2 funcs]
     load_uri_yaml  CC=2  out:5
-    resolve_uri_values  CC=15  out:13
+    resolve_uri_values  CC=7  out:8
   packages.uri3.uri3.docker.actions.compose  [8 funcs]
     _parse_ps_stdout  CC=4  out:5
     compose_base  CC=3  out:2
@@ -4801,9 +4970,6 @@ MODULES:
     _playwright_ready  CC=3  out:5
     cleanup_browser_adapters  CC=2  out:2
     resolve_browser_mode  CC=5  out:3
-  packages.uri3.uri3.graph.adapters.registry  [2 funcs]
-    execute  CC=11  out:6
-    _operator_adapter  CC=2  out:3
   packages.uri3.uri3.graph.adapters.uri2ops_adapter  [8 funcs]
     execute  CC=3  out:13
     _artifact_suffix  CC=9  out:0
@@ -4817,18 +4983,19 @@ MODULES:
     artifact_path  CC=1  out:0
     artifact_uri  CC=1  out:0
     write_artifact  CC=2  out:6
-  packages.uri3.uri3.graph.dependency_graph  [3 funcs]
-    dependency_summary  CC=8  out:7
-    detect_cycles  CC=15  out:7
-    topological_sort  CC=13  out:13
+  packages.uri3.uri3.graph.dependency_graph  [1 funcs]
+    detect_cycles  CC=10  out:7
   packages.uri3.uri3.graph.event_log  [2 funcs]
     append_workflow_event  CC=1  out:6
     workflow_event_path  CC=1  out:0
-  packages.uri3.uri3.graph.execution_models  [1 funcs]
+  packages.uri3.uri3.graph.execution_models  [4 funcs]
+    to_dict  CC=5  out:2
+    to_dict  CC=4  out:1
+    new_execution_context  CC=2  out:3
     utc_now_iso  CC=1  out:3
   packages.uri3.uri3.graph.graph_executor  [2 funcs]
     build_execution_plan  CC=3  out:10
-    run_workflow  CC=22  out:40
+    run_workflow  CC=13  out:26
   packages.uri3.uri3.graph.graph_serializer  [3 funcs]
     edges_from_depends_on  CC=4  out:5
     normalize_graph_payload  CC=12  out:24
@@ -4849,6 +5016,13 @@ MODULES:
     validate_node_operation  CC=2  out:5
   packages.uri3.uri3.graph.policy  [1 funcs]
     can_execute_step  CC=6  out:2
+  packages.uri3.uri3.graph.replay  [6 funcs]
+    _resolve_event_path  CC=3  out:6
+    build_task_payload_from_events  CC=8  out:12
+    create_regression_test  CC=11  out:22
+    load_workflow_events  CC=4  out:7
+    render_regression_test  CC=5  out:5
+    replay_workflow_events  CC=10  out:13
   packages.uri3.uri3.logs.filters  [7 funcs]
     entry_timestamp  CC=4  out:5
     level_rank  CC=3  out:2
@@ -4950,8 +5124,16 @@ MODULES:
     resolve_ssh  CC=1  out:6
     run_ssh  CC=1  out:2
     ssh_transport_option  CC=4  out:7
-  packages.uri3.uri3.results.service_result  [1 funcs]
+  packages.uri3.uri3.results.envelope  [2 funcs]
+    enrich_step_dict  CC=5  out:15
+    enrich_workflow_dict  CC=12  out:24
+  packages.uri3.uri3.results.errors  [1 funcs]
+    normalize_error  CC=10  out:17
+  packages.uri3.uri3.results.service_result  [2 funcs]
+    finalize  CC=12  out:3
     service_result  CC=3  out:10
+  packages.uri3.uri3.results.statuses  [1 funcs]
+    derive_statuses  CC=5  out:0
   packages.uri3.uri3.scanner.docker_scanner  [5 funcs]
     _compose_ps  CC=6  out:8
     _inspect_container  CC=5  out:9

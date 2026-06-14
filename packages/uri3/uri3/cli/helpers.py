@@ -52,6 +52,7 @@ def list_payload(*, schemes_only: bool = False) -> dict[str, Any]:
         {"name": "schema", "summary": "Describe a scheme or URI (alias: uri3 list --schemes)"},
         {"name": "resolve", "summary": "Resolve URI to structured payload"},
         {"name": "explain", "summary": "Show registry match and execution path for a URI"},
+        {"name": "doctor", "summary": "Validate config, registries, and envelope consistency"},
         {"name": "call", "summary": "Execute callable URI actions"},
         {"name": "validate", "summary": "Validate URI syntax"},
         {"name": "logs", "summary": "Read filtered logs via log:// URI"},

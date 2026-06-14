@@ -81,7 +81,10 @@ def test_run_workflow_execute_mock_with_approve(tmp_path: Path):
     assert event_path.exists()
     events = [json.loads(line) for line in event_path.read_text(encoding="utf-8").splitlines()]
     assert events[0]["type"] == "WorkflowStarted"
-    assert any(event["type"] == "WorkflowCompleted" for event in events)
+    completed = next(event for event in events if event["type"] == "WorkflowCompleted")
+    assert completed["workflow_status"] == "completed"
+    assert completed["execution_status"] == "completed"
+    assert completed["service_result_status"] == "succeeded"
 
 
 def test_run_workflow_accepts_workflow_graph_object(tmp_path: Path):

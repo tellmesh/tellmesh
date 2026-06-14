@@ -25,9 +25,9 @@ microphone / text
 
 | URI | Capability | Backend |
 |-----|------------|---------|
-| `stt://mock/transcribe` | `stt.mock.transcribe` | `touri_examples_voice.stt:transcribe` |
-| `tts://mock/speak` | `tts.mock.speak` | `touri_examples_voice.tts:speak` |
-| `voice://command/from-text` | `voice.command.from_text` | `touri_examples_voice.voice_command:plan_voice_command` |
+| `stt://mock/transcribe` | `stt.mock.transcribe` | `uri2voice.stt:transcribe` |
+| `tts://mock/speak` | `tts.mock.speak` | `uri2voice.tts:speak` |
+| `voice://command/from-text` | `voice.command.from_text` | `uri2voice.voice_command:plan_voice_command` |
 
 Location: [`examples/21_touri_voice/`](../examples/21_touri_voice/README.md)
 

@@ -23,6 +23,9 @@ members = [
     "touri",
     "uri2flow",
     "uri2ops",
+    "uri2pact",
+    "uri2verify",
+    "uri2voice",
     "uri3",
 ]
 
@@ -3258,7 +3261,7 @@ requires-dist = [
 
 [[package]]
 name = "resource-agent-system"
-version = "0.5.14"
+version = "0.5.15"
 source = { editable = "." }
 dependencies = [
     { name = "fastapi" },
@@ -3889,10 +3892,16 @@ version = "0.1.0"
 source = { editable = "packages/touri" }
 dependencies = [
     { name = "pyyaml" },
+    { name = "uri2pact" },
+    { name = "uri2verify" },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "pyyaml", specifier = ">=6.0" }]
+requires-dist = [
+    { name = "pyyaml", specifier = ">=6.0" },
+    { name = "uri2pact", editable = "packages/uri2pact" },
+    { name = "uri2verify", editable = "packages/uri2verify" },
+]
 
 [[package]]
 name = "tqdm"
@@ -3966,6 +3975,7 @@ version = "0.1.0"
 source = { editable = "packages/uri2flow" }
 dependencies = [
     { name = "pyyaml" },
+    { name = "uri2pact" },
 ]
 
 [package.optional-dependencies]
@@ -3981,6 +3991,7 @@ requires-dist = [
     { name = "jsonschema", marker = "extra == 'jsonschema'", specifier = ">=4.0" },
     { name = "pytest", marker = "extra == 'test'", specifier = ">=8.0" },
     { name = "pyyaml", specifier = ">=6.0" },
+    { name = "uri2pact", editable = "packages/uri2pact" },
 ]
 provides-extras = ["test", "jsonschema"]
 
@@ -4019,6 +4030,48 @@ requires-dist = [
     { name = "uvicorn", marker = "extra == 'server'", specifier = ">=0.27" },
 ]
 provides-extras = ["browser", "windows", "server"]
+
+[[package]]
+name = "uri2pact"
+version = "0.1.0"
+source = { editable = "packages/uri2pact" }
+dependencies = [
+    { name = "pyyaml" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "pyyaml", specifier = ">=6.0" }]
+
+[[package]]
+name = "uri2verify"
+version = "0.1.0"
+source = { editable = "packages/uri2verify" }
+dependencies = [
+    { name = "pyyaml" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "pyyaml", specifier = ">=6.0" }]
+
+[[package]]
+name = "uri2voice"
+version = "0.1.0"
+source = { editable = "packages/uri2voice" }
+dependencies = [
+    { name = "pyyaml" },
+]
+
+[package.optional-dependencies]
+nl2uri = [
+    { name = "nl2uri" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "nl2uri", marker = "extra == 'nl2uri'", editable = "packages/nl2uri" },
+    { name = "pyyaml", specifier = ">=6.0" },
+]
+provides-extras = ["nl2uri"]
 
 [[package]]
 name = "uri3"

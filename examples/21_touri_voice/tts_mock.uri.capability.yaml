@@ -31,7 +31,7 @@ output:
 
 backend:
   type: python
-  target: python://touri_examples_voice.tts:speak
+  target: python://uri2voice.tts:speak
 
 policy:
   side_effects: true

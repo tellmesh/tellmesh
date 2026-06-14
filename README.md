@@ -3,11 +3,11 @@
 
 ## AI Cost Tracking
 
-![PyPI](https://img.shields.io/badge/pypi-costs-blue) ![Version](https://img.shields.io/badge/version-0.5.14-blue) ![Python](https://img.shields.io/badge/python-3.9+-blue) ![License](https://img.shields.io/badge/license-Apache--2.0-green)
-![AI Cost](https://img.shields.io/badge/AI%20Cost-$7.54-orange) ![Human Time](https://img.shields.io/badge/Human%20Time-5.7h-blue) ![Model](https://img.shields.io/badge/Model-openrouter%2Fqwen%2Fqwen3--coder--next-lightgrey)
+![PyPI](https://img.shields.io/badge/pypi-costs-blue) ![Version](https://img.shields.io/badge/version-0.5.15-blue) ![Python](https://img.shields.io/badge/python-3.9+-blue) ![License](https://img.shields.io/badge/license-Apache--2.0-green)
+![AI Cost](https://img.shields.io/badge/AI%20Cost-$8.34-orange) ![Human Time](https://img.shields.io/badge/Human%20Time-6.6h-blue) ![Model](https://img.shields.io/badge/Model-openrouter%2Fqwen%2Fqwen3--coder--next-lightgrey)
 
-- 🤖 **LLM usage:** $7.5413 (13 commits)
-- 👤 **Human dev:** ~$570 (5.7h @ $100/h, 30min dedup)
+- 🤖 **LLM usage:** $8.3388 (14 commits)
+- 👤 **Human dev:** ~$661 (6.6h @ $100/h, 30min dedup)
 
 Generated on 2026-06-14 using [openrouter/qwen/qwen3-coder-next](https://openrouter.ai/qwen/qwen3-coder-next)
 
@@ -22,6 +22,9 @@ uri3       = URI, discovery, routing, skanowanie, graf, workflow executor, log:/
 nl2uri     = natural language / query → URI plan (single, list, tree, task, graph)
 uri2flow   = compact URI flow → expanded workflow graph (bez wykonania)
 uri2ops    = operation registry + operator adapters + policy + serve (A2A/MCP)
+uri2voice  = STT/TTS/voice command execution (mock MVP; touri manifests)
+uri2pact   = markpact:// README import (capabilities + flows)
+uri2verify = data quality gates, workflow replay, regression tests
 nl2a       = prompt → URI Tree → Domain Pack → agent contract → generated agent
 hypervisor = registry, policy, deployment, lifecycle
 generator  = deterministyczny kod agenta z YAML
@@ -41,6 +44,18 @@ pip install -e '.[windows]'   # pywinauto / Windows UIA
 # lub
 uv sync
 ```
+
+## Zewnętrzne paczki
+
+`hypervisor` nie ma teraz runtime dependency na `markpact`, `pactown`,
+`iterun`, `intract`, `nlp2dsl` ani `semcod/nlp2uri`. Bezpośrednio używane
+zewnętrzne paczki z `semcod/*` to narzędzia dev: `goal`, `costs`, `pfix`.
+
+Integracje `markpact://` w `touri` i `uri2flow` parsują fenced blocki
+`markpact:*` z README i walidują je lokalnie; nie uruchamiają runtime'u
+`markpact`.
+
+Szczegóły audytu wersji i zalecane akcje: [`docs/EXTERNAL_PACKAGES.md`](docs/EXTERNAL_PACKAGES.md).
 
 ## Szybki start
 
@@ -150,6 +165,12 @@ Przykładowe prompty i kontrakty: [`examples/`](examples/README.md).
 | 15 | [`examples/15_compact_uri_flow`](examples/15_compact_uri_flow/) | Skrócony przepływ URI |
 | 15 | [`examples/15_playwright_browser`](examples/15_playwright_browser/) | uri3 Playwright workflow |
 | 16 | [`examples/16_llm_graph_planner`](examples/16_llm_graph_planner/) | LLM graph planner |
+| 17 | [`examples/17_flow_vs_graph`](examples/17_flow_vs_graph/) | Compact flow vs expanded graph |
+| 18 | [`examples/18_llm_flow_planner`](examples/18_llm_flow_planner/) | LLM compact flow planner |
+| 20 | [`examples/20_touri_capabilities`](examples/20_touri_capabilities/) | `touri` capability manifests |
+| 21 | [`examples/21_touri_voice`](examples/21_touri_voice/) | STT/TTS/voice jako capability pack |
+| 22 | [`examples/22_markpact_weather`](examples/22_markpact_weather/) | `markpact://` capability + flow README |
+| 23 | [`examples/23_nl_to_agent_tutorial`](examples/23_nl_to_agent_tutorial/) | **Tutorial NL → URI → wykonanie → agent HTTP** |
 
 Docker + SSH testenv:
 
@@ -179,6 +200,8 @@ Nie edytuj `agents/generated/` ręcznie. Zmieniaj `contracts/agents/*.yaml` lub 
 
 Pełny indeks: [`docs/README.md`](docs/README.md)
 
+Architektura i podział paczek: [`docs/PACKAGE_BOUNDARIES.md`](docs/PACKAGE_BOUNDARIES.md)
+
 Przepływ generacji i uruchomienia agenta: [`docs/HYPERVISOR_WORKFLOW.md`](docs/HYPERVISOR_WORKFLOW.md)
 
 Konfiguracja URI: [`docs/CONFIG_URI_YAML.md`](docs/CONFIG_URI_YAML.md) · [`config/llm.uri.yaml`](config/llm.uri.yaml)
@@ -200,6 +223,7 @@ Konfiguracja URI: [`docs/CONFIG_URI_YAML.md`](docs/CONFIG_URI_YAML.md) · [`conf
 - [`docs/STANDARDS.md`](docs/STANDARDS.md) — MCP, Protobuf, JSON Schema
 - [`docs/CONTRACTS.md`](docs/CONTRACTS.md) — format kontraktów YAML
 - [`docs/GENERATOR.md`](docs/GENERATOR.md) — generator agentów
+- [`docs/EXTERNAL_PACKAGES.md`](docs/EXTERNAL_PACKAGES.md) — audyt lokalnych `semcod/*` i `wronai/*` integracji
 - [`docs/ROADMAP.md`](docs/ROADMAP.md) — roadmap wersji
 - [`CHANGELOG.md`](CHANGELOG.md) · [`TODO.md`](TODO.md)
 

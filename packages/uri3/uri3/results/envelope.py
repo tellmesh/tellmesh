@@ -34,6 +34,41 @@ def step_service_result_status(*, ok: bool, status: str) -> str:
     return SERVICE_FAILED
 
 
+def _step_has_service_failure(step: dict[str, Any]) -> bool:
+    if step.get("service_result_status") == SERVICE_FAILED:
+        return True
+    return not step.get("ok", True) and step.get("status") not in {"skipped"}
+
+
+def _resolve_workflow_status(
+    *,
+    ok: bool,
+    service_failed: bool,
+    execution_failed: bool,
+) -> str:
+    if execution_failed:
+        return WORKFLOW_FAILED
+    if service_failed:
+        return WORKFLOW_COMPLETED_WITH_SERVICE_ERROR
+    return WORKFLOW_COMPLETED if ok else WORKFLOW_FAILED
+
+
+def _workflow_service_failed(steps: list[dict[str, Any]]) -> bool:
+    return any(_step_has_service_failure(step) for step in steps)
+
+
+def _workflow_execution_failed(steps: list[dict[str, Any]]) -> bool:
+    return any(step.get("execution_status") == EXECUTION_FAILED for step in steps)
+
+
+def _workflow_execution_status(*, execution_failed: bool) -> str:
+    return EXECUTION_FAILED if execution_failed else EXECUTION_COMPLETED
+
+
+def _workflow_service_result_status(*, ok: bool, service_failed: bool) -> str:
+    return SERVICE_FAILED if service_failed or not ok else SERVICE_SUCCEEDED
+
+
 def workflow_aggregate_statuses(
     *,
     ok: bool,
@@ -44,22 +79,20 @@ def workflow_aggregate_statuses(
     del dry_run
     if pending_approval:
         return WORKFLOW_FAILED, EXECUTION_FAILED, SERVICE_FAILED
-    service_failed = any(
-        step.get("service_result_status") == SERVICE_FAILED
-        or (not step.get("ok", True) and step.get("status") not in {"skipped"})
-        for step in steps
-    )
-    execution_failed = any(step.get("execution_status") == EXECUTION_FAILED for step in steps)
+    service_failed = _workflow_service_failed(steps)
+    execution_failed = _workflow_execution_failed(steps)
     if ok and not service_failed:
         return WORKFLOW_COMPLETED, EXECUTION_COMPLETED, SERVICE_SUCCEEDED
-    if execution_failed or pending_approval:
-        workflow_status = WORKFLOW_FAILED
-    elif service_failed:
-        workflow_status = WORKFLOW_COMPLETED_WITH_SERVICE_ERROR
-    else:
-        workflow_status = WORKFLOW_COMPLETED if ok else WORKFLOW_FAILED
-    execution_status = EXECUTION_FAILED if execution_failed else EXECUTION_COMPLETED
-    service_result_status = SERVICE_FAILED if service_failed or not ok else SERVICE_SUCCEEDED
+    workflow_status = _resolve_workflow_status(
+        ok=ok,
+        service_failed=service_failed,
+        execution_failed=execution_failed,
+    )
+    execution_status = _workflow_execution_status(execution_failed=execution_failed)
+    service_result_status = _workflow_service_result_status(
+        ok=ok,
+        service_failed=service_failed,
+    )
     return workflow_status, execution_status, service_result_status
 
 
@@ -85,11 +118,39 @@ def enrich_step_dict(step: dict[str, Any], *, dry_run: bool = False) -> dict[str
     return payload
 
 
-def enrich_workflow_dict(payload: dict[str, Any], *, dry_run: bool = False) -> dict[str, Any]:
-    body = dict(payload)
-    steps = [enrich_step_dict(step, dry_run=dry_run) for step in body.get("steps") or []]
-    body["steps"] = steps
-    workflow_result = dict(body.get("workflow_result") or {})
+def _workflow_failed_nodes(steps: list[dict[str, Any]]) -> list[str]:
+    return [
+        str(step.get("id"))
+        for step in steps
+        if not bool(step.get("ok", True)) and step.get("status") != "skipped"
+    ]
+
+
+def _workflow_step_error(step: dict[str, Any]) -> dict[str, Any]:
+    return normalize_error(
+        {
+            "code": _workflow_step_error_code(step),
+            "source": str(step.get("uri") or ""),
+            "recoverable": step.get("status") == "blocked",
+            "detail": _workflow_step_error_detail(step),
+        }
+    ).to_dict()
+
+
+def _workflow_step_errors(
+    steps: list[dict[str, Any]],
+    failed_nodes: list[str],
+) -> list[dict[str, Any]]:
+    failed_node_ids = set(failed_nodes)
+    return [_workflow_step_error(step) for step in steps if str(step.get("id")) in failed_node_ids]
+
+
+def _enriched_workflow_result(
+    workflow_result: dict[str, Any],
+    steps: list[dict[str, Any]],
+    *,
+    dry_run: bool,
+) -> dict[str, Any]:
     wf_status, ex_status, svc_status = workflow_aggregate_statuses(
         ok=bool(workflow_result.get("ok", False)),
         steps=steps,
@@ -99,26 +160,23 @@ def enrich_workflow_dict(payload: dict[str, Any], *, dry_run: bool = False) -> d
     workflow_result["workflow_status"] = wf_status
     workflow_result["execution_status"] = ex_status
     workflow_result["service_result_status"] = svc_status
-    failed_nodes = [
-        str(step.get("id"))
-        for step in steps
-        if not bool(step.get("ok", True)) and step.get("status") != "skipped"
-    ]
+    failed_nodes = _workflow_failed_nodes(steps)
     if failed_nodes:
         workflow_result["failed_nodes"] = failed_nodes
-        workflow_result["errors"] = [
-            normalize_error(
-                {
-                    "code": _workflow_step_error_code(step),
-                    "source": str(step.get("uri") or ""),
-                    "recoverable": step.get("status") == "blocked",
-                    "detail": _workflow_step_error_detail(step),
-                }
-            ).to_dict()
-            for step in steps
-            if str(step.get("id")) in failed_nodes
-        ]
-    body["workflow_result"] = workflow_result
+        workflow_result["errors"] = _workflow_step_errors(steps, failed_nodes)
+    return workflow_result
+
+
+def enrich_workflow_dict(payload: dict[str, Any], *, dry_run: bool = False) -> dict[str, Any]:
+    body = dict(payload)
+    steps = [enrich_step_dict(step, dry_run=dry_run) for step in body.get("steps") or []]
+    body["steps"] = steps
+    workflow_result = dict(body.get("workflow_result") or {})
+    body["workflow_result"] = _enriched_workflow_result(
+        workflow_result,
+        steps,
+        dry_run=dry_run,
+    )
     return body
 
 
@@ -144,6 +202,16 @@ _LIFECYCLE_OK_STATUSES = frozenset(
 )
 
 
+def _lifecycle_ok(body: dict[str, Any], status: str, runtime_status: str) -> bool:
+    if (body.get("command_string") and not status) or status in _LIFECYCLE_OK_STATUSES:
+        return True
+    if runtime_status == "running":
+        return True
+    if "ok" in body:
+        return bool(body["ok"])
+    return status not in {"failed", "error"} and status != ""
+
+
 def enrich_lifecycle_dict(payload: dict[str, Any]) -> dict[str, Any]:
     body = dict(payload)
     if all(key in body for key in ("workflow_status", "execution_status", "service_result_status")):
@@ -155,17 +223,7 @@ def enrich_lifecycle_dict(payload: dict[str, Any]) -> dict[str, Any]:
     if isinstance(runtime_state, dict) and runtime_state.get("status"):
         runtime_status = str(runtime_state["status"])
 
-    if (
-        (body.get("command_string") and not status)
-        or status in _LIFECYCLE_OK_STATUSES
-        or runtime_status == "running"
-    ):
-        ok = True
-    elif "ok" in body:
-        ok = bool(body["ok"])
-    else:
-        ok = status not in {"failed", "error"} and status != ""
-
+    ok = _lifecycle_ok(body, status, runtime_status)
     workflow_status, execution_status, service_result_status = derive_statuses(ok)
     body["ok"] = ok
     body["workflow_status"] = workflow_status

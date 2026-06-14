@@ -1,6 +1,6 @@
 # Example 21: touri voice capabilities
 
-STT/TTS/voice command as a **touri capability pack** — no separate `uri2voice` package yet.
+STT/TTS/voice command as a **touri capability pack** backed by **`uri2voice`** execution handlers.
 
 Schemes:
 
@@ -10,14 +10,13 @@ tts://...
 voice://...
 ```
 
+Handlers live in `packages/uri2voice/uri2voice/` (mock MVP). Capability manifests remain in this example directory.
+
 ## Quick start
 
 ```bash
 pip install -e '.[dev]'
-export PYTHONPATH=examples/21_touri_voice
 ```
-
-Handlers live in `touri_examples_voice/` inside this example pack.
 
 Run the full mock pipeline:
 

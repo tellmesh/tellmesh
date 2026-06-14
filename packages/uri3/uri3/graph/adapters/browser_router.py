@@ -1,3 +1,8 @@
+"""Browser adapter routing for uri3 workflow executor.
+
+Deprecated: browser execution belongs in uri2ops. uri3 should delegate via
+uri2ops_adapter; these adapters remain for mock/playwright workflow tests.
+"""
 from __future__ import annotations
 
 import os

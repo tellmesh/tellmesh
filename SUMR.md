@@ -16,7 +16,7 @@ SUMD - Structured Unified Markdown Descriptor for AI-aware project refactorizati
 ## Metadata
 
 - **name**: `resource-agent-system`
-- **version**: `0.5.13`
+- **version**: `0.5.14`
 - **python_requires**: `>=3.10`
 - **license**: Apache-2.0
 - **ai_model**: `openrouter/qwen/qwen3-coder-next`
@@ -36,7 +36,7 @@ SUMD (description) → DOQL/source (code) → taskfile (automation) → testql (
 
 app {
   name: resource-agent-system;
-  version: 0.5.13;
+  version: 0.5.14;
 }
 
 dependencies {
@@ -157,17 +157,17 @@ workflow[name="voice-demo"] {
 
 workflow[name="uri-tree"] {
   trigger: manual;
-  step-1: run cmd=python -m nl2uri.cli --no-llm -p "$(WEATHER_PROMPT)" --out domains/weather_map/uri_tree.yaml;
+  step-1: run cmd=python -m nl2uri.cli tree --no-llm -p "$(WEATHER_PROMPT)" --out domains/weather_map/uri_tree.yaml;
 }
 
 workflow[name="graph"] {
   trigger: manual;
-  step-1: run cmd=python -m uri3.cli graph domains/weather_map/uri_tree.yaml;
+  step-1: run cmd=uri3 graph domains/weather_map/uri_tree.yaml;
 }
 
 workflow[name="nl2a-weather"] {
   trigger: manual;
-  step-1: run cmd=python -m nl2a.cli --no-llm -p "$(WEATHER_PROMPT)";
+  step-1: run cmd=python -m nl2a.cli generate --no-llm -p "$(WEATHER_PROMPT)";
 }
 
 workflow[name="run-user-agent"] {
@@ -308,7 +308,7 @@ rich>=13.0.0
 
 ## Call Graph
 
-*395 nodes · 500 edges · 123 modules · CC̄=3.8*
+*398 nodes · 500 edges · 128 modules · CC̄=3.6*
 
 ### Hubs (by degree)
 
@@ -316,60 +316,60 @@ rich>=13.0.0
 |----------|----|----|-----|-------|
 | `create_app` *(in uri2ops.server.app)* | 1 | 1 | 62 | **63** |
 | `register` *(in packages.uri3.uri3.cli.commands.discovery)* | 1 | 0 | 47 | **47** |
-| `run_workflow` *(in packages.uri3.uri3.graph.graph_executor)* | 22 ⚠ | 5 | 40 | **45** |
 | `print` *(in examples.21_touri_voice.run)* | 0 | 43 | 0 | **43** |
-| `service_result` *(in packages.uri3.uri3.results.service_result)* | 3 | 33 | 10 | **43** |
-| `list` *(in uri2ops.operation_registry.models.OperationRegistry)* | 1 | 40 | 2 | **42** |
+| `list` *(in uri2ops.operation_registry.models.OperationRegistry)* | 1 | 38 | 2 | **40** |
+| `service_result` *(in packages.uri3.uri3.results.service_result)* | 3 | 29 | 10 | **39** |
 | `resolve_llm_profile` *(in packages.uri3.uri3.config.llm_profiles)* | 10 ⚠ | 4 | 32 | **36** |
 | `plan_flow` *(in packages.nl2uri.nl2uri.flow_planner)* | 12 ⚠ | 4 | 29 | **33** |
+| `run_workflow` *(in packages.uri3.uri3.graph.graph_executor)* | 13 ⚠ | 5 | 26 | **31** |
 
 ```toon markpact:analysis path=project/calls.toon.yaml
 # code2llm call graph | /home/tom/github/wronai/hypervisor
-# generated in 0.21s
-# nodes: 395 | edges: 500 | modules: 123
-# CC̄=3.8
+# generated in 0.19s
+# nodes: 398 | edges: 500 | modules: 128
+# CC̄=3.6
 
 HUBS[20]:
   uri2ops.server.app.create_app
     CC=1  in:1  out:62  total:63
   packages.uri3.uri3.cli.commands.discovery.register
     CC=1  in:0  out:47  total:47
-  packages.uri3.uri3.graph.graph_executor.run_workflow
-    CC=22  in:5  out:40  total:45
   examples.21_touri_voice.run.print
     CC=0  in:43  out:0  total:43
-  packages.uri3.uri3.results.service_result.service_result
-    CC=3  in:33  out:10  total:43
   uri2ops.operation_registry.models.OperationRegistry.list
-    CC=1  in:40  out:2  total:42
+    CC=1  in:38  out:2  total:40
+  packages.uri3.uri3.results.service_result.service_result
+    CC=3  in:29  out:10  total:39
   packages.uri3.uri3.config.llm_profiles.resolve_llm_profile
     CC=10  in:4  out:32  total:36
   packages.nl2uri.nl2uri.flow_planner.plan_flow
     CC=12  in:4  out:29  total:33
-  packages.touri.touri.data_quality.apply_data_quality
-    CC=18  in:2  out:31  total:33
-  meta_agent.planner.infer_intent
-    CC=9  in:1  out:30  total:31
+  packages.uri3.uri3.graph.graph_executor.run_workflow
+    CC=13  in:5  out:26  total:31
   uri3.graph.uri_graph.build_graph_from_tree
     CC=10  in:2  out:28  total:30
   packages.uri2flow.uri2flow.parser._parse_step
     CC=10  in:1  out:29  total:30
-  packages.nl2uri.nl2uri.flow_repair.extract_flow_payload
-    CC=20  in:1  out:28  total:29
-  packages.uri3.uri3.resolvers.docker_resolver.parse_docker_uri
-    CC=12  in:5  out:23  total:28
-  packages.touri.touri.backends.python_backend.call_python_backend
-    CC=9  in:3  out:25  total:28
-  packages.nl2uri.nl2uri.flow_repair._ensure_step_ids
-    CC=19  in:1  out:27  total:28
+  packages.touri.touri.backends.uri_graph_backend.call_uri_graph_backend
+    CC=9  in:2  out:26  total:28
   packages.uri3.uri3.config.repo_root.find_repo_root
     CC=4  in:24  out:4  total:28
-  packages.nl2uri.nl2uri.graph_repair.repair_graph_body
+  packages.touri.touri.backends.python_backend.call_python_backend
+    CC=9  in:3  out:25  total:28
+  packages.touri.touri.backends.uri_flow_backend.call_uri_flow_backend
+    CC=9  in:2  out:26  total:28
+  packages.uri3.uri3.resolvers.docker_resolver.parse_docker_uri
+    CC=12  in:5  out:23  total:28
+  packages.uri3.uri3.cli.commands.explain._render
     CC=12  in:1  out:25  total:26
-  packages.nl2uri.nl2uri.graph_repair.sanitize_node
-    CC=16  in:1  out:25  total:26
   generator.model.load_agent_spec
     CC=7  in:2  out:24  total:26
+  packages.uri3.uri3.graph.graph_serializer.normalize_graph_payload
+    CC=12  in:2  out:24  total:26
+  packages.uri3.uri3.graph.graph_validator.validate_workflow_graph
+    CC=9  in:12  out:13  total:25
+  packages.uri3.uri3.results.envelope.enrich_workflow_dict
+    CC=12  in:1  out:24  total:25
 
 MODULES:
   examples.21_touri_voice.run  [1 funcs]
@@ -386,24 +386,8 @@ MODULES:
     main  CC=9  out:10
     verify_generated  CC=6  out:5
     verify_generated_agent  CC=7  out:10
-  hypervisor.contract_registry.registry_builder  [1 funcs]
-    write_registry_manifest  CC=2  out:6
   hypervisor.uri2llm.pypi_resolver  [1 funcs]
     resolve_pypi  CC=5  out:6
-  meta_agent.api  [4 funcs]
-    generate  CC=2  out:6
-    proposal_from_prompt  CC=2  out:6
-    repair  CC=2  out:5
-    validate  CC=2  out:5
-  meta_agent.planner  [4 funcs]
-    infer_intent  CC=9  out:30
-    intent_to_agent_spec  CC=8  out:11
-    package_name  CC=3  out:6
-    singularize  CC=4  out:3
-  meta_agent.repair.pipeline  [1 funcs]
-    repair_agent_spec  CC=2  out:12
-  nl2a.cli  [1 funcs]
-    generate  CC=1  out:5
   nl2uri.writer  [1 funcs]
     write_uri_tree  CC=1  out:4
   packages.nl2uri.nl2uri.cli  [14 funcs]
@@ -425,17 +409,8 @@ MODULES:
     build_flow_planner_system_prompt  CC=1  out:6
     call_flow_planner_llm  CC=4  out:9
     plan_flow_with_llm  CC=3  out:6
-  packages.nl2uri.nl2uri.flow_repair  [11 funcs]
-    _ensure_step_ids  CC=19  out:27
-    _needs_explicit_ids  CC=4  out:4
-    _node_to_compact_step  CC=13  out:16
-    _nodes_to_compact_steps  CC=4  out:3
-    _normalize_step_raw  CC=10  out:14
-    _supported_scheme  CC=2  out:2
-    extract_flow_payload  CC=20  out:28
+  packages.nl2uri.nl2uri.flow_repair  [1 funcs]
     repair_and_validate_flow  CC=2  out:4
-    repair_flow_body  CC=8  out:17
-    sanitize_flow_step  CC=18  out:24
   packages.nl2uri.nl2uri.graph_planner  [11 funcs]
     _detect_agent_id  CC=3  out:3
     _detect_health_uri  CC=4  out:6
@@ -447,28 +422,14 @@ MODULES:
     plan_task  CC=3  out:7
     plan_tree  CC=9  out:14
     plan_workflow_graph  CC=12  out:15
-  packages.nl2uri.nl2uri.graph_planner_llm  [3 funcs]
-    build_graph_planner_system_prompt  CC=2  out:5
-    call_graph_planner_llm  CC=4  out:9
+  packages.nl2uri.nl2uri.graph_planner_llm  [1 funcs]
     plan_graph_with_llm  CC=4  out:7
-  packages.nl2uri.nl2uri.graph_repair  [8 funcs]
-    _coerce_operation  CC=5  out:6
-    _sanitize_nodes  CC=12  out:8
-    _slug  CC=2  out:3
-    extract_graph_payload  CC=14  out:10
-    normalize_to_kind  CC=12  out:14
-    repair_and_validate_graph  CC=13  out:12
-    repair_graph_body  CC=12  out:25
-    sanitize_node  CC=16  out:25
   packages.nl2uri.nl2uri.llm_planner  [1 funcs]
     llm_plan  CC=2  out:4
   packages.nl2uri.nl2uri.output_classifier  [1 funcs]
-    classify_output_kind  CC=23  out:16
-  packages.nl2uri.nl2uri.pipeline  [4 funcs]
-    _append_pipeline_logs  CC=2  out:4
+    classify_output_kind  CC=23  out:3
+  packages.nl2uri.nl2uri.pipeline  [1 funcs]
     generate_tree  CC=1  out:1
-    run_full_pipeline  CC=3  out:15
-    run_generate_pipeline  CC=4  out:13
   packages.nl2uri.nl2uri.planner  [1 funcs]
     rule_based_plan  CC=1  out:2
   packages.nl2uri.nl2uri.planner_llm  [2 funcs]
@@ -480,10 +441,8 @@ MODULES:
     is_weather_prompt  CC=1  out:2
     llm_uri_from_env  CC=6  out:7
     slug  CC=2  out:3
-  packages.nl2uri.nl2uri.planner_validation  [3 funcs]
-    is_structured_uri_tree  CC=10  out:13
+  packages.nl2uri.nl2uri.planner_validation  [1 funcs]
     normalize_llm_tree  CC=7  out:12
-    validate_tree_data  CC=2  out:6
   packages.resource-agent-factory.generator.agent_generator  [3 funcs]
     expand_paths  CC=4  out:7
     generate_agent  CC=5  out:17
@@ -494,20 +453,8 @@ MODULES:
     python_file_header  CC=1  out:0
   packages.resource-agent-factory.generator.paths  [1 funcs]
     project_root  CC=1  out:1
-  packages.resource-agent-hypervisor.hypervisor.deployment_registry.lifecycle  [2 funcs]
+  packages.resource-agent-hypervisor.hypervisor.deployment_registry.lifecycle  [1 funcs]
     _repo_root  CC=2  out:3
-    agent_status  CC=5  out:10
-  packages.resource-agent-hypervisor.hypervisor.deployment_registry.run_plans  [1 funcs]
-    build_run_plan  CC=5  out:7
-  packages.resource-agent-hypervisor.hypervisor.deployment_registry.selector  [1 funcs]
-    resolve_deployment  CC=7  out:9
-  packages.resource-agent-hypervisor.hypervisor.deployment_registry.status  [1 funcs]
-    sync_from_uri_tree  CC=2  out:4
-  packages.resource-agent-hypervisor.hypervisor.domain_pack.generator  [1 funcs]
-    generate_domain_pack  CC=1  out:3
-  packages.resource-agent-hypervisor.meta_agent.orchestrator  [2 funcs]
-    asdict_result  CC=1  out:0
-    save_proposal_from_prompt  CC=2  out:6
   packages.touri.touri.backends.mock_backend  [1 funcs]
     call_mock_backend  CC=1  out:1
   packages.touri.touri.backends.python_backend  [2 funcs]
@@ -515,14 +462,53 @@ MODULES:
     call_python_backend  CC=9  out:25
   packages.touri.touri.backends.shell_backend  [1 funcs]
     call_shell_backend  CC=1  out:2
-  packages.touri.touri.data_quality  [1 funcs]
-    apply_data_quality  CC=18  out:31
+  packages.touri.touri.backends.uri_flow_backend  [3 funcs]
+    _execution_options  CC=1  out:9
+    _resolve_path  CC=3  out:5
+    call_uri_flow_backend  CC=9  out:26
+  packages.touri.touri.backends.uri_graph_backend  [3 funcs]
+    _execution_options  CC=1  out:9
+    _resolve_path  CC=3  out:5
+    call_uri_graph_backend  CC=9  out:26
+  packages.touri.touri.cli  [7 funcs]
+    _print  CC=1  out:2
+    build_parser  CC=1  out:19
+    cmd_call  CC=4  out:7
+    cmd_list  CC=2  out:3
+    cmd_register  CC=2  out:3
+    cmd_validate  CC=2  out:2
+    main  CC=1  out:3
+  packages.touri.touri.executor  [1 funcs]
+    call_uri  CC=2  out:9
+  packages.touri.touri.loader  [1 funcs]
+    load_registry  CC=1  out:1
+  packages.touri.touri.loaders.file_loader  [2 funcs]
+    iter_manifest_paths  CC=2  out:4
+    load_file_registry  CC=2  out:2
+  packages.touri.touri.loaders.markpact_loader  [6 funcs]
+    _block_capability_id  CC=4  out:6
+    _load_capability_block  CC=3  out:5
+    extract_markpact_blocks  CC=4  out:7
+    is_markpact_registry  CC=1  out:2
+    load_markpact_capabilities  CC=9  out:10
+    resolve_markpact_ref  CC=7  out:14
   packages.touri.touri.loaders.registry_loader  [1 funcs]
     load_registry  CC=2  out:4
+  packages.touri.touri.manifest  [2 funcs]
+    load_manifest  CC=1  out:4
+    load_manifest_from_dict  CC=10  out:14
   packages.touri.touri.matcher  [3 funcs]
     match_uri  CC=3  out:4
     require_match  CC=2  out:2
     template_to_regex  CC=1  out:3
+  packages.touri.touri.redaction  [2 funcs]
+    apply_redaction  CC=7  out:8
+    should_redact  CC=2  out:1
+  packages.touri.touri.register  [2 funcs]
+    register_capability  CC=6  out:13
+    sample_uri_from_template  CC=1  out:3
+  packages.touri.touri.validator  [1 funcs]
+    validate_manifest  CC=3  out:4
   packages.touri.touri_examples.validators  [3 funcs]
     always_pass  CC=1  out:1
     low_confidence_backend  CC=1  out:2
@@ -538,10 +524,16 @@ MODULES:
     _node_from_step  CC=11  out:3
     dump_yaml  CC=1  out:1
     expand_flow  CC=6  out:8
+  packages.uri2flow.uri2flow.loaders.markpact_loader  [5 funcs]
+    _block_flow_id  CC=4  out:6
+    extract_markpact_blocks  CC=4  out:7
+    is_markpact_registry  CC=1  out:2
+    load_markpact_flow_dict  CC=13  out:14
+    resolve_markpact_ref  CC=7  out:14
   packages.uri2flow.uri2flow.parser  [4 funcs]
     _as_list  CC=5  out:5
     _parse_step  CC=10  out:29
-    load_flow  CC=3  out:6
+    load_flow  CC=4  out:8
     parse_flow  CC=12  out:16
   packages.uri2flow.uri2flow.resolver  [9 funcs]
     _defaults_from_entry  CC=3  out:7
@@ -573,12 +565,17 @@ MODULES:
     run_flow_cmd  CC=6  out:20
   packages.uri3.uri3.cli.commands.graph  [1 funcs]
     register  CC=1  out:5
+  packages.uri3.uri3.cli.commands.replay  [1 funcs]
+    register  CC=1  out:12
   packages.uri3.uri3.cli.commands.resolve  [1 funcs]
     register  CC=1  out:24
   packages.uri3.uri3.cli.commands.workflow  [1 funcs]
     register  CC=1  out:20
-  packages.uri3.uri3.cli.helpers  [1 funcs]
+  packages.uri3.uri3.cli.helpers  [2 funcs]
     list_payload  CC=2  out:3
+    quick_reference  CC=5  out:5
+  packages.uri3.uri3.cli.main  [1 funcs]
+    main  CC=2  out:4
   packages.uri3.uri3.config.cli_shortcuts  [5 funcs]
     cli_config_path  CC=1  out:1
     cli_examples  CC=3  out:3
@@ -611,10 +608,9 @@ MODULES:
     resolve_ssh_password  CC=12  out:13
     ssh_auth_hint  CC=3  out:2
     ssh_config_path  CC=1  out:1
-  packages.uri3.uri3.config.uri_yaml  [3 funcs]
-    is_uri  CC=4  out:3
+  packages.uri3.uri3.config.uri_yaml  [2 funcs]
     load_uri_yaml  CC=2  out:5
-    resolve_uri_values  CC=15  out:13
+    resolve_uri_values  CC=7  out:8
   packages.uri3.uri3.docker.actions.compose  [8 funcs]
     _parse_ps_stdout  CC=4  out:5
     compose_base  CC=3  out:2
@@ -647,9 +643,6 @@ MODULES:
     _playwright_ready  CC=3  out:5
     cleanup_browser_adapters  CC=2  out:2
     resolve_browser_mode  CC=5  out:3
-  packages.uri3.uri3.graph.adapters.registry  [2 funcs]
-    execute  CC=11  out:6
-    _operator_adapter  CC=2  out:3
   packages.uri3.uri3.graph.adapters.uri2ops_adapter  [8 funcs]
     execute  CC=3  out:13
     _artifact_suffix  CC=9  out:0
@@ -663,18 +656,19 @@ MODULES:
     artifact_path  CC=1  out:0
     artifact_uri  CC=1  out:0
     write_artifact  CC=2  out:6
-  packages.uri3.uri3.graph.dependency_graph  [3 funcs]
-    dependency_summary  CC=8  out:7
-    detect_cycles  CC=15  out:7
-    topological_sort  CC=13  out:13
+  packages.uri3.uri3.graph.dependency_graph  [1 funcs]
+    detect_cycles  CC=10  out:7
   packages.uri3.uri3.graph.event_log  [2 funcs]
     append_workflow_event  CC=1  out:6
     workflow_event_path  CC=1  out:0
-  packages.uri3.uri3.graph.execution_models  [1 funcs]
+  packages.uri3.uri3.graph.execution_models  [4 funcs]
+    to_dict  CC=5  out:2
+    to_dict  CC=4  out:1
+    new_execution_context  CC=2  out:3
     utc_now_iso  CC=1  out:3
   packages.uri3.uri3.graph.graph_executor  [2 funcs]
     build_execution_plan  CC=3  out:10
-    run_workflow  CC=22  out:40
+    run_workflow  CC=13  out:26
   packages.uri3.uri3.graph.graph_serializer  [3 funcs]
     edges_from_depends_on  CC=4  out:5
     normalize_graph_payload  CC=12  out:24
@@ -695,6 +689,13 @@ MODULES:
     validate_node_operation  CC=2  out:5
   packages.uri3.uri3.graph.policy  [1 funcs]
     can_execute_step  CC=6  out:2
+  packages.uri3.uri3.graph.replay  [6 funcs]
+    _resolve_event_path  CC=3  out:6
+    build_task_payload_from_events  CC=8  out:12
+    create_regression_test  CC=11  out:22
+    load_workflow_events  CC=4  out:7
+    render_regression_test  CC=5  out:5
+    replay_workflow_events  CC=10  out:13
   packages.uri3.uri3.logs.filters  [7 funcs]
     entry_timestamp  CC=4  out:5
     level_rank  CC=3  out:2
@@ -796,8 +797,16 @@ MODULES:
     resolve_ssh  CC=1  out:6
     run_ssh  CC=1  out:2
     ssh_transport_option  CC=4  out:7
-  packages.uri3.uri3.results.service_result  [1 funcs]
+  packages.uri3.uri3.results.envelope  [2 funcs]
+    enrich_step_dict  CC=5  out:15
+    enrich_workflow_dict  CC=12  out:24
+  packages.uri3.uri3.results.errors  [1 funcs]
+    normalize_error  CC=10  out:17
+  packages.uri3.uri3.results.service_result  [2 funcs]
+    finalize  CC=12  out:3
     service_result  CC=3  out:10
+  packages.uri3.uri3.results.statuses  [1 funcs]
+    derive_statuses  CC=5  out:0
   packages.uri3.uri3.scanner.docker_scanner  [5 funcs]
     _compose_ps  CC=6  out:8
     _inspect_container  CC=5  out:9
@@ -962,51 +971,51 @@ EDGES:
 
 ```toon markpact:analysis path=project/calls.toon.yaml
 # code2llm call graph | /home/tom/github/wronai/hypervisor
-# generated in 0.21s
-# nodes: 395 | edges: 500 | modules: 123
-# CC̄=3.8
+# generated in 0.19s
+# nodes: 398 | edges: 500 | modules: 128
+# CC̄=3.6
 
 HUBS[20]:
   uri2ops.server.app.create_app
     CC=1  in:1  out:62  total:63
   packages.uri3.uri3.cli.commands.discovery.register
     CC=1  in:0  out:47  total:47
-  packages.uri3.uri3.graph.graph_executor.run_workflow
-    CC=22  in:5  out:40  total:45
   examples.21_touri_voice.run.print
     CC=0  in:43  out:0  total:43
-  packages.uri3.uri3.results.service_result.service_result
-    CC=3  in:33  out:10  total:43
   uri2ops.operation_registry.models.OperationRegistry.list
-    CC=1  in:40  out:2  total:42
+    CC=1  in:38  out:2  total:40
+  packages.uri3.uri3.results.service_result.service_result
+    CC=3  in:29  out:10  total:39
   packages.uri3.uri3.config.llm_profiles.resolve_llm_profile
     CC=10  in:4  out:32  total:36
   packages.nl2uri.nl2uri.flow_planner.plan_flow
     CC=12  in:4  out:29  total:33
-  packages.touri.touri.data_quality.apply_data_quality
-    CC=18  in:2  out:31  total:33
-  meta_agent.planner.infer_intent
-    CC=9  in:1  out:30  total:31
+  packages.uri3.uri3.graph.graph_executor.run_workflow
+    CC=13  in:5  out:26  total:31
   uri3.graph.uri_graph.build_graph_from_tree
     CC=10  in:2  out:28  total:30
   packages.uri2flow.uri2flow.parser._parse_step
     CC=10  in:1  out:29  total:30
-  packages.nl2uri.nl2uri.flow_repair.extract_flow_payload
-    CC=20  in:1  out:28  total:29
-  packages.uri3.uri3.resolvers.docker_resolver.parse_docker_uri
-    CC=12  in:5  out:23  total:28
-  packages.touri.touri.backends.python_backend.call_python_backend
-    CC=9  in:3  out:25  total:28
-  packages.nl2uri.nl2uri.flow_repair._ensure_step_ids
-    CC=19  in:1  out:27  total:28
+  packages.touri.touri.backends.uri_graph_backend.call_uri_graph_backend
+    CC=9  in:2  out:26  total:28
   packages.uri3.uri3.config.repo_root.find_repo_root
     CC=4  in:24  out:4  total:28
-  packages.nl2uri.nl2uri.graph_repair.repair_graph_body
+  packages.touri.touri.backends.python_backend.call_python_backend
+    CC=9  in:3  out:25  total:28
+  packages.touri.touri.backends.uri_flow_backend.call_uri_flow_backend
+    CC=9  in:2  out:26  total:28
+  packages.uri3.uri3.resolvers.docker_resolver.parse_docker_uri
+    CC=12  in:5  out:23  total:28
+  packages.uri3.uri3.cli.commands.explain._render
     CC=12  in:1  out:25  total:26
-  packages.nl2uri.nl2uri.graph_repair.sanitize_node
-    CC=16  in:1  out:25  total:26
   generator.model.load_agent_spec
     CC=7  in:2  out:24  total:26
+  packages.uri3.uri3.graph.graph_serializer.normalize_graph_payload
+    CC=12  in:2  out:24  total:26
+  packages.uri3.uri3.graph.graph_validator.validate_workflow_graph
+    CC=9  in:12  out:13  total:25
+  packages.uri3.uri3.results.envelope.enrich_workflow_dict
+    CC=12  in:1  out:24  total:25
 
 MODULES:
   examples.21_touri_voice.run  [1 funcs]
@@ -1023,24 +1032,8 @@ MODULES:
     main  CC=9  out:10
     verify_generated  CC=6  out:5
     verify_generated_agent  CC=7  out:10
-  hypervisor.contract_registry.registry_builder  [1 funcs]
-    write_registry_manifest  CC=2  out:6
   hypervisor.uri2llm.pypi_resolver  [1 funcs]
     resolve_pypi  CC=5  out:6
-  meta_agent.api  [4 funcs]
-    generate  CC=2  out:6
-    proposal_from_prompt  CC=2  out:6
-    repair  CC=2  out:5
-    validate  CC=2  out:5
-  meta_agent.planner  [4 funcs]
-    infer_intent  CC=9  out:30
-    intent_to_agent_spec  CC=8  out:11
-    package_name  CC=3  out:6
-    singularize  CC=4  out:3
-  meta_agent.repair.pipeline  [1 funcs]
-    repair_agent_spec  CC=2  out:12
-  nl2a.cli  [1 funcs]
-    generate  CC=1  out:5
   nl2uri.writer  [1 funcs]
     write_uri_tree  CC=1  out:4
   packages.nl2uri.nl2uri.cli  [14 funcs]
@@ -1062,17 +1055,8 @@ MODULES:
     build_flow_planner_system_prompt  CC=1  out:6
     call_flow_planner_llm  CC=4  out:9
     plan_flow_with_llm  CC=3  out:6
-  packages.nl2uri.nl2uri.flow_repair  [11 funcs]
-    _ensure_step_ids  CC=19  out:27
-    _needs_explicit_ids  CC=4  out:4
-    _node_to_compact_step  CC=13  out:16
-    _nodes_to_compact_steps  CC=4  out:3
-    _normalize_step_raw  CC=10  out:14
-    _supported_scheme  CC=2  out:2
-    extract_flow_payload  CC=20  out:28
+  packages.nl2uri.nl2uri.flow_repair  [1 funcs]
     repair_and_validate_flow  CC=2  out:4
-    repair_flow_body  CC=8  out:17
-    sanitize_flow_step  CC=18  out:24
   packages.nl2uri.nl2uri.graph_planner  [11 funcs]
     _detect_agent_id  CC=3  out:3
     _detect_health_uri  CC=4  out:6
@@ -1084,28 +1068,14 @@ MODULES:
     plan_task  CC=3  out:7
     plan_tree  CC=9  out:14
     plan_workflow_graph  CC=12  out:15
-  packages.nl2uri.nl2uri.graph_planner_llm  [3 funcs]
-    build_graph_planner_system_prompt  CC=2  out:5
-    call_graph_planner_llm  CC=4  out:9
+  packages.nl2uri.nl2uri.graph_planner_llm  [1 funcs]
     plan_graph_with_llm  CC=4  out:7
-  packages.nl2uri.nl2uri.graph_repair  [8 funcs]
-    _coerce_operation  CC=5  out:6
-    _sanitize_nodes  CC=12  out:8
-    _slug  CC=2  out:3
-    extract_graph_payload  CC=14  out:10
-    normalize_to_kind  CC=12  out:14
-    repair_and_validate_graph  CC=13  out:12
-    repair_graph_body  CC=12  out:25
-    sanitize_node  CC=16  out:25
   packages.nl2uri.nl2uri.llm_planner  [1 funcs]
     llm_plan  CC=2  out:4
   packages.nl2uri.nl2uri.output_classifier  [1 funcs]
-    classify_output_kind  CC=23  out:16
-  packages.nl2uri.nl2uri.pipeline  [4 funcs]
-    _append_pipeline_logs  CC=2  out:4
+    classify_output_kind  CC=23  out:3
+  packages.nl2uri.nl2uri.pipeline  [1 funcs]
     generate_tree  CC=1  out:1
-    run_full_pipeline  CC=3  out:15
-    run_generate_pipeline  CC=4  out:13
   packages.nl2uri.nl2uri.planner  [1 funcs]
     rule_based_plan  CC=1  out:2
   packages.nl2uri.nl2uri.planner_llm  [2 funcs]
@@ -1117,10 +1087,8 @@ MODULES:
     is_weather_prompt  CC=1  out:2
     llm_uri_from_env  CC=6  out:7
     slug  CC=2  out:3
-  packages.nl2uri.nl2uri.planner_validation  [3 funcs]
-    is_structured_uri_tree  CC=10  out:13
+  packages.nl2uri.nl2uri.planner_validation  [1 funcs]
     normalize_llm_tree  CC=7  out:12
-    validate_tree_data  CC=2  out:6
   packages.resource-agent-factory.generator.agent_generator  [3 funcs]
     expand_paths  CC=4  out:7
     generate_agent  CC=5  out:17
@@ -1131,20 +1099,8 @@ MODULES:
     python_file_header  CC=1  out:0
   packages.resource-agent-factory.generator.paths  [1 funcs]
     project_root  CC=1  out:1
-  packages.resource-agent-hypervisor.hypervisor.deployment_registry.lifecycle  [2 funcs]
+  packages.resource-agent-hypervisor.hypervisor.deployment_registry.lifecycle  [1 funcs]
     _repo_root  CC=2  out:3
-    agent_status  CC=5  out:10
-  packages.resource-agent-hypervisor.hypervisor.deployment_registry.run_plans  [1 funcs]
-    build_run_plan  CC=5  out:7
-  packages.resource-agent-hypervisor.hypervisor.deployment_registry.selector  [1 funcs]
-    resolve_deployment  CC=7  out:9
-  packages.resource-agent-hypervisor.hypervisor.deployment_registry.status  [1 funcs]
-    sync_from_uri_tree  CC=2  out:4
-  packages.resource-agent-hypervisor.hypervisor.domain_pack.generator  [1 funcs]
-    generate_domain_pack  CC=1  out:3
-  packages.resource-agent-hypervisor.meta_agent.orchestrator  [2 funcs]
-    asdict_result  CC=1  out:0
-    save_proposal_from_prompt  CC=2  out:6
   packages.touri.touri.backends.mock_backend  [1 funcs]
     call_mock_backend  CC=1  out:1
   packages.touri.touri.backends.python_backend  [2 funcs]
@@ -1152,14 +1108,53 @@ MODULES:
     call_python_backend  CC=9  out:25
   packages.touri.touri.backends.shell_backend  [1 funcs]
     call_shell_backend  CC=1  out:2
-  packages.touri.touri.data_quality  [1 funcs]
-    apply_data_quality  CC=18  out:31
+  packages.touri.touri.backends.uri_flow_backend  [3 funcs]
+    _execution_options  CC=1  out:9
+    _resolve_path  CC=3  out:5
+    call_uri_flow_backend  CC=9  out:26
+  packages.touri.touri.backends.uri_graph_backend  [3 funcs]
+    _execution_options  CC=1  out:9
+    _resolve_path  CC=3  out:5
+    call_uri_graph_backend  CC=9  out:26
+  packages.touri.touri.cli  [7 funcs]
+    _print  CC=1  out:2
+    build_parser  CC=1  out:19
+    cmd_call  CC=4  out:7
+    cmd_list  CC=2  out:3
+    cmd_register  CC=2  out:3
+    cmd_validate  CC=2  out:2
+    main  CC=1  out:3
+  packages.touri.touri.executor  [1 funcs]
+    call_uri  CC=2  out:9
+  packages.touri.touri.loader  [1 funcs]
+    load_registry  CC=1  out:1
+  packages.touri.touri.loaders.file_loader  [2 funcs]
+    iter_manifest_paths  CC=2  out:4
+    load_file_registry  CC=2  out:2
+  packages.touri.touri.loaders.markpact_loader  [6 funcs]
+    _block_capability_id  CC=4  out:6
+    _load_capability_block  CC=3  out:5
+    extract_markpact_blocks  CC=4  out:7
+    is_markpact_registry  CC=1  out:2
+    load_markpact_capabilities  CC=9  out:10
+    resolve_markpact_ref  CC=7  out:14
   packages.touri.touri.loaders.registry_loader  [1 funcs]
     load_registry  CC=2  out:4
+  packages.touri.touri.manifest  [2 funcs]
+    load_manifest  CC=1  out:4
+    load_manifest_from_dict  CC=10  out:14
   packages.touri.touri.matcher  [3 funcs]
     match_uri  CC=3  out:4
     require_match  CC=2  out:2
     template_to_regex  CC=1  out:3
+  packages.touri.touri.redaction  [2 funcs]
+    apply_redaction  CC=7  out:8
+    should_redact  CC=2  out:1
+  packages.touri.touri.register  [2 funcs]
+    register_capability  CC=6  out:13
+    sample_uri_from_template  CC=1  out:3
+  packages.touri.touri.validator  [1 funcs]
+    validate_manifest  CC=3  out:4
   packages.touri.touri_examples.validators  [3 funcs]
     always_pass  CC=1  out:1
     low_confidence_backend  CC=1  out:2
@@ -1175,10 +1170,16 @@ MODULES:
     _node_from_step  CC=11  out:3
     dump_yaml  CC=1  out:1
     expand_flow  CC=6  out:8
+  packages.uri2flow.uri2flow.loaders.markpact_loader  [5 funcs]
+    _block_flow_id  CC=4  out:6
+    extract_markpact_blocks  CC=4  out:7
+    is_markpact_registry  CC=1  out:2
+    load_markpact_flow_dict  CC=13  out:14
+    resolve_markpact_ref  CC=7  out:14
   packages.uri2flow.uri2flow.parser  [4 funcs]
     _as_list  CC=5  out:5
     _parse_step  CC=10  out:29
-    load_flow  CC=3  out:6
+    load_flow  CC=4  out:8
     parse_flow  CC=12  out:16
   packages.uri2flow.uri2flow.resolver  [9 funcs]
     _defaults_from_entry  CC=3  out:7
@@ -1210,12 +1211,17 @@ MODULES:
     run_flow_cmd  CC=6  out:20
   packages.uri3.uri3.cli.commands.graph  [1 funcs]
     register  CC=1  out:5
+  packages.uri3.uri3.cli.commands.replay  [1 funcs]
+    register  CC=1  out:12
   packages.uri3.uri3.cli.commands.resolve  [1 funcs]
     register  CC=1  out:24
   packages.uri3.uri3.cli.commands.workflow  [1 funcs]
     register  CC=1  out:20
-  packages.uri3.uri3.cli.helpers  [1 funcs]
+  packages.uri3.uri3.cli.helpers  [2 funcs]
     list_payload  CC=2  out:3
+    quick_reference  CC=5  out:5
+  packages.uri3.uri3.cli.main  [1 funcs]
+    main  CC=2  out:4
   packages.uri3.uri3.config.cli_shortcuts  [5 funcs]
     cli_config_path  CC=1  out:1
     cli_examples  CC=3  out:3
@@ -1248,10 +1254,9 @@ MODULES:
     resolve_ssh_password  CC=12  out:13
     ssh_auth_hint  CC=3  out:2
     ssh_config_path  CC=1  out:1
-  packages.uri3.uri3.config.uri_yaml  [3 funcs]
-    is_uri  CC=4  out:3
+  packages.uri3.uri3.config.uri_yaml  [2 funcs]
     load_uri_yaml  CC=2  out:5
-    resolve_uri_values  CC=15  out:13
+    resolve_uri_values  CC=7  out:8
   packages.uri3.uri3.docker.actions.compose  [8 funcs]
     _parse_ps_stdout  CC=4  out:5
     compose_base  CC=3  out:2
@@ -1284,9 +1289,6 @@ MODULES:
     _playwright_ready  CC=3  out:5
     cleanup_browser_adapters  CC=2  out:2
     resolve_browser_mode  CC=5  out:3
-  packages.uri3.uri3.graph.adapters.registry  [2 funcs]
-    execute  CC=11  out:6
-    _operator_adapter  CC=2  out:3
   packages.uri3.uri3.graph.adapters.uri2ops_adapter  [8 funcs]
     execute  CC=3  out:13
     _artifact_suffix  CC=9  out:0
@@ -1300,18 +1302,19 @@ MODULES:
     artifact_path  CC=1  out:0
     artifact_uri  CC=1  out:0
     write_artifact  CC=2  out:6
-  packages.uri3.uri3.graph.dependency_graph  [3 funcs]
-    dependency_summary  CC=8  out:7
-    detect_cycles  CC=15  out:7
-    topological_sort  CC=13  out:13
+  packages.uri3.uri3.graph.dependency_graph  [1 funcs]
+    detect_cycles  CC=10  out:7
   packages.uri3.uri3.graph.event_log  [2 funcs]
     append_workflow_event  CC=1  out:6
     workflow_event_path  CC=1  out:0
-  packages.uri3.uri3.graph.execution_models  [1 funcs]
+  packages.uri3.uri3.graph.execution_models  [4 funcs]
+    to_dict  CC=5  out:2
+    to_dict  CC=4  out:1
+    new_execution_context  CC=2  out:3
     utc_now_iso  CC=1  out:3
   packages.uri3.uri3.graph.graph_executor  [2 funcs]
     build_execution_plan  CC=3  out:10
-    run_workflow  CC=22  out:40
+    run_workflow  CC=13  out:26
   packages.uri3.uri3.graph.graph_serializer  [3 funcs]
     edges_from_depends_on  CC=4  out:5
     normalize_graph_payload  CC=12  out:24
@@ -1332,6 +1335,13 @@ MODULES:
     validate_node_operation  CC=2  out:5
   packages.uri3.uri3.graph.policy  [1 funcs]
     can_execute_step  CC=6  out:2
+  packages.uri3.uri3.graph.replay  [6 funcs]
+    _resolve_event_path  CC=3  out:6
+    build_task_payload_from_events  CC=8  out:12
+    create_regression_test  CC=11  out:22
+    load_workflow_events  CC=4  out:7
+    render_regression_test  CC=5  out:5
+    replay_workflow_events  CC=10  out:13
   packages.uri3.uri3.logs.filters  [7 funcs]
     entry_timestamp  CC=4  out:5
     level_rank  CC=3  out:2
@@ -1433,8 +1443,16 @@ MODULES:
     resolve_ssh  CC=1  out:6
     run_ssh  CC=1  out:2
     ssh_transport_option  CC=4  out:7
-  packages.uri3.uri3.results.service_result  [1 funcs]
+  packages.uri3.uri3.results.envelope  [2 funcs]
+    enrich_step_dict  CC=5  out:15
+    enrich_workflow_dict  CC=12  out:24
+  packages.uri3.uri3.results.errors  [1 funcs]
+    normalize_error  CC=10  out:17
+  packages.uri3.uri3.results.service_result  [2 funcs]
+    finalize  CC=12  out:3
     service_result  CC=3  out:10
+  packages.uri3.uri3.results.statuses  [1 funcs]
+    derive_statuses  CC=5  out:0
   packages.uri3.uri3.scanner.docker_scanner  [5 funcs]
     _compose_ps  CC=6  out:8
     _inspect_container  CC=5  out:9
@@ -1575,30 +1593,18 @@ EDGES:
 ### Code Analysis (`project/analysis.toon.yaml`)
 
 ```toon markpact:analysis path=project/analysis.toon.yaml
-# code2llm | 405f 17704L | python:281,yaml:63,shell:17,json:15,toml:10,txt:4,yml:3,proto:2,mk:2,j2:1 | 2026-06-14
+# code2llm | 411f 18635L | python:282,yaml:66,shell:18,json:15,toml:10,txt:4,yml:3,proto:3,mk:2,j2:1 | 2026-06-14
 # generated in 0.06s
-# CC̅=3.8 | critical:14/760 | dups:0 | cycles:0
+# CC̅=3.6 | critical:2/821 | dups:0 | cycles:0
 
-HEALTH[14]:
-  🟡 CC    detect_cycles CC=15 (limit:15)
-  🟡 CC    resolve_uri_values CC=15 (limit:15)
-  🟡 CC    apply_data_quality CC=18 (limit:15)
-  🟡 CC    sanitize_node CC=16 (limit:15)
+HEALTH[2]:
   🟡 CC    classify_output_kind CC=23 (limit:15)
-  🟡 CC    extract_flow_payload CC=20 (limit:15)
-  🟡 CC    sanitize_flow_step CC=18 (limit:15)
-  🟡 CC    _ensure_step_ids CC=19 (limit:15)
-  🟡 CC    load_manifest_from_dict CC=16 (limit:15)
-  🟡 CC    _call_backend CC=18 (limit:15)
-  🟡 CC    call_uri2ops_backend CC=17 (limit:15)
-  🟡 CC    run_workflow CC=22 (limit:15)
-  🟡 CC    workflow_aggregate_statuses CC=15 (limit:15)
-  🟡 CC    validate_manifest CC=15 (limit:15)
+  🟡 CC    _prune_unknown_after_refs CC=15 (limit:15)
 
 REFACTOR[1]:
-  1. split 14 high-CC methods  (CC>15)
+  1. split 2 high-CC methods  (CC>15)
 
-PIPELINES[207]:
+PIPELINES[214]:
   [1] Src [operations_cmd]: operations_cmd → resolve_operation_registry → load_registry_config → registry_config_path
       PURITY: 100% pure
   [2] Src [registry_cmd]: registry_cmd → _print → print
@@ -1633,19 +1639,19 @@ PIPELINES[207]:
       PURITY: 100% pure
   [17] Src [validate_task]: validate_task
       PURITY: 100% pure
-  [18] Src [adjacency]: adjacency
+  [18] Src [add_node]: add_node
       PURITY: 100% pure
-  [19] Src [reverse_adjacency]: reverse_adjacency
+  [19] Src [add_edge]: add_edge
       PURITY: 100% pure
-  [20] Src [dependency_summary]: dependency_summary → detect_cycles
+  [20] Src [from_dict]: from_dict → list
       PURITY: 100% pure
-  [21] Src [add_node]: add_node
+  [21] Src [to_dict]: to_dict
       PURITY: 100% pure
-  [22] Src [add_edge]: add_edge
+  [22] Src [resolve_ref]: resolve_ref
       PURITY: 100% pure
-  [23] Src [from_dict]: from_dict → list
+  [23] Src [to_dict]: to_dict → enrich_step_dict → step_execution_status
       PURITY: 100% pure
-  [24] Src [to_dict]: to_dict
+  [24] Src [to_dict]: to_dict → enrich_workflow_dict → workflow_aggregate_statuses → _resolve_workflow_status
       PURITY: 100% pure
   [25] Src [execute]: execute → _registry_scheme
       PURITY: 100% pure
@@ -1653,49 +1659,49 @@ PIPELINES[207]:
       PURITY: 100% pure
   [27] Src [execute]: execute → write_artifact → artifact_path
       PURITY: 100% pure
-  [28] Src [execute]: execute
+  [28] Src [execute]: execute → _session_state
       PURITY: 100% pure
-  [29] Src [execute]: execute → resolve_deployment → load_deployment_registry → _read_yaml
+  [29] Src [__init__]: __init__
       PURITY: 100% pure
-  [30] Src [execute]: execute
+  [30] Src [execute]: execute → resolve_browser_mode → _playwright_ready
       PURITY: 100% pure
-  [31] Src [_operator_adapter]: _operator_adapter → _use_legacy_browser_adapter
+  [31] Src [cleanup_browser_adapters]: cleanup_browser_adapters → close_playwright_session
       PURITY: 100% pure
-  [32] Src [execute]: execute → _session_state
+  [32] Src [main]: main → quick_reference → scan_shortcuts → load_cli_config → ...(4 more)
       PURITY: 100% pure
-  [33] Src [__init__]: __init__
+  [33] Src [main_entry]: main_entry
       PURITY: 100% pure
-  [34] Src [execute]: execute → resolve_browser_mode → _playwright_ready
+  [34] Src [register]: register → explain_uri → scheme_from_uri
       PURITY: 100% pure
-  [35] Src [cleanup_browser_adapters]: cleanup_browser_adapters → close_playwright_session
+  [35] Src [register]: register → build_graph_from_tree
       PURITY: 100% pure
-  [36] Src [register]: register → explain_uri → scheme_from_uri
+  [36] Src [register]: register → validate_uri → parse_uri
       PURITY: 100% pure
-  [37] Src [register]: register → build_graph_from_tree
+  [37] Src [register]: register → validate_workflow_graph → load_workflow_graph → normalize_graph_payload → ...(1 more)
       PURITY: 100% pure
-  [38] Src [register]: register → validate_uri → parse_uri
+  [38] Src [register]: register → expand_flow_cmd → expand_flow → load_flow → ...(1 more)
       PURITY: 100% pure
-  [39] Src [register]: register → validate_workflow_graph → load_workflow_graph → normalize_graph_payload → ...(1 more)
+  [39] Src [register]: register → list_payload → cli_examples → load_cli_config → ...(4 more)
       PURITY: 100% pure
-  [40] Src [register]: register → expand_flow_cmd → expand_flow → load_flow → ...(3 more)
+  [40] Src [register]: register → replay_workflow_events → _resolve_event_path → workflow_event_path
       PURITY: 100% pure
-  [41] Src [register]: register → list_payload → cli_examples → load_cli_config → ...(4 more)
+  [41] Src [scan]: scan → parse_uri
       PURITY: 100% pure
-  [42] Src [scan]: scan → parse_uri
+  [42] Src [to_dict]: to_dict
       PURITY: 100% pure
-  [43] Src [to_dict]: to_dict
+  [43] Src [finalize]: finalize → derive_statuses
       PURITY: 100% pure
-  [44] Src [normalize_uri]: normalize_uri → parse_uri
+  [44] Src [to_dict]: to_dict
       PURITY: 100% pure
-  [45] Src [spec]: spec → list
+  [45] Src [normalize_uri]: normalize_uri → parse_uri
       PURITY: 100% pure
-  [46] Src [spec]: spec
+  [46] Src [spec]: spec → list
       PURITY: 100% pure
-  [47] Src [to_dict]: to_dict → list
+  [47] Src [spec]: spec
       PURITY: 100% pure
   [48] Src [to_dict]: to_dict → list
       PURITY: 100% pure
-  [49] Src [spec]: spec
+  [49] Src [to_dict]: to_dict → list
       PURITY: 100% pure
   [50] Src [spec]: spec
       PURITY: 100% pure
@@ -1709,65 +1715,69 @@ LAYERS:
   │ __init__                     0L  0C    0m  CC=0.0    ←0
   │ Dockerfile.j2                0L  0C    0m  CC=0.0    ←0
   │
-  packages/                       CC̄=4.0    ←in:0  →out:0
+  packages/                       CC̄=3.8    ←in:0  →out:0
+  │ graph_executor             361L  0C   13m  CC=13     ←5
   │ graph_planner              322L  0C   11m  CC=12     ←4
-  │ !! graph_executor             290L  0C    6m  CC=22     ←5
+  │ !! flow_repair                261L  0C   20m  CC=15     ←2
   │ cli                        246L  0C   15m  CC=6      ←0
-  │ !! flow_repair                229L  0C   13m  CC=20     ←2
-  │ !! graph_repair               195L  0C    8m  CC=16     ←2
-  │ !! envelope                   175L  0C    8m  CC=15     ←2
+  │ executor                   198L  0C   13m  CC=12     ←1
+  │ graph_repair               195L  0C    9m  CC=14     ←1
+  │ envelope                   189L  0C   11m  CC=12     ←2
   │ lifecycle                  172L  0C    7m  CC=8      ←8
   │ explain                    169L  0C    8m  CC=14     ←2
   │ cli                        166L  0C   16m  CC=5      ←0
   │ replay                     156L  0C    6m  CC=11     ←2
   │ docker_resolver            154L  1C    7m  CC=12     ←5
-  │ !! executor                   153L  0C    6m  CC=18     ←1
   │ status                     151L  0C   10m  CC=11     ←5
   │ graph_planner_llm          147L  0C    3m  CC=4      ←1
+  │ data_quality               146L  0C    4m  CC=9      ←1
   │ pipeline                   141L  2C    4m  CC=4      ←1
   │ execution_models           135L  4C    6m  CC=5      ←2
   │ cli_commands               128L  0C    6m  CC=7      ←1
   │ uri2ops_adapter            122L  1C    9m  CC=9      ←2
   │ instance_parser            119L  0C   13m  CC=4      ←2
-  │ registry                   113L  3C    5m  CC=11     ←1
+  │ registry                   119L  3C    5m  CC=10     ←1
+  │ uri2ops_backend            118L  0C    7m  CC=7      ←1
   │ flow_planner_llm           112L  0C    3m  CC=4      ←1
   │ ssh_resolver               110L  0C    7m  CC=8      ←6
   │ resolver                   107L  1C   10m  CC=7      ←1
+  │ markpact_loader            106L  0C    7m  CC=9      ←1
   │ agent_generator            106L  0C    4m  CC=5      ←2
   │ flow_planner               106L  0C    5m  CC=12     ←4
   │ reader                     104L  0C    5m  CC=9      ←5
-  │ !! uri2ops_backend            104L  0C    4m  CC=17     ←1
-  │ planner_templates          102L  0C    5m  CC=6      ←2
+  │ markpact_loader            104L  0C    6m  CC=13     ←2
+  │ uri_yaml                   103L  0C    6m  CC=7      ←7
   │ service_result             102L  1C    4m  CC=12     ←8
+  │ planner_templates          102L  0C    5m  CC=6      ←2
   │ flow                       100L  0C    3m  CC=6      ←0
   │ compose                     99L  0C    8m  CC=9      ←1
   │ spec_registry               99L  0C    5m  CC=5      ←3
+  │ parser                      99L  1C    4m  CC=12     ←3
   │ ssh_auth                    96L  0C    7m  CC=12     ←2
   │ loader                      96L  0C    5m  CC=6      ←2
-  │ ssh_deploy                  95L  0C    2m  CC=7      ←1
+  │ cli                         95L  0C    7m  CC=4      ←0
   │ uri_graph_backend           95L  0C    4m  CC=9      ←1
+  │ ssh_deploy                  95L  0C    2m  CC=7      ←1
   │ env_resolver                94L  1C    7m  CC=8      ←5
-  │ cli                         92L  0C    7m  CC=4      ←0
   │ docker_scanner              91L  0C    5m  CC=6      ←2
   │ ssh_scanner                 90L  0C    6m  CC=8      ←2
-  │ parser                      90L  1C    4m  CC=12     ←3
-  │ !! uri_yaml                    89L  0C    3m  CC=15     ←7
   │ models                      88L  3C    5m  CC=8      ←0
   │ uri_flow_backend            87L  0C    3m  CC=9      ←1
+  │ !! output_classifier           86L  1C    2m  CC=23     ←2
   │ log_resolver                85L  2C    5m  CC=7      ←3
   │ models                      84L  3C    1m  CC=1      ←0
   │ core                        84L  1C    7m  CC=3      ←0
   │ llm_profiles                83L  1C    4m  CC=10     ←4
-  │ !! data_quality                83L  0C    1m  CC=18     ←1
-  │ !! dependency_graph            82L  0C    5m  CC=15     ←2
   │ expander                    81L  0C    4m  CC=11     ←5
+  │ dependency_graph            81L  0C    6m  CC=10     ←2
   │ discovery                   79L  0C    1m  CC=1      ←0
   │ pack_writer                 79L  0C    1m  CC=3      ←1
-  │ !! output_classifier           78L  0C    1m  CC=23     ←2
   │ browser_playwright          77L  1C    3m  CC=11     ←1
+  │ selector                    77L  0C    3m  CC=14     ←3
   │ http_scanner                76L  0C    6m  CC=7      ←3
   │ log                         76L  0C    1m  CC=3      ←0
   │ docker_runner               76L  0C    6m  CC=9      ←3
+  │ cli                         75L  0C    5m  CC=3      ←1
   │ generator                   75L  0C    2m  CC=2      ←1
   │ local_targets               75L  0C    3m  CC=6      ←1
   │ parsing                     73L  0C    4m  CC=14     ←1
@@ -1778,11 +1788,10 @@ LAYERS:
   │ operation_registry          71L  0C    6m  CC=2      ←8
   │ register                    71L  0C    2m  CC=6      ←1
   │ cli_commands                69L  0C    6m  CC=3      ←1
-  │ markpact_loader             68L  0C    5m  CC=8      ←1
+  │ manifest                    69L  0C    5m  CC=10     ←4
   │ base                        67L  2C    2m  CC=4      ←0
   │ dispatch                    67L  0C    3m  CC=3      ←1
   │ browser_router              66L  1C    5m  CC=5      ←0
-  │ cli                         66L  0C    5m  CC=3      ←1
   │ helpers                     66L  0C    2m  CC=5      ←2
   │ planner_validation          65L  0C    3m  CC=10     ←1
   │ cli_commands                65L  0C    5m  CC=5      ←0
@@ -1790,7 +1799,6 @@ LAYERS:
   │ validator                   64L  0C    3m  CC=11     ←2
   │ graph_serializer            63L  0C    4m  CC=12     ←3
   │ defaults                    63L  0C    4m  CC=4      ←1
-  │ !! manifest                    63L  0C    3m  CC=16     ←3
   │ agent_card                  63L  0C    0m  CC=0.0    ←0
   │ merge_helpers               61L  0C    3m  CC=6      ←1
   │ planner_llm                 59L  0C    2m  CC=4      ←3
@@ -1815,6 +1823,7 @@ LAYERS:
   │ llm_profile_builder         44L  0C    4m  CC=7      ←1
   │ repo_root                   44L  0C    4m  CC=7      ←22
   │ loader                      44L  0C    4m  CC=5      ←3
+  │ validator                   44L  0C    2m  CC=5      ←2
   │ docker                      43L  0C    1m  CC=1      ←0
   │ explain                     42L  0C    2m  CC=12     ←0
   │ scanner                     42L  0C    2m  CC=5      ←0
@@ -1844,13 +1853,12 @@ LAYERS:
   │ run_plans                   33L  0C    1m  CC=5      ←3
   │ pyproject.toml              33L  0C    0m  CC=0.0    ←0
   │ capabilities                32L  0C    1m  CC=13     ←1
-  │ env_merge                   31L  0C    2m  CC=6      ←1
   │ main                        31L  0C    2m  CC=2      ←0
-  │ pyproject.toml              31L  0C    0m  CC=0.0    ←0
+  │ env_merge                   31L  0C    2m  CC=6      ←1
   │ __init__                    31L  0C    0m  CC=0.0    ←0
+  │ pyproject.toml              31L  0C    0m  CC=0.0    ←0
   │ process                     30L  0C    1m  CC=4      ←1
   │ pyproject.toml              30L  0C    0m  CC=0.0    ←0
-  │ !! validator                   29L  0C    1m  CC=15     ←2
   │ router                      28L  1C    3m  CC=2      ←0
   │ env_config                  28L  0C    3m  CC=2      ←1
   │ protocol_resolver           27L  0C    4m  CC=4      ←3
@@ -1859,13 +1867,12 @@ LAYERS:
   │ merger                      26L  0C    1m  CC=2      ←1
   │ resources                   26L  0C    2m  CC=7      ←1
   │ validators                  25L  0C    3m  CC=4      ←0
-  │ model                       25L  1C    1m  CC=1      ←0
-  │ selector                    25L  0C    1m  CC=7      ←3
   │ redaction                   25L  0C    2m  CC=7      ←1
+  │ model                       25L  1C    1m  CC=1      ←0
   │ pyproject.toml              25L  0C    0m  CC=0.0    ←0
   │ conditions                  24L  0C    1m  CC=7      ←1
+  │ loader                      24L  0C    2m  CC=1      ←3
   │ resources                   24L  0C    1m  CC=2      ←1
-  │ loader                      24L  0C    2m  CC=1      ←0
   │ scheme_registry             24L  0C    0m  CC=0.0    ←0
   │ runner                      24L  0C    0m  CC=0.0    ←0
   │ runner                      23L  0C    1m  CC=4      ←2
@@ -1878,9 +1885,11 @@ LAYERS:
   │ policy                      20L  0C    1m  CC=6      ←1
   │ event_log                   20L  0C    2m  CC=1      ←2
   │ uri_tree_validator          20L  0C    2m  CC=2      ←3
+  │ __init__                    20L  0C    0m  CC=0.0    ←0
+  │ __init__                    19L  0C    0m  CC=0.0    ←0
   │ python                      18L  0C    1m  CC=1      ←0
-  │ commands                    18L  0C    1m  CC=2      ←1
   │ file_loader                 18L  0C    2m  CC=2      ←1
+  │ commands                    18L  0C    1m  CC=2      ←1
   │ __init__                    18L  0C    0m  CC=0.0    ←0
   │ parser                      17L  0C    2m  CC=1      ←1
   │ views.yaml                  17L  0C    0m  CC=0.0    ←0
@@ -1889,26 +1898,25 @@ LAYERS:
   │ resource_like               16L  0C    1m  CC=1      ←0
   │ views                       16L  0C    1m  CC=2      ←1
   │ proto_index                 16L  0C    2m  CC=2      ←3
-  │ main                        16L  0C    0m  CC=0.0    ←0
-  │ main                        16L  0C    0m  CC=0.0    ←0
   │ __init__                    16L  0C    0m  CC=0.0    ←0
+  │ main                        16L  0C    0m  CC=0.0    ←0
+  │ main                        16L  0C    0m  CC=0.0    ←0
   │ mcp                         15L  0C    1m  CC=1      ←0
   │ http                        15L  0C    1m  CC=1      ←0
   │ pypi                        15L  0C    1m  CC=1      ←0
   │ a2a                         15L  0C    1m  CC=1      ←0
   │ shell_backend               15L  0C    1m  CC=1      ←1
   │ resources.yaml              15L  0C    0m  CC=0.0    ←0
-  │ remote_runner               15L  0C    0m  CC=0.0    ←0
   │ __init__                    15L  0C    0m  CC=0.0    ←0
+  │ remote_runner               15L  0C    0m  CC=0.0    ←0
   │ weather                     14L  0C    1m  CC=1      ←0
+  │ registry_loader             14L  0C    1m  CC=2      ←0
   │ renderers                   14L  0C    1m  CC=3      ←1
   │ ssh_helpers                 14L  0C    2m  CC=2      ←2
-  │ registry_loader             14L  0C    1m  CC=2      ←3
   │ planner                     13L  1C    1m  CC=1      ←1
   │ validate                    13L  0C    1m  CC=1      ←2
   │ base                        12L  1C    1m  CC=1      ←0
   │ paths                       12L  0C    1m  CC=1      ←1
-  │ __init__                    12L  0C    0m  CC=0.0    ←0
   │ __init__                    12L  0C    0m  CC=0.0    ←0
   │ writer                      11L  0C    1m  CC=1      ←2
   │ handlers                    10L  0C    1m  CC=3      ←1
@@ -1991,7 +1999,7 @@ LAYERS:
   domains/                        CC̄=3.0    ←in:0  →out:0
   │ uri_tree.yaml               85L  0C    0m  CC=0.0    ←0
   │ weather_map.proto           41L  0C    0m  CC=0.0    ←0
-  │ generate_weather_map        24L  0C    1m  CC=3      ←0
+  │ generate_weather_map        24L  0C    1m  CC=3      ←1
   │ resources.yaml              23L  0C    0m  CC=0.0    ←0
   │ views.yaml                  11L  0C    0m  CC=0.0    ←0
   │ renderers.yaml              10L  0C    0m  CC=0.0    ←0
@@ -2018,8 +2026,10 @@ LAYERS:
   │
   examples/                       CC̄=2.2    ←in:0  →out:0
   │ run.sh                      85L  1C    2m  CC=0.0    ←0
+  │ workflow_graph.yaml         82L  0C    0m  CC=0.0    ←0
   │ run.sh                      67L  0C    2m  CC=0.0    ←11
   │ voice_command               66L  0C    2m  CC=7      ←0
+  │ task_plan.yaml              61L  0C    0m  CC=0.0    ←0
   │ tts                         48L  0C    2m  CC=3      ←0
   │ stt_mock.uri.capability.yaml    43L  0C    0m  CC=0.0    ←0
   │ tts_mock.uri.capability.yaml    43L  0C    0m  CC=0.0    ←0
@@ -2035,12 +2045,12 @@ LAYERS:
   │ task.health.yaml            28L  0C    0m  CC=0.0    ←0
   │ task.health.yaml            28L  0C    0m  CC=0.0    ←0
   │ task.pcwin.yaml             26L  0C    0m  CC=0.0    ←0
+  │ run.sh                      25L  0C    0m  CC=0.0    ←0
   │ browser_open_mock.uri.capability.yaml    24L  0C    0m  CC=0.0    ←0
   │ branching.uri.flow.yaml     20L  0C    0m  CC=0.0    ←0
   │ run.sh                      20L  0C    0m  CC=0.0    ←0
   │ check_health_graph.uri.capability.yaml    19L  0C    0m  CC=0.0    ←0
   │ weather_flow_dry_run.uri.capability.yaml    19L  0C    0m  CC=0.0    ←0
-  │ run.sh                      18L  0C    0m  CC=0.0    ←0
   │ run.sh                      17L  0C    0m  CC=0.0    ←0
   │ run.sh                      17L  0C    0m  CC=0.0    ←0
   │ mock_echo.uri.capability.yaml    12L  0C    0m  CC=0.0    ←0
@@ -2058,7 +2068,6 @@ LAYERS:
   │ create_orders_agent.yaml     0L  0C    0m  CC=0.0    ←0
   │ broken_agent.yaml            0L  0C    0m  CC=0.0    ←0
   │ create_invoices_agent_prompt.txt     0L  0C    0m  CC=0.0    ←0
-  │ __init__                     0L  0C    0m  CC=0.0    ←0
   │
   runtime_client/                 CC̄=1.7    ←in:0  →out:0
   │ client                       0L  1C    3m  CC=2      ←0
@@ -2068,6 +2077,9 @@ LAYERS:
   │
   nl2a/                           CC̄=1.0    ←in:0  →out:1
   │ cli                          0L  0C    2m  CC=1      ←0
+  │
+  scripts/                        CC̄=0.0    ←in:0  →out:0
+  │ test-all-examples.sh       160L  0C   12m  CC=0.0    ←0
   │
   ./                              CC̄=0.0    ←in:0  →out:0
   │ !! planfile.yaml             1319L  0C    0m  CC=0.0    ←0
@@ -2096,12 +2108,14 @@ LAYERS:
   │ domain_pack.schema.json     20L  0C    0m  CC=0.0    ←0
   │
   contracts/                      CC̄=0.0    ←in:0  →out:0
+  │ views.yaml                  52L  0C    0m  CC=0.0    ←0
+  │ resources.yaml              43L  0C    0m  CC=0.0    ←0
   │ user.proto                  39L  0C    0m  CC=0.0    ←0
   │ user_agent.yaml             38L  0C    0m  CC=0.0    ←0
-  │ views.yaml                  34L  0C    0m  CC=0.0    ←0
-  │ resources.yaml              29L  0C    0m  CC=0.0    ←0
+  │ invoices.proto              32L  0C    0m  CC=0.0    ←0
   │ standards.yaml              28L  0C    0m  CC=0.0    ←0
   │ registry.yaml               28L  0C    0m  CC=0.0    ←0
+  │ invoices_agent.yaml         28L  0C    0m  CC=0.0    ←0
   │ policy.yaml                 24L  0C    0m  CC=0.0    ←0
   │ weather_map_agent.yaml      22L  0C    0m  CC=0.0    ←0
   │
@@ -2151,7 +2165,6 @@ LAYERS:
   ── zero ──
      evolution/proposals/add_invoices_agent.yaml  0L
      evolution/proposals/add_orders_agent.yaml  0L
-     examples/21_touri_voice/touri_examples_voice/__init__.py  0L
      examples/broken_agent.yaml                0L
      examples/create_invoices_agent_prompt.txt  0L
      examples/create_orders_agent.yaml         0L
@@ -2225,39 +2238,39 @@ LAYERS:
      uri3/validators/uri_validator.py          0L
 
 COUPLING:
-                                                           packages.uri3  packages.resource-agent-hypervisor                      packages.touri                     packages.nl2uri          uri2ops.operation_registry             examples.21_touri_voice                           generator                   packages.uri2flow             uri2ops.remote_registry                          meta_agent        hypervisor.contract_registry     packages.resource-agent-factory                             uri2ops                      uri2ops.server                   meta_agent.repair
-                       packages.uri3                                  ──                                  12                                   2                                 ←27                                  21                                                                                                           4                                   2                                                                                                          ←1                                                                                                              hub
-  packages.resource-agent-hypervisor                                  46                                  ──                                                                       1                                   3                                  24                                   4                                   1                                                                       3                                   7                                   1                                                                                                           2  hub
-                      packages.touri                                  49                                                                      ──                                                                       4                                   1                                                                       1                                                                                                                                                                                                                                                              !! fan-out
-                     packages.nl2uri                                  27                                   2                                                                      ──                                   9                                  ←1                                   1                                   5                                                                                                           1                                   1                                                                       1                                      !! fan-out
-          uri2ops.operation_registry                                 ←21                                  ←3                                  ←4                                  ←9                                  ──                                                                                                                                               1                                                                                                                                              ←2                                  ←1                                      hub
-             examples.21_touri_voice                                                                     ←24                                  ←1                                   1                                                                      ──                                  ←8                                  ←3                                                                                                                                              ←2                                  ←1                                                                          hub
-                           generator                                                                      ←4                                                                      ←1                                                                       8                                  ──                                                                                                          ←2                                                                      ←4                                                                                                          ←3  hub
-                   packages.uri2flow                                   1                                  ←1                                  ←1                                  ←5                                                                       3                                                                      ──                                                                                                                                                                                                                                                              hub
-             uri2ops.remote_registry                                  ←2                                                                                                                                               4                                                                                                                                              ──                                                                                                                                              ←3                                  ←3                                      hub
+                                                           packages.uri3  packages.resource-agent-hypervisor                      packages.touri                     packages.nl2uri             examples.21_touri_voice          uri2ops.operation_registry                           generator                   packages.uri2flow             uri2ops.remote_registry                          meta_agent        hypervisor.contract_registry     packages.resource-agent-factory                             uri2ops                      uri2ops.server                   meta_agent.repair
+                       packages.uri3                                  ──                                  13                                   2                                 ←27                                                                      21                                                                       4                                   2                                                                                                          ←1                                                                                                              hub
+  packages.resource-agent-hypervisor                                  46                                  ──                                                                       1                                  24                                   3                                   4                                   1                                                                       3                                   7                                   1                                                                                                           2  hub
+                      packages.touri                                  45                                                                      ──                                                                       1                                   4                                                                       2                                                                                                                                                                                                                                                              !! fan-out
+                     packages.nl2uri                                  27                                   2                                                                      ──                                  ←1                                   7                                   1                                   5                                                                                                           1                                   1                                                                       1                                      !! fan-out
+             examples.21_touri_voice                                                                     ←24                                  ←1                                   1                                  ──                                                                      ←8                                  ←3                                                                                                                                              ←2                                  ←1                                                                          hub
+          uri2ops.operation_registry                                 ←21                                  ←3                                  ←4                                  ←7                                                                      ──                                                                                                           1                                                                                                                                              ←2                                  ←1                                      hub
+                           generator                                                                      ←4                                                                      ←1                                   8                                                                      ──                                                                                                          ←2                                                                      ←4                                                                                                          ←3  hub
+                   packages.uri2flow                                   1                                  ←1                                  ←2                                  ←5                                   3                                                                                                          ──                                                                                                                                                                                                                                                              hub
+             uri2ops.remote_registry                                  ←2                                                                                                                                                                                   4                                                                                                          ──                                                                                                                                              ←3                                  ←3                                      hub
                           meta_agent                                                                       5                                                                                                                                                                                   2                                                                                                          ──                                                                                                                                                                                   1  !! fan-out
         hypervisor.contract_registry                                                                      ←7                                                                      ←1                                                                                                                                                                                                                                                          ──                                                                                                                                                  hub
-     packages.resource-agent-factory                                   1                                  ←1                                                                      ←1                                                                       2                                   4                                                                                                                                                                                  ──                                                                                                            
-                             uri2ops                                                                                                                                                                                   2                                   1                                                                                                           3                                                                                                                                              ──                                   3                                      !! fan-out
-                      uri2ops.server                                                                                                                                              ←1                                   1                                                                                                                                               3                                                                                                                                              ←3                                  ──                                    
+     packages.resource-agent-factory                                   1                                  ←1                                                                      ←1                                   2                                                                       4                                                                                                                                                                                  ──                                                                                                            
+                             uri2ops                                                                                                                                                                                   1                                   2                                                                                                           3                                                                                                                                              ──                                   3                                      !! fan-out
+                      uri2ops.server                                                                                                                                              ←1                                                                       1                                                                                                           3                                                                                                                                              ←3                                  ──                                    
                    meta_agent.repair                                                                      ←2                                                                                                                                                                                   3                                                                                                           1                                                                                                                                                                                  ──
   CYCLES: none
-  HUB: hypervisor.contract_registry/ (fan-in=11)
-  HUB: uri3.resolvers/ (fan-in=5)
-  HUB: uri2ops.operation_registry/ (fan-in=45)
   HUB: examples.21_touri_voice/ (fan-in=43)
   HUB: generator/ (fan-in=14)
-  HUB: packages.uri3/ (fan-in=125)
+  HUB: packages.uri2flow/ (fan-in=12)
+  HUB: packages.resource-agent-hypervisor/ (fan-in=22)
+  HUB: uri2ops.operation_registry/ (fan-in=43)
+  HUB: packages.uri3/ (fan-in=121)
   HUB: uri2ops.remote_registry/ (fan-in=9)
-  HUB: packages.uri2flow/ (fan-in=11)
-  HUB: packages.resource-agent-hypervisor/ (fan-in=21)
-  SMELL: packages.touri/ fan-out=55 → split needed
-  SMELL: meta_agent/ fan-out=8 → split needed
-  SMELL: uri2ops/ fan-out=9 → split needed
-  SMELL: packages.nl2uri/ fan-out=50 → split needed
+  HUB: hypervisor.contract_registry/ (fan-in=11)
+  HUB: uri3.resolvers/ (fan-in=5)
   SMELL: generator/ fan-out=8 → split needed
-  SMELL: packages.uri3/ fan-out=51 → split needed
+  SMELL: uri2ops/ fan-out=9 → split needed
+  SMELL: packages.nl2uri/ fan-out=48 → split needed
   SMELL: packages.resource-agent-hypervisor/ fan-out=98 → split needed
+  SMELL: packages.uri3/ fan-out=52 → split needed
+  SMELL: meta_agent/ fan-out=8 → split needed
+  SMELL: packages.touri/ fan-out=53 → split needed
 
 EXTERNAL:
   validation: run `vallm batch .` → validation.toon
@@ -2267,26 +2280,26 @@ EXTERNAL:
 ### Duplication (`project/duplication.toon.yaml`)
 
 ```toon markpact:analysis path=project/duplication.toon.yaml
-# redup/duplication | 25 groups | 325f 15735L | 2026-06-14
+# redup/duplication | 30 groups | 327f 16247L | 2026-06-14
 
 SUMMARY:
-  files_scanned: 325
-  total_lines:   15735
-  dup_groups:    25
-  dup_fragments: 65
-  saved_lines:   360
-  scan_ms:       2861
+  files_scanned: 327
+  total_lines:   16247
+  dup_groups:    30
+  dup_fragments: 76
+  saved_lines:   415
+  scan_ms:       2721
 
 HOTSPOTS[7] (files with most duplication):
   packages/touri/touri/backends/uri_graph_backend.py  dup=78L  groups=4  frags=4  (0.5%)
   packages/resource-agent-hypervisor/hypervisor/domain_pack/templates.py  dup=76L  groups=1  frags=3  (0.5%)
-  packages/touri/touri/backends/uri_flow_backend.py  dup=73L  groups=3  frags=3  (0.5%)
+  packages/touri/touri/backends/uri_flow_backend.py  dup=73L  groups=3  frags=3  (0.4%)
   packages/nl2uri/nl2uri/cli.py  dup=50L  groups=2  frags=4  (0.3%)
-  packages/uri3/uri3/protocols/schemes/instance_parser.py  dup=40L  groups=1  frags=10  (0.3%)
-  domains/weather_map/handlers/generate_weather_map.py  dup=18L  groups=1  frags=1  (0.1%)
-  packages/uri3/domains/weather_map/handlers/generate_weather_map.py  dup=18L  groups=1  frags=1  (0.1%)
+  packages/touri/touri/loaders/markpact_loader.py  dup=42L  groups=4  frags=4  (0.3%)
+  packages/uri2flow/uri2flow/loaders/markpact_loader.py  dup=42L  groups=4  frags=4  (0.3%)
+  packages/uri3/uri3/protocols/schemes/instance_parser.py  dup=40L  groups=1  frags=10  (0.2%)
 
-DUPLICATES[25] (ranked by impact):
+DUPLICATES[30] (ranked by impact):
   [49d1d03e6ce392a1] ! STRU  weather_proto  L=43 N=3 saved=86 sim=1.00
       packages/resource-agent-hypervisor/hypervisor/domain_pack/templates.py:36-78  (weather_proto)
       packages/resource-agent-hypervisor/hypervisor/domain_pack/templates.py:81-106  (weather_handler)
@@ -2311,9 +2324,16 @@ DUPLICATES[25] (ranked by impact):
   [1b86825b8b7cb469]   EXAC  handler  L=18 N=2 saved=18 sim=1.00
       domains/weather_map/handlers/generate_weather_map.py:7-24  (handler)
       packages/uri3/domains/weather_map/handlers/generate_weather_map.py:7-24  (handler)
+  [d55d49dd77a07b26]   EXAC  resolve_markpact_ref  L=17 N=2 saved=17 sim=1.00
+      packages/touri/touri/loaders/markpact_loader.py:31-47  (resolve_markpact_ref)
+      packages/uri2flow/uri2flow/loaders/markpact_loader.py:28-44  (resolve_markpact_ref)
   [16b912bffbd4a264]   EXAC  _playwright_ready  L=17 N=2 saved=17 sim=1.00
       packages/uri2ops/uri2ops/operator/adapters/browser_router.py:12-28  (_playwright_ready)
       packages/uri3/uri3/graph/adapters/browser_router.py:15-31  (_playwright_ready)
+  [cd731811a0738f0d]   EXAC  _find_repo_root  L=6 N=3 saved=12 sim=1.00
+      packages/touri/touri/loaders/markpact_loader.py:23-28  (_find_repo_root)
+      packages/uri2flow/uri2flow/loaders/markpact_loader.py:20-25  (_find_repo_root)
+      packages/uri3/uri3/resolvers/explain.py:16-21  (_find_repo_root)
   [70c693fa623a6ad1]   EXAC  _task_context  L=3 N=5 saved=12 sim=1.00
       packages/uri2ops/uri2ops/operator/adapters/android_adb.py:16-18  (_task_context)
       packages/uri2ops/uri2ops/operator/adapters/android_mock.py:10-12  (_task_context)
@@ -2332,9 +2352,18 @@ DUPLICATES[25] (ranked by impact):
   [71dc3d2f70a63bf5]   STRU  spec  L=12 N=2 saved=12 sim=1.00
       packages/uri3/uri3/protocols/schemes/a2a.py:4-15  (spec)
       packages/uri3/uri3/protocols/schemes/mcp.py:4-15  (spec)
+  [ea679417d534c4cc]   EXAC  extract_markpact_blocks  L=11 N=2 saved=11 sim=1.00
+      packages/touri/touri/loaders/markpact_loader.py:50-60  (extract_markpact_blocks)
+      packages/uri2flow/uri2flow/loaders/markpact_loader.py:47-57  (extract_markpact_blocks)
   [f7665e0d5298a930]   EXAC  _resolve_path  L=10 N=2 saved=10 sim=1.00
       packages/touri/touri/backends/uri_flow_backend.py:11-20  (_resolve_path)
       packages/touri/touri/backends/uri_graph_backend.py:12-21  (_resolve_path)
+  [62a8513296e2beba]   STRU  _block_capability_id  L=8 N=2 saved=8 sim=1.00
+      packages/touri/touri/loaders/markpact_loader.py:63-70  (_block_capability_id)
+      packages/uri2flow/uri2flow/loaders/markpact_loader.py:60-67  (_block_flow_id)
+  [f2abbf1807b08458]   STRU  _call_uri_flow_backend  L=7 N=2 saved=7 sim=1.00
+      packages/touri/touri/executor.py:30-36  (_call_uri_flow_backend)
+      packages/touri/touri/executor.py:39-45  (_call_uri_graph_backend)
   [0e9dc2bdedc9fb73]   STRU  window_id_from_payload  L=7 N=2 saved=7 sim=1.00
       packages/uri2ops/uri2ops/operator/adapters/pcwin_uri.py:32-38  (window_id_from_payload)
       packages/uri2ops/uri2ops/operator/adapters/pcwin_uri.py:41-47  (automation_id_from_payload)
@@ -2355,7 +2384,7 @@ DUPLICATES[25] (ranked by impact):
       examples/21_touri_voice/touri_examples_voice/voice_command.py:9-13  (_artifact_dir)
   [fe6e01c31980976b]   STRU  _load_graph  L=5 N=2 saved=5 sim=1.00
       packages/touri/touri/backends/uri_graph_backend.py:32-36  (_load_graph)
-      packages/touri/touri/manifest.py:11-15  (_read_yaml)
+      packages/touri/touri/manifest.py:13-17  (_read_yaml)
   [9a928c6cb43e19ba]   STRU  _first  L=5 N=2 saved=5 sim=1.00
       packages/uri3/uri3/resolvers/docker_resolver.py:61-65  (_first)
       packages/uri3/uri3/resolvers/log_query.py:7-11  (first)
@@ -2366,8 +2395,8 @@ DUPLICATES[25] (ranked by impact):
       packages/touri/touri/backends/uri2ops_backend.py:27-30  (_registry_scheme)
       packages/uri3/uri3/graph/adapters/uri2ops_adapter.py:37-40  (_registry_scheme)
   [9fb5c83bb992966d]   STRU  validate_flow_document  L=4 N=2 saved=4 sim=1.00
-      packages/nl2uri/nl2uri/flow_repair.py:207-210  (validate_flow_document)
-      packages/nl2uri/nl2uri/flow_repair.py:213-216  (validate_expanded_flow)
+      packages/nl2uri/nl2uri/flow_repair.py:239-242  (validate_flow_document)
+      packages/nl2uri/nl2uri/flow_repair.py:245-248  (validate_expanded_flow)
   [060fe645d32f78c5]   STRU  run_build_command  L=4 N=2 saved=4 sim=1.00
       packages/resource-agent-hypervisor/hypervisor/contract_registry/cli_commands.py:33-36  (run_build_command)
       packages/resource-agent-hypervisor/hypervisor/contract_registry/cli_commands.py:39-42  (run_export_md_command)
@@ -2378,7 +2407,7 @@ DUPLICATES[25] (ranked by impact):
       packages/uri3/uri3/resolvers/protocol_resolver.py:10-12  (resolve_a2a)
       packages/uri3/uri3/resolvers/protocol_resolver.py:15-17  (resolve_mcp)
 
-REFACTOR[25] (ranked by priority):
+REFACTOR[30] (ranked by priority):
   [1] ○ extract_function   → packages/resource-agent-hypervisor/hypervisor/domain_pack/utils/weather_proto.py
       WHY: 3 occurrences of 43-line block across 1 files — saves 86 lines
       FILES: packages/resource-agent-hypervisor/hypervisor/domain_pack/templates.py
@@ -2394,68 +2423,83 @@ REFACTOR[25] (ranked by priority):
   [5] ○ extract_function   → utils/handler.py
       WHY: 2 occurrences of 18-line block across 2 files — saves 18 lines
       FILES: domains/weather_map/handlers/generate_weather_map.py, packages/uri3/domains/weather_map/handlers/generate_weather_map.py
-  [6] ○ extract_function   → packages/utils/_playwright_ready.py
+  [6] ○ extract_function   → packages/utils/resolve_markpact_ref.py
+      WHY: 2 occurrences of 17-line block across 2 files — saves 17 lines
+      FILES: packages/touri/touri/loaders/markpact_loader.py, packages/uri2flow/uri2flow/loaders/markpact_loader.py
+  [7] ○ extract_function   → packages/utils/_playwright_ready.py
       WHY: 2 occurrences of 17-line block across 2 files — saves 17 lines
       FILES: packages/uri2ops/uri2ops/operator/adapters/browser_router.py, packages/uri3/uri3/graph/adapters/browser_router.py
-  [7] ○ extract_function   → packages/uri2ops/uri2ops/operator/adapters/utils/_task_context.py
+  [8] ○ extract_function   → packages/utils/_find_repo_root.py
+      WHY: 3 occurrences of 6-line block across 3 files — saves 12 lines
+      FILES: packages/touri/touri/loaders/markpact_loader.py, packages/uri2flow/uri2flow/loaders/markpact_loader.py, packages/uri3/uri3/resolvers/explain.py
+  [9] ○ extract_function   → packages/uri2ops/uri2ops/operator/adapters/utils/_task_context.py
       WHY: 5 occurrences of 3-line block across 5 files — saves 12 lines
       FILES: packages/uri2ops/uri2ops/operator/adapters/android_adb.py, packages/uri2ops/uri2ops/operator/adapters/android_mock.py, packages/uri2ops/uri2ops/operator/adapters/browser_playwright.py, packages/uri2ops/uri2ops/operator/adapters/pcwin_mock.py, packages/uri2ops/uri2ops/operator/adapters/pcwin_uia.py
-  [8] ○ extract_function   → packages/nl2uri/nl2uri/utils/_slug.py
+  [10] ○ extract_function   → packages/nl2uri/nl2uri/utils/_slug.py
       WHY: 4 occurrences of 4-line block across 4 files — saves 12 lines
       FILES: packages/nl2uri/nl2uri/flow_repair.py, packages/nl2uri/nl2uri/graph_planner.py, packages/nl2uri/nl2uri/graph_repair.py, packages/nl2uri/nl2uri/planner_templates.py
-  [9] ○ extract_function   → packages/resource-agent-factory/generator/utils/python_file_header.py
+  [11] ○ extract_function   → packages/resource-agent-factory/generator/utils/python_file_header.py
       WHY: 3 occurrences of 6-line block across 1 files — saves 12 lines
       FILES: packages/resource-agent-factory/generator/header.py
-  [10] ○ extract_function   → packages/uri3/uri3/protocols/schemes/utils/spec.py
+  [12] ○ extract_function   → packages/uri3/uri3/protocols/schemes/utils/spec.py
       WHY: 2 occurrences of 12-line block across 2 files — saves 12 lines
       FILES: packages/uri3/uri3/protocols/schemes/a2a.py, packages/uri3/uri3/protocols/schemes/mcp.py
-  [11] ○ extract_function   → packages/touri/touri/backends/utils/_resolve_path.py
+  [13] ○ extract_function   → packages/utils/extract_markpact_blocks.py
+      WHY: 2 occurrences of 11-line block across 2 files — saves 11 lines
+      FILES: packages/touri/touri/loaders/markpact_loader.py, packages/uri2flow/uri2flow/loaders/markpact_loader.py
+  [14] ○ extract_function   → packages/touri/touri/backends/utils/_resolve_path.py
       WHY: 2 occurrences of 10-line block across 2 files — saves 10 lines
       FILES: packages/touri/touri/backends/uri_flow_backend.py, packages/touri/touri/backends/uri_graph_backend.py
-  [12] ○ extract_function   → packages/uri2ops/uri2ops/operator/adapters/utils/window_id_from_payload.py
+  [15] ○ extract_function   → packages/utils/_block_capability_id.py
+      WHY: 2 occurrences of 8-line block across 2 files — saves 8 lines
+      FILES: packages/touri/touri/loaders/markpact_loader.py, packages/uri2flow/uri2flow/loaders/markpact_loader.py
+  [16] ○ extract_function   → packages/touri/touri/utils/_call_uri_flow_backend.py
+      WHY: 2 occurrences of 7-line block across 1 files — saves 7 lines
+      FILES: packages/touri/touri/executor.py
+  [17] ○ extract_function   → packages/uri2ops/uri2ops/operator/adapters/utils/window_id_from_payload.py
       WHY: 2 occurrences of 7-line block across 1 files — saves 7 lines
       FILES: packages/uri2ops/uri2ops/operator/adapters/pcwin_uri.py
-  [13] ○ extract_function   → packages/touri/touri/backends/utils/_execution_options.py
+  [18] ○ extract_function   → packages/touri/touri/backends/utils/_execution_options.py
       WHY: 2 occurrences of 6-line block across 2 files — saves 6 lines
       FILES: packages/touri/touri/backends/uri_flow_backend.py, packages/touri/touri/backends/uri_graph_backend.py
-  [14] ○ extract_function   → packages/nl2uri/nl2uri/utils/single.py
+  [19] ○ extract_function   → packages/nl2uri/nl2uri/utils/single.py
       WHY: 2 occurrences of 6-line block across 1 files — saves 6 lines
       FILES: packages/nl2uri/nl2uri/cli.py
-  [15] ○ extract_function   → packages/resource-agent-hypervisor/hypervisor/utils/deploy_agent_cmd.py
+  [20] ○ extract_function   → packages/resource-agent-hypervisor/hypervisor/utils/deploy_agent_cmd.py
       WHY: 2 occurrences of 6-line block across 1 files — saves 6 lines
       FILES: packages/resource-agent-hypervisor/hypervisor/cli.py
-  [16] ○ extract_function   → packages/uri3/uri3/graph/utils/adjacency.py
+  [21] ○ extract_function   → packages/uri3/uri3/graph/utils/adjacency.py
       WHY: 2 occurrences of 6-line block across 1 files — saves 6 lines
       FILES: packages/uri3/uri3/graph/dependency_graph.py
-  [17] ○ extract_function   → examples/21_touri_voice/touri_examples_voice/utils/_artifact_dir.py
+  [22] ○ extract_function   → examples/21_touri_voice/touri_examples_voice/utils/_artifact_dir.py
       WHY: 2 occurrences of 5-line block across 2 files — saves 5 lines
       FILES: examples/21_touri_voice/touri_examples_voice/tts.py, examples/21_touri_voice/touri_examples_voice/voice_command.py
-  [18] ○ extract_function   → packages/touri/touri/utils/_load_graph.py
+  [23] ○ extract_function   → packages/touri/touri/utils/_load_graph.py
       WHY: 2 occurrences of 5-line block across 2 files — saves 5 lines
       FILES: packages/touri/touri/backends/uri_graph_backend.py, packages/touri/touri/manifest.py
-  [19] ○ extract_function   → packages/uri3/uri3/resolvers/utils/_first.py
+  [24] ○ extract_function   → packages/uri3/uri3/resolvers/utils/_first.py
       WHY: 2 occurrences of 5-line block across 2 files — saves 5 lines
       FILES: packages/uri3/uri3/resolvers/docker_resolver.py, packages/uri3/uri3/resolvers/log_query.py
-  [20] ○ extract_function   → packages/uri3/uri3/resolvers/utils/_bool.py
+  [25] ○ extract_function   → packages/uri3/uri3/resolvers/utils/_bool.py
       WHY: 2 occurrences of 5-line block across 2 files — saves 5 lines
       FILES: packages/uri3/uri3/resolvers/docker_resolver.py, packages/uri3/uri3/resolvers/log_query.py
-  [21] ○ extract_function   → packages/utils/_registry_scheme.py
+  [26] ○ extract_function   → packages/utils/_registry_scheme.py
       WHY: 2 occurrences of 4-line block across 2 files — saves 4 lines
       FILES: packages/touri/touri/backends/uri2ops_backend.py, packages/uri3/uri3/graph/adapters/uri2ops_adapter.py
-  [22] ○ extract_function   → packages/nl2uri/nl2uri/utils/validate_flow_document.py
+  [27] ○ extract_function   → packages/nl2uri/nl2uri/utils/validate_flow_document.py
       WHY: 2 occurrences of 4-line block across 1 files — saves 4 lines
       FILES: packages/nl2uri/nl2uri/flow_repair.py
-  [23] ○ extract_function   → packages/resource-agent-hypervisor/hypervisor/contract_registry/utils/run_build_command.py
+  [28] ○ extract_function   → packages/resource-agent-hypervisor/hypervisor/contract_registry/utils/run_build_command.py
       WHY: 2 occurrences of 4-line block across 1 files — saves 4 lines
       FILES: packages/resource-agent-hypervisor/hypervisor/contract_registry/cli_commands.py
-  [24] ○ extract_function   → packages/uri2ops/uri2ops/utils/policy_config_path.py
+  [29] ○ extract_function   → packages/uri2ops/uri2ops/utils/policy_config_path.py
       WHY: 2 occurrences of 3-line block across 2 files — saves 3 lines
       FILES: packages/uri2ops/uri2ops/operator/policy_loader.py, packages/uri2ops/uri2ops/remote_registry/loader.py
-  [25] ○ extract_function   → packages/uri3/uri3/resolvers/utils/resolve_a2a.py
+  [30] ○ extract_function   → packages/uri3/uri3/resolvers/utils/resolve_a2a.py
       WHY: 2 occurrences of 3-line block across 1 files — saves 3 lines
       FILES: packages/uri3/uri3/resolvers/protocol_resolver.py
 
-QUICK_WINS[15] (low risk, high savings — do first):
+QUICK_WINS[20] (low risk, high savings — do first):
   [1] extract_function   saved=86L  → packages/resource-agent-hypervisor/hypervisor/domain_pack/utils/weather_proto.py
       FILES: templates.py
   [3] extract_function   saved=36L  → packages/uri3/uri3/protocols/schemes/utils/_parse_env.py
@@ -2464,88 +2508,56 @@ QUICK_WINS[15] (low risk, high savings — do first):
       FILES: cli.py
   [5] extract_function   saved=18L  → utils/handler.py
       FILES: generate_weather_map.py, generate_weather_map.py
-  [6] extract_function   saved=17L  → packages/utils/_playwright_ready.py
+  [6] extract_function   saved=17L  → packages/utils/resolve_markpact_ref.py
+      FILES: markpact_loader.py, markpact_loader.py
+  [7] extract_function   saved=17L  → packages/utils/_playwright_ready.py
       FILES: browser_router.py, browser_router.py
-  [7] extract_function   saved=12L  → packages/uri2ops/uri2ops/operator/adapters/utils/_task_context.py
+  [8] extract_function   saved=12L  → packages/utils/_find_repo_root.py
+      FILES: markpact_loader.py, markpact_loader.py, explain.py
+  [9] extract_function   saved=12L  → packages/uri2ops/uri2ops/operator/adapters/utils/_task_context.py
       FILES: android_adb.py, android_mock.py, browser_playwright.py +2
-  [8] extract_function   saved=12L  → packages/nl2uri/nl2uri/utils/_slug.py
+  [10] extract_function   saved=12L  → packages/nl2uri/nl2uri/utils/_slug.py
       FILES: flow_repair.py, graph_planner.py, graph_repair.py +1
-  [9] extract_function   saved=12L  → packages/resource-agent-factory/generator/utils/python_file_header.py
+  [11] extract_function   saved=12L  → packages/resource-agent-factory/generator/utils/python_file_header.py
       FILES: header.py
-  [10] extract_function   saved=12L  → packages/uri3/uri3/protocols/schemes/utils/spec.py
-      FILES: a2a.py, mcp.py
-  [11] extract_function   saved=10L  → packages/touri/touri/backends/utils/_resolve_path.py
-      FILES: uri_flow_backend.py, uri_graph_backend.py
 
 DEPENDENCY_RISK[1] (duplicates spanning multiple packages):
   handler  packages=2  files=2
       domains/weather_map/handlers/generate_weather_map.py
       packages/uri3/domains/weather_map/handlers/generate_weather_map.py
 
-EFFORT_ESTIMATE (total ≈ 15.0h):
+EFFORT_ESTIMATE (total ≈ 16.8h):
   hard   weather_proto                       saved=86L  ~258min
   hard   call_uri_flow_backend               saved=57L  ~171min
   medium _parse_env                          saved=36L  ~72min
   medium task                                saved=19L  ~38min
   medium handler                             saved=18L  ~72min
+  medium resolve_markpact_ref                saved=17L  ~34min
   medium _playwright_ready                   saved=17L  ~34min
+  easy   _find_repo_root                     saved=12L  ~24min
   easy   _task_context                       saved=12L  ~24min
   easy   _slug                               saved=12L  ~24min
-  easy   python_file_header                  saved=12L  ~24min
-  easy   spec                                saved=12L  ~24min
-  ... +15 more (~158min)
+  ... +20 more (~258min)
 
 METRICS-TARGET:
-  dup_groups:  25 → 0
-  saved_lines: 360 lines recoverable
+  dup_groups:  30 → 0
+  saved_lines: 415 lines recoverable
 ```
 
 ### Evolution / Churn (`project/evolution.toon.yaml`)
 
 ```toon markpact:analysis path=project/evolution.toon.yaml
-# code2llm/evolution | 750 func | 224f | 2026-06-14
+# code2llm/evolution | 799 func | 225f | 2026-06-14
 # generated in 0.00s
 
-NEXT[10] (ranked by impact):
-  [1] !  SPLIT-FUNC      run_workflow  CC=22  fan=25
-      WHY: CC=22 exceeds 15
-      EFFORT: ~1h  IMPACT: 550
+NEXT[2] (ranked by impact):
+  [1] !! SPLIT           planfile.yaml
+      WHY: 1319L, 0 classes, max CC=0
+      EFFORT: ~4h  IMPACT: 0
 
-  [2] !  SPLIT-FUNC      call_uri2ops_backend  CC=17  fan=19
-      WHY: CC=17 exceeds 15
-      EFFORT: ~1h  IMPACT: 323
-
-  [3] !  SPLIT-FUNC      classify_output_kind  CC=23  fan=11
-      WHY: CC=23 exceeds 15
-      EFFORT: ~1h  IMPACT: 253
-
-  [4] !  SPLIT-FUNC      _ensure_step_ids  CC=19  fan=13
-      WHY: CC=19 exceeds 15
-      EFFORT: ~1h  IMPACT: 247
-
-  [5] !  SPLIT-FUNC      apply_data_quality  CC=18  fan=13
-      WHY: CC=18 exceeds 15
-      EFFORT: ~1h  IMPACT: 234
-
-  [6] !  SPLIT-FUNC      extract_flow_payload  CC=20  fan=10
-      WHY: CC=20 exceeds 15
-      EFFORT: ~1h  IMPACT: 200
-
-  [7] !  SPLIT-FUNC      _call_backend  CC=18  fan=10
-      WHY: CC=18 exceeds 15
-      EFFORT: ~1h  IMPACT: 180
-
-  [8] !  SPLIT-FUNC      load_manifest_from_dict  CC=16  fan=11
-      WHY: CC=16 exceeds 15
-      EFFORT: ~1h  IMPACT: 176
-
-  [9] !  SPLIT-FUNC      sanitize_flow_step  CC=18  fan=9
-      WHY: CC=18 exceeds 15
-      EFFORT: ~1h  IMPACT: 162
-
-  [10] !  SPLIT-FUNC      sanitize_node  CC=16  fan=10
-      WHY: CC=16 exceeds 15
-      EFFORT: ~1h  IMPACT: 160
+  [2] !! SPLIT           goal.yaml
+      WHY: 511L, 0 classes, max CC=0
+      EFFORT: ~4h  IMPACT: 0
 
 
 RISKS[2]:
@@ -2553,10 +2565,10 @@ RISKS[2]:
   ⚠ Splitting goal.yaml may break 0 import paths
 
 METRICS-TARGET:
-  CC̄:          3.8 → ≤2.7
+  CC̄:          3.7 → ≤2.6
   max-CC:      23 → ≤11
   god-modules: 2 → 0
-  high-CC(≥15): 14 → ≤7
+  high-CC(≥15): 2 → ≤1
   hub-types:   0 → ≤0
 
 PATTERNS (language parser shared logic):
@@ -2584,7 +2596,7 @@ PATTERNS (language parser shared logic):
     - Standardized FunctionInfo/ClassInfo models
 
 HISTORY:
-  prev CC̄=3.7 → now CC̄=3.8
+  prev CC̄=3.8 → now CC̄=3.7
 ```
 
 ## Intent

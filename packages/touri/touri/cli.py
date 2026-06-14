@@ -50,6 +50,14 @@ def cmd_register(args):
     return 0 if result.get("ok") else 1
 
 
+def cmd_explain(args):
+    from uri3.resolvers.explain import explain_uri
+
+    payload = explain_uri(args.uri, registry_root=args.registry or None)
+    _print(payload)
+    return 0
+
+
 def build_parser():
     parser = argparse.ArgumentParser(prog="touri", description="Generic URI-to-capability manifest runtime")
     sub = parser.add_subparsers(dest="cmd", required=True)
@@ -81,6 +89,11 @@ def build_parser():
     p.add_argument("--registry", required=True, help="Registry directory for touri/uri3")
     p.add_argument("--install", action="store_true", help="Copy manifest into registry directory")
     p.set_defaults(func=cmd_register)
+
+    p = sub.add_parser("explain", help="Show uri3 resolution path for a URI")
+    p.add_argument("uri")
+    p.add_argument("--registry", help="touri capability registry directory")
+    p.set_defaults(func=cmd_explain)
 
     return parser
 

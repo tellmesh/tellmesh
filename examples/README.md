@@ -48,6 +48,7 @@ pip install -e '.[windows]'   # Windows UIA
 | 20 | [`20_touri_capabilities`](./20_touri_capabilities/) | touri manifests | `touri validate/list/call` |
 | 21 | [`21_touri_voice`](./21_touri_voice/) | STT/TTS/voice → nl2uri | `touri call stt://...`, `voice://command/from-text` |
 | 22 | [`22_markpact_weather`](./22_markpact_weather/) | markpact README → touri + uri2flow | `touri list/call markpact://...`, `uri2flow expand markpact://...#flow` |
+| 23 | [`23_nl_to_agent_tutorial`](./23_nl_to_agent_tutorial/) | **tutorial NL → agent HTTP** | `bash examples/23_nl_to_agent_tutorial/run.sh` |
 
 > **Uwaga:** numery 13–15 są współdzielone między ścieżkami (operator vs workflow) — używaj pełnej nazwy katalogu.
 
@@ -97,5 +98,6 @@ uri3 run-flow examples/17_flow_vs_graph/weather.uri.flow.yaml --dry-run
 uri3 run-workflow examples/14_workflow_executor_mock/task_graph.yaml --approve
 uri2ops run examples/10_browser_operator/task.health.yaml --adapter mock --approve
 hypervisor run-agent weather-map-agent.local --dry-run
+bash examples/23_nl_to_agent_tutorial/run.sh
 python -m pytest -q
 ```

@@ -1,120 +1,76 @@
 # code2llm call graph | /home/tom/github/wronai/hypervisor
-# generated in 0.22s
-# nodes: 393 | edges: 500 | modules: 126
-# CC̄=3.8
+# generated in 0.20s
+# nodes: 406 | edges: 500 | modules: 121
+# CC̄=3.3
 
 HUBS[20]:
-  uri2ops.server.app.create_app
-    CC=1  in:1  out:62  total:63
-  packages.touri.touri.backends.uri2ops_backend.call_uri2ops_backend
-    CC=17  in:2  out:45  total:47
   packages.uri3.uri3.cli.commands.discovery.register
     CC=1  in:0  out:47  total:47
-  packages.uri3.uri3.graph.graph_executor.run_workflow
-    CC=22  in:5  out:40  total:45
-  packages.uri3.uri3.results.service_result.service_result
-    CC=3  in:33  out:10  total:43
   examples.21_touri_voice.run.print
     CC=0  in:43  out:0  total:43
   uri2ops.operation_registry.models.OperationRegistry.list
-    CC=1  in:40  out:2  total:42
-  packages.touri.touri.manifest.load_manifest_from_dict
-    CC=16  in:2  out:38  total:40
+    CC=1  in:38  out:2  total:40
   packages.uri3.uri3.config.llm_profiles.resolve_llm_profile
     CC=10  in:4  out:32  total:36
-  packages.touri.touri.data_quality.apply_data_quality
-    CC=18  in:2  out:31  total:33
-  packages.nl2uri.nl2uri.flow_planner.plan_flow
-    CC=12  in:4  out:29  total:33
-  packages.touri.touri.executor._call_backend
-    CC=18  in:1  out:29  total:30
+  packages.uri3.uri3.results.service_result.service_result
+    CC=3  in:26  out:10  total:36
+  packages.uri2ops.uri2ops.server.routes.mcp.mcp_router
+    CC=1  in:1  out:33  total:34
   uri3.graph.uri_graph.build_graph_from_tree
     CC=10  in:2  out:28  total:30
   packages.uri2flow.uri2flow.parser._parse_step
     CC=10  in:1  out:29  total:30
-  packages.touri.touri.backends.python_backend.call_python_backend
-    CC=9  in:3  out:25  total:28
-  packages.uri3.uri3.resolvers.docker_resolver.parse_docker_uri
-    CC=12  in:5  out:23  total:28
+  packages.uri3.uri3.config.repo_root.find_repo_root
+    CC=4  in:25  out:4  total:29
   packages.touri.touri.backends.uri_graph_backend.call_uri_graph_backend
     CC=9  in:2  out:26  total:28
-  packages.uri3.uri3.config.repo_root.find_repo_root
-    CC=4  in:24  out:4  total:28
+  packages.uri3.uri3.resolvers.docker_resolver.parse_docker_uri
+    CC=12  in:5  out:23  total:28
   packages.touri.touri.backends.uri_flow_backend.call_uri_flow_backend
     CC=9  in:2  out:26  total:28
+  packages.touri.touri.backends.python_backend.call_python_backend
+    CC=9  in:3  out:25  total:28
   packages.uri3.uri3.graph.graph_serializer.normalize_graph_payload
     CC=12  in:2  out:24  total:26
+  uri2ops.remote_registry.loader.resolve_operation_registry
+    CC=12  in:8  out:18  total:26
+  packages.uri3.uri3.cli.commands.explain._render
+    CC=12  in:1  out:25  total:26
+  packages.uri3.uri3.graph.graph_validator.validate_workflow_graph
+    CC=9  in:12  out:13  total:25
+  packages.uri3.uri3.logs.reader.summarize_logs
+    CC=6  in:6  out:18  total:24
+  packages.uri3.uri3.cli.commands.resolve.register
+    CC=1  in:0  out:24  total:24
+  packages.uri3.uri3.graph.adapters.browser_playwright.PlaywrightBrowserAdapter.execute
+    CC=11  in:0  out:23  total:23
 
 MODULES:
+  domains.weather_map.handlers.generate_weather_map  [1 funcs]
+    handler  CC=3  out:10
   examples.21_touri_voice.run  [1 funcs]
     print  CC=0  out:0
-  generator.hashutil  [1 funcs]
-    file_sha256  CC=1  out:4
-  generator.model  [1 funcs]
-    load_agent_spec  CC=7  out:24
-  generator.validate  [3 funcs]
-    iter_agent_specs  CC=3  out:6
-    main  CC=7  out:9
-    validate_agent  CC=11  out:10
-  generator.verify  [3 funcs]
-    main  CC=9  out:10
-    verify_generated  CC=6  out:5
-    verify_generated_agent  CC=7  out:10
   hypervisor.uri2llm.pypi_resolver  [1 funcs]
     resolve_pypi  CC=5  out:6
-  nl2uri.writer  [1 funcs]
-    write_uri_tree  CC=1  out:4
-  packages.nl2uri.nl2uri.cli  [14 funcs]
-    _default_use_llm  CC=1  out:2
-    _emit  CC=2  out:3
-    _plan_command  CC=6  out:7
-    _resolve_use_llm  CC=5  out:2
-    _validate_flow_payload  CC=2  out:5
-    classify  CC=1  out:5
-    flow  CC=6  out:17
-    generate  CC=4  out:14
-    graph  CC=5  out:15
-    list_cmd  CC=1  out:5
-  packages.nl2uri.nl2uri.domain_planner  [1 funcs]
-    plan_from_prompt  CC=7  out:11
-  packages.nl2uri.nl2uri.flow_planner  [1 funcs]
-    plan_flow  CC=12  out:29
-  packages.nl2uri.nl2uri.flow_planner_llm  [3 funcs]
-    build_flow_planner_system_prompt  CC=1  out:6
-    call_flow_planner_llm  CC=4  out:9
-    plan_flow_with_llm  CC=3  out:6
-  packages.nl2uri.nl2uri.flow_repair  [1 funcs]
-    repair_and_validate_flow  CC=2  out:4
-  packages.nl2uri.nl2uri.graph_planner  [5 funcs]
-    plan_auto  CC=1  out:2
-    plan_by_kind  CC=2  out:3
-    plan_tree  CC=9  out:14
-    plan_workflow_graph  CC=12  out:15
-    wrap_nl2uri_output  CC=1  out:0
-  packages.nl2uri.nl2uri.llm_planner  [1 funcs]
-    llm_plan  CC=2  out:4
-  packages.nl2uri.nl2uri.output_classifier  [1 funcs]
-    classify_output_kind  CC=23  out:16
-  packages.nl2uri.nl2uri.planner_llm  [2 funcs]
-    call_openrouter  CC=4  out:8
-    extract_json  CC=3  out:8
-  packages.resource-agent-factory.generator.agent_generator  [3 funcs]
-    expand_paths  CC=4  out:7
-    generate_agent  CC=5  out:17
-    main  CC=5  out:4
-  packages.resource-agent-factory.generator.header  [3 funcs]
-    contract_source_ref  CC=3  out:7
-    dockerfile_header  CC=1  out:0
-    python_file_header  CC=1  out:0
-  packages.resource-agent-factory.generator.paths  [1 funcs]
-    project_root  CC=1  out:1
   packages.resource-agent-hypervisor.hypervisor.deployment_registry.lifecycle  [2 funcs]
     _repo_root  CC=2  out:3
     agent_status  CC=5  out:10
   packages.resource-agent-hypervisor.hypervisor.deployment_registry.run_plans  [1 funcs]
     build_run_plan  CC=5  out:7
-  packages.resource-agent-hypervisor.hypervisor.deployment_registry.selector  [1 funcs]
-    resolve_deployment  CC=7  out:9
+  packages.resource-agent-hypervisor.hypervisor.deployment_registry.selector  [2 funcs]
+    parse_hypervisor_uri  CC=14  out:4
+    resolve_deployment  CC=12  out:13
+  packages.touri.touri.backend_dispatch  [16 funcs]
+    _call_primary_mock  CC=1  out:1
+    _call_primary_python  CC=2  out:2
+    _call_primary_shell  CC=2  out:2
+    _call_primary_uri2ops  CC=2  out:1
+    _call_primary_uri_flow  CC=2  out:2
+    _call_primary_uri_graph  CC=2  out:2
+    _call_python_backend  CC=2  out:4
+    _call_shell_backend  CC=2  out:4
+    _call_uri2ops_fallback  CC=7  out:9
+    _call_uri_flow_backend  CC=2  out:4
   packages.touri.touri.backends.mock_backend  [1 funcs]
     call_mock_backend  CC=1  out:1
   packages.touri.touri.backends.python_backend  [2 funcs]
@@ -122,41 +78,37 @@ MODULES:
     call_python_backend  CC=9  out:25
   packages.touri.touri.backends.shell_backend  [1 funcs]
     call_shell_backend  CC=1  out:2
-  packages.touri.touri.backends.uri2ops_backend  [4 funcs]
-    _registry_operation  CC=1  out:1
-    _registry_scheme  CC=2  out:0
+  packages.touri.touri.backends.uri2ops_backend  [3 funcs]
+    _build_runtime_context  CC=4  out:11
     _resolve_root  CC=2  out:3
-    call_uri2ops_backend  CC=17  out:45
-  packages.touri.touri.backends.uri_flow_backend  [3 funcs]
-    _execution_options  CC=1  out:9
-    _resolve_path  CC=3  out:5
+    call_uri2ops_backend  CC=7  out:16
+  packages.touri.touri.backends.uri_flow_backend  [1 funcs]
     call_uri_flow_backend  CC=9  out:26
   packages.touri.touri.backends.uri_graph_backend  [3 funcs]
     _execution_options  CC=1  out:9
     _resolve_path  CC=3  out:5
     call_uri_graph_backend  CC=9  out:26
   packages.touri.touri.data_quality  [1 funcs]
-    apply_data_quality  CC=18  out:31
-  packages.touri.touri.executor  [6 funcs]
-    _apply_fallbacks  CC=11  out:11
-    _call_backend  CC=18  out:29
-    _error_codes  CC=5  out:5
-    _fallback_matches  CC=3  out:1
-    _payload_from_params  CC=2  out:2
-    call_uri  CC=13  out:19
+    apply_data_quality  CC=2  out:2
+  packages.touri.touri.executor  [1 funcs]
+    call_uri  CC=2  out:9
+  packages.touri.touri.fallbacks  [6 funcs]
+    apply_fallbacks  CC=8  out:8
+    decorate_fallback_result  CC=2  out:2
+    error_codes  CC=5  out:5
+    fallback_entry_matches  CC=3  out:3
+    fallback_matches  CC=3  out:1
+    payload_from_params  CC=2  out:2
   packages.touri.touri.loader  [1 funcs]
     load_registry  CC=1  out:1
-  packages.touri.touri.loaders.file_loader  [1 funcs]
-    load_file_registry  CC=2  out:2
-  packages.touri.touri.loaders.markpact_loader  [2 funcs]
-    is_markpact_registry  CC=1  out:2
-    load_markpact_capabilities  CC=9  out:10
-  packages.touri.touri.loaders.registry_loader  [1 funcs]
-    load_registry  CC=2  out:4
-  packages.touri.touri.manifest  [3 funcs]
+  packages.touri.touri.manifest  [7 funcs]
+    _list_block  CC=2  out:2
+    _mapping_block  CC=2  out:1
+    _parse_backend_block  CC=4  out:12
+    _parse_capability_block  CC=4  out:14
     _read_yaml  CC=3  out:4
     load_manifest  CC=1  out:4
-    load_manifest_from_dict  CC=16  out:38
+    load_manifest_from_dict  CC=4  out:13
   packages.touri.touri.matcher  [3 funcs]
     match_uri  CC=3  out:4
     require_match  CC=2  out:2
@@ -167,8 +119,9 @@ MODULES:
   packages.touri.touri.register  [2 funcs]
     register_capability  CC=6  out:13
     sample_uri_from_template  CC=1  out:3
-  packages.touri.touri.validator  [1 funcs]
-    validate_manifest  CC=15  out:9
+  packages.touri.touri.validator  [2 funcs]
+    _validate_backend  CC=5  out:4
+    validate_manifest  CC=3  out:4
   packages.touri.touri_examples.validators  [3 funcs]
     always_pass  CC=1  out:1
     low_confidence_backend  CC=1  out:2
@@ -187,7 +140,7 @@ MODULES:
   packages.uri2flow.uri2flow.parser  [4 funcs]
     _as_list  CC=5  out:5
     _parse_step  CC=10  out:29
-    load_flow  CC=3  out:6
+    load_flow  CC=4  out:8
     parse_flow  CC=12  out:16
   packages.uri2flow.uri2flow.resolver  [9 funcs]
     _defaults_from_entry  CC=3  out:7
@@ -208,6 +161,27 @@ MODULES:
     validate_expanded_flow  CC=2  out:5
     validate_flow  CC=11  out:5
     validate_flow_document  CC=10  out:9
+  packages.uri2ops.uri2ops.server.app  [1 funcs]
+    create_app  CC=2  out:10
+  packages.uri2ops.uri2ops.server.routes.a2a  [1 funcs]
+    a2a_router  CC=1  out:6
+  packages.uri2ops.uri2ops.server.routes.health  [1 funcs]
+    health_router  CC=1  out:2
+  packages.uri2ops.uri2ops.server.routes.mcp  [1 funcs]
+    mcp_router  CC=1  out:33
+  packages.uri2ops.uri2ops.server.routes.registry  [2 funcs]
+    operations_router  CC=1  out:8
+    registry_router  CC=1  out:5
+  packages.uri2ops.uri2ops.server.routes.tasks  [2 funcs]
+    run_task_handler  CC=2  out:3
+    tasks_router  CC=1  out:11
+  packages.uri2pact.uri2pact.core  [1 funcs]
+    is_markpact_registry  CC=1  out:2
+  packages.uri2pact.uri2pact.flows  [1 funcs]
+    load_markpact_flow_dict  CC=7  out:9
+  packages.uri2verify.uri2verify.replay  [2 funcs]
+    create_regression_test  CC=7  out:17
+    replay_workflow_events  CC=2  out:9
   packages.uri3.uri3.cli.commands.discovery  [1 funcs]
     register  CC=1  out:47
   packages.uri3.uri3.cli.commands.explain  [2 funcs]
@@ -225,11 +199,8 @@ MODULES:
     register  CC=1  out:24
   packages.uri3.uri3.cli.commands.workflow  [1 funcs]
     register  CC=1  out:20
-  packages.uri3.uri3.cli.helpers  [2 funcs]
+  packages.uri3.uri3.cli.helpers  [1 funcs]
     list_payload  CC=2  out:3
-    quick_reference  CC=5  out:5
-  packages.uri3.uri3.cli.main  [1 funcs]
-    main  CC=2  out:4
   packages.uri3.uri3.config.cli_shortcuts  [5 funcs]
     cli_config_path  CC=1  out:1
     cli_examples  CC=3  out:3
@@ -262,10 +233,13 @@ MODULES:
     resolve_ssh_password  CC=12  out:13
     ssh_auth_hint  CC=3  out:2
     ssh_config_path  CC=1  out:1
-  packages.uri3.uri3.config.uri_yaml  [3 funcs]
+  packages.uri3.uri3.config.uri_yaml  [6 funcs]
+    _resolve_env_uri  CC=2  out:2
+    _resolve_registered_uri  CC=4  out:4
+    _resolve_scalar_uri  CC=6  out:3
     is_uri  CC=4  out:3
     load_uri_yaml  CC=2  out:5
-    resolve_uri_values  CC=15  out:13
+    resolve_uri_values  CC=7  out:8
   packages.uri3.uri3.docker.actions.compose  [8 funcs]
     _parse_ps_stdout  CC=4  out:5
     compose_base  CC=3  out:2
@@ -299,7 +273,7 @@ MODULES:
     cleanup_browser_adapters  CC=2  out:2
     resolve_browser_mode  CC=5  out:3
   packages.uri3.uri3.graph.adapters.registry  [3 funcs]
-    execute  CC=11  out:6
+    execute  CC=5  out:5
     _operator_adapter  CC=2  out:3
     adapter_for_uri  CC=3  out:1
   packages.uri3.uri3.graph.adapters.uri2ops_adapter  [8 funcs]
@@ -315,10 +289,26 @@ MODULES:
     artifact_path  CC=1  out:0
     artifact_uri  CC=1  out:0
     write_artifact  CC=2  out:6
-  packages.uri3.uri3.graph.dependency_graph  [3 funcs]
-    dependency_summary  CC=8  out:7
-    detect_cycles  CC=15  out:7
-    topological_sort  CC=13  out:13
+  packages.uri3.uri3.graph.conditions  [1 funcs]
+    evaluate_condition  CC=7  out:15
+  packages.uri3.uri3.graph.dependency_graph  [10 funcs]
+    _indegree_outgoing  CC=6  out:1
+    _leaf_nodes  CC=4  out:1
+    _raise_if_cycles  CC=2  out:2
+    _remaining_cycle_nodes  CC=4  out:1
+    _root_nodes  CC=4  out:1
+    _topological_order  CC=6  out:7
+    _visit_acyclic_nodes  CC=6  out:4
+    dependency_summary  CC=2  out:6
+    detect_cycles  CC=2  out:4
+    topological_sort  CC=2  out:6
+  packages.uri3.uri3.graph.event_emitter  [6 funcs]
+    record_step  CC=1  out:1
+    record_step_finished  CC=3  out:1
+    record_step_started  CC=2  out:2
+    record_workflow_completed  CC=1  out:1
+    record_workflow_started  CC=1  out:1
+    redact_step_payload  CC=2  out:1
   packages.uri3.uri3.graph.event_log  [2 funcs]
     append_workflow_event  CC=1  out:6
     workflow_event_path  CC=1  out:0
@@ -327,11 +317,11 @@ MODULES:
     to_dict  CC=4  out:1
     new_execution_context  CC=2  out:3
     utc_now_iso  CC=1  out:3
-  packages.uri3.uri3.graph.graph_executor  [4 funcs]
-    _execute_step  CC=2  out:2
+  packages.uri3.uri3.graph.execution_plan  [2 funcs]
     build_execution_plan  CC=3  out:10
-    dry_run_workflow  CC=1  out:2
-    run_workflow  CC=22  out:40
+    prepare_workflow  CC=5  out:8
+  packages.uri3.uri3.graph.graph_executor  [1 funcs]
+    run_workflow  CC=5  out:12
   packages.uri3.uri3.graph.graph_serializer  [4 funcs]
     edges_from_depends_on  CC=4  out:5
     normalize_graph_payload  CC=12  out:24
@@ -344,22 +334,23 @@ MODULES:
     validate_workflow_schema  CC=2  out:7
   packages.uri3.uri3.graph.models  [1 funcs]
     from_dict  CC=5  out:15
-  packages.uri3.uri3.graph.operation_registry  [6 funcs]
+  packages.uri3.uri3.graph.operation_registry  [5 funcs]
     allowed_operations  CC=1  out:2
     effective_kind  CC=2  out:2
-    operation_registry_summary  CC=2  out:5
     requires_approval  CC=1  out:1
     scheme_from_uri  CC=2  out:1
     validate_node_operation  CC=2  out:5
   packages.uri3.uri3.graph.policy  [1 funcs]
     can_execute_step  CC=6  out:2
-  packages.uri3.uri3.graph.replay  [6 funcs]
-    _resolve_event_path  CC=3  out:6
-    build_task_payload_from_events  CC=8  out:12
-    create_regression_test  CC=11  out:22
-    load_workflow_events  CC=4  out:7
-    render_regression_test  CC=5  out:5
-    replay_workflow_events  CC=10  out:13
+  packages.uri3.uri3.graph.step_runner  [8 funcs]
+    dependencies_ok  CC=6  out:1
+    execute_step  CC=2  out:2
+    handle_blocked_node  CC=1  out:3
+    handle_completed_node  CC=5  out:7
+    handle_dependency_failure  CC=1  out:2
+    handle_skipped_node  CC=1  out:1
+    run_workflow_node  CC=4  out:12
+    step_result  CC=1  out:1
   packages.uri3.uri3.logs.filters  [7 funcs]
     entry_timestamp  CC=4  out:5
     level_rank  CC=3  out:2
@@ -461,13 +452,17 @@ MODULES:
     resolve_ssh  CC=1  out:6
     run_ssh  CC=1  out:2
     ssh_transport_option  CC=4  out:7
-  packages.uri3.uri3.results.envelope  [6 funcs]
-    enrich_lifecycle_dict  CC=13  out:14
-    enrich_step_dict  CC=5  out:15
-    enrich_workflow_dict  CC=12  out:24
-    step_execution_status  CC=5  out:0
-    step_service_result_status  CC=4  out:0
-    workflow_aggregate_statuses  CC=15  out:6
+  packages.uri3.uri3.results.envelope  [19 funcs]
+    _enriched_workflow_result  CC=3  out:7
+    _lifecycle_ok  CC=7  out:2
+    _resolve_workflow_status  CC=4  out:0
+    _step_has_service_failure  CC=3  out:3
+    _workflow_execution_failed  CC=2  out:2
+    _workflow_execution_status  CC=2  out:0
+    _workflow_failed_nodes  CC=4  out:5
+    _workflow_service_failed  CC=2  out:2
+    _workflow_service_result_status  CC=3  out:0
+    _workflow_step_error  CC=2  out:7
   packages.uri3.uri3.results.errors  [1 funcs]
     normalize_error  CC=10  out:17
   packages.uri3.uri3.results.service_result  [2 funcs]
@@ -531,8 +526,10 @@ MODULES:
     registry_document  CC=4  out:4
     registry_from_document  CC=8  out:9
     resolve_operation_registry  CC=12  out:18
-  uri2ops.server.app  [1 funcs]
-    create_app  CC=1  out:62
+  uri2ops.server.a2a_wrapper  [1 funcs]
+    build_agent_card  CC=3  out:7
+  uri2ops.server.mcp_wrapper  [1 funcs]
+    list_mcp_tools  CC=2  out:3
   uri2ops.server.service  [5 funcs]
     list_registry_sources  CC=1  out:1
     plan_task  CC=1  out:2
@@ -573,7 +570,7 @@ EDGES:
   uri2ops.cli.plan_cmd → uri2ops.server.service.OperatorService.plan_task
   uri2ops.cli.run_cmd → uri2ops.server.service.OperatorService.run_task
   uri2ops.cli.run_cmd → uri2ops.cli._print
-  uri2ops.cli.serve_cmd → uri2ops.server.app.create_app
+  uri2ops.cli.serve_cmd → packages.uri2ops.uri2ops.server.app.create_app
   uri2ops.operation_registry.validator.validate_registry_schema → uri2ops.operation_registry.loader.registry_schema_path
   uri2ops.operation_registry.validator.validate_registry_schema → uri2ops.operation_registry.models.OperationRegistry.list
   uri2ops.operation_registry.loader.load_operation_registry → uri2ops.operation_registry.loader.default_registry_path
@@ -582,9 +579,20 @@ EDGES:
   uri2ops.operation_registry.dispatcher.call_handler → uri2ops.operation_registry.dispatcher._split_python_uri
   uri2ops.operation_registry.dispatcher.dispatch → uri2ops.remote_registry.loader.resolve_operation_registry
   uri2ops.operation_registry.dispatcher.dispatch → uri2ops.operation_registry.dispatcher.call_handler
+  packages.uri2ops.uri2ops.server.app.create_app → packages.uri2ops.uri2ops.server.routes.health.health_router
+  packages.uri2ops.uri2ops.server.app.create_app → packages.uri2ops.uri2ops.server.routes.registry.registry_router
+  packages.uri2ops.uri2ops.server.app.create_app → packages.uri2ops.uri2ops.server.routes.registry.operations_router
+  packages.uri2ops.uri2ops.server.app.create_app → packages.uri2ops.uri2ops.server.routes.tasks.tasks_router
+  packages.uri2ops.uri2ops.server.app.create_app → packages.uri2ops.uri2ops.server.routes.a2a.a2a_router
+  packages.uri2ops.uri2ops.server.app.create_app → packages.uri2ops.uri2ops.server.routes.mcp.mcp_router
   uri2ops.server.service.OperatorService.registry → uri2ops.remote_registry.loader.resolve_operation_registry
   uri2ops.server.service.OperatorService.registry_export → uri2ops.remote_registry.loader.registry_document
   uri2ops.server.service.OperatorService.list_registry_sources → uri2ops.remote_registry.loader.list_remote_sources
+  packages.uri2ops.uri2ops.server.routes.mcp.mcp_router → uri2ops.server.mcp_wrapper.list_mcp_tools
+  packages.uri2ops.uri2ops.server.routes.mcp.mcp_router → packages.uri2ops.uri2ops.server.routes.tasks.run_task_handler
+  packages.uri2ops.uri2ops.server.routes.a2a.a2a_router → uri2ops.server.a2a_wrapper.build_agent_card
+  packages.uri2ops.uri2ops.server.routes.a2a.a2a_router → packages.uri2ops.uri2ops.server.routes.tasks.run_task_handler
+  packages.uri2ops.uri2ops.server.routes.tasks.tasks_router → packages.uri2ops.uri2ops.server.routes.tasks.run_task_handler
   uri2ops.remote_registry.loader.load_registry_config → uri2ops.remote_registry.loader.registry_config_path
   uri2ops.remote_registry.loader.load_registry_config → uri2ops.operation_registry.loader.default_registry_path
   uri2ops.remote_registry.loader.registry_from_document → uri2ops.operation_registry.validator.validate_registry_schema
@@ -599,14 +607,3 @@ EDGES:
   packages.uri3.uri3.logs.parsing.parse_log_line → packages.uri3.uri3.logs.parsing.parse_json_entry
   packages.uri3.uri3.logs.parsing.parse_log_line → packages.uri3.uri3.logs.parsing.parse_text_entry
   packages.uri3.uri3.logs.filters.matches_level → packages.uri3.uri3.logs.filters.level_rank
-  packages.uri3.uri3.logs.filters.matches_time_window → packages.uri3.uri3.logs.filters.entry_timestamp
-  packages.uri3.uri3.logs.filters.matches_filters → packages.uri3.uri3.logs.filters.matches_level
-  packages.uri3.uri3.logs.filters.matches_filters → packages.uri3.uri3.logs.filters.matches_logger
-  packages.uri3.uri3.logs.filters.matches_filters → packages.uri3.uri3.logs.filters.matches_grep
-  packages.uri3.uri3.logs.filters.matches_filters → packages.uri3.uri3.logs.filters.matches_time_window
-  packages.uri3.uri3.logs.reader.resolve_log_path → packages.uri3.uri3.config.repo_root.find_repo_root
-  packages.uri3.uri3.logs.reader.read_logs → packages.uri3.uri3.resolvers.log_resolver.parse_log_uri
-  packages.uri3.uri3.logs.reader.read_logs → packages.uri3.uri3.logs.reader.resolve_log_path
-  packages.uri3.uri3.logs.reader.read_logs → packages.uri3.uri3.logs.reader._parse_since
-  packages.uri3.uri3.logs.reader.read_logs → packages.uri3.uri3.logs.parsing.parse_log_line
-  packages.uri3.uri3.logs.reader.read_logs → packages.uri3.uri3.logs.filters.matches_filters

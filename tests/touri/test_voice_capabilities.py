@@ -14,10 +14,8 @@ VOICE_PROMPT = "wygeneruj agenta pogodowego, uruchom go lokalnie i sprawdź heal
 
 
 @pytest.fixture
-def voice_registry(repo_root: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
-    registry = repo_root / "examples" / "21_touri_voice"
-    monkeypatch.syspath_prepend(str(registry))
-    return registry
+def voice_registry(repo_root: Path) -> Path:
+    return repo_root / "examples" / "21_touri_voice"
 
 
 def test_voice_registry_lists_capabilities(voice_registry: Path):

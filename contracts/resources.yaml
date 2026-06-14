@@ -27,3 +27,17 @@ resources:
   owner_agent: weather-map-agent
   stability: experimental
   version: v1
+- uri: resource://invoices/{invoice_id}
+  projection: invoices_view
+  schema: app.invoices.v1.InvoiceView
+  renderer: detail
+  owner_agent: invoices-agent
+  stability: stable
+  version: v1
+- uri: resource://invoices/{invoice_id}/events
+  projection: invoice_events_view
+  schema: app.invoices.v1.InvoiceEventsView
+  renderer: timeline
+  owner_agent: invoices-agent
+  stability: stable
+  version: v1

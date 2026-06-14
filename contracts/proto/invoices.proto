@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package app.invoices.v1;
+
+message CreateInvoiceRequested {
+  string invoice_id = 1;
+  string customer_id = 2;
+  int64 amount_cents = 3;
+  string currency = 4;
+  int64 created_at = 5;
+}
+
+message InvoiceView {
+  string invoice_id = 1;
+  string customer_id = 2;
+  int64 amount_cents = 3;
+  string currency = 4;
+  string status = 5;
+  int64 created_at = 6;
+}
+
+message InvoiceEventsView {
+  string invoice_id = 1;
+  repeated string events = 2;
+}
+
+message CreateInvoiceCommand {
+  string invoice_id = 1;
+  string customer_id = 2;
+  int64 amount_cents = 3;
+  string currency = 4;
+}

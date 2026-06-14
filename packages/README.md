@@ -8,6 +8,9 @@ Physical Python packages live under `packages/`:
 | `packages/nl2uri/` | `nl2uri` | `nl2uri`, `nl2a` |
 | `packages/uri2flow/` | `uri2flow` | `uri2flow` |
 | `packages/uri2ops/` | `uri2ops` | `uri2ops` |
+| `packages/uri2voice/` | `uri2voice` | `uri2voice` |
+| `packages/uri2pact/` | `uri2pact` | `uri2pact` |
+| `packages/uri2verify/` | `uri2verify` | `uri2verify` |
 | `packages/touri/` | `touri` | `touri`, `touri_examples` |
 | `packages/resource-agent-hypervisor/` | `resource-agent-hypervisor` | `hypervisor`, `meta_agent`, `runtime_client` |
 | `packages/resource-agent-factory/` | `resource-agent-factory` | `generator` |

@@ -1,0 +1,30 @@
+{
+  "count": 13,
+  "schemes": {
+    "android": [
+      "dump_ui",
+      "screenshot",
+      "tap"
+    ],
+    "assertion": [
+      "check"
+    ],
+    "browser": [
+      "click",
+      "extract_dom",
+      "open",
+      "screenshot",
+      "wait"
+    ],
+    "input": [
+      "type"
+    ],
+    "pcwin": [
+      "click",
+      "focus"
+    ],
+    "screen": [
+      "observe"
+    ]
+  }
+}

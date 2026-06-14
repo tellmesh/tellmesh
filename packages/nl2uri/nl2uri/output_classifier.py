@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import re
+from collections.abc import Callable
+from dataclasses import dataclass
 
 OUTPUT_KINDS = (
     "single_uri",
@@ -28,6 +30,111 @@ SEQUENTIAL_WORKFLOW = re.compile(
 CONDITION_WORDS = re.compile(r"\b(je[sś]li|if|gdy|restart|zrestartuj|nie dzia[lł]a)\b", re.I)
 PARALLEL_WORDS = re.compile(r"\b(r[oó]wnoleg|parallel|jednocze[sś]nie|oraz.*oraz)\b", re.I)
 READ_TARGETS = re.compile(r"\b(health|card|status|log|agent card)\b", re.I)
+SINGLE_URI_WORDS = re.compile(r"\b(poka[zż]|status|health|card|agent)\b", re.I)
+
+
+@dataclass(frozen=True)
+class _PromptFlags:
+    has_domain: bool
+    has_actions: bool
+    has_browser: bool
+    has_condition: bool
+    has_parallel: bool
+    read_targets: int
+    sequential: bool
+
+
+def _prompt_flags(text: str) -> _PromptFlags:
+    return _PromptFlags(
+        has_domain=bool(DOMAIN_WORDS.search(text)),
+        has_actions=bool(ACTION_WORDS.search(text)),
+        has_browser=bool(BROWSER_WORDS.search(text)),
+        has_condition=bool(CONDITION_WORDS.search(text)),
+        has_parallel=bool(PARALLEL_WORDS.search(text)),
+        read_targets=len(READ_TARGETS.findall(text)),
+        sequential=bool(SEQUENTIAL_WORKFLOW.search(text)),
+    )
+
+
+def _rule_parallel_workflow(flags: _PromptFlags, _text: str) -> str | None:
+    if flags.has_parallel and flags.has_actions:
+        return "workflow_graph"
+    return None
+
+
+def _rule_conditional_workflow(flags: _PromptFlags, _text: str) -> str | None:
+    if flags.has_condition and flags.has_actions and not flags.sequential:
+        return "workflow_graph"
+    return None
+
+
+def _rule_sequential_flow(flags: _PromptFlags, _text: str) -> str | None:
+    if flags.sequential:
+        return "uri_flow"
+    return None
+
+
+def _rule_domain_only_tree(flags: _PromptFlags, _text: str) -> str | None:
+    if flags.has_domain and not flags.has_actions:
+        return "resource_tree"
+    return None
+
+
+def _rule_domain_with_actions(flags: _PromptFlags, _text: str) -> str | None:
+    if flags.has_domain and flags.has_actions:
+        return "uri_flow"
+    return None
+
+
+def _rule_multi_read_list(flags: _PromptFlags, _text: str) -> str | None:
+    if flags.read_targets >= 2 and not flags.has_browser and not flags.has_condition:
+        return "uri_list"
+    return None
+
+
+def _rule_browser_flow(flags: _PromptFlags, _text: str) -> str | None:
+    if flags.has_browser and flags.has_actions:
+        return "uri_flow"
+    return None
+
+
+def _rule_action_only(flags: _PromptFlags, _text: str) -> str | None:
+    if not (flags.has_actions and not flags.has_domain):
+        return None
+    return "uri_flow" if not flags.has_condition else "workflow_graph"
+
+
+def _rule_read_list(flags: _PromptFlags, _text: str) -> str | None:
+    if flags.read_targets >= 2:
+        return "uri_list"
+    return None
+
+
+def _rule_single_uri_words(_flags: _PromptFlags, text: str) -> str | None:
+    if SINGLE_URI_WORDS.search(text):
+        return "single_uri"
+    return None
+
+
+def _rule_domain_fallback(flags: _PromptFlags, _text: str) -> str | None:
+    if flags.has_domain:
+        return "resource_tree"
+    return None
+
+
+_CLASSIFICATION_RULES: tuple[Callable[[_PromptFlags, str], str | None], ...] = (
+    _rule_parallel_workflow,
+    _rule_conditional_workflow,
+    _rule_sequential_flow,
+    _rule_domain_only_tree,
+    _rule_domain_with_actions,
+    _rule_multi_read_list,
+    _rule_browser_flow,
+    _rule_action_only,
+    _rule_read_list,
+    _rule_single_uri_words,
+    _rule_domain_fallback,
+)
 
 
 def classify_output_kind(prompt: str) -> str:
@@ -35,44 +142,8 @@ def classify_output_kind(prompt: str) -> str:
     if not text:
         return "single_uri"
 
-    has_domain = bool(DOMAIN_WORDS.search(text))
-    has_actions = bool(ACTION_WORDS.search(text))
-    has_browser = bool(BROWSER_WORDS.search(text))
-    has_condition = bool(CONDITION_WORDS.search(text))
-    has_parallel = bool(PARALLEL_WORDS.search(text))
-    read_targets = len(READ_TARGETS.findall(text))
-
-    if has_parallel and has_actions:
-        return "workflow_graph"
-
-    if has_condition and has_actions and not SEQUENTIAL_WORKFLOW.search(text):
-        return "workflow_graph"
-
-    if SEQUENTIAL_WORKFLOW.search(text):
-        return "uri_flow"
-
-    if has_domain and not has_actions:
-        return "resource_tree"
-
-    if has_domain and has_actions:
-        return "uri_flow"
-
-    if read_targets >= 2 and not has_browser and not has_condition:
-        return "uri_list"
-
-    if has_browser and has_actions:
-        return "uri_flow"
-
-    if has_actions and not has_domain:
-        return "uri_flow" if not has_condition else "workflow_graph"
-
-    if read_targets >= 2:
-        return "uri_list"
-
-    if re.search(r"\b(poka[zż]|status|health|card|agent)\b", text, re.I):
-        return "single_uri"
-
-    if has_domain:
-        return "resource_tree"
-
+    flags = _prompt_flags(text)
+    for rule in _CLASSIFICATION_RULES:
+        if kind := rule(flags, text):
+            return kind
     return "single_uri"

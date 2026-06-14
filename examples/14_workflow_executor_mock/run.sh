@@ -27,7 +27,7 @@ fi
 
 echo
 echo "=== execute with approve (mock adapters) ==="
-uri3 run-workflow "$GRAPH" --approve
+uri3 run-workflow "$GRAPH" --approve --browser mock
 
 echo
 echo "=== event log ==="

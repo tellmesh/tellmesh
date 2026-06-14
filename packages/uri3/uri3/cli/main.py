@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import typer
 
-from uri3.cli.commands import discovery, explain, flow, graph, replay, resolve, workflow
+from uri3.cli.commands import discovery, doctor, explain, flow, graph, replay, resolve, workflow
 from uri3.cli.helpers import quick_reference
 
 app = typer.Typer(
@@ -19,6 +19,7 @@ def main(ctx: typer.Context) -> None:
 
 
 discovery.register(app)
+doctor.register(app)
 explain.register(app)
 resolve.register(app)
 graph.register(app)

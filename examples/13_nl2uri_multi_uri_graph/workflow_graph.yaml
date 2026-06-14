@@ -1,0 +1,82 @@
+nl2uri:
+  version: 1
+  kind: workflow_graph
+  source_prompt: Wygeneruj agenta pogodowego, uruchom go lokalnie, otwórz health w
+    Chrome, sprawdź czy działa i jeśli nie działa pokaż logi.
+graph:
+  id: wygeneruj-agenta-pogodowego-uruchom-go-lokalnie-otw-rz-health-w-chrome-sprawd
+  version: 1
+  kind: workflow
+  description: Wygeneruj agenta pogodowego, uruchom go lokalnie, otwórz health w Chrome,
+    sprawdź czy działa i jeśli nie działa pokaż logi.
+  nodes:
+  - id: generate_weather_domain
+    type: domain_pack
+    uri: domain://weather-map
+    operation: generate
+    kind: command
+  - id: generate_weather_agent
+    type: agent
+    uri: agent://weather-map-agent
+    operation: generate
+    kind: command
+    depends_on:
+    - generate_weather_domain
+  - id: run_weather_agent
+    type: deployment
+    uri: hypervisor://deployment/weather-map-agent.local/run
+    operation: run
+    kind: command
+    depends_on:
+    - generate_weather_agent
+  - id: open_health
+    type: browser
+    uri: browser://chrome/page/open
+    operation: open
+    kind: command
+    payload:
+      url: http://localhost:8101/health
+    depends_on: &id001
+    - run_weather_agent
+  - id: read_health_dom
+    type: browser
+    uri: dom://chrome/active/body
+    operation: read
+    kind: query
+    depends_on:
+    - open_health
+  - id: verify_ok
+    type: assertion
+    uri: assertion://contains
+    operation: check
+    kind: assertion
+    depends_on:
+    - read_health_dom
+    payload:
+      actual_from: read_health_dom.text
+      expected: ok
+  - id: health
+    uri: http://localhost:8101/health
+    operation: query
+    kind: query
+    depends_on: *id001
+  - id: card
+    uri: http://localhost:8101/.well-known/agent-card.json
+    operation: query
+    kind: query
+    depends_on: *id001
+  - id: logs
+    uri: log://weather-map-agent.local?limit=100
+    operation: query
+    kind: query
+    depends_on:
+    - health
+  - id: restart
+    uri: hypervisor://deployment/weather-map-agent.local/restart
+    operation: command
+    kind: command
+    depends_on:
+    - health
+    condition:
+      if: health.ok == false
+

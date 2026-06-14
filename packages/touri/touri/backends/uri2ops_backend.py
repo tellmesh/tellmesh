@@ -4,9 +4,10 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
 
-from touri.models import ServiceResult, service_result
 from uri2ops.operation_registry.dispatcher import dispatch
 from uri3.results import normalize_error
+
+from touri.models import ServiceResult, service_result
 
 _OPERATOR_SCHEMES = frozenset({"browser", "dom", "screen", "input", "android", "pcwin"})
 _OPERATION_MAP: dict[tuple[str, str], str] = {
@@ -43,6 +44,45 @@ def _resolve_root(context: dict[str, Any]) -> Path:
     return find_repo_root()
 
 
+def _build_runtime_context(
+    uri: str,
+    payload: dict[str, Any],
+    context: dict[str, Any],
+    extra: dict[str, Any],
+) -> dict[str, Any]:
+    return {
+        "adapter": str(payload.get("adapter", extra.get("adapter", "mock"))),
+        "root": str(_resolve_root(context)),
+        "task_id": str(context.get("capability") or "touri"),
+        "run_id": str(context.get("run_id") or "touri-call"),
+        "session": dict(context.get("session") or {}),
+    }
+
+
+def _service_result_from_dict(output: dict[str, Any]) -> ServiceResult:
+    errors = [normalize_error(item) for item in output.get("errors") or []]
+    return service_result(
+        ok=bool(output.get("ok")),
+        result_type=str(output.get("result_type", "data")),
+        data=output.get("data", output),
+        artifact_uri=output.get("artifact_uri"),
+        warnings=list(output.get("warnings") or []),
+        errors=errors,
+        meta=dict(output.get("meta") or {}),
+        workflow_status=output.get("workflow_status"),
+        execution_status=output.get("execution_status"),
+        service_result_status=output.get("service_result_status"),
+    )
+
+
+def _parse_dispatch_output(output: Any) -> ServiceResult:
+    if isinstance(output, ServiceResult):
+        return output.finalize()
+    if isinstance(output, dict) and "ok" in output:
+        return _service_result_from_dict(output)
+    return service_result(ok=True, result_type="data", data=output)
+
+
 def call_uri2ops_backend(
     uri: str,
     scheme: str,
@@ -57,22 +97,22 @@ def call_uri2ops_backend(
         return service_result(
             ok=False,
             result_type="error",
-            errors=[{"code": "URI2OPS_SCHEME_UNSUPPORTED", "detail": f"scheme not supported by uri2ops: {scheme}"}],
+            errors=[
+                {
+                    "code": "URI2OPS_SCHEME_UNSUPPORTED",
+                    "detail": f"scheme not supported by uri2ops: {scheme}",
+                }
+            ],
         )
 
     registry_scheme = _registry_scheme(scheme)
     registry_operation = _registry_operation(scheme, str(extra.get("operation") or operation))
     dispatch_payload = dict(payload)
     dispatch_payload.setdefault("target_uri", uri)
-    dispatch_payload.setdefault("step_id", context.get("capability") or urlparse(uri).path.strip("/") or "step")
-
-    runtime_context = {
-        "adapter": str(payload.get("adapter", extra.get("adapter", "mock"))),
-        "root": str(_resolve_root(context)),
-        "task_id": str(context.get("capability") or "touri"),
-        "run_id": str(context.get("run_id") or "touri-call"),
-        "session": dict(context.get("session") or {}),
-    }
+    dispatch_payload.setdefault(
+        "step_id", context.get("capability") or urlparse(uri).path.strip("/") or "step"
+    )
+    runtime_context = _build_runtime_context(uri, payload, context, extra)
 
     try:
         output = dispatch(registry_scheme, registry_operation, dispatch_payload, runtime_context)
@@ -83,22 +123,4 @@ def call_uri2ops_backend(
             errors=[{"code": "URI2OPS_DISPATCH_FAILED", "detail": str(exc)}],
         )
 
-    if isinstance(output, ServiceResult):
-        return output.finalize()
-
-    if isinstance(output, dict) and "ok" in output:
-        errors = [normalize_error(item) for item in output.get("errors") or []]
-        return service_result(
-            ok=bool(output.get("ok")),
-            result_type=str(output.get("result_type", "data")),
-            data=output.get("data", output),
-            artifact_uri=output.get("artifact_uri"),
-            warnings=list(output.get("warnings") or []),
-            errors=errors,
-            meta=dict(output.get("meta") or {}),
-            workflow_status=output.get("workflow_status"),
-            execution_status=output.get("execution_status"),
-            service_result_status=output.get("service_result_status"),
-        )
-
-    return service_result(ok=True, result_type="data", data=output)
+    return _parse_dispatch_output(output)

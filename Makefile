@@ -55,13 +55,13 @@ voice-demo:
 	touri call tts://mock/speak --registry examples/21_touri_voice --payload '{"text":"Agent działa poprawnie"}'
 
 uri-tree:
-	python -m nl2uri.cli --no-llm -p "$(WEATHER_PROMPT)" --out domains/weather_map/uri_tree.yaml
+	python -m nl2uri.cli tree --no-llm -p "$(WEATHER_PROMPT)" --out domains/weather_map/uri_tree.yaml
 
 graph:
-	python -m uri3.cli graph domains/weather_map/uri_tree.yaml
+	uri3 graph domains/weather_map/uri_tree.yaml
 
 nl2a-weather:
-	python -m nl2a.cli --no-llm -p "$(WEATHER_PROMPT)"
+	python -m nl2a.cli generate --no-llm -p "$(WEATHER_PROMPT)"
 
 run-user-agent:
 	uvicorn agents.generated.user_agent.main:app --reload --port 8101

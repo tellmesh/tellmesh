@@ -31,7 +31,7 @@ output:
 
 backend:
   type: python
-  target: python://touri_examples_voice.stt:transcribe
+  target: python://uri2voice.stt:transcribe
 
 policy:
   side_effects: false

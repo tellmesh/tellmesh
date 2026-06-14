@@ -67,6 +67,7 @@ def dispatch_command(request: CommandRequest) -> dict[str, Any]:
 @router.get("/skills/{{ cap.name }}")
 def skill_{{ cap.name }}({% for segment in cap.uri.split('{')[1:] %}{{ segment.split('}')[0] }}: str{% if not loop.last %}, {% endif %}{% endfor %}) -> dict[str, Any]:
     uri = "{{ cap.uri }}"{% for segment in cap.uri.split('{')[1:] %}.replace("{{ '{' }}{{ segment.split('}')[0] }}{{ '}' }}", {{ segment.split('}')[0] }}){% endfor %}
+
     return client.read_resource(uri)
 {% endfor %}
 

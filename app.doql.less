@@ -2,7 +2,7 @@
 
 app {
   name: resource-agent-system;
-  version: 0.5.13;
+  version: 0.5.14;
 }
 
 dependencies {
@@ -123,17 +123,17 @@ workflow[name="voice-demo"] {
 
 workflow[name="uri-tree"] {
   trigger: manual;
-  step-1: run cmd=python -m nl2uri.cli --no-llm -p "$(WEATHER_PROMPT)" --out domains/weather_map/uri_tree.yaml;
+  step-1: run cmd=python -m nl2uri.cli tree --no-llm -p "$(WEATHER_PROMPT)" --out domains/weather_map/uri_tree.yaml;
 }
 
 workflow[name="graph"] {
   trigger: manual;
-  step-1: run cmd=python -m uri3.cli graph domains/weather_map/uri_tree.yaml;
+  step-1: run cmd=uri3 graph domains/weather_map/uri_tree.yaml;
 }
 
 workflow[name="nl2a-weather"] {
   trigger: manual;
-  step-1: run cmd=python -m nl2a.cli --no-llm -p "$(WEATHER_PROMPT)";
+  step-1: run cmd=python -m nl2a.cli generate --no-llm -p "$(WEATHER_PROMPT)";
 }
 
 workflow[name="run-user-agent"] {

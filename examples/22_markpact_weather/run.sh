@@ -16,5 +16,10 @@ touri call weather://markpact/Gdansk/14/html --registry "$REGISTRY"
 
 echo
 echo "== uri2flow expand $FLOW_REF =="
-uri2flow expand "$FLOW_REF" --out /tmp/weather-health.uri.graph.yaml
-grep -E "workflow_graph|browser://chrome/page/open" /tmp/weather-health.uri.graph.yaml
+OUT="/tmp/weather-health.uri.graph.yaml"
+uri2flow expand "$FLOW_REF" --out "$OUT"
+grep -E "workflow_graph|browser://chrome/page/open" "$OUT"
+
+echo
+echo "== uri3 validate-workflow $OUT =="
+uri3 validate-workflow "$OUT"

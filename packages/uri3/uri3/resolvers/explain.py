@@ -7,6 +7,7 @@ from urllib.parse import urlparse
 
 import yaml
 
+from uri3.resolvers.explain_verification import build_verification_hints, summarize_fallbacks
 from uri3.resolvers.dispatch import RESOLVE_BY_SCHEME, RESOURCE_SCHEMES, scheme_from_uri
 
 RESOLUTION_ORDER = ("uri3", "touri", "uri2ops", "hypervisor", "denied")
@@ -55,6 +56,11 @@ def _match_uri3(scheme: str, uri: str) -> dict[str, Any] | None:
             "scheme": scheme,
             "resolver": "built-in",
             "uri": uri,
+            "verification": build_verification_hints(
+                data_quality=None,
+                fallbacks=None,
+                matched_registry="uri3",
+            ),
         }
     return None
 
@@ -83,7 +89,13 @@ def _match_touri(uri: str, registry_root: Path) -> dict[str, Any] | None:
         },
         "policy": manifest.policy,
         "data_quality": manifest.data_quality,
+        "fallbacks": summarize_fallbacks(manifest.fallbacks),
         "params": match.params,
+        "verification": build_verification_hints(
+            data_quality=manifest.data_quality,
+            fallbacks=manifest.fallbacks,
+            matched_registry="touri",
+        ),
     }
 
 
@@ -101,6 +113,11 @@ def _match_uri2ops(scheme: str, uri: str, root: Path | None) -> dict[str, Any] |
             "scheme": scheme,
             "operations": operations,
             "note": "operation must be selected explicitly for uri2ops dispatch",
+            "verification": build_verification_hints(
+                data_quality=None,
+                fallbacks=None,
+                matched_registry="uri2ops",
+            ),
         }
     except Exception:
         return None
@@ -119,6 +136,11 @@ def _match_hypervisor(scheme: str, uri: str) -> dict[str, Any] | None:
         "deployment_id": deployment_id,
         "action": action,
         "note": "lifecycle handled by hypervisor deployment registry",
+        "verification": build_verification_hints(
+            data_quality=None,
+            fallbacks=None,
+            matched_registry="hypervisor",
+        ),
     }
 
 

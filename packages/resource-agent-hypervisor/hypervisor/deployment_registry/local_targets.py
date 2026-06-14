@@ -10,6 +10,22 @@ from hypervisor.deployment_registry.models import AgentDeployment
 from hypervisor.deployment_registry.status import infer_port
 
 
+def _local_endpoint(path: str, *, port: int) -> str:
+    return f"http://localhost:{port}{path}"
+
+
+def _local_health_uri(deployment: AgentDeployment, *, port: int, overridden: bool) -> str:
+    if deployment.health_uri and not overridden:
+        return deployment.health_uri
+    return _local_endpoint("/health", port=port)
+
+
+def _local_card_uri(deployment: AgentDeployment, *, port: int, overridden: bool) -> str:
+    if deployment.card_uri and not overridden:
+        return deployment.card_uri
+    return _local_endpoint("/.well-known/agent-card.json", port=port)
+
+
 def local_target_to_relative_path(target_uri: str) -> Path:
     parsed = urlparse(target_uri)
     if parsed.scheme != "local":
@@ -37,6 +53,7 @@ def build_local_run_plan(
     reload: bool = False,
 ) -> dict[str, Any]:
     chosen_port = port or infer_port(deployment)
+    port_overridden = port is not None
     module = local_target_to_module(deployment.target_uri)
     agent_path = repo / local_target_to_relative_path(deployment.target_uri)
     if not agent_path.exists():
@@ -53,10 +70,10 @@ def build_local_run_plan(
     ]
     if reload:
         command.append("--reload")
-    health_uri = deployment.health_uri or f"http://localhost:{chosen_port}/health"
     display_env = resolve_deployment_env(
         deployment.id, deployment.agent_ref, deployment.env, root=repo, resolve_secrets=False
     )
+    runtime_state_path = repo / "output" / "runtime" / "agents" / deployment.id / "state.json"
     return {
         "deployment_id": deployment.id,
         "agent_ref": deployment.agent_ref,
@@ -65,11 +82,11 @@ def build_local_run_plan(
         "path": str(agent_path),
         "host": host,
         "port": chosen_port,
-        "health_uri": health_uri,
-        "card_uri": deployment.card_uri or f"http://localhost:{chosen_port}/.well-known/agent-card.json",
+        "health_uri": _local_health_uri(deployment, port=chosen_port, overridden=port_overridden),
+        "card_uri": _local_card_uri(deployment, port=chosen_port, overridden=port_overridden),
         "command": command,
         "command_string": " ".join(command),
         "env": display_env,
         "log_uri": default_log_uri(deployment.id, deployment.agent_ref, root=repo),
-        "runtime_state_path": str((repo / "output" / "runtime" / "agents" / deployment.id / "state.json")),
+        "runtime_state_path": str(runtime_state_path),
     }

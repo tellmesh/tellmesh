@@ -1,0 +1,35 @@
+{
+  "count": 5,
+  "entries": [
+    {
+      "uri": "browser://touri/mock/page/open",
+      "capability": "browser.open.page",
+      "matched_registry": "touri",
+      "backend_type": "uri2ops"
+    },
+    {
+      "uri": "workflow://graph/check-agent-health/dry-run",
+      "capability": "workflow.check_health.graph",
+      "matched_registry": "touri",
+      "backend_type": "uri_graph"
+    },
+    {
+      "uri": "echo://sample",
+      "capability": "echo.mock",
+      "matched_registry": "touri",
+      "backend_type": "mock"
+    },
+    {
+      "uri": "workflow://flow/weather/dry-run",
+      "capability": "workflow.weather.flow",
+      "matched_registry": "touri",
+      "backend_type": "uri_flow"
+    },
+    {
+      "uri": "weather://forecast/Gdansk/14/html",
+      "capability": "weather.forecast.html",
+      "matched_registry": "touri",
+      "backend_type": "python"
+    }
+  ]
+}

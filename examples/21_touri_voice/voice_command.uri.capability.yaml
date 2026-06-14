@@ -24,7 +24,7 @@ output:
 
 backend:
   type: python
-  target: python://touri_examples_voice.voice_command:plan_voice_command
+  target: python://uri2voice.voice_command:plan_voice_command
 
 policy:
   side_effects: false

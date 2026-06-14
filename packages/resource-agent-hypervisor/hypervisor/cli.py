@@ -141,7 +141,7 @@ def replay_failure_cmd(
     json_out: bool = typer.Option(False, "--json", help="Output JSON summary"),
 ):
     """Summarize failed workflow logs or generate a regression pytest file."""
-    from uri3.graph.replay import create_regression_test, replay_workflow_events
+    from uri2verify.replay import create_regression_test, replay_workflow_events
 
     if create_test:
         payload = create_regression_test(source, out=create_test)

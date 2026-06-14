@@ -15,6 +15,7 @@
 | [`URI2OPS.md`](./URI2OPS.md) | Operator runtime, adaptery, `uri2ops serve` |
 | [`TOURI.md`](./TOURI.md) | Capability manifests `*.uri.capability.yaml`, backend routing |
 | [`MARKPACT_WITH_TOURI.md`](./MARKPACT_WITH_TOURI.md) | `markpact://` capability loader for `touri`, flow loader for `uri2flow` |
+| [`EXTERNAL_PACKAGES.md`](./EXTERNAL_PACKAGES.md) | Local `semcod/*` and `wronai/*` package audit and integration boundary |
 | [`VOICE_WITH_TOURI.md`](./VOICE_WITH_TOURI.md) | STT/TTS as a `touri` capability pack |
 | [`SERVICE_RESULT.md`](./SERVICE_RESULT.md) | Shared result envelope (`workflow_status`, `ErrorEnvelope`) |
 | [`ANTI_TELLM.md`](./ANTI_TELLM.md) | Safeguards vs tellm-style LLM/provider failures |
@@ -24,6 +25,7 @@
 | [`NL2URI.md`](./NL2URI.md) | Multi-output, task/graph, LLM planner |
 | [`URI3.md`](./URI3.md) | Workflow CLI: `validate/plan/run-workflow` |
 | [`ROADMAP.md`](./ROADMAP.md) | v0.6 done + v0.7 plan |
+| [`PACKAGE_BOUNDARIES.md`](./PACKAGE_BOUNDARIES.md) | Target package split, sprints, duplicate policy |
 
 ## v0.5
 

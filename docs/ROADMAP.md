@@ -73,4 +73,16 @@
 - [ ] TLS/auth dla `uri2ops serve` w produkcji
 - [ ] Real shell/SSH adapter w uri2ops
 
+## Integracje semcod/wronai
+
+- [x] `markpact://` capability loader dla `touri`
+- [x] `markpact://` flow loader dla `uri2flow`
+- [ ] `uri3 scan pactown://...`
+- [ ] `nlp2dsl -> domain.dsl.yaml -> markpact README -> domain pack`
+- [ ] `uri3 run-workflow --iterun` jako bounded retry/repair loop
+- [ ] `intract` jako policy/quality gate dla kodu i artefaktów
+
+Granice zależności i wymagane aktualizacje paczek:
+[`EXTERNAL_PACKAGES.md`](./EXTERNAL_PACKAGES.md).
+
 Szczegóły: [`TODO.md`](../TODO.md) · [`packages/uri2ops/TODO.md`](../packages/uri2ops/TODO.md)

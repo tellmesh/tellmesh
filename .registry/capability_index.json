@@ -1,0 +1,61 @@
+{
+  "registry": "/home/tom/github/wronai/hypervisor/examples/20_touri_capabilities",
+  "count": 5,
+  "capabilities": [
+    {
+      "id": "browser.open.page",
+      "scheme": "browser",
+      "uri_template": "browser://touri/mock/page/open",
+      "operation": "open",
+      "kind": "command",
+      "backend_type": "uri2ops",
+      "backend_target": null,
+      "has_data_quality": false,
+      "fallbacks": 0
+    },
+    {
+      "id": "workflow.check_health.graph",
+      "scheme": "workflow",
+      "uri_template": "workflow://graph/check-agent-health/dry-run",
+      "operation": "plan",
+      "kind": "query",
+      "backend_type": "uri_graph",
+      "backend_target": null,
+      "has_data_quality": false,
+      "fallbacks": 0
+    },
+    {
+      "id": "echo.mock",
+      "scheme": "echo",
+      "uri_template": "echo://{name}",
+      "operation": "read",
+      "kind": "query",
+      "backend_type": "mock",
+      "backend_target": null,
+      "has_data_quality": false,
+      "fallbacks": 0
+    },
+    {
+      "id": "workflow.weather.flow",
+      "scheme": "workflow",
+      "uri_template": "workflow://flow/weather/dry-run",
+      "operation": "plan",
+      "kind": "query",
+      "backend_type": "uri_flow",
+      "backend_target": null,
+      "has_data_quality": false,
+      "fallbacks": 0
+    },
+    {
+      "id": "weather.forecast.html",
+      "scheme": "weather",
+      "uri_template": "weather://forecast/{place}/{days}/html",
+      "operation": "generate",
+      "kind": "command",
+      "backend_type": "python",
+      "backend_target": "python://touri_examples.weather:handler",
+      "has_data_quality": false,
+      "fallbacks": 0
+    }
+  ]
+}

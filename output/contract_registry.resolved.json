@@ -5,7 +5,7 @@
     "schema_version": 1,
     "description": "Central index for resources, capabilities, schemas, events and projections."
   },
-  "contract_hash": "sha256:7bfc0f753b727f9a2dd08c8de010d7a6f9565c56b198016b8fab906077aac298",
+  "contract_hash": "sha256:a7bc140a2521ee1420e407cd92aa56a94e1448278461b1ede7877b96403f0b03",
   "resources": [
     {
       "uri": "resource://users/{user_id}",
@@ -41,6 +41,24 @@
       "renderer": "html",
       "owner_agent": "weather-map-agent",
       "stability": "experimental",
+      "version": "v1"
+    },
+    {
+      "uri": "resource://invoices/{invoice_id}",
+      "projection": "invoices_view",
+      "schema": "app.invoices.v1.InvoiceView",
+      "renderer": "detail",
+      "owner_agent": "invoices-agent",
+      "stability": "stable",
+      "version": "v1"
+    },
+    {
+      "uri": "resource://invoices/{invoice_id}/events",
+      "projection": "invoice_events_view",
+      "schema": "app.invoices.v1.InvoiceEventsView",
+      "renderer": "timeline",
+      "owner_agent": "invoices-agent",
+      "stability": "stable",
       "version": "v1"
     }
   ],
@@ -89,9 +107,68 @@
         "html_url"
       ],
       "rendererHint": "html"
+    },
+    {
+      "name": "invoices_view",
+      "viewKind": "detail",
+      "mimeType": "application/json",
+      "columns": [
+        "invoice_id",
+        "customer_id",
+        "amount_cents",
+        "currency",
+        "status",
+        "created_at"
+      ],
+      "rendererHint": "invoice-detail"
+    },
+    {
+      "name": "invoice_events_view",
+      "viewKind": "timeline",
+      "mimeType": "application/json",
+      "columns": [
+        "invoice_id",
+        "events"
+      ],
+      "rendererHint": "invoice-timeline"
     }
   ],
   "capabilities": [
+    {
+      "name": "read_invoice",
+      "agent": "invoices-agent",
+      "type": "resource_read",
+      "uri": "resource://invoices/{invoice_id}",
+      "command": null,
+      "input_schema": null,
+      "output_schema": "app.invoices.v1.InvoiceView",
+      "renderer": "detail",
+      "emits": []
+    },
+    {
+      "name": "read_invoice_events",
+      "agent": "invoices-agent",
+      "type": "resource_read",
+      "uri": "resource://invoices/{invoice_id}/events",
+      "command": null,
+      "input_schema": null,
+      "output_schema": "app.invoices.v1.InvoiceEventsView",
+      "renderer": "timeline",
+      "emits": []
+    },
+    {
+      "name": "create_invoice",
+      "agent": "invoices-agent",
+      "type": "command",
+      "uri": null,
+      "command": "CreateInvoice",
+      "input_schema": "app.invoices.v1.CreateInvoiceCommand",
+      "output_schema": null,
+      "renderer": null,
+      "emits": [
+        "CreateInvoiceRequested"
+      ]
+    },
     {
       "name": "read_user",
       "agent": "user-agent",
@@ -167,8 +244,8 @@
     }
   ],
   "counts": {
-    "resources": 4,
-    "views": 4,
-    "capabilities": 6
+    "resources": 6,
+    "views": 6,
+    "capabilities": 9
   }
 }
