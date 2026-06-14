@@ -66,6 +66,8 @@
       (`uri ecosystem profiles`, `voice-agent`, `operator-agent`, `ecosystem`).
 - [x] `www/` chat UI backed by real dashboard-agent API with Markdown rendering,
       agents/events context, URI preview/run actions, and `urish www create`.
+- [x] Mount generated agents, shared output, config/contracts/schemas and repair
+      knowledge into the `www` Docker runtime.
 - [ ] Add port conflict classifier using socket/lsof probes without killing unrelated processes.
 - [ ] Add safe deployment registry update proposal when effective runtime port differs from declared `health_uri`.
 - [ ] Add `health://agent/{deployment}` and `repair://agent/{deployment}/auto` URI schemes or resolver aliases.

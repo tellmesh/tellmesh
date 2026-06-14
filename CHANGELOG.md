@@ -65,6 +65,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added real-system `www/` chat UI surface with Markdown rendering, health/agents/events
   API context, URI preview/run actions, and `urish www create` for NL-driven dashboard
   creation.
+- Added Docker runtime artifact mounts for `www/` so dashboard-agent repair/lifecycle can
+  see `agents/generated`, shared `output`, and repair knowledge inside the container.
 - Added schemas: `ticket`, `log_event`, `workflow_artifact`, `deployment_registry`, `config/config_base`.
 - Added `docs/EXTERNAL_PACKAGES.md` with the local `semcod/*` and `wronai/*`
   package audit, version snapshot, integration boundary and recommended next
@@ -111,6 +113,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   (`lifecycle.py` reuses healthy agent when already running).
 - Fixed lifecycle envelope marking `ok=true` when only PID exists but HTTP health fails.
 - Fixed effective `health_uri` derived from uvicorn `--port` in runtime state (ex23 port drift).
+
+## [0.5.24] - 2026-06-14
+
+### Docs
+- Update CHANGELOG.md
+- Update README.md
+- Update TODO.md
+- Update docs/DONE.md
+- Update market/ASSESSMENT.md
+- Update market/BATTLECARD.md
+- Update market/COMPETITIVE_LANDSCAPE.md
+- Update market/DEMO_SCRIPT.md
+- Update market/GTM_POLAND.md
+- Update market/LANDING_COPY.md
+- ... and 9 more files
+
+### Test
+- Update tests/hypervisor/test_chat_www.py
+
+### Other
+- Update examples/13_nl2uri_multi_uri_graph/task_plan.yaml
+- Update project/analysis.toon.yaml
+- Update project/calls.mmd
+- Update project/calls.png
+- Update project/calls.toon.yaml
+- Update project/calls.yaml
+- Update project/compact_flow.mmd
+- Update project/duplication.toon.yaml
+- Update project/flow.mmd
+- Update project/index.html
+- ... and 6 more files
 
 ## [0.5.23] - 2026-06-14
 

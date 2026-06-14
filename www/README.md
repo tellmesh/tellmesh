@@ -17,6 +17,18 @@ make www-logs       # logi
 
 Chat: http://localhost:8788/www/
 
+Compose montuje katalogi runtime z hosta:
+
+| Host | Kontener | Tryb |
+|------|----------|------|
+| `agents/generated/` | `/app/agents/generated` | read-only |
+| `deployments/` | `/app/deployments` | read-only |
+| `config/`, `contracts/`, `domains/`, `schemas/` | `/app/...` | read-only |
+| `knowledge/` | `/app/knowledge` | read-only |
+| `output/` | `/app/output` | read-write |
+
+To jest potrzebne dla realnego `repair://...`, runtime state, logów i incydentów.
+
 ### Lokalnie (bez Docker)
 
 ```bash

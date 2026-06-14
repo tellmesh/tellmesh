@@ -1,5 +1,5 @@
-# hypervisor | 623f 35538L | yaml:79,yml:4,toml:17,txt:5,shell:26,json:32,python:440,proto:4,javascript:5,j2:1,mk:2 | 2026-06-14
-# generated in 0.05s
+# hypervisor | 623f 35549L | yaml:79,yml:4,txt:5,shell:26,json:32,toml:17,python:440,proto:4,javascript:5,j2:1,mk:2 | 2026-06-14
+# generated in 0.06s
 # stats: 1584 func | 0 cls | 623 mod | CC̄=3.7 | critical:21 | cycles:0
 # alerts[5]: fan-out register_runtime_commands=30; CC build_incident_from_inspection=29; fan-out run_agent=26; CC call_system_uri=25; fan-out generate_ecosystem=23
 # hotspots[5]: register_runtime_commands fan=30; run_agent fan=26; generate_ecosystem fan=23; _merge_deployment_fragment fan=21; apply_ecosystem fan=20
@@ -618,7 +618,7 @@ M[623]:
   uri3/resolvers/python_resolver.py,0
   uri3/scanner/base.py,0
   uri3/validators/uri_validator.py,0
-  www/Dockerfile,27
+  www/Dockerfile,31
   www/api-bridge/bridge.py,226
   www/app.js,423
   www/assets/api-client.js,215
@@ -626,7 +626,7 @@ M[623]:
   www/assets/config.js,13
   www/contracts/chat_ui_agent.yaml,55
   www/contracts/openapi.yaml,75
-  www/docker-compose.yml,13
+  www/docker-compose.yml,20
   www/examples/nl-commands.txt,11
   www/schemas/agent_contract.schema.json,36
 D:
@@ -1313,6 +1313,10 @@ D:
     result()
     renderQuickPrompts()
     button()
+  packages/urish/urish/intent.py:
+    e: detect_intent,_detect_kind
+    detect_intent(prompt)
+    _detect_kind(prompt)
   packages/urish/urish/backends/doctor.py:
     e: doctor_all,_artifact_gate_checks
     doctor_all()
@@ -1433,10 +1437,6 @@ D:
     readiness_summary()
     recommended_action_from_incidents(incident_codes)
     build_agent_readiness_report()
-  packages/urish/urish/intent.py:
-    e: detect_intent,_detect_kind
-    detect_intent(prompt)
-    _detect_kind(prompt)
   packages/urish/urish/exit_codes.py:
     e: exit_code_for_result
     exit_code_for_result(result)
@@ -2931,7 +2931,6 @@ Expected r...
   Makefile:
   docker-compose.yml:
   nlp2uri.yaml:
-  pyproject.toml:
   tree.txt:
   prefact.yaml:
   Dockerfile:
@@ -2962,7 +2961,6 @@ Expected r...
   schemas/incident.schema.json:
   schemas/config/config_base.schema.json:
   packages/urish/pyproject.toml:
-  packages/urish/urish/__init__.py:
   packages/urish/urish/commands/__init__.py:
   generator/__init__.py:
   packages/urigen/pyproject.toml:
@@ -2970,7 +2968,6 @@ Expected r...
   packages/urigen/urigen/schemas/ecosystem_proposal.schema.json:
   packages/urigen/urigen/schemas/ecosystem.schema.json:
   packages/uri2ops/pyproject.toml:
-  packages/uri2ops/uri2ops/__init__.py:
   uri2ops/schemas/operation_registry.schema.json:
   uri2ops/schemas/operator_task.schema.json:
   uri2ops/operation_registry/registry.yaml:
@@ -3004,7 +3001,6 @@ Expected r...
   packages/hypervisor-dashboard-agent/hypervisor_dashboard_agent/agent_card.py:
   packages/hypervisor-dashboard-agent/hypervisor_dashboard_agent/main.py:
   packages/uri2flow/pyproject.toml:
-  packages/uri2flow/uri2flow/__init__.py:
   packages/uri2flow/uri2flow/schemas/uri_flow.schema.json:
   packages/uri2flow/uri2flow/loaders/__init__.py:
   packages/uri2flow/uri2flow/loaders/markpact_loader.py:
@@ -3099,7 +3095,6 @@ Expected r...
   examples/09_run_agent_hypervisor/run.sh:
   examples/13_nl2uri_multi_uri_graph/workflow_graph.yaml:
   examples/13_nl2uri_multi_uri_graph/run.sh:
-  examples/13_nl2uri_multi_uri_graph/task_plan.yaml:
   examples/13_nl2uri_multi_uri_graph/prompt.txt:
   evolution/proposals/add_invoices_agent.yaml:
   evolution/proposals/add_orders_agent.yaml:
@@ -3153,12 +3148,11 @@ Expected r...
     e: print
     print()
   scripts/ci/ensure_editable_install.sh:
-  www/docker-compose.yml:
-  www/Dockerfile:
   www/schemas/agent_contract.schema.json:
   www/examples/nl-commands.txt:
   www/contracts/chat_ui_agent.yaml:
   www/contracts/openapi.yaml:
+  www/assets/config.js:
   testql-scenarios/generated-from-pytests.testql.toon.yaml:
   testql-scenarios/generated-cli-tests.testql.toon.yaml:
   testql-scenarios/generated-api-smoke.testql.toon.yaml:
@@ -3209,4 +3203,10 @@ Expected r...
   integration/uri2flow/Makefile.optional.snippet.mk:
   integration/touri/pyproject.optional.snippet.toml:
   integration/touri/Makefile.optional.snippet.mk:
-  www/assets/config.js:
+  pyproject.toml:
+  packages/urish/urish/__init__.py:
+  packages/uri2ops/uri2ops/__init__.py:
+  packages/uri2flow/uri2flow/__init__.py:
+  examples/13_nl2uri_multi_uri_graph/task_plan.yaml:
+  www/docker-compose.yml:
+  www/Dockerfile:

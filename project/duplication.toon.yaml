@@ -6,7 +6,7 @@ SUMMARY:
   dup_groups:    70
   dup_fragments: 178
   saved_lines:   922
-  scan_ms:       3273
+  scan_ms:       3689
 
 HOTSPOTS[7] (files with most duplication):
   output/ecosystems/hypervisor-dashboard/app/hypervisor_dashboard_agent/uri_client.py  dup=123L  groups=5  frags=5  (0.4%)

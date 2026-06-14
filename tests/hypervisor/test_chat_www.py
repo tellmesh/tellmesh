@@ -2,9 +2,11 @@
 
 from __future__ import annotations
 
+from pathlib import Path
 from typing import Any
 
 import pytest
+import yaml
 from fastapi.testclient import TestClient
 from hypervisor_dashboard_agent.chat_format import format_ask_markdown, format_uri_result_markdown
 from hypervisor_dashboard_agent.main import app
@@ -91,3 +93,19 @@ def test_www_index_served(client: TestClient):
     assert "quick-prompts" in response.text
     assert "agent-list" in response.text
     assert "api-detail" in response.text
+
+
+def test_www_compose_mounts_system_artifacts(repo_root: Path):
+    compose = yaml.safe_load((repo_root / "www" / "docker-compose.yml").read_text())
+    volumes = compose["services"]["www-chat"]["volumes"]
+    assert "../agents/generated:/app/agents/generated:ro" in volumes
+    assert "../deployments:/app/deployments:ro" in volumes
+    assert "../knowledge:/app/knowledge:ro" in volumes
+    assert "../output:/app/output" in volumes
+
+
+def test_www_dockerfile_includes_generated_agents_and_repair_cases(repo_root: Path):
+    dockerfile = (repo_root / "www" / "Dockerfile").read_text()
+    assert "COPY agents ./agents" in dockerfile
+    assert "COPY knowledge ./knowledge" in dockerfile
+    assert "output/runtime/agents" in dockerfile

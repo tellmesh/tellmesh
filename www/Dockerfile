@@ -15,6 +15,10 @@ COPY schemas ./schemas
 COPY deployments ./deployments
 COPY config ./config
 COPY domains ./domains
+COPY agents ./agents
+COPY knowledge ./knowledge
+
+RUN mkdir -p output/runtime/agents output/logs output/incidents output/proposals
 
 RUN pip install --no-cache-dir -e ".[server]"
 

@@ -1,5 +1,5 @@
-# code2llm | 623f 35538L | python:440,yaml:79,json:32,shell:26,toml:17,txt:5,javascript:5,yml:4,proto:4,mk:2,j2:1 | 2026-06-14
-# generated in 0.12s
+# code2llm | 623f 35549L | python:440,yaml:79,json:32,shell:26,toml:17,txt:5,javascript:5,yml:4,proto:4,mk:2,j2:1 | 2026-06-14
+# generated in 0.14s
 # CC̅=3.7 | critical:21/1584 | dups:0 | cycles:0
 
 HEALTH[20]:
@@ -287,9 +287,9 @@ LAYERS:
   │ browser_router              71L  1C    5m  CC=5      ←0
   │ register                    71L  0C    2m  CC=6      ←3
   │ policy                      71L  0C    3m  CC=2      ←2
+  │ intent                      69L  0C    2m  CC=9      ←3
   │ shortcuts                   69L  0C    5m  CC=14     ←3
   │ cli_commands                69L  0C    6m  CC=3      ←1
-  │ intent                      69L  0C    2m  CC=9      ←3
   │ helpers                     67L  0C    2m  CC=5      ←2
   │ base                        67L  2C    2m  CC=4      ←0
   │ dispatch                    67L  0C    3m  CC=3      ←0
@@ -471,9 +471,9 @@ LAYERS:
   │ resource_like               16L  0C    1m  CC=1      ←0
   │ views                       16L  0C    1m  CC=2      ←1
   │ proto_index                 16L  0C    2m  CC=2      ←3
+  │ main                        16L  0C    0m  CC=0.0    ←0
+  │ main                        16L  0C    0m  CC=0.0    ←0
   │ __init__                    16L  0C    0m  CC=0.0    ←0
-  │ main                        16L  0C    0m  CC=0.0    ←0
-  │ main                        16L  0C    0m  CC=0.0    ←0
   │ mcp                         15L  0C    1m  CC=1      ←0
   │ http                        15L  0C    1m  CC=1      ←0
   │ pypi                        15L  0C    1m  CC=1      ←0
@@ -593,8 +593,8 @@ LAYERS:
   │ openapi.yaml                75L  0C    0m  CC=0.0    ←0
   │ chat_ui_agent.yaml          55L  0C    0m  CC=0.0    ←0
   │ agent_contract.schema.json    36L  0C    0m  CC=0.0    ←0
-  │ Dockerfile                  27L  0C    0m  CC=0.0    ←0
-  │ docker-compose.yml          13L  0C    0m  CC=0.0    ←0
+  │ Dockerfile                  31L  0C    0m  CC=0.0    ←0
+  │ docker-compose.yml          20L  0C    0m  CC=0.0    ←0
   │ config.js                   13L  0C    0m  CC=0.0    ←0
   │ nl-commands.txt             11L  0C    0m  CC=0.0    ←0
   │
@@ -890,38 +890,38 @@ COUPLING:
                   packages.uri2verify                                    4                                    1                                    1                                                                                                                                                                                                                                                                                                                                                                                                                     ──                                       hub
                             generator                                                                        ←2                                                                                                                                                                                                                             4                                                                                                                                                                                       ←5                                                                        ──  hub
   CYCLES: none
-  HUB: uri2ops.operation_registry/ (fan-in=68)
-  HUB: packages.resource-agent-hypervisor/ (fan-in=34)
-  HUB: packages.uri2run/ (fan-in=18)
-  HUB: packages.urish/ (fan-in=8)
-  HUB: generator/ (fan-in=11)
-  HUB: packages.hypervisor-dashboard-agent/ (fan-in=9)
-  HUB: examples.23_nl_to_agent_tutorial/ (fan-in=47)
-  HUB: packages.uri3/ (fan-in=188)
   HUB: packages.uri2ops/ (fan-in=9)
+  HUB: examples.23_nl_to_agent_tutorial/ (fan-in=47)
   HUB: uri2ops.server/ (fan-in=7)
-  HUB: packages.touri/ (fan-in=11)
-  HUB: uri3.resolvers/ (fan-in=5)
-  HUB: packages.uri2verify/ (fan-in=9)
-  HUB: hypervisor.contract_registry/ (fan-in=15)
-  HUB: packages.uri2flow/ (fan-in=12)
-  HUB: packages.urigen/ (fan-in=35)
-  HUB: domains.weather_map/ (fan-in=7)
+  HUB: packages.resource-agent-hypervisor/ (fan-in=34)
+  HUB: generator/ (fan-in=11)
   HUB: packages.resource-agent-factory/ (fan-in=6)
-  HUB: packages.uri2pact/ (fan-in=5)
+  HUB: packages.urigen/ (fan-in=35)
+  HUB: packages.touri/ (fan-in=11)
+  HUB: domains.weather_map/ (fan-in=7)
+  HUB: packages.hypervisor-dashboard-agent/ (fan-in=9)
   HUB: packages.nl2uri/ (fan-in=5)
-  SMELL: packages.resource-agent-hypervisor/ fan-out=143 → split needed
-  SMELL: packages.uri2run/ fan-out=46 → split needed
-  SMELL: packages.urish/ fan-out=70 → split needed
-  SMELL: packages.hypervisor-dashboard-agent/ fan-out=17 → split needed
-  SMELL: packages.uri3/ fan-out=85 → split needed
+  HUB: packages.uri2flow/ (fan-in=12)
+  HUB: hypervisor.contract_registry/ (fan-in=15)
+  HUB: packages.urish/ (fan-in=8)
+  HUB: packages.uri3/ (fan-in=188)
+  HUB: packages.uri2verify/ (fan-in=9)
+  HUB: uri3.resolvers/ (fan-in=5)
+  HUB: uri2ops.operation_registry/ (fan-in=68)
+  HUB: packages.uri2run/ (fan-in=18)
+  HUB: packages.uri2pact/ (fan-in=5)
   SMELL: packages.uri2ops/ fan-out=13 → split needed
-  SMELL: packages.touri/ fan-out=30 → split needed
-  SMELL: meta_agent/ fan-out=8 → split needed
-  SMELL: packages.uri2flow/ fan-out=11 → split needed
-  SMELL: packages.urigen/ fan-out=14 → split needed
+  SMELL: packages.resource-agent-hypervisor/ fan-out=143 → split needed
   SMELL: packages.resource-agent-factory/ fan-out=12 → split needed
+  SMELL: meta_agent/ fan-out=8 → split needed
+  SMELL: packages.urigen/ fan-out=14 → split needed
+  SMELL: packages.touri/ fan-out=30 → split needed
+  SMELL: packages.hypervisor-dashboard-agent/ fan-out=17 → split needed
   SMELL: packages.nl2uri/ fan-out=47 → split needed
+  SMELL: packages.uri2flow/ fan-out=11 → split needed
+  SMELL: packages.urish/ fan-out=70 → split needed
+  SMELL: packages.uri3/ fan-out=85 → split needed
+  SMELL: packages.uri2run/ fan-out=46 → split needed
 
 EXTERNAL:
   validation: run `vallm batch .` → validation.toon
