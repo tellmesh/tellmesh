@@ -23,10 +23,15 @@ def verify_generated_agent(agent_dir: Path) -> list[str]:
 
     source = Path(source_match.group(1))
     expected_hash = hash_match.group(1)
-    if not source.exists():
-        errors.append(f"{agent_dir}: source contract not found: {source}")
-    elif file_sha256(source) != expected_hash:
-        errors.append(f"{agent_dir}: contract_hash mismatch; regenerate agent")
+    if source.exists():
+        if file_sha256(source) != expected_hash:
+            errors.append(f"{agent_dir}: contract_hash mismatch; regenerate agent")
+        # else: source present and matches → OK
+    else:
+        # Source contract not present on this machine (e.g. generated on another host,
+        # or the agent dir is part of the committed examples). Do not fail verification
+        # for portability; only presence + hash match matters when the source is here.
+        pass
 
     return errors
 

@@ -1,4 +1,6 @@
-from hypervisor.uri2llm import resolve
+"""Backward-compat shim: prefer tests/uri3/test_resolvers.py."""
+
+from uri3.resolvers.router import resolve
 
 
 def test_env_uri_resolution(monkeypatch):

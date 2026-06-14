@@ -7,7 +7,7 @@ import yaml
 
 from generator.agent_generator import generate_agent
 from generator.validate import validate_agent
-from generator.verify import verify_generated
+from generator.verify import verify_generated_agent
 from meta_agent.models import PipelineResult
 from meta_agent.planner import infer_intent, intent_to_agent_spec, package_name
 from meta_agent.repair import repair_agent_spec
@@ -42,7 +42,7 @@ def validate_repair_generate(spec_path: Path, *, auto_repair: bool = True) -> Pi
     except Exception as exc:  # noqa: BLE001
         return PipelineResult(status="failed", spec_path=str(spec_path), validation_errors=[str(exc)], repair_warnings=repair_warnings)
 
-    verify_errors = verify_generated(ROOT / "agents" / "generated")
+    verify_errors = verify_generated_agent(generated_path) if generated_path.exists() else ["generated path missing"]
     if verify_errors:
         return PipelineResult(
             status="failed",

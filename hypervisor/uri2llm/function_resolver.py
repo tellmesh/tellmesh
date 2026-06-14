@@ -1,26 +1,5 @@
-from __future__ import annotations
+"""Deprecated: use uri3.resolvers.python_resolver instead."""
 
-import importlib
-from urllib.parse import urlparse
-from typing import Any
+from uri3.resolvers.python_resolver import _split_python_uri, call_python, resolve_python
 
-
-def _split_python_uri(uri: str) -> tuple[str, str]:
-    parsed = urlparse(uri)
-    target = parsed.netloc + parsed.path
-    if ":" not in target:
-        raise ValueError("python:// URI must be python://module.path:function")
-    module, func = target.split(":", 1)
-    return module.strip("/"), func
-
-
-def resolve_python(uri: str) -> dict[str, str]:
-    module, func = _split_python_uri(uri)
-    return {"module": module, "function": func}
-
-
-def call_python(uri: str, payload: dict[str, Any]) -> Any:
-    module, func = _split_python_uri(uri)
-    mod = importlib.import_module(module)
-    fn = getattr(mod, func)
-    return fn(payload)
+__all__ = ["_split_python_uri", "resolve_python", "call_python"]

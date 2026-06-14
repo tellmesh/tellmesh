@@ -1,12 +1,5 @@
-from __future__ import annotations
+"""Deprecated: use uri3.resolvers.env_resolver instead."""
 
-import os
-from urllib.parse import urlparse
+from uri3.resolvers.env_resolver import resolve_env
 
-
-def resolve_env(uri: str) -> dict[str, str | bool | None]:
-    parsed = urlparse(uri)
-    name = parsed.netloc or parsed.path.lstrip("/")
-    if not name:
-        raise ValueError("env:// URI requires variable name")
-    return {"name": name, "exists": name in os.environ, "value": os.environ.get(name)}
+__all__ = ["resolve_env"]

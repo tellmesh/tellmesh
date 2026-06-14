@@ -1,7 +1,7 @@
 from pathlib import Path
 
+from hypervisor.domain_pack.generator import generate_domain_pack_from_tree
 from meta_agent.domain_planner.llm_planner import plan_domain_from_prompt
-from meta_agent.domain_planner.domain_pack_generator import generate_domain_pack_from_tree
 
 
 def test_weather_prompt_generates_uri_tree():
@@ -18,3 +18,5 @@ def test_domain_pack_generation(tmp_path):
     assert Path(files["uri_tree"]).exists()
     assert Path(files["resources"]).exists()
     assert Path(files["agent_contract"]).exists()
+    assert Path(files["views"]).exists()
+    assert Path(files["commands"]).exists()

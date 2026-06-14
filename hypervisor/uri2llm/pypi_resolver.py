@@ -1,16 +1,5 @@
-from __future__ import annotations
+"""Deprecated: use uri3.resolvers.pypi_resolver instead."""
 
-from urllib.parse import urlparse
+from uri3.resolvers.pypi_resolver import resolve_pypi
 
-
-def resolve_pypi(uri: str) -> dict[str, str]:
-    parsed = urlparse(uri)
-    package = parsed.netloc or parsed.path.strip("/")
-    version = "latest"
-    if "/" in parsed.path.strip("/"):
-        parts = parsed.path.strip("/").split("/")
-        if parts[0]:
-            package = parts[0]
-        if len(parts) > 1:
-            version = parts[1]
-    return {"package": package, "version": version, "index": "https://pypi.org/project/" + package}
+__all__ = ["resolve_pypi"]

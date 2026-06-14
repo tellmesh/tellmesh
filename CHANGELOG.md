@@ -115,6 +115,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Docs
 - Update README.md
+- Update project/README.md
+- Update project/context.md
+
+### Test
+- Update tests/domain_pack/__init__.py
+- Update tests/domain_pack/test_generator.py
+- Update tests/test_nl2a_v04.py
+- Update tests/test_uri2llm_v04.py
+- Update tests/uri3/__init__.py
+- Update tests/uri3/test_resolvers.py
+
+### Other
+- Update generator/verify.py
+- Update hypervisor/__init__.py
+- Update hypervisor/cli.py
+- Update hypervisor/contract_registry/merger.py
+- Update hypervisor/domain_pack/__init__.py
+- Update hypervisor/domain_pack/generator.py
+- Update hypervisor/domain_pack/templates.py
+- Update hypervisor/domain_pack/writer.py
+- Update hypervisor/uri/client.py
+- Update hypervisor/uri2llm/__init__.py
+- ... and 34 more files
+
+## [0.1.1] - 2026-06-14
+
+### Docs
+- Update README.md
 - Update agents/generated/user_agent/README.md
 - Update docs/ARCHITECTURE.md
 - Update docs/ARCHITECTURE_META_FACTORY.md

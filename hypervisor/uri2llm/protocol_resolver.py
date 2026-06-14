@@ -1,22 +1,10 @@
-from __future__ import annotations
+"""Deprecated: use uri3.resolvers.protocol_resolver instead."""
 
-from urllib.parse import urlparse
+from uri3.resolvers.protocol_resolver import (
+    resolve_a2a,
+    resolve_http_like,
+    resolve_mcp,
+    resolve_resource,
+)
 
-
-def resolve_http_like(uri: str) -> dict[str, str]:
-    return {"url": uri, "transport": "http"}
-
-
-def resolve_a2a(uri: str) -> dict[str, str]:
-    parsed = urlparse(uri)
-    return {"agent": parsed.netloc, "path": parsed.path or "/", "protocol": "a2a"}
-
-
-def resolve_mcp(uri: str) -> dict[str, str]:
-    parsed = urlparse(uri)
-    return {"server": parsed.netloc, "path": parsed.path or "/", "protocol": "mcp"}
-
-
-def resolve_resource(uri: str) -> dict[str, str]:
-    parsed = urlparse(uri)
-    return {"scheme": parsed.scheme, "namespace": parsed.netloc, "path": parsed.path}
+__all__ = ["resolve_http_like", "resolve_a2a", "resolve_mcp", "resolve_resource"]
