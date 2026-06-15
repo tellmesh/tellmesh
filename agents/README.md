@@ -11,7 +11,9 @@ registries and markpact-readable README blocks.
 
 | Path | Role |
 |------|------|
+| `agents/manifests/` | Unified Markpact manifest per agent (sync from contract + deployment) |
 | `agents/generated/` | Generated Python agents from `contracts/agents/*.yaml` |
+| `agents/generated/runtime_routes.py` | Shared HTTP/runtime helpers for thin generated agents |
 | `agents/custom/` | Hand-written extensions outside generated output |
 | `agents/operators/` | Capability agents (browser, desktop, device-robot) — contract, registry, adapters |
 | `agents/system/` | Control-plane agents (hypervisor-dashboard) — thin deployment entry |

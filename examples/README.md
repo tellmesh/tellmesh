@@ -4,7 +4,7 @@ Examples follow the `examples/*/*` layout — each directory has its own `README
 
 Polish index: [`README.pl.md`](./README.pl.md)
 
-**WWW documentation (full content):** [`www/docs/examples.html`](../www/docs/examples.html) — all READMEs + YAML/TXT/SH files · [`www/przyklady.html`](../www/przyklady.html) — PASS lab + commands.
+**WWW documentation (full content):** [`tellmesh/www/docs/examples.html`](../../tellmesh/www/docs/examples.html) — all READMEs + YAML/TXT/SH files · [`tellmesh/www/przyklady.html`](../../tellmesh/www/przyklady.html) — PASS lab + commands.
 
 **Repo index:** [`README.md`](../README.md) · [`docs/README.md`](../docs/README.md) · [`TODO.md`](../TODO.md) · [`CHANGELOG.md`](../CHANGELOG.md)
 
@@ -13,7 +13,7 @@ Regenerate docs page: `make www-docs` (`scripts/www/build_examples_docs.py`).
 ### `ABOUT.md` — landing `#integracje` cards
 
 Optional per example: `examples/<id>/ABOUT.md` (YAML frontmatter + markdown/HTML body).
-Built into [`www/index.html`](../www/index.html) `#integracje` by `scripts/www/build_landing_integrations.py`.
+Built into [`tellmesh/www/index.html`](../../tellmesh/www/index.html) `#integracje` by `scripts/www/build_landing_integrations.py`.
 See [`www/README.md`](../www/README.md) for the schema. Examples with cards today:
 `23_nl_to_agent_tutorial`, `31_office_day`, `32_ecommerce_integrations`, `33_office_workflows`, `34_cron_uri`, `35_website_screenshot_schedule`.
 
@@ -77,7 +77,7 @@ pip install -e '.[windows]'   # Windows UIA
 | — | [`22_dashboard_agent`](./22_dashboard_agent/) | capability/flow dashboard-agent | [`README`](./22_dashboard_agent/README.md) |
 | — | [`16_www_landing_monitor`](./16_www_landing_monitor/) | WWW landing monitor | [`README`](./16_www_landing_monitor/README.md) |
 
-> **WWW:** full content of all directories → [`www/docs/examples.html`](../www/docs/examples.html)
+> **WWW:** full content of all directories → [`www/docs/examples.html`](../../tellmesh/www/docs/examples.html)
 
 > **Note:** numbers 13–15 are shared between paths (operator vs workflow) — use the full directory name.
 

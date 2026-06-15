@@ -571,9 +571,9 @@ def test_www_examples_docs_page(client: TestClient):
     assert "docs-examples.js" in text
 
 
-def test_build_examples_docs_script(repo_root: Path):
+def test_build_examples_docs_script(repo_root: Path, www_root: Path):
     script = repo_root / "scripts" / "www" / "build_examples_docs.py"
-    out = repo_root / "www" / "docs" / "examples.html"
+    out = www_root / "docs" / "examples.html"
     result = subprocess.run(
         [sys.executable, str(script), "--check"],
         cwd=repo_root,
@@ -655,16 +655,16 @@ def test_www_flow_chat_served(client: TestClient):
     assert "Load demo session" in response.text
 
 
-def test_www_chat_flow_view_module(repo_root: Path):
-    script = (repo_root / "www" / "chat-flow-view.js").read_text(encoding="utf-8")
+def test_www_chat_flow_view_module(www_root: Path):
+    script = (www_root / "chat-flow-view.js").read_text(encoding="utf-8")
     assert "data.actions" in script
     assert "plannerTurnFromAsk" in script
     assert "executorTurnFromCall" in script
     assert "manifest.uri_graph" in script
 
 
-def test_www_chat_js_guards_stale_and_duplicate_actions(repo_root: Path):
-    script = (repo_root / "www" / "app.js").read_text(encoding="utf-8")
+def test_www_chat_js_guards_stale_and_duplicate_actions(www_root: Path):
+    script = (www_root / "app.js").read_text(encoding="utf-8")
     assert "const INTRO_MARKDOWN" in script
     assert "pokaż proces agenta weather-map-agent.local" in script
     assert "zdiagnozuj agenta invoices-agent.local" in script
@@ -694,9 +694,9 @@ def test_www_landing_has_tour_copy(client: TestClient):
     assert 'href="flow-chat.html"' in response.text or 'href="/www/flow-chat.html"' in response.text
 
 
-def test_www_landing_js_explains_repair_loop(repo_root: Path):
-    legacy = repo_root / "www" / "index.legacy.html"
-    script = (repo_root / "www" / "landing.js").read_text(encoding="utf-8")
+def test_www_landing_js_explains_repair_loop(www_root: Path):
+    legacy = www_root / "index.legacy.html"
+    script = (www_root / "landing.js").read_text(encoding="utf-8")
     assert legacy.is_file()
     assert "buildSlideRepair" in script
     assert "SCENARIOS" in script
@@ -705,7 +705,7 @@ def test_www_landing_js_explains_repair_loop(repo_root: Path):
     assert "failSafeTimer" in script
     assert "RUNTIME_STATE_STALE" in script
     assert "hypervisor supervise user-agent.local --repair auto" in script
-    index = (repo_root / "www" / "index.html").read_text(encoding="utf-8")
+    index = (www_root / "index.html").read_text(encoding="utf-8")
     assert "repair" in index.lower()
     assert "contract://agent/weather-map-agent" in index
 
@@ -721,6 +721,7 @@ def test_www_compose_mounts_system_artifacts(repo_root: Path):
     assert "../deployments:/app/deployments" in volumes
     assert "../knowledge:/app/knowledge:ro" in volumes
     assert "../output:/app/output" in volumes
+    assert "tellmesh/www" in volumes[0] or "HYPERVISOR_WWW_DIR" in volumes[0]
 
 
 def test_www_dockerfile_includes_generated_agents_and_repair_cases(repo_root: Path):
@@ -728,7 +729,7 @@ def test_www_dockerfile_includes_generated_agents_and_repair_cases(repo_root: Pa
     assert "COPY agents ./agents" in dockerfile
     assert "COPY examples ./examples" in dockerfile
     assert "COPY knowledge ./knowledge" in dockerfile
-    assert "output/runtime/agents" in dockerfile
+    assert "mkdir -p /app/www" in dockerfile
 
 
 def test_api_events_returns_typed_feed(client: TestClient):

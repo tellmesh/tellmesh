@@ -480,39 +480,6 @@ flowchart TD
         packages__resource_agent_hypervisor__hypervisor__agent_describe___read_yaml["_read_yaml"]
         packages__resource_agent_hypervisor__hypervisor__agent_describe___rel["_rel"]
     end
-    subgraph packages__uri2flow
-        packages__uri2flow__uri2flow__validator__validate_flow_document("validate_flow_document CC=10")
-        packages__uri2flow__uri2flow__validator__validate_expanded_flow["validate_expanded_flow"]
-        packages__uri2flow__uri2flow__validator__validate_flow("validate_flow CC=11")
-        packages__uri2flow__uri2flow__cli__cmd_validate["cmd_validate"]
-        packages__uri2flow__uri2flow__cli__cmd_expand["cmd_expand"]
-        packages__uri2flow__uri2flow__cli__cmd_print["cmd_print"]
-        packages__uri2flow__uri2flow__cli__build_parser["build_parser"]
-        packages__uri2flow__uri2flow__cli__main["main"]
-        packages__uri2flow__uri2flow__expander___node_from_step("_node_from_step CC=11")
-        packages__uri2flow__uri2flow__expander___edges_from_depends["_edges_from_depends"]
-        packages__uri2flow__uri2flow__expander__expand_flow["expand_flow"]
-        packages__uri2flow__uri2flow__expander__dump_yaml["dump_yaml"]
-        packages__uri2flow__uri2flow__parser___as_list["_as_list"]
-        packages__uri2flow__uri2flow__parser___parse_step("_parse_step CC=10")
-        packages__uri2flow__uri2flow__parser__parse_flow("parse_flow CC=12")
-        packages__uri2flow__uri2flow__parser__load_flow["load_flow"]
-        packages__uri2flow__uri2flow__utils__slugify["slugify"]
-        packages__uri2flow__uri2flow__utils__scheme_of["scheme_of"]
-        packages__uri2flow__uri2flow__utils__path_parts["path_parts"]
-        packages__uri2flow__uri2flow__utils__node_id_from_uri["node_id_from_uri"]
-        packages__uri2flow__uri2flow__models__FlowDocument__to_dict("to_dict CC=11")
-        packages__uri2flow__uri2flow__resolver___find_repo_root["_find_repo_root"]
-        packages__uri2flow__uri2flow__resolver___pattern_to_regex["_pattern_to_regex"]
-        packages__uri2flow__uri2flow__resolver___match_pattern["_match_pattern"]
-        packages__uri2flow__uri2flow__resolver___load_flow_defaults_config["_load_flow_defaults_config"]
-        packages__uri2flow__uri2flow__resolver___defaults_from_entry["_defaults_from_entry"]
-        packages__uri2flow__uri2flow__resolver___defaults_from_scheme["_defaults_from_scheme"]
-        packages__uri2flow__uri2flow__resolver___defaults_from_patterns["_defaults_from_patterns"]
-        packages__uri2flow__uri2flow__resolver___fallback_defaults["_fallback_defaults"]
-        packages__uri2flow__uri2flow__resolver__default_operation_for_uri["default_operation_for_uri"]
-        packages__uri2flow__uri2flow__resolver__clear_defaults_cache["clear_defaults_cache"]
-    end
     subgraph runtime_client__client
         runtime_client__client__ResourceRuntimeClient____init__["__init__"]
         runtime_client__client__ResourceRuntimeClient__read_resource["read_resource"]
@@ -609,10 +576,13 @@ flowchart TD
         scripts__tellmesh__fix_and_publish__update_goal_tests["update_goal_tests"]
         scripts__tellmesh__fix_and_publish__goal_push["goal_push"]
         scripts__tellmesh__fix_and_publish__main["main"]
+        scripts__tellmesh__sync_www__sync_www("sync_www CC=8")
+        scripts__tellmesh__sync_www__main["main"]
         scripts__tellmesh__move_tests__sync_tests("sync_tests CC=11")
         scripts__tellmesh__move_tests__remove_hypervisor_tests["remove_hypervisor_tests"]
         scripts__tellmesh__move_tests__push_tellmesh["push_tellmesh"]
-        scripts__tellmesh__move_tests__main["main"]
+        scripts__tellmesh__move_tests__parse_args["parse_args"]
+        scripts__tellmesh__move_tests__main("main CC=8")
     end
     subgraph scripts__www
         scripts__www__monitor_landing__fetch_html["fetch_html"]
@@ -627,6 +597,24 @@ flowchart TD
         scripts__www__monitor_url__fetch["fetch"]
         scripts__www__monitor_url__main["main"]
         scripts__www__run_monitors__run_step["run_step"]
+        scripts__www__monitor_notify__webhook_url["webhook_url"]
+        scripts__www__monitor_notify__is_placeholder_webhook["is_placeholder_webhook"]
+        scripts__www__monitor_notify__is_supported_webhook["is_supported_webhook"]
+        scripts__www__monitor_notify__emit_alert["emit_alert"]
+        scripts__www__monitor_notify__post_webhook["post_webhook"]
+        scripts__www__site_nav__brand_logo_src["brand_logo_src"]
+        scripts__www__site_nav__render_brand["render_brand"]
+        scripts__www__site_nav__render_topbar["render_topbar"]
+        scripts__www__site_nav__render_footer["render_footer"]
+        scripts__www__install_cron__is_placeholder_webhook["is_placeholder_webhook"]
+        scripts__www__install_cron__prepare_log_file["prepare_log_file"]
+        scripts__www__install_cron__current_crontab["current_crontab"]
+        scripts__www__install_cron__usage["usage"]
+        scripts__www__about_parser__split_frontmatter["split_frontmatter"]
+        scripts__www__about_parser__load_about["load_about"]
+        scripts__www__about_parser__iter_about_files["iter_about_files"]
+        scripts__www__test_monitors__do_POST["do_POST"]
+        scripts__www__test_monitors__log_message["log_message"]
         scripts__www__build_examples_manifest__natural_key["natural_key"]
         scripts__www__build_examples_manifest__extract_title["extract_title"]
         scripts__www__build_examples_manifest__category_for["category_for"]
@@ -635,6 +623,7 @@ flowchart TD
         scripts__www__build_examples_manifest__test_summary["test_summary"]
         scripts__www__build_examples_manifest__build_manifest("build_manifest CC=11")
         scripts__www__build_examples_manifest__main["main"]
+        scripts__www__www_root__www_dir["www_dir"]
         scripts__www__build_examples_docs___import_markdown["_import_markdown"]
         scripts__www__build_examples_docs__natural_key["natural_key"]
         scripts__www__build_examples_docs__slug_for_dir["slug_for_dir"]
@@ -656,25 +645,6 @@ flowchart TD
         scripts__www__build_examples_docs__build_overview_section["build_overview_section"]
         scripts__www__build_examples_docs__main["main"]
         scripts__www__check_examples_links___iter_hrefs["_iter_hrefs"]
-        scripts__www__check_examples_links___collect_anchor_ids["_collect_anchor_ids"]
-        scripts__www__check_examples_links___extract_block["_extract_block"]
-        scripts__www__check_examples_links___check_href("_check_href CC=12")
-        scripts__www__check_examples_links__check_examples_links("check_examples_links CC=9")
-        scripts__www__check_examples_links__main["main"]
-        scripts__www__monitor_notify__webhook_url["webhook_url"]
-        scripts__www__monitor_notify__is_placeholder_webhook["is_placeholder_webhook"]
-        scripts__www__monitor_notify__is_supported_webhook["is_supported_webhook"]
-        scripts__www__monitor_notify__emit_alert["emit_alert"]
-        scripts__www__monitor_notify__post_webhook["post_webhook"]
-        scripts__www__build_landing_integrations___esc["_esc"]
-        scripts__www__build_landing_integrations___i18n_values["_i18n_values"]
-        scripts__www__build_landing_integrations___cta_i18n_values["_cta_i18n_values"]
-        scripts__www__build_landing_integrations___spotlight_body_html("_spotlight_body_html CC=11")
-        scripts__www__build_landing_integrations___render_cta_links["_render_cta_links"]
-        scripts__www__build_landing_integrations___render_i18n_spans["_render_i18n_spans"]
-        scripts__www__build_landing_integrations___render_i18n["_render_i18n"]
-        scripts__www__build_landing_integrations___snippet_block["_snippet_block"]
-        scripts__www__build_landing_integrations__render_connector["render_connector"]
     end
     subgraph testenv__ssh_agent_host
         testenv__ssh_agent_host__mock_agent_server__Handler___json["_json"]

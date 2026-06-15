@@ -1,5 +1,5 @@
 flowchart TD
-%% generated in 0.09s
+%% generated in 0.10s
     agents__custom["agents.custom<br/>46 funcs"]
     agents__generated["agents.generated<br/>160 funcs"]
     agents__operators["agents.operators<br/>109 funcs"]
@@ -20,12 +20,11 @@ flowchart TD
     meta_agent__repair["meta_agent.repair<br/>9 funcs"]
     packages__hypervisor_dashboard_agent["packages.hypervisor-dashboard-agent<br/>29 funcs"]
     packages__resource_agent_factory["packages.resource-agent-factory<br/>35 funcs"]
-    packages__resource_agent_hypervisor["packages.resource-agent-hypervisor<br/>528 funcs"]
-    packages__uri2flow["packages.uri2flow<br/>31 funcs"]
+    packages__resource_agent_hypervisor["packages.resource-agent-hypervisor<br/>530 funcs"]
     scripts__architecture_audit["scripts.architecture_audit<br/>44 funcs"]
     scripts__examples["scripts.examples<br/>25 funcs"]
-    scripts__tellmesh["scripts.tellmesh<br/>18 funcs"]
-    scripts__www["scripts.www<br/>82 funcs"]
+    scripts__tellmesh["scripts.tellmesh<br/>21 funcs"]
+    scripts__www["scripts.www<br/>83 funcs"]
     testenv__ssh_agent_host["testenv.ssh_agent_host<br/>3 funcs"]
     www__api_bridge["www.api-bridge<br/>8 funcs"]
     www__assets["www.assets<br/>52 funcs"]
@@ -34,8 +33,8 @@ flowchart TD
     packages__resource_agent_hypervisor ==>|24| examples__38_autonomous_agents
     scripts__www ==>|21| examples__38_autonomous_agents
     agents__system ==>|18| packages__resource_agent_hypervisor
+    scripts__tellmesh ==>|13| examples__38_autonomous_agents
     packages__resource_agent_hypervisor ==>|11| hypervisor__contract_registry
-    scripts__tellmesh ==>|11| examples__38_autonomous_agents
     agents__custom ==>|10| packages__resource_agent_hypervisor
     scripts__examples ==>|9| examples__38_autonomous_agents
     scripts__examples ==>|7| packages__resource_agent_hypervisor
@@ -55,8 +54,6 @@ flowchart TD
     packages__resource_agent_hypervisor -->|3| generator__hashutil
     scripts__architecture_audit -->|3| examples__38_autonomous_agents
     agents__operators -->|3| www__assets
-    packages__uri2flow -->|3| examples__38_autonomous_agents
-    packages__uri2flow -->|3| meta_agent__models
     packages__resource_agent_factory -->|2| generator__model
     packages__resource_agent_factory -->|2| generator__hashutil
     packages__resource_agent_hypervisor -->|2| meta_agent__repair
@@ -78,9 +75,8 @@ flowchart TD
     hypervisor__deployment_registry -->|1| packages__resource_agent_hypervisor
     testenv__ssh_agent_host -->|1| examples__38_autonomous_agents
     scripts__examples -->|1| hypervisor__contract_registry
-    scripts__examples -->|1| packages__uri2flow
     scripts__examples -->|1| meta_agent__models
     www__api_bridge -->|1| agents__system
     packages__hypervisor_dashboard_agent -->|1| www__landing
     agents__system -->|1| www__assets
-    packages__uri2flow -->|1| meta_agent__planner
+    scripts__www -->|1| packages__resource_agent_hypervisor

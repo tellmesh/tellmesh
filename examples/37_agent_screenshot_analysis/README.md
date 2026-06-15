@@ -4,8 +4,8 @@ This example verifies agent-to-agent work:
 
 ```text
 screenshot-analysis-agent
-  -> calls desktop-operator /run
-  -> desktop-operator opens a page and captures a screenshot artifact
+  -> calls browser-operator /run
+  -> browser-operator opens a page and captures a screenshot artifact
   -> screenshot-analysis-agent reads the returned artifact URI
   -> writes observations to output/analysis/screenshots/
 ```
@@ -34,9 +34,9 @@ ADAPTER=playwright bash examples/37_agent_screenshot_analysis/run.sh
 ## Useful URIs
 
 ```bash
-uri call schema://agent/desktop-operator.local --json
+uri call schema://agent/browser-operator.local --json
 uri call schema://agent/screenshot-analysis-agent.local --json
-uri call health://agent/desktop-operator.local --json
+uri call health://agent/browser-operator.local --json
 uri call health://agent/screenshot-analysis-agent.local --json
 ```
 

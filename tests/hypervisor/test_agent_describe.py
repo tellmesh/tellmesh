@@ -43,7 +43,7 @@ def test_describe_dashboard_system_agent_architecture():
     report = describe_agent("hypervisor-dashboard.local")
     md = report.markdown
     assert "System agent package" in md
-    assert "packages/* system agent" in md
+    assert "agents/system/*" in md
     assert "agent_id=hypervisor-dashboard.local" in md or "agent_id=" in md
     assert "place=Gdansk" not in md
     assert ".egg-info" not in md

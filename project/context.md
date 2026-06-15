@@ -5,12 +5,12 @@
 
 - **Project**: /home/tom/github/wronai/hypervisor
 - **Primary Language**: python
-- **Languages**: python: 311, yaml: 145, json: 77, shell: 40, javascript: 17
+- **Languages**: python: 303, yaml: 145, json: 76, shell: 40, javascript: 17
 - **Analysis Mode**: static
-- **Total Functions**: 1723
-- **Total Classes**: 93
-- **Modules**: 641
-- **Entry Points**: 750
+- **Total Functions**: 1698
+- **Total Classes**: 89
+- **Modules**: 631
+- **Entry Points**: 743
 
 ## Architecture by Module
 
@@ -139,17 +139,20 @@ Main execution flows into the system:
 ### agents.operators.desktop_operator.adapters.screen_gnome.observe
 - **Calls**: agents.operators.desktop_operator.adapters.screen_gnome._task_context, str, temp_path.parent.mkdir, agents.operators.desktop_operator.adapters.screen_gnome._capture_screenshot, temp_path.read_bytes, write_step_artifact, agents.operators.desktop_operator.adapters.screen_gnome._list_windows, write_step_artifact
 
+### scripts.tellmesh.sync_www.main
+- **Calls**: argparse.ArgumentParser, parser.add_argument, parser.add_argument, parser.add_argument, parser.parse_args, args.target.resolve, scripts.tellmesh.sync_www.sync_www, examples.38_autonomous_agents.run.print
+
 ### scripts.examples.run_uri3_workflow.main
 - **Calls**: argparse.ArgumentParser, parser.add_argument, parser.add_argument, parser.add_argument, parser.add_argument, parser.parse_args, validate_workflow_graph, load_workflow_graph
-
-### scripts.www.build_examples_docs.main
-- **Calls**: argparse.ArgumentParser, parser.add_argument, parser.add_argument, parser.parse_args, scripts.www.build_examples_docs.list_example_dirs, scripts.www.build_examples_docs.build_overview_section, scripts.www.build_examples_docs.build_page, args.out.parent.mkdir
 
 ### agents.system.hypervisor_dashboard.hypervisor_dashboard_agent.routes.api_uri_call
 - **Calls**: router.post, agents.system.hypervisor_dashboard.hypervisor_dashboard_agent.uri_client.uri_implies_dry_run, agents.system.hypervisor_dashboard.hypervisor_dashboard_agent.policy.decision_for_uri, result.setdefault, result.get, HTTPException, agents.system.hypervisor_dashboard.hypervisor_dashboard_agent.uri_client.call_system_uri, result.get
 
 ### agents.operators.browser_operator.adapters.browser_playwright.close_playwright_session
 - **Calls**: state.get, state.get, state.get, state.get, None.pop, agents.operators.browser_operator.adapters.browser_playwright._run_sync, None.get, None.pop
+
+### scripts.www.build_examples_docs.main
+- **Calls**: argparse.ArgumentParser, parser.add_argument, parser.add_argument, parser.parse_args, scripts.www.build_examples_docs.list_example_dirs, scripts.www.build_examples_docs.build_overview_section, scripts.www.build_examples_docs.build_page, args.out.parent.mkdir
 
 ### www.app.handleSubmit
 - **Calls**: www.app.preventDefault, www.app.trim, www.app.routeUserInput, www.app.appendMessage, www.app.escapeHtml, www.app.recordFlowUser, www.app.test, www.app.isPlausibleUri
@@ -176,14 +179,14 @@ Main execution flows into the system:
 ### packages.resource-agent-hypervisor.hypervisor.contract_registry.cli_commands.run_check_command
 - **Calls**: hypervisor.contract_registry.schema_validator.validate_contract_files, hypervisor.contract_registry.loader.load_contract_registry, packages.resource-agent-hypervisor.hypervisor.contract_registry.validate.validate_registry, packages.resource-agent-hypervisor.hypervisor.contract_registry.cross_validator.validate_root, packages.resource-agent-hypervisor.hypervisor.contract_registry.registry_builder.write_registry_manifest, examples.38_autonomous_agents.run.print, examples.38_autonomous_agents.run.print, len
 
-### scripts.www.build_examples_manifest.main
-- **Calls**: argparse.ArgumentParser, parser.add_argument, parser.parse_args, scripts.www.build_examples_manifest.build_manifest, OUT.parent.mkdir, OUT.write_text, examples.38_autonomous_agents.run.print, OUT.is_file
-
 ### www.landing.initReveal
 - **Calls**: www.landing.querySelectorAll, www.landing.forEach, www.landing.add, www.landing.disconnect, www.landing.clearTimeout, www.landing.IntersectionObserver, www.landing.unobserve, www.landing.from
 
 ### agents.operators.desktop_operator.adapters.input_gnome.type_text
 - **Calls**: bool, str, write_artifact, agents.operators.desktop_operator.adapters.input_gnome.gnome_input_available, payload.get, shutil.which, payload.get, payload.get
+
+### scripts.www.build_examples_manifest.main
+- **Calls**: argparse.ArgumentParser, parser.add_argument, parser.parse_args, scripts.www.build_examples_manifest.build_manifest, OUT.parent.mkdir, OUT.write_text, examples.38_autonomous_agents.run.print, OUT.is_file
 
 ### packages.resource-agent-hypervisor.hypervisor.cli.run_agent_cmd
 > Start a local agent or print an SSH remote start plan with --dry-run.
@@ -191,9 +194,6 @@ Main execution flows into the system:
 
 ### scripts.www.monitor_url.main
 - **Calls**: argparse.ArgumentParser, parser.add_argument, parser.add_argument, parser.add_argument, parser.add_argument, parser.add_argument, parser.parse_args, examples.38_autonomous_agents.run.print
-
-### www.landing.copyTourChat
-- **Calls**: www.landing.querySelector, www.landing.querySelectorAll, www.landing.flashTourCopy, www.landing.lookup, www.landing.forEach, www.landing.trim, www.landing.cloneNode, www.landing.remove
 
 ## Process Flows
 
@@ -481,8 +481,8 @@ Functions exposed as public API (no underscore prefix):
 - `www.api-bridge.bridge.call_uri` - 25 calls
 - `generator.model.load_agent_spec` - 24 calls
 - `scripts.www.monitor_landing.main` - 24 calls
-- `scripts.www.build_landing_integrations.render_connector` - 24 calls
 - `agents.operators.desktop_operator.adapters.android_adb.tap` - 24 calls
+- `scripts.www.build_landing_integrations.render_connector` - 24 calls
 - `packages.resource-agent-hypervisor.hypervisor.cli.supervise_cmd` - 23 calls
 - `packages.resource-agent-hypervisor.hypervisor.repair.supervisor.supervise_with_repair` - 23 calls
 - `packages.hypervisor-dashboard-agent.hypervisor_dashboard_agent.monitor_webhook.write_monitor_webhook` - 23 calls

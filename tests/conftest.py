@@ -31,6 +31,17 @@ def repo_root() -> Path:
     raise RuntimeError("hypervisor repo root not found")
 
 
+@pytest.fixture(scope="session")
+def www_root(repo_root: Path) -> Path:
+    sys.path.insert(0, str(repo_root.parent.parent / "tellmesh" / "resource-agent-hypervisor"))
+    from hypervisor.paths import resolve_www_dir
+
+    resolved = resolve_www_dir(repo_root)
+    if resolved is None or not (resolved / "index.html").is_file():
+        pytest.skip("tellmesh/www checkout required (set HYPERVISOR_WWW_DIR)")
+    return resolved
+
+
 @pytest.fixture(scope="session", autouse=True)
 def _hypervisor_repo_root_env(repo_root: Path):
     previous = os.environ.get("HYPERVISOR_REPO_ROOT")
@@ -57,9 +68,9 @@ def workspace_pythonpath(repo_root: Path) -> str:
         tellmesh_root / "uri2verify",
         tellmesh_root / "urigen",
         tellmesh_root / "urish",
-        repo_root / "packages" / "resource-agent-factory",
-        repo_root / "packages" / "resource-agent-hypervisor",
-        repo_root / "agents" / "system" / "hypervisor_dashboard",
+        tellmesh_root / "resource-agent-hypervisor",
+        tellmesh_root / "resource-agent-factory",
+        tellmesh_root / "hypervisor-dashboard",
         repo_root / "examples" / "21_touri_voice",
     ]
     prefix = os.pathsep.join(str(path) for path in paths if path.is_dir())

@@ -1,4 +1,4 @@
-# code2llm/evolution | 1544 func | 205f | 2026-06-15
+# code2llm/evolution | 1515 func | 198f | 2026-06-15
 # generated in 0.01s
 
 NEXT[10] (ranked by impact):
@@ -49,7 +49,7 @@ RISKS[3]:
   ⚠ Splitting www/app.js may break 99 import paths
 
 METRICS-TARGET:
-  CC̄:          3.6 → ≤2.5
+  CC̄:          3.5 → ≤2.4
   max-CC:      70 → ≤20
   god-modules: 8 → 0
   high-CC(≥15): 14 → ≤7
@@ -80,4 +80,4 @@ PATTERNS (language parser shared logic):
     - Standardized FunctionInfo/ClassInfo models
 
 HISTORY:
-  prev CC̄=3.5 → now CC̄=3.6
+  prev CC̄=3.6 → now CC̄=3.5

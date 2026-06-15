@@ -6,10 +6,16 @@ from __future__ import annotations
 
 import os
 from typing import Any
-from urllib.parse import urlparse
 
-from fastapi import APIRouter, HTTPException, Query
-from pydantic import BaseModel, Field
+from fastapi import APIRouter, Query
+from agents.generated.runtime_routes import (
+    CommandRequest,
+    assert_command_allowed,
+    assert_resource_allowed,
+    command_uri,
+    dispatch_command,
+    read_uri,
+)
 from runtime_client.client import ResourceRuntimeClient
 
 from .agent_card import AGENT_CARD
@@ -18,11 +24,6 @@ router = APIRouter()
 
 RUNTIME_URL = os.getenv("RESOURCE_RUNTIME_URL", "http://localhost:8000")
 client = ResourceRuntimeClient(base_url=RUNTIME_URL)
-
-
-class CommandRequest(BaseModel):
-    command: str = Field(..., description="Runtime command name")
-    payload: dict[str, Any] = Field(default_factory=dict)
 
 
 @router.get("/health")
@@ -52,30 +53,19 @@ def well_known_agent_card_json() -> dict[str, Any]:
 
 @router.get("/resources/read")
 def read_resource(uri: str = Query(...)) -> dict[str, Any]:
-    allowed = [
-        cap.get("uri")
-        for cap in AGENT_CARD["capabilities"]
-        if cap.get("type") == "resource_read"
-    ]
-    if not _uri_allowed(uri, allowed):
-        raise HTTPException(status_code=403, detail=f"URI not exposed by this agent: {uri}")
-    return _read_uri(uri)
+    assert_resource_allowed(AGENT_CARD, uri)
+    return read_uri(client, uri)
 
 
 @router.post("/commands")
-def dispatch_command(request: CommandRequest) -> dict[str, Any]:
-    allowed = [
-        cap.get("command")
-        for cap in AGENT_CARD["capabilities"]
-        if cap.get("type") == "command"
-    ]
-    if request.command not in allowed:
-        raise HTTPException(
-            status_code=403,
-            detail=f"Command not exposed by this agent: {request.command}",
-        )
-    command_uri = _command_uri(request.command)
-    return _dispatch_command(request.command, request.payload, uri=command_uri)
+def dispatch_command_route(request: CommandRequest) -> dict[str, Any]:
+    assert_command_allowed(AGENT_CARD, request.command)
+    return dispatch_command(
+        client,
+        request.command,
+        request.payload,
+        uri=command_uri(AGENT_CARD, request.command),
+    )
 
 
 @router.get("/skills/read_weather_map")
@@ -83,62 +73,13 @@ def skill_read_weather_map(place: str, days: str) -> dict[str, Any]:
     uri = "resource://weather/maps/{place}/forecast/{days}"
     uri = uri.replace("{place}", place)
     uri = uri.replace("{days}", days)
-    return _read_uri(uri)
+    return read_uri(client, uri)
 
 @router.post("/skills/generate_weather_map")
 def skill_generate_weather_map(payload: dict[str, Any]) -> dict[str, Any]:
-    return _dispatch_command(
+    return dispatch_command(
+        client,
         "GenerateWeatherMap",
         payload,
         uri=None,
     )
-
-
-def _uri_allowed(uri: str, templates: list[str | None]) -> bool:
-    for template in templates:
-        if not template:
-            continue
-        prefix = template.split("{")[0]
-        if uri.startswith(prefix):
-            return True
-    return False
-
-
-def _read_uri(uri: str) -> dict[str, Any]:
-    scheme = urlparse(uri).scheme
-    if scheme == "resource":
-        return client.read_resource(uri)
-    if scheme == "file":
-        from uri3.resolvers.resolve_core import resolve
-
-        resolved = resolve(uri)
-        return {
-            "ok": True,
-            "uri": uri,
-            "result_type": "file",
-            "data": resolved.target,
-        }
-    from urish.backends.call import call_uri
-
-    return call_uri(uri, {}, dry_run=False)
-
-
-def _command_uri(command: str) -> str | None:
-    for cap in AGENT_CARD["capabilities"]:
-        if cap.get("type") == "command" and cap.get("command") == command:
-            uri = cap.get("uri")
-            return str(uri) if uri else None
-    return None
-
-
-def _dispatch_command(
-    command: str,
-    payload: dict[str, Any],
-    *,
-    uri: str | None = None,
-) -> dict[str, Any]:
-    if uri:
-        from urish.backends.call import call_uri
-
-        return call_uri(uri, payload, dry_run=bool(payload.get("dry_run", False)))
-    return client.dispatch_command(command, payload)

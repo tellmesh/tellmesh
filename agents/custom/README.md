@@ -46,7 +46,7 @@ Markpact provenance in README for audit and `uri2pact` import.
 
 | Agent | Port | Role |
 |-------|------|------|
-| `screenshot-analysis-agent.local` | 8134 | Capture + analyze via `desktop-operator` |
+| `screenshot-analysis-agent.local` | 8134 | Capture + analyze via `browser-operator` |
 | `remote-deploy-agent.local` | 8135 | SSH deploy / verify / start orchestration |
 | `gnome-programmer-agent.local` | 8136 | GNOME desktop observe + type via uri2ops |
 

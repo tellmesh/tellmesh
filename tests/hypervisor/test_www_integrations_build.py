@@ -63,8 +63,8 @@ def test_examples_manifest_includes_office_chains(repo_root: Path):
     assert any(chain["id"] == "portal-report" for chain in chains)
 
 
-def test_index_has_generated_integration_cards(repo_root: Path):
-    html = (repo_root / "www" / "index.html").read_text(encoding="utf-8")
+def test_index_has_generated_integration_cards(www_root: Path):
+    html = (www_root / "index.html").read_text(encoding="utf-8")
     assert 'data-integration-card="woocommerce-connector"' in html
     assert "workflow://order/woocommerce-to-erp" in html
     assert "integration-build-hint" not in html or "Run" not in html.split("integration-build-hint")[1][:120]
@@ -101,7 +101,7 @@ def _load_integrations_module(repo_root: Path):
     return module
 
 
-def test_all_about_cards_reused_on_website(repo_root: Path):
+def test_all_about_cards_reused_on_website(repo_root: Path, www_root: Path):
     """Every card from examples/*/ABOUT.md must appear on index.html with key content."""
     import html as html_lib
     import importlib.util
@@ -115,8 +115,8 @@ def test_all_about_cards_reused_on_website(repo_root: Path):
     about_spec.loader.exec_module(about_mod)
 
     mod = _load_integrations_module(repo_root)
-    index = (repo_root / "www" / "index.html").read_text(encoding="utf-8")
-    fragment = (repo_root / "www/generated/integrations.fragment.html").read_text(encoding="utf-8")
+    index = (www_root / "index.html").read_text(encoding="utf-8")
+    fragment = (www_root / "generated/integrations.fragment.html").read_text(encoding="utf-8")
     cards, _ = mod.collect_cards()
 
     assert len(cards) >= 16
@@ -159,13 +159,13 @@ def test_all_about_cards_reused_on_website(repo_root: Path):
         assert consumers, f"orphan ABOUT body: {path.parent.name}"
 
 
-def test_index_integrations_match_fragment(repo_root: Path):
+def test_index_integrations_match_fragment(repo_root: Path, www_root: Path):
     mod = _load_integrations_module(repo_root)
     cards, _ = mod.collect_cards()
     connectors_html, grid_html = mod.build_sections(cards)
     expected = (connectors_html + "\n" + grid_html).strip()
-    fragment = (repo_root / "www/generated/integrations.fragment.html").read_text(encoding="utf-8").strip()
-    index = (repo_root / "www/index.html").read_text(encoding="utf-8")
+    fragment = (www_root / "generated/integrations.fragment.html").read_text(encoding="utf-8").strip()
+    index = (www_root / "index.html").read_text(encoding="utf-8")
 
     assert fragment == expected
 

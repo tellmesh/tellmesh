@@ -1,8 +1,8 @@
-# hypervisor | 1723 func | 238f | 41770L | python | 2026-06-15
+# hypervisor | 1698 func | 233f | 41312L | python | 2026-06-15
 # generated in 0.00s
 
 HEALTH:
-  CC̄=3.6  critical=119 (limit:10)  dup=4  cycles=0
+  CC̄=3.6  critical=113 (limit:10)  dup=4  cycles=0
 
 ALERTS[20]:
   !!! cc_exceeded      _render_markdown = 70 (limit:15)
@@ -16,7 +16,7 @@ ALERTS[20]:
   !!! high_fan_out     parse_duplication = 23 (limit:10)
   !!! high_fan_out     _validate_deployments = 22 (limit:10)
 
-MODULES[641] (top by size):
+MODULES[631] (top by size):
   M[planfile.yaml] 1319L C:0 F:0 CC↑0 D:0 (yaml)
   M[www/generated/integrations-i18n.js] 1143L C:0 F:0 CC↑0 D:0 (javascript)
   M[www/landing.js] 836L C:0 F:111 CC↑24 D:3 (javascript)
@@ -32,7 +32,7 @@ MODULES[641] (top by size):
   M[packages/resource-agent-hypervisor/hypervisor/deployment_registry/lifecycle.py] 423L C:0 F:15 CC↑7 D:5 (python)
   M[agents/system/hypervisor_dashboard/hypervisor_dashboard_agent/routes.py] 416L C:5 F:22 CC↑13 D:0 (python)
   M[packages/resource-agent-hypervisor/hypervisor/deployment_registry/watch.py] 408L C:0 F:17 CC↑14 D:1 (python)
-  LANGS: python:311/yaml:145/json:77/shell:40/other:18/javascript:17/toml:10/proto:10/txt:6/yml:4/mk:2/j2:1
+  LANGS: python:303/yaml:145/json:76/shell:40/other:18/javascript:17/proto:10/toml:9/txt:6/yml:4/mk:2/j2:1
 
 HOTSPOTS[10]:
   ★ createVoiceController fan=37  // Orchestrates 37 calls
@@ -50,4 +50,4 @@ REFACTOR[15]:
 
 EVOLUTION:
   2026-06-14 CC̄=3.3 crit=15 10783L // Automated analysis
-  2026-06-15 CC̄=3.6 crit=119 41770L // Automated analysis
+  2026-06-15 CC̄=3.6 crit=113 41312L // Automated analysis
