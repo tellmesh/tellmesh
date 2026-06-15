@@ -8,6 +8,13 @@ from pathlib import Path
 
 _ROOT = Path(__file__).resolve().parents[2]
 _root_str = str(_ROOT)
+
+import os
+
+_existing = os.environ.get("PYTHONPATH", "")
+_parts = [p for p in _existing.split(os.pathsep) if p and p != _root_str]
+os.environ["PYTHONPATH"] = _root_str + (os.pathsep + os.pathsep.join(_parts) if _parts else "")
+
 if _root_str in sys.path:
     sys.path.remove(_root_str)
 sys.path.insert(0, _root_str)
