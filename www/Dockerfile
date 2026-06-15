@@ -12,7 +12,6 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 COPY pyproject.toml uv.lock README.md ./
 COPY packages ./packages
 COPY agents ./agents
-COPY www ./www
 COPY contracts ./contracts
 COPY schemas ./schemas
 COPY deployments ./deployments
@@ -21,7 +20,7 @@ COPY domains ./domains
 COPY knowledge ./knowledge
 COPY examples ./examples
 
-RUN mkdir -p output/runtime/agents output/logs output/incidents output/proposals
+RUN mkdir -p /app/www output/runtime/agents output/logs output/incidents output/proposals
 
 ENV UV_SYSTEM_PYTHON=1 \
     UV_COMPILE_BYTECODE=1 \

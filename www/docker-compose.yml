@@ -8,7 +8,7 @@ services:
     network_mode: "host"
     pid: "host"
     volumes:
-      - ${HYPERVISOR_WWW_DIR:-../www}:/app/www:ro
+      - ${HYPERVISOR_WWW_DIR:-../../../tellmesh/www}:/app/www:ro
       - ../packages:/app/packages:ro
       - ../agents/generated:/app/agents/generated
       - ../config:/app/config:ro
