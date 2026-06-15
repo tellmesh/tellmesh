@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 
 from hypervisor.cli import main
+from uri3.results import service_result
 
 
 def test_cli_deployments_and_run_agent_dry_run(capsys):
@@ -74,8 +75,46 @@ def test_cli_run_agent_accepts_approve_compatibility_flag(capsys):
     rc = main(["run-agent", "desktop-operator.local", "--dry-run", "--approve"])
     assert rc == 0
     payload = json.loads(capsys.readouterr().out)
-    assert payload["module"] == "uri2ops.main:app"
+    assert payload["module"] == "agents.operators.desktop_operator.main:app"
     assert payload["port"] == 8791
+
+
+def test_cli_explain_operator_route(capsys):
+    rc = main(["explain", "browser://chrome/page/open"])
+
+    assert rc == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["canonical_uri"] == "tellmesh://operators/browser/command/open"
+    assert payload["hypervisor_resolution"]["agent_uri"] == "agent://browser-operator"
+    assert payload["hypervisor_resolution"]["runtime"]["type"] == "uri2ops"
+
+
+def test_cli_call_operator_route_uses_hypervisor_dispatch(monkeypatch, capsys):
+    captured: dict[str, object] = {}
+
+    def fake_run_backend(backend, payload, context):
+        captured["backend"] = backend
+        captured["payload"] = payload
+        captured["context"] = context
+        return service_result(ok=True, result_type="fake_operator", data={"ok": True})
+
+    monkeypatch.setattr("uri2run.run_backend", fake_run_backend)
+
+    rc = main(
+        [
+            "call",
+            "browser://chrome/page/open",
+            "--payload",
+            '{"url":"https://example.com","environment":"mock"}',
+            "--approve",
+        ]
+    )
+
+    assert rc == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["ok"] is True
+    assert captured["backend"]["canonical_uri"] == "tellmesh://operators/browser/command/open"
+    assert captured["backend"]["type"] == "uri2ops"
 
 
 def test_cli_inspect_agent(monkeypatch, capsys):

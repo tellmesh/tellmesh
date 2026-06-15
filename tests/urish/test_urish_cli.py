@@ -172,7 +172,7 @@ def test_cli_call_accepts_payload_at_file(tmp_path):
         )
         assert code == 0
         args, _ = mocked.call_args
-        assert args[1] == {"text": "from-file"}
+        assert args[1] == {"text": "from-file", "adapter": "auto"}
 
 
 def test_cli_call_shortcut_uses_default_payload():
@@ -190,7 +190,7 @@ def test_cli_call_shortcut_uses_default_payload():
         assert code == 0
         args, _ = mocked.call_args
         assert args[0] == "browser://chrome/page/open"
-        assert args[1] == {"url": "http://localhost:8788/ui"}
+        assert args[1] == {"url": "http://localhost:8788/ui", "adapter": "auto"}
 
 
 def test_cli_call_shortcut_explicit_payload_wins():
@@ -216,7 +216,7 @@ def test_cli_call_shortcut_explicit_payload_wins():
         )
         assert code == 0
         args, _ = mocked.call_args
-        assert args[1] == {"url": "http://localhost:9999/ui"}
+        assert args[1] == {"url": "http://localhost:9999/ui", "adapter": "auto"}
 
 
 def test_resolve_target_uri_passthrough():

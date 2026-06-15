@@ -96,32 +96,28 @@ def test_call_device_uri_uses_uri2ops_backend(monkeypatch):
 
     captured: dict[str, object] = {}
 
-    class Result:
-        ok = True
-
-        def to_dict(self):
-            return {
-                "ok": True,
-                "result_type": "device.status",
-                "meta": {"transport": "uri2ops"},
-            }
+    from uri3.results import service_result
 
     def fake_run_backend(backend, payload, context):
         captured["backend"] = backend
         captured["payload"] = payload
         captured["context"] = context
-        return Result()
+        return service_result(
+            ok=True,
+            result_type="device.status",
+            uri=str(context.get("uri") or backend.get("uri") or ""),
+            meta={"transport": "uri2ops"},
+        )
 
-    monkeypatch.setattr("urish.backends.call.run_backend", fake_run_backend)
+    monkeypatch.setattr("uri2run.run_backend", fake_run_backend)
 
     result = call_uri("device://device/sensor-1/status", {})
 
     assert result["ok"] is True
-    assert captured["backend"] == {
-        "type": "uri2ops",
-        "uri": "device://device/sensor-1/status",
-        "scheme": "device",
-        "operation": "status",
-    }
+    assert captured["backend"]["type"] == "uri2ops"
+    assert captured["backend"]["scheme"] == "device"
+    assert captured["backend"]["operation"] == "status"
+    assert captured["backend"]["canonical_uri"] == "tellmesh://operators/device/query/status"
     assert captured["context"]["scheme"] == "device"
     assert captured["context"]["operation"] == "status"
+    assert captured["context"]["agent_uri"] == "agent://device-robot-operator"

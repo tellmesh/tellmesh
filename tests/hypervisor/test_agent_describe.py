@@ -23,7 +23,7 @@ def test_describe_weather_agent_markdown():
 def test_describe_desktop_operator_contract():
     report = describe_agent("desktop-operator.local")
     md = report.markdown
-    assert "agents/operators/desktop_operator.yaml" in md
+    assert "agents/operators/desktop_operator/desktop_operator.yaml" in md
     assert "hypervisor.operator_agent" in md or "operator YAML" in md
     assert "domains/desktop_ops" in md
     assert "browser" in md

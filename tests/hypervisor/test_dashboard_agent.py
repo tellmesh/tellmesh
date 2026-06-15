@@ -197,11 +197,11 @@ def test_resolve_view_uri_process(monkeypatch: pytest.MonkeyPatch):
         effective_port=8101,
     )
     monkeypatch.setattr(
-        "hypervisor_dashboard_agent.uri_client.build_process_view",
-        lambda agent_id, **kwargs: model,
+        "hypervisor.routing.views.process.build_process_view_data",
+        lambda agent_id, **kwargs: model.to_dict() | {"view_kind": "process"},
     )
     monkeypatch.setattr(
-        "hypervisor_dashboard_agent.uri_client.render_process_html",
+        "hypervisor_dashboard_agent.view_builder.render_process_html",
         lambda m: "<html>process</html>",
     )
     envelope = resolve_view_uri("view://process/agent/weather-map-agent.local/latest")
@@ -224,7 +224,7 @@ def test_call_system_uri_marks_view_and_logs_as_success(monkeypatch: pytest.Monk
             return fake_view
 
     monkeypatch.setattr(
-        "hypervisor_dashboard_agent.uri_client.resolve_view_uri",
+        "hypervisor.routing.view_handlers.resolve_view_envelope",
         lambda *_a, **_k: _Envelope(),
     )
     monkeypatch.setattr("uri3.logs.reader.read_logs_result", lambda *_a, **_k: [])
