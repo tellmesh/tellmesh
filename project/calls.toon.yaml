@@ -1,15 +1,15 @@
 # code2llm call graph | /home/tom/github/wronai/hypervisor
-# generated in 0.35s
-# nodes: 368 | edges: 500 | modules: 112
-# CC̄=3.4
+# generated in 0.21s
+# nodes: 363 | edges: 500 | modules: 106
+# CC̄=3.5
 
 HUBS[20]:
   uri2ops.operation_registry.models.OperationRegistry.list
-    CC=1  in:63  out:2  total:65
+    CC=1  in:69  out:2  total:71
   packages.uri3.uri3.config.repo_root.find_repo_root
     CC=4  in:60  out:4  total:64
   examples.23_nl_to_agent_tutorial.run.print
-    CC=0  in:54  out:0  total:54
+    CC=0  in:57  out:0  total:57
   packages.urigen.urigen.generator.generate_ecosystem
     CC=7  in:3  out:40  total:43
   packages.urigen.urigen.cli.build_parser
@@ -26,30 +26,32 @@ HUBS[20]:
     CC=12  in:1  out:32  total:33
   packages.urish.urish.cli._finish
     CC=3  in:27  out:4  total:31
-  packages.uri3.uri3.graph.artifacts.write_artifact
-    CC=9  in:7  out:22  total:29
   packages.uri3.uri3.resolvers.explain.explain_uri
     CC=14  in:8  out:21  total:29
   packages.urigen.urigen.apply_planner.build_apply_plan
     CC=13  in:1  out:28  total:29
-  packages.uri3.uri3.resolvers.docker_resolver.parse_docker_uri
-    CC=12  in:5  out:23  total:28
-  packages.uri3.uri3.logs.reader.summarize_logs
-    CC=6  in:8  out:18  total:26
+  packages.uri3.uri3.graph.artifacts.write_artifact
+    CC=9  in:7  out:22  total:29
+  packages.urish.urish.cli._emit
+    CC=2  in:24  out:2  total:26
+  packages.uri3.uri3.graph.graph_validator.validate_workflow_graph
+    CC=9  in:13  out:13  total:26
+  packages.uri2ops.uri2ops.remote_registry.loader.resolve_operation_registry
+    CC=12  in:8  out:18  total:26
   packages.urigen.urigen.apply_executor._copy_tree
     CC=7  in:1  out:25  total:26
   packages.uri3.uri3.graph.graph_serializer.normalize_graph_payload
     CC=12  in:2  out:24  total:26
-  packages.uri2ops.uri2ops.remote_registry.loader.resolve_operation_registry
-    CC=12  in:8  out:18  total:26
-  packages.uri3.uri3.graph.graph_validator.validate_workflow_graph
-    CC=9  in:13  out:13  total:26
+  packages.uri3.uri3.logs.reader.summarize_logs
+    CC=6  in:8  out:18  total:26
 
 MODULES:
   domains.weather_map.handlers.generate_weather_map  [1 funcs]
     handler  CC=3  out:10
   examples.23_nl_to_agent_tutorial.run  [1 funcs]
     print  CC=0  out:0
+  packages.hypervisor-dashboard-agent.hypervisor_dashboard_agent.uri_client  [1 funcs]
+    call_system_uri  CC=4  out:7
   packages.resource-agent-hypervisor.hypervisor.artifacts.gate  [3 funcs]
     check_artifacts  CC=11  out:7
     check_lifecycle_coverage  CC=10  out:8
@@ -67,7 +69,7 @@ MODULES:
     import_tickets_from_planfile  CC=10  out:15
     propose_from_ticket_path  CC=3  out:8
   packages.resource-agent-hypervisor.hypervisor.repair.supervisor  [2 funcs]
-    diagnose_agent  CC=1  out:12
+    diagnose_agent  CC=2  out:13
     learn_from_incident  CC=10  out:18
   packages.resource-agent-hypervisor.hypervisor.repair.validator  [2 funcs]
     read_yaml  CC=2  out:4
@@ -116,33 +118,15 @@ MODULES:
     doctor_transport_dependencies  CC=3  out:10
   packages.uri2run.uri2run.runner  [1 funcs]
     run_backend  CC=5  out:15
-  packages.uri3.uri3.artifacts.evolution_source  [4 funcs]
-    _scheme_from_uri  CC=2  out:1
-    attach_evolution_source  CC=2  out:6
-    evolution_proposal_uri  CC=5  out:7
-    normalize_evolution_source  CC=3  out:3
-  packages.uri3.uri3.artifacts.validator  [5 funcs]
+  packages.uri3.uri3.artifacts.validator  [4 funcs]
     _schema_repo_root  CC=2  out:2
     load_schema  CC=1  out:3
     schema_path  CC=1  out:1
     validate_artifact  CC=3  out:5
-    validate_artifact_file  CC=3  out:5
-  packages.uri3.uri3.artifacts.writer  [2 funcs]
-    write_json_artifact  CC=3  out:6
-    write_yaml_artifact  CC=3  out:6
   packages.uri3.uri3.config.repo_root  [1 funcs]
     find_repo_root  CC=4  out:4
   packages.uri3.uri3.config.uri_yaml  [1 funcs]
     unwrap_uri_yaml_document  CC=4  out:5
-  packages.uri3.uri3.docker.actions.compose  [1 funcs]
-    control_compose  CC=6  out:6
-  packages.uri3.uri3.docker.actions.container  [2 funcs]
-    control_container  CC=8  out:9
-    handles_container_action  CC=3  out:1
-  packages.uri3.uri3.docker.compose_generator  [1 funcs]
-    write_generated_compose  CC=1  out:6
-  packages.uri3.uri3.docker.controller  [1 funcs]
-    control_docker  CC=11  out:11
   packages.uri3.uri3.doctor.runner  [1 funcs]
     run_doctor  CC=9  out:16
   packages.uri3.uri3.graph.adapters.browser_mock  [2 funcs]
@@ -264,9 +248,9 @@ MODULES:
     summarize_logs  CC=6  out:18
   packages.uri3.uri3.logs.writer  [1 funcs]
     append_log  CC=13  out:19
-  packages.uri3.uri3.resolvers.docker_resolver  [1 funcs]
-    parse_docker_uri  CC=12  out:23
-  packages.uri3.uri3.resolvers.explain  [1 funcs]
+  packages.uri3.uri3.resolvers.explain  [3 funcs]
+    _find_repo_root  CC=5  out:4
+    default_touri_registry  CC=5  out:6
     explain_uri  CC=14  out:21
   packages.uri3.uri3.resolvers.log_resolver  [1 funcs]
     parse_log_uri  CC=7  out:16
@@ -371,9 +355,11 @@ MODULES:
   packages.urish.urish.backends.agent  [1 funcs]
     agent_action  CC=5  out:9
   packages.urish.urish.backends.ask  [1 funcs]
-    ask_prompt  CC=1  out:5
-  packages.urish.urish.backends.call  [1 funcs]
-    call_uri  CC=6  out:7
+    ask_prompt  CC=7  out:12
+  packages.urish.urish.backends.call  [3 funcs]
+    _call_system_uri  CC=6  out:7
+    _is_system_uri  CC=3  out:2
+    call_uri  CC=8  out:10
   packages.urish.urish.backends.dashboard  [1 funcs]
     create_dashboard  CC=12  out:37
   packages.urish.urish.backends.doctor  [2 funcs]
@@ -394,8 +380,11 @@ MODULES:
     repair_apply  CC=1  out:2
     repair_diagnose  CC=1  out:2
     repair_learn  CC=3  out:7
-  packages.urish.urish.backends.run  [1 funcs]
-    run_target  CC=8  out:14
+  packages.urish.urish.backends.run  [4 funcs]
+    _repo_root  CC=1  out:1
+    _run_workflow_uri  CC=3  out:12
+    _touri_registry_root  CC=1  out:3
+    run_target  CC=8  out:13
   packages.urish.urish.backends.stream  [6 funcs]
     _error  CC=1  out:0
     _runtime_event  CC=3  out:4
@@ -439,7 +428,7 @@ MODULES:
   packages.urish.urish.exit_codes  [1 funcs]
     exit_code_for_result  CC=8  out:6
   packages.urish.urish.intent  [1 funcs]
-    detect_intent  CC=12  out:11
+    detect_intent  CC=14  out:12
   packages.urish.urish.policy  [1 funcs]
     evaluate_policy  CC=14  out:1
   packages.urish.urish.render  [3 funcs]

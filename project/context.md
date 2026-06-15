@@ -5,21 +5,21 @@
 
 - **Project**: /home/tom/github/wronai/hypervisor
 - **Primary Language**: python
-- **Languages**: python: 448, yaml: 81, json: 32, shell: 30, toml: 17
+- **Languages**: python: 454, yaml: 98, shell: 33, json: 32, toml: 17
 - **Analysis Mode**: static
-- **Total Functions**: 1810
-- **Total Classes**: 113
-- **Modules**: 639
-- **Entry Points**: 620
+- **Total Functions**: 1965
+- **Total Classes**: 115
+- **Modules**: 669
+- **Entry Points**: 705
 
 ## Architecture by Module
 
 ### www.landing
-- **Functions**: 85
+- **Functions**: 115
 - **File**: `landing.js`
 
 ### www.app
-- **Functions**: 81
+- **Functions**: 91
 - **File**: `app.js`
 
 ### packages.urish.urish.cli
@@ -60,13 +60,21 @@
 - **Functions**: 19
 - **File**: `envelope.py`
 
+### packages.resource-agent-hypervisor.hypervisor.deployment_registry.runtime_state
+- **Functions**: 19
+- **File**: `runtime_state.py`
+
 ### packages.touri.touri.backend_dispatch
 - **Functions**: 18
 - **File**: `backend_dispatch.py`
 
-### packages.resource-agent-hypervisor.hypervisor.deployment_registry.runtime_state
-- **Functions**: 17
-- **File**: `runtime_state.py`
+### scripts.www.build_examples_docs
+- **Functions**: 16
+- **File**: `build_examples_docs.py`
+
+### www.examples-gallery
+- **Functions**: 16
+- **File**: `examples-gallery.js`
 
 ### packages.urigen.urigen.apply_executor
 - **Functions**: 15
@@ -78,26 +86,17 @@
 - **File**: `cli.py`
 
 ### packages.hypervisor-dashboard-agent.hypervisor_dashboard_agent.routes
-- **Functions**: 14
+- **Functions**: 15
 - **Classes**: 2
 - **File**: `routes.py`
+
+### packages.hypervisor-dashboard-agent.hypervisor_dashboard_agent.chat_format
+- **Functions**: 15
+- **File**: `chat_format.py`
 
 ### packages.nl2uri.nl2uri.flow_helpers
 - **Functions**: 14
 - **File**: `flow_helpers.py`
-
-### packages.uri3.uri3.protocols.schemes.instance_parser
-- **Functions**: 13
-- **File**: `instance_parser.py`
-
-### packages.nl2uri.nl2uri.output_classifier
-- **Functions**: 13
-- **Classes**: 1
-- **File**: `output_classifier.py`
-
-### packages.uri2verify.uri2verify.replay
-- **Functions**: 13
-- **File**: `replay.py`
 
 ## Key Entry Points
 
@@ -125,6 +124,9 @@ Main execution flows into the system:
 ### packages.resource-agent-hypervisor.meta_agent.cli.main
 - **Calls**: argparse.ArgumentParser, parser.add_subparsers, sub.add_parser, plan.add_argument, plan.add_argument, sub.add_parser, validate.add_argument, sub.add_parser
 
+### packages.resource-agent-hypervisor.hypervisor.repair.supervisor.repair_apply
+- **Calls**: packages.resource-agent-hypervisor.hypervisor.repair.supervisor._repo_root, packages.resource-agent-hypervisor.hypervisor.repair.supervisor.diagnose_agent, inspection.get, diagnosis.get, packages.resource-agent-hypervisor.hypervisor.repair.supervisor._envelope, packages.resource-agent-hypervisor.hypervisor.repair.supervisor._envelope, actions.append, time.sleep
+
 ### www.api-bridge.bridge.call_uri
 - **Calls**: app.post, uri.startswith, uri.startswith, www.api-bridge.bridge.run_cmd, www.api-bridge.bridge.envelope, uri.removeprefix, www.api-bridge.bridge.run_cmd, www.api-bridge.bridge.envelope
 
@@ -137,9 +139,6 @@ Main execution flows into the system:
 ### packages.uri3.uri3.graph.adapters.browser_playwright.PlaywrightBrowserAdapter.execute
 - **Calls**: packages.uri3.uri3.graph.adapters.browser_playwright._session_state, state.get, None.execute, urlparse, str, None.start, playwright.chromium.launch, browser.new_page
 
-### packages.resource-agent-hypervisor.hypervisor.repair.supervisor.repair_apply
-- **Calls**: packages.resource-agent-hypervisor.hypervisor.repair.supervisor._repo_root, packages.resource-agent-hypervisor.hypervisor.repair.supervisor.diagnose_agent, inspection.get, diagnosis.get, time.sleep, packages.resource-agent-hypervisor.hypervisor.deployment_registry.supervisor.inspect_agent, packages.resource-agent-hypervisor.hypervisor.repair.supervisor._envelope, packages.resource-agent-hypervisor.hypervisor.repair.supervisor._envelope
-
 ### packages.uri3.uri3.cli.commands.workflow.register
 - **Calls**: app.command, app.command, app.command, packages.uri3.uri3.graph.graph_validator.validate_workflow_graph, typer.echo, packages.uri3.uri3.graph.execution_plan.build_execution_plan, typer.echo, typer.Option
 
@@ -151,6 +150,9 @@ Main execution flows into the system:
 
 ### packages.uri3.uri3.doctor.checks.boundaries.check_runtime_transports
 - **Calls**: frozenset, packages.uri3.uri3.doctor.checks._helpers.check_result, packages.uri2run.uri2run.runner.run_backend, result.to_dict, body.setdefault, body.setdefault, body.setdefault, set
+
+### scripts.www.build_examples_docs.main
+- **Calls**: argparse.ArgumentParser, parser.add_argument, parser.add_argument, parser.parse_args, scripts.www.build_examples_docs.list_example_dirs, scripts.www.build_examples_docs.build_overview_section, scripts.www.build_examples_docs.build_page, args.out.parent.mkdir
 
 ### packages.urish.urish.cli.ticket_show_cmd
 - **Calls**: ticket_app.command, typer.Option, packages.urish.urish.cli._emit, packages.urish.urish.cli._finish, packages.urish.urish.backends.ticket.show_ticket, result.get, isinstance, intent.get
@@ -193,9 +195,6 @@ Main execution flows into the system:
 > Classify prompt and generate the best matching URI plan.
 - **Calls**: app.command, typer.Option, typer.Option, typer.Option, typer.Option, typer.Option, packages.nl2uri.nl2uri.graph_planner.plan_auto, packages.nl2uri.nl2uri.cli._emit
 
-### packages.nl2uri.nl2uri.cli.tree
-- **Calls**: app.command, typer.Option, typer.Option, typer.Option, typer.Option, packages.nl2uri.nl2uri.graph_planner.plan_tree, packages.nl2uri.nl2uri.cli._emit, nl2uri.writer.write_uri_tree
-
 ## Process Flows
 
 Key execution flows identified:
@@ -230,20 +229,7 @@ from_dict [hypervisor.config.models.HypervisorConfig]
 build_scheme_registry [packages.uri3.uri3.protocols.schemes.spec_registry]
 ```
 
-### Flow 7: call_uri
-```
-call_uri [www.api-bridge.bridge]
-  └─> run_cmd
-  └─> envelope
-```
-
-### Flow 8: execute
-```
-execute [packages.uri3.uri3.graph.adapters.browser_playwright.PlaywrightBrowserAdapter]
-  └─ →> _session_state
-```
-
-### Flow 9: repair_apply
+### Flow 7: repair_apply
 ```
 repair_apply [packages.resource-agent-hypervisor.hypervisor.repair.supervisor]
   └─> _repo_root
@@ -252,7 +238,20 @@ repair_apply [packages.resource-agent-hypervisor.hypervisor.repair.supervisor]
   └─> diagnose_agent
       └─> _repo_root
           └─ →> find_repo_root
-      └─ →> inspect_agent
+      └─> _envelope
+```
+
+### Flow 8: call_uri
+```
+call_uri [www.api-bridge.bridge]
+  └─> run_cmd
+  └─> envelope
+```
+
+### Flow 9: execute
+```
+execute [packages.uri3.uri3.graph.adapters.browser_playwright.PlaywrightBrowserAdapter]
+  └─ →> _session_state
 ```
 
 ### Flow 10: ticket_plan_cmd
@@ -510,7 +509,9 @@ Functions exposed as public API (no underscore prefix):
 - `hypervisor.config.models.HypervisorConfig.from_dict` - 26 calls
 - `packages.uri3.uri3.protocols.schemes.spec_registry.build_scheme_registry` - 25 calls
 - `packages.resource-agent-hypervisor.meta_agent.cli.main` - 25 calls
+- `packages.resource-agent-hypervisor.hypervisor.repair.supervisor.repair_apply` - 25 calls
 - `www.api-bridge.bridge.call_uri` - 25 calls
+- `packages.hypervisor-dashboard-agent.hypervisor_dashboard_agent.chat_format.format_uri_result_markdown` - 25 calls
 - `packages.uri3.uri3.graph.graph_serializer.normalize_graph_payload` - 24 calls
 - `packages.uri3.uri3.cli.commands.resolve.register` - 24 calls
 - `generator.model.load_agent_spec` - 24 calls
@@ -524,11 +525,9 @@ Functions exposed as public API (no underscore prefix):
 - `packages.uri2run.uri2run.transports.a2a_transport.run_a2a` - 23 calls
 - `packages.uri3.uri3.graph.artifacts.write_artifact` - 22 calls
 - `packages.uri2run.uri2run.transports.mcp_transport.run_mcp` - 22 calls
+- `packages.resource-agent-hypervisor.hypervisor.deployment_registry.inspection.pipeline.gather_inspection_context` - 22 calls
 - `packages.urigen.urigen.apply.apply_ecosystem` - 21 calls
 - `packages.uri3.uri3.logs.parsing.parse_json_entry` - 21 calls
-- `packages.uri3.uri3.resolvers.explain.explain_uri` - 21 calls
-- `packages.hypervisor-dashboard-agent.hypervisor_dashboard_agent.chat_format.format_uri_result_markdown` - 21 calls
-- `packages.resource-agent-hypervisor.hypervisor.repair.supervisor.repair_apply` - 21 calls
 
 ## System Interactions
 
@@ -549,6 +548,10 @@ graph TD
     from_dict --> bool
     build_scheme_registr --> spec
     main --> add_argument
+    repair_apply --> _repo_root
+    repair_apply --> diagnose_agent
+    repair_apply --> get
+    repair_apply --> _envelope
     call_uri --> post
     call_uri --> startswith
     call_uri --> run_cmd
@@ -559,10 +562,6 @@ graph TD
     execute --> execute
     execute --> urlparse
     execute --> str
-    repair_apply --> _repo_root
-    repair_apply --> diagnose_agent
-    repair_apply --> get
-    repair_apply --> sleep
     register --> validate_workflow_gr
     register --> echo
     ticket_plan_cmd --> command
