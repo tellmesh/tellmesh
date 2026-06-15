@@ -1,26 +1,11 @@
-# hypervisor-dashboard (system agent)
+# Hypervisor dashboard — deploy entry
 
-TellMesh control plane (:8788) — observer, renderer, and approval-gated URI controller.
+Python package: [`tellmesh/hypervisor-dashboard`](../../../../tellmesh/hypervisor-dashboard) (`hypervisor-dashboard-agent`).
 
-| Layer | Location |
-|-------|----------|
-| Contract | [`hypervisor_dashboard.yaml`](hypervisor_dashboard.yaml) |
-| Deployment entry | `agents.system.hypervisor_dashboard.main:app` |
-| Implementation | `hypervisor_dashboard_agent/` (this directory) |
-
-## Run
+This folder keeps only the deployment entry used by Docker and `hypervisor run-agent`:
 
 ```bash
-hypervisor run-agent hypervisor-dashboard.local --detach --wait-healthy
 uvicorn agents.system.hypervisor_dashboard.main:app --host 0.0.0.0 --port 8788
 ```
 
-## Endpoints
-
-| Path | Role |
-|------|------|
-| `GET /www/` | static chat UI from repo `www/` |
-| `GET /ui/agents` | agent list |
-| `POST /api/ask` | `urish ask` NL planning |
-| `POST /api/uri/call` | policy-gated URI execution |
-| `GET /api/events` | observable events stream |
+Implementation lives in `hypervisor_dashboard_agent/` inside the tellmesh package.
