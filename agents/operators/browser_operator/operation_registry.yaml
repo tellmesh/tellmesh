@@ -1,0 +1,59 @@
+version: 1
+
+schemes:
+  browser:
+    operations:
+      open:
+        kind: command
+        handler: python://agents.operators.browser_operator.adapters.browser_router:open_page
+        input_schema: operator.browser.v1.BrowserPageOpenCommand
+        output_schema: operator.common.v1.OperationResult
+        emits:
+          - operator.events.v1.OperatorCommandRequested
+          - operator.events.v1.OperatorCommandCompleted
+        side_effects: true
+        requires_policy: true
+        adapters: [mock, playwright]
+
+      extract_dom:
+        kind: query
+        handler: python://agents.operators.browser_operator.adapters.browser_router:extract_dom
+        output_schema: operator.browser.v1.DomSnapshot
+        side_effects: false
+        produces_artifact: true
+        adapters: [mock, playwright]
+
+      screenshot:
+        kind: query
+        handler: python://agents.operators.browser_operator.adapters.browser_router:screenshot
+        output_schema: operator.screen.v1.ScreenObservation
+        side_effects: false
+        produces_artifact: true
+        adapters: [mock, playwright]
+
+      capture_page:
+        kind: query
+        handler: python://agents.operators.browser_operator.adapters.browser_router:capture_page
+        output_schema: operator.screen.v1.ScreenObservation
+        side_effects: false
+        produces_artifact: true
+        adapters: [mock, playwright]
+
+      click:
+        kind: command
+        handler: python://agents.operators.browser_operator.adapters.browser_router:click
+        input_schema: operator.browser.v1.BrowserClickCommand
+        output_schema: operator.common.v1.OperationResult
+        side_effects: true
+        requires_policy: true
+        adapters: [mock, playwright]
+
+  assertion:
+    operations:
+      check:
+        kind: query
+        handler: python://agents.operators.common.assertion:check
+        output_schema: operator.common.v1.OperationResult
+        side_effects: false
+        requires_policy: false
+        adapters: [builtin]

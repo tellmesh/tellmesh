@@ -95,7 +95,7 @@ artifacts:
     - domains/physical_ops/domain.yaml
     - domains/physical_ops/operator_registry.yaml
   operation_registry:
-    - packages/uri2ops/uri2ops/operation_registry/registry.yaml
+    - agents/operators/device_robot_operator/operation_registry.yaml
   examples:
     - examples/36_physical_ops/task.robot.yaml
     - examples/36_physical_ops/task.device.yaml

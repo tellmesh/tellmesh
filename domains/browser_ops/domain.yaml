@@ -1,0 +1,55 @@
+version: 1
+kind: taskinity.domain_pack
+metadata:
+  id: browser_ops
+  title: Browser Operations
+  description: Generic capability routing for browser and DOM operations.
+  owner_layer: domains/browser_ops
+
+boundary:
+  control_plane: hypervisor
+  nl_router: urish
+  workflow_runner: uri3
+  execution_runtime: uri2ops
+  operator_agent: agent://browser-operator
+  deployment_id: browser-operator.local
+
+contracts:
+  operator_agent: agents/operators/browser_operator.yaml
+  operator_registry: domains/browser_ops/operator_registry.yaml
+  scenario_registry: domains/browser_ops/scenario_registry.yaml
+  operation_registry: agents/operators/browser_operator/operation_registry.yaml
+
+schemes:
+  - browser
+
+policy:
+  default_adapter: auto
+  write_actions_require_approval: true
+  real_adapters_require_explicit_selection: true
+  enforcement:
+    policy_module: packages/urish/urish/policy.py
+    read_operations:
+      - browser.extract_dom
+      - browser.screenshot
+    mutation_operations:
+      - browser.open
+      - browser.click
+    mutation_requires:
+      - dry_run
+      - approve
+  stop_before:
+    - credential_entry
+    - irreversible_submit
+    - external_side_effect
+
+must_own:
+  - browser operation URI vocabulary
+  - adapter-independent browser capability cards
+  - browser NL routing metadata
+
+must_not_own:
+  - customer workflow defaults
+  - generated agent source
+  - vertical scenario data
+  - hidden approval shortcuts

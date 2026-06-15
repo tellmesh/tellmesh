@@ -362,14 +362,28 @@ def _handle_agent_factory_uri(request: _SystemUriRequest) -> dict[str, Any]:
 
 
 def _handle_hypervisor_agent_uri(request: _SystemUriRequest) -> dict[str, Any]:
-    if len(request.parts) < 3 or request.parts[0] != "agent":
-        raise ValueError(f"unsupported hypervisor URI: {request.uri}")
     from hypervisor.deployment_registry.runner import run_agent
+    from hypervisor.deployment_registry.selector import parse_hypervisor_uri, resolve_deployment
 
-    deployment_id = request.parts[1]
-    action = request.parts[2]
+    selector, action = parse_hypervisor_uri(request.uri)
     if action != "run":
         raise ValueError(f"unsupported hypervisor agent action: {action}")
+    try:
+        deployment = resolve_deployment(selector, root=request.repo, prefer_local=True)
+    except ValueError as exc:
+        if request.dry_run:
+            return {
+                "ok": True,
+                "result_type": "lifecycle_plan",
+                "workflow_status": "planned",
+                "service_result_status": "preview",
+                "uri": request.uri,
+                "deployment_id": selector,
+                "pending_dependency": "deployment registry entry",
+                "note": str(exc),
+            }
+        raise ValueError(f"unsupported hypervisor URI: {request.uri} ({exc})") from exc
+    deployment_id = deployment.id
     if request.dry_run:
         try:
             return run_agent(deployment_id, root=request.repo, dry_run=True, detach=True)
@@ -465,11 +479,15 @@ def _is_agent_factory_request(request: _SystemUriRequest) -> bool:
 
 
 def _is_hypervisor_agent_request(request: _SystemUriRequest) -> bool:
-    return (
-        request.scheme == "hypervisor"
-        and len(request.parts) >= 3
-        and request.parts[0] == "agent"
-    )
+    if request.scheme != "hypervisor":
+        return False
+    from hypervisor.deployment_registry.selector import parse_hypervisor_uri
+
+    try:
+        selector, action = parse_hypervisor_uri(request.uri)
+    except ValueError:
+        return False
+    return action == "run" and bool(selector) and selector != "unknown"
 
 
 def _view_request(request: _SystemUriRequest) -> dict[str, Any]:
@@ -610,6 +628,40 @@ def _operator_request(request: _SystemUriRequest) -> dict[str, Any]:
     return body
 
 
+def _is_chat_request(request: _SystemUriRequest) -> bool:
+    return (
+        request.scheme == "chat"
+        and bool(request.parts)
+        and request.parts[-1] == "prompt"
+    )
+
+
+def _chat_request(request: _SystemUriRequest) -> dict[str, Any]:
+    from urish.chat_uri import execute_chat_prompt_uri
+
+    return execute_chat_prompt_uri(
+        request.uri,
+        dry_run=request.dry_run,
+        use_llm=False,
+        payload=request.payload,
+    )
+
+
+def _is_nl_request(request: _SystemUriRequest) -> bool:
+    return request.scheme == "nl"
+
+
+def _nl_request(request: _SystemUriRequest) -> dict[str, Any]:
+    from urish.nl_uri import execute_nl_uri
+
+    return execute_nl_uri(
+        request.uri,
+        dry_run=request.dry_run,
+        use_llm=False,
+        payload=request.payload,
+    )
+
+
 def _http_request(request: _SystemUriRequest) -> dict[str, Any]:
     import httpx
 
@@ -662,6 +714,8 @@ _SYSTEM_URI_DISPATCH: tuple[tuple[Callable[[_SystemUriRequest], bool], _SystemUr
     (lambda request: request.scheme == "log", _log_request),
     (lambda request: request.scheme == "file", _file_request),
     (_is_touri_run_request, _touri_run_request),
+    (_is_nl_request, _nl_request),
+    (_is_chat_request, _chat_request),
     (_is_operator_request, _operator_request),
     (_is_http_request, _http_request),
 )

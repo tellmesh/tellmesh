@@ -18,7 +18,7 @@ contracts:
   operator_agent: agents/operators/device_robot_operator.yaml
   operator_registry: domains/physical_ops/operator_registry.yaml
   scenario_registry: domains/physical_ops/scenario_registry.yaml
-  operation_registry: packages/uri2ops/uri2ops/operation_registry/registry.yaml
+  operation_registry: agents/operators/device_robot_operator/operation_registry.yaml
 
 schemes:
   - robot

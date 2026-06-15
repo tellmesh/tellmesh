@@ -13,7 +13,8 @@ registries and markpact-readable README blocks.
 |------|------|
 | `agents/generated/` | Generated Python agents from `contracts/agents/*.yaml` |
 | `agents/custom/` | Hand-written extensions outside generated output |
-| `agents/operators/` | Generic capability-agent contracts, for example desktop control |
+| `agents/operators/` | Capability agents (browser, desktop, device-robot) — contract, registry, adapters |
+| `agents/system/` | Control-plane agents (hypervisor-dashboard) — thin deployment entry |
 | `agents/scenarios/` | NL scenario registries loaded by `urish` |
 
 ## Generate Agents
@@ -73,10 +74,10 @@ data.
 Default desktop capability contract:
 
 ```txt
-agents/operators/desktop_operator.yaml
+agents/operators/desktop_operator/desktop_operator.yaml
 ```
 
-It is backed by `uri2ops serve` and documented in
+It is backed by `agents.operators.desktop_operator.main:app` (uri2ops framework) and documented in
 [`docs/DESKTOP_AUTONOMY.md`](../docs/DESKTOP_AUTONOMY.md).
 
 ## Scenario Registries

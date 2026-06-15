@@ -51,7 +51,7 @@ uri_templates:
   portal_report:
     - browser://chrome/page/open
     - workflow://office/supplier-report/monthly
-    - health://agent/desktop-operator.local
+    - health://agent/browser-operator.local
   portal_form:
     - workflow://portal/zus-form/dry-run
     - workflow://portal/zus-form
@@ -143,7 +143,7 @@ scenarios:
     planned_uris:
       - browser://chrome/page/open
       - workflow://office/supplier-report/monthly
-      - health://agent/desktop-operator.local
+      - health://agent/browser-operator.local
     next_steps:
       - uri explain workflow://office/supplier-report/monthly
       - uri run workflow://office/supplier-report/monthly --dry-run

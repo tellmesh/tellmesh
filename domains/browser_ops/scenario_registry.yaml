@@ -1,0 +1,89 @@
+version: 1
+kind: urish.scenario_registry
+metadata:
+  id: browser-ops
+  description: Generic browser operation scenarios routed to the browser operator.
+  source: domains/browser_ops/scenario_registry.yaml
+  markpact_readme: domains/browser_ops/README.md
+  examples:
+    - examples/10_browser_operator
+    - examples/11_playwright_browser
+    - examples/14_uri2ops_serve
+    - examples/15_playwright_browser
+intent_kind: browser_ops
+profile: browser-ops
+default_deployment_id: browser-operator.local
+context_patterns:
+  - "\\b(browser\\s+operator|browser-operator|chrome\\s+operator|web\\s*ui\\s+test|strona\\s+testowa)\\b"
+  - "\\b(playwright|chromium|headless|browser://)\\b"
+subtype_rules:
+  - subtype: browser_capture
+    patterns:
+      - "\\b(browser\\s+operator|browser-operator|chrome\\s+operator|web\\s*ui\\s+test|strona\\s+testowa)\\b"
+  - subtype: browser_status
+    patterns:
+      - "\\b(browser\\s+operator|browser-operator|uri2ops\\s+serve|playwright)\\b"
+fallback_subtype: browser_status
+uri_templates:
+  browser_capture:
+    - browser://chrome/page/open
+    - browser://chrome/page/active/dom
+    - browser://chrome/page/active/screenshot
+    - health://agent/{deployment_id}
+  browser_status:
+    - health://agent/{deployment_id}
+    - view://process/agent/{deployment_id}/latest
+    - log://hypervisor?grep={deployment_id}
+next_step_templates:
+  browser_capture:
+    - uri2ops run examples/10_browser_operator/task.health.yaml --adapter auto --approve
+    - uri2ops run examples/11_playwright_browser/task.health.yaml --adapter playwright --approve
+    - hypervisor inspect-agent {deployment_id}
+  browser_status:
+    - hypervisor inspect-agent {deployment_id}
+    - taskinity proof view://process/agent/{deployment_id}/latest
+    - uri call health://agent/{deployment_id}
+human_in_the_loop_subtypes:
+  - browser_capture
+artifacts:
+  contracts:
+    - agents/operators/browser_operator.yaml
+    - domains/browser_ops/domain.yaml
+    - domains/browser_ops/operator_registry.yaml
+  operation_registry:
+    - agents/operators/browser_operator/operation_registry.yaml
+  examples:
+    - examples/10_browser_operator/task.health.yaml
+    - examples/11_playwright_browser/task.health.yaml
+scenarios:
+  - id: browser_operator_status
+    subtype: browser_status
+    chat_prompt: Sprawdz browser operator i pokaz stan runtime.
+    needles:
+      - "browser\\s+operator"
+      - "browser-operator"
+      - "playwright"
+      - "stan\\s+runtime"
+    planned_uris:
+      - health://agent/browser-operator.local
+      - view://process/agent/browser-operator.local/latest
+    next_steps:
+      - hypervisor inspect-agent browser-operator.local
+      - taskinity proof view://process/agent/browser-operator.local/latest
+    human_in_the_loop: false
+  - id: browser_operator_capture
+    subtype: browser_capture
+    chat_prompt: Otworz strone testowa w chrome operator i pobierz DOM oraz obraz.
+    needles:
+      - "chrome\\s+operator"
+      - "browser\\s+operator"
+      - "strone\\s+testowa"
+      - "pobierz\\s+dom"
+    planned_uris:
+      - browser://chrome/page/open
+      - browser://chrome/page/active/dom
+      - browser://chrome/page/active/screenshot
+    next_steps:
+      - uri2ops run examples/10_browser_operator/task.health.yaml --adapter auto --approve
+      - uri2ops run examples/11_playwright_browser/task.health.yaml --adapter playwright --approve
+    human_in_the_loop: true

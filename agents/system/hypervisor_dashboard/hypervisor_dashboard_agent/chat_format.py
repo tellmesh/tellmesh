@@ -132,12 +132,34 @@ def _diagnosis_detail_lines(result: dict[str, Any]) -> list[str]:
     return lines
 
 
+def _workflow_plan_lines(body: dict[str, Any]) -> list[str]:
+    plan = body.get("plan") if isinstance(body.get("plan"), dict) else {}
+    steps = plan.get("steps") or []
+    if not steps:
+        return []
+    lines = ["\n### Workflow steps"]
+    for step in steps[:12]:
+        if not isinstance(step, dict):
+            continue
+        step_id = step.get("id") or "step"
+        uri = step.get("uri") or "—"
+        payload = step.get("payload") or {}
+        url = payload.get("url")
+        suffix = f" · `{url}`" if url else ""
+        lines.append(f"- `{step_id}` → `{uri}`{suffix}")
+    graph_id = plan.get("graph_id")
+    if graph_id:
+        lines.append(f"\nGraph: `{graph_id}` · mode: dry-run plan preview")
+    return lines
+
+
 def _uri_result_body_lines(body: dict[str, Any]) -> list[str]:
     lines: list[str] = []
     if body.get("error"):
         lines.append(f"\n**Error:** {body['error']}")
     elif body.get("user_summary"):
         lines.append(f"\n{body['user_summary']}")
+    lines.extend(_workflow_plan_lines(body))
     lines.extend(_runtime_result_lines(body))
     lines.extend(_log_entry_preview_lines(body))
     hint = _next_step_hint(body)
@@ -161,7 +183,7 @@ def _envelope_json_block(result: dict[str, Any]) -> list[str]:
 def format_uri_result_markdown(
     result: dict[str, Any],
     *,
-    include_envelope: bool = True,
+    include_envelope: bool = False,
 ) -> str:
     """Compact markdown summary for URI call / execution envelopes."""
     if result.get("presentation_markdown"):

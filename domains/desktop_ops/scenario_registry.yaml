@@ -6,8 +6,6 @@ metadata:
   source: domains/desktop_ops/scenario_registry.yaml
   markpact_readme: domains/desktop_ops/README.md
   examples:
-    - examples/10_browser_operator
-    - examples/11_playwright_browser
     - examples/12_android_operator
     - examples/13_pcwin_operator
 intent_kind: desktop_ops
@@ -15,14 +13,10 @@ profile: desktop-ops
 default_deployment_id: desktop-operator.local
 context_patterns:
   - "\\b(desktop\\s+operator|desktop-operator|uri2ops|operator\\s+runtime)\\b"
-  - "\\b(browser\\s+operator|chrome\\s+operator|web\\s*ui\\s+test|strona\\s+testowa)\\b"
   - "\\b(pcwin|uia|windows\\s+ui|okno\\s+systemowe|control\\s+automation)\\b"
   - "\\b(adb|android\\s+device|telefon\\s+testowy|device\\s+screen)\\b"
   - "\\b(screen\\s+observe|pulpit|ekran\\s+operatora)\\b"
 subtype_rules:
-  - subtype: browser_capture
-    patterns:
-      - "\\b(browser\\s+operator|chrome\\s+operator|web\\s*ui\\s+test|strona\\s+testowa)\\b"
   - subtype: pcwin_control
     patterns:
       - "\\b(pcwin|uia|windows\\s+ui|okno\\s+systemowe|control\\s+automation)\\b"
@@ -37,11 +31,6 @@ subtype_rules:
       - "\\b(desktop\\s+operator|desktop-operator|uri2ops|operator\\s+runtime)\\b"
 fallback_subtype: desktop_status
 uri_templates:
-  browser_capture:
-    - browser://chrome/page/open
-    - browser://chrome/page/active/dom
-    - browser://chrome/page/active/screenshot
-    - health://agent/{deployment_id}
   pcwin_control:
     - pcwin://window/{id}/focus
     - pcwin://control/{id}/click
@@ -58,10 +47,6 @@ uri_templates:
     - view://process/agent/{deployment_id}/latest
     - log://hypervisor?grep={deployment_id}
 next_step_templates:
-  browser_capture:
-    - uri2ops run examples/10_browser_operator/task.health.yaml --adapter mock --approve
-    - uri2ops run examples/11_playwright_browser/task.health.yaml --adapter mock --approve
-    - hypervisor inspect-agent {deployment_id}
   pcwin_control:
     - uri2ops run examples/13_pcwin_operator/task.pcwin.yaml --adapter mock --approve
     - hypervisor inspect-agent {deployment_id}
@@ -76,7 +61,6 @@ next_step_templates:
     - taskinity proof view://process/agent/{deployment_id}/latest
     - uri call health://agent/{deployment_id}
 human_in_the_loop_subtypes:
-  - browser_capture
   - pcwin_control
   - android_device
   - screen_observe
@@ -86,9 +70,8 @@ artifacts:
     - domains/desktop_ops/domain.yaml
     - domains/desktop_ops/operator_registry.yaml
   operation_registry:
-    - packages/uri2ops/uri2ops/operation_registry/registry.yaml
+    - agents/operators/desktop_operator/operation_registry.yaml
   examples:
-    - examples/10_browser_operator/task.health.yaml
     - examples/12_android_operator/task.android.yaml
     - examples/13_pcwin_operator/task.pcwin.yaml
 scenarios:
@@ -107,22 +90,6 @@ scenarios:
       - hypervisor inspect-agent desktop-operator.local
       - taskinity proof view://process/agent/desktop-operator.local/latest
     human_in_the_loop: false
-  - id: browser_operator_capture
-    subtype: browser_capture
-    chat_prompt: Otworz strone testowa w chrome operator i pobierz DOM oraz obraz.
-    needles:
-      - "chrome\\s+operator"
-      - "browser\\s+operator"
-      - "strone\\s+testowa"
-      - "pobierz\\s+dom"
-    planned_uris:
-      - browser://chrome/page/open
-      - browser://chrome/page/active/dom
-      - browser://chrome/page/active/screenshot
-    next_steps:
-      - uri2ops run examples/10_browser_operator/task.health.yaml --adapter mock --approve
-      - uri2ops run examples/11_playwright_browser/task.health.yaml --adapter mock --approve
-    human_in_the_loop: true
   - id: pcwin_operator_control
     subtype: pcwin_control
     chat_prompt: Sprawdz pcwin operator na oknie systemowym w trybie mock.

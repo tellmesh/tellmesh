@@ -1,0 +1,11 @@
+flow:
+  id: browser-capture-tellmesh-www
+  description: Uruchom browser-operator, otwórz WWW TellMesh, pobierz DOM i screenshot.
+
+do:
+  - hypervisor://local/browser-operator.local/run
+  - health://agent/browser-operator.local
+  - browser://chrome/page/open:
+      url: http://localhost:8788/www/
+  - browser://chrome/page/active/dom
+  - browser://chrome/page/active/screenshot

@@ -1,0 +1,65 @@
+version: 1
+kind: hypervisor.operator_agent
+metadata:
+  id: browser-operator
+  agent_ref: agent://browser-operator
+  title: Browser Operator
+  description: Generic browser and DOM operation agent backed by uri2ops.
+  owner_layer: agents/operators
+  runtime_package: agents/operators/browser_operator
+  capability_domain: domains/browser_ops
+
+runtime:
+  command: uvicorn agents.operators.browser_operator.main:app --host 127.0.0.1 --port 8793
+  deployment_id: browser-operator.local
+  run_agent_command: hypervisor run-agent browser-operator.local --detach --wait-healthy
+  health_uri: http://127.0.0.1:8793/health
+  card_uri: http://127.0.0.1:8793/.well-known/agent-card.json
+  a2a_tasks_uri: http://127.0.0.1:8793/a2a/tasks
+  mcp_tools_uri: http://127.0.0.1:8793/mcp/tools
+  mcp_call_uri: http://127.0.0.1:8793/mcp/tools/call
+
+capabilities:
+  - scheme: browser
+    operations:
+      - open
+      - extract_dom
+      - screenshot
+      - click
+    adapters:
+      - mock
+      - playwright
+      - auto
+
+policy:
+  default_adapter: auto
+  write_actions_require_approval: true
+  real_adapters_require_explicit_selection: true
+  artifact_redaction: true
+  stop_before:
+    - credential_entry
+    - irreversible_submit
+    - external_side_effect
+
+domain_boundary:
+  owns_domain_logic: false
+  owns_routing: false
+  owns_execution: true
+  allowed_inputs:
+    - operator task YAML
+    - A2A task payload
+    - MCP tool call payload
+    - URI addressed operation
+  forbidden_contents:
+    - business scenario registry
+    - customer workflow defaults
+    - generated domain agent code
+    - hidden approval policy for a specific vertical
+
+contracts:
+  domain_pack: domains/browser_ops/domain.yaml
+  operator_registry: domains/browser_ops/operator_registry.yaml
+  scenario_registry: domains/browser_ops/scenario_registry.yaml
+  operation_registry: agents/operators/browser_operator/operation_registry.yaml
+  task_schema: packages/uri2ops/uri2ops/schemas/operator_task.schema.json
+  docs: docs/DESKTOP_AUTONOMY.md

@@ -5,7 +5,7 @@ schemes:
     operations:
       wait:
         kind: query
-        handler: python://uri2ops.operator.adapters.browser_mock:extract_dom
+        handler: python://agents.operators.browser_operator.adapters.browser_mock:extract_dom
         output_schema: operator.common.v1.OperationResult
         side_effects: false
         adapters: [mock, playwright]

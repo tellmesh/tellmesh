@@ -1,50 +1,47 @@
-# Operator Agents
+# Operator capability agents — isolated uri2ops runtimes
 
-Operator agents expose generic execution capabilities. They are not business
-domains and must not contain customer workflows, scenario routing or generated
-domain-agent code.
+Each operator is a deployable agent package under `agents/operators/<name>/`:
 
-## Desktop Operator
+| Package | Deployment | Port | Schemes |
+|---------|------------|------|---------|
+| `browser_operator/` | `browser-operator.local` | 8793 | `browser://` |
+| `desktop_operator/` | `desktop-operator.local` | 8791 | `screen://`, `input://`, `pcwin://`, `android://` |
+| `device_robot_operator/` | `device-robot-operator.local` | 8792 | `robot://`, `device://` |
 
-[`desktop_operator.yaml`](./desktop_operator.yaml) defines
-`agent://desktop-operator`, a uri2ops-backed capability agent for:
+## Layout (per operator)
 
-- browser operations,
-- screen observations,
-- typed input,
-- Windows UI Automation operations,
-- Android device operations.
-
-Run it directly:
-
-```bash
-uri2ops serve --host 127.0.0.1 --port 8791
+```
+agents/operators/<operator>/
+  <operator>.yaml           # contract (capability agent)
+  main.py                   # uvicorn entry: agents.operators.<operator>.main:app
+  operation_registry.yaml   # scheme-filtered registry for this agent only
+  adapters/                 # operator-specific adapter code
+  ../common/                # shared utilities (assertion)
+  pyproject.toml            # documents dependency on uri2ops framework
 ```
 
-Guide: [`docs/DESKTOP_AUTONOMY.md`](../../docs/DESKTOP_AUTONOMY.md).
+Symlinks at `agents/operators/<operator>.yaml` point to the in-package contract for backward compatibility.
 
-Generic capability routing lives in
-[`domains/desktop_ops/`](../../domains/desktop_ops/). Keep vertical workflows in
-their own domain packs and reference `browser://`, `pcwin://`, `android://`,
-`screen://` or `input://` URIs from there.
+## Framework vs agent
 
-## Device And Robot Operator
+| Layer | Location |
+|-------|----------|
+| NL routing / domain packs | `domains/*/` |
+| Operator contracts + adapters + registry | `agents/operators/*/` |
+| Shared runtime (A2A, MCP, dispatcher, policy) | `packages/uri2ops/` |
 
-[`device_robot_operator.yaml`](./device_robot_operator.yaml) defines
-`agent://device-robot-operator`, a uri2ops-backed capability agent for:
+`packages/uri2ops/uri2ops/operation_registry/registry.yaml` remains the **union registry** for CLI and tests; deployed agents load their own `operation_registry.yaml`.
 
-- robot state, movement, stop and mission start,
-- device status, read and write operations.
-
-Run it directly:
+## Start
 
 ```bash
-uri2ops serve --host 127.0.0.1 --port 8792
+hypervisor run-agent browser-operator.local --detach --wait-healthy
+hypervisor run-agent desktop-operator.local --detach --wait-healthy
+hypervisor run-agent device-robot-operator.local --detach --wait-healthy
 ```
 
-Guide: [`docs/PHYSICAL_AUTONOMY.md`](../../docs/PHYSICAL_AUTONOMY.md).
+Or directly:
 
-Generic physical routing lives in
-[`domains/physical_ops/`](../../domains/physical_ops/). Keep factory,
-warehouse, office or customer-specific workflows in their own domain packs and
-reference `robot://` or `device://` URIs from there.
+```bash
+uvicorn agents.operators.browser_operator.main:app --host 127.0.0.1 --port 8793
+```

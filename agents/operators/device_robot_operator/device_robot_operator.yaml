@@ -1,0 +1,73 @@
+version: 1
+kind: hypervisor.operator_agent
+metadata:
+  id: device-robot-operator
+  agent_ref: agent://device-robot-operator
+  title: Device And Robot Operator
+  description: Generic physical device and robot operation agent backed by uri2ops.
+  owner_layer: agents/operators
+  runtime_package: agents/operators/device_robot_operator
+  capability_domain: domains/physical_ops
+
+runtime:
+  command: uvicorn agents.operators.device_robot_operator.main:app --host 127.0.0.1 --port 8792
+  deployment_id: device-robot-operator.local
+  run_agent_command: hypervisor run-agent device-robot-operator.local --detach --wait-healthy
+  health_uri: http://127.0.0.1:8792/health
+  card_uri: http://127.0.0.1:8792/.well-known/agent-card.json
+  a2a_tasks_uri: http://127.0.0.1:8792/a2a/tasks
+  mcp_tools_uri: http://127.0.0.1:8792/mcp/tools
+  mcp_call_uri: http://127.0.0.1:8792/mcp/tools/call
+
+capabilities:
+  - scheme: robot
+    operations:
+      - state
+      - move
+      - stop
+      - mission_start
+    adapters:
+      - mock
+  - scheme: device
+    operations:
+      - status
+      - read
+      - write
+    adapters:
+      - mock
+
+policy:
+  default_adapter: mock
+  write_actions_require_approval: true
+  real_adapters_require_explicit_selection: true
+  artifact_redaction: true
+  safety_stop_always_available: true
+  stop_before:
+    - physical_motion
+    - actuator_write
+    - irreversible_submit
+    - external_side_effect
+    - unsafe_zone_entry
+
+domain_boundary:
+  owns_domain_logic: false
+  owns_routing: false
+  owns_execution: true
+  allowed_inputs:
+    - operator task YAML
+    - A2A task payload
+    - MCP tool call payload
+    - URI addressed operation
+  forbidden_contents:
+    - business scenario registry
+    - warehouse or factory process defaults
+    - generated domain agent code
+    - hidden approval policy for a specific device
+
+contracts:
+  domain_pack: domains/physical_ops/domain.yaml
+  operator_registry: domains/physical_ops/operator_registry.yaml
+  scenario_registry: domains/physical_ops/scenario_registry.yaml
+  operation_registry: agents/operators/device_robot_operator/operation_registry.yaml
+  task_schema: packages/uri2ops/uri2ops/schemas/operator_task.schema.json
+  docs: docs/PHYSICAL_AUTONOMY.md

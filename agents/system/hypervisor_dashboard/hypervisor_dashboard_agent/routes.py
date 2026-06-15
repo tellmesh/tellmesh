@@ -68,7 +68,8 @@ class UriCallRequest(BaseModel):
 
 
 class AskRequest(BaseModel):
-    prompt: str = Field(..., min_length=1, description="Natural language prompt")
+    prompt: str | None = Field(default=None, description="Natural language prompt or chat:// URI")
+    uri: str | None = Field(default=None, description="chat://{app}/prompt?text=… URI")
     dry_run: bool = True
     llm: bool = False
 
@@ -150,11 +151,39 @@ def api_process_view(agent_id: str) -> dict[str, Any]:
 def api_ask(body: AskRequest) -> dict[str, Any]:
     """Natural language → planned URIs and next steps (urish ask backend)."""
     from urish.backends.ask import ask_prompt
+    from urish.chat_uri import resolve_ask_input
 
-    envelope = ask_prompt(body.prompt, dry_run=body.dry_run, use_llm=body.llm)
+    try:
+        prompt_text, prompt_meta, llm_from_uri, _dry_run_from_uri = resolve_ask_input(body.prompt, body.uri)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+    effective_dry_run = body.dry_run
+    if prompt_meta and prompt_meta.get("dry_run") is not None:
+        effective_dry_run = bool(prompt_meta["dry_run"])
+    effective_llm = body.llm or llm_from_uri
+    envelope = ask_prompt(prompt_text, dry_run=effective_dry_run, use_llm=effective_llm)
     data = envelope.get("data")
     if not isinstance(data, dict):
         raise HTTPException(status_code=500, detail="ask backend returned invalid payload")
+    if prompt_meta:
+        kind = prompt_meta.get("kind")
+        if kind == "nl":
+            data["nl"] = {
+                "app": prompt_meta["app"],
+                "target": prompt_meta["target"],
+                "operation": prompt_meta["operation"],
+            }
+            data["nl_uri"] = body.uri or (body.prompt.strip() if body.prompt else None)
+        elif kind == "chat":
+            data["chat"] = {
+                "app": prompt_meta["app"],
+                "operation": prompt_meta["operation"],
+                "img": prompt_meta.get("img"),
+                "mime_type": prompt_meta.get("mime_type"),
+                "attachment": prompt_meta.get("attachment"),
+            }
+            data["chat_uri"] = body.uri or (body.prompt.strip() if body.prompt else None)
     markdown = format_ask_markdown(data)
     return {
         "ok": True,
@@ -215,7 +244,13 @@ def api_uri_call(body: UriCallRequest) -> dict[str, Any]:
         "approved": body.approved,
         "policy": body.policy,
     }
-    result["message_markdown"] = format_uri_result_markdown(result)
+    if result.get("result_type") == "ask":
+        ask_data = result.get("data")
+        result["message_markdown"] = (
+            format_ask_markdown(ask_data) if isinstance(ask_data, dict) else format_uri_result_markdown(result)
+        )
+    else:
+        result["message_markdown"] = format_uri_result_markdown(result)
     if result.get("presentation_markdown"):
         result["message_markdown"] = result["presentation_markdown"]
     return result

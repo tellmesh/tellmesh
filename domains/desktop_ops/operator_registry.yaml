@@ -15,34 +15,6 @@ runtime:
   mcp_tools_uri: http://localhost:8791/mcp/tools
 
 cards:
-  - id: browser
-    scheme: browser
-    adapter_boundary: packages/uri2ops
-    adapters:
-      - mock
-      - playwright
-    operations:
-      - id: browser.open
-        uri: browser://chrome/page/open
-        registry_operation: browser.open
-        side_effects: true
-        requires_approval: true
-      - id: browser.extract_dom
-        uri: browser://chrome/page/active/dom
-        registry_operation: browser.extract_dom
-        side_effects: false
-        produces_artifact: true
-      - id: browser.screenshot
-        uri: browser://chrome/page/active/screenshot
-        registry_operation: browser.screenshot
-        side_effects: false
-        produces_artifact: true
-      - id: browser.click
-        uri: browser://chrome/page/active/click
-        registry_operation: browser.click
-        side_effects: true
-        requires_approval: true
-
   - id: screen
     scheme: screen
     adapter_boundary: packages/uri2ops

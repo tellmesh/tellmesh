@@ -5,12 +5,12 @@
 
 - **Project**: /home/tom/github/wronai/hypervisor
 - **Primary Language**: python
-- **Languages**: python: 554, yaml: 130, json: 80, shell: 40, toml: 17
+- **Languages**: python: 602, yaml: 140, json: 82, shell: 40, toml: 20
 - **Analysis Mode**: static
-- **Total Functions**: 2612
-- **Total Classes**: 145
-- **Modules**: 875
-- **Entry Points**: 885
+- **Total Functions**: 2864
+- **Total Classes**: 146
+- **Modules**: 940
+- **Entry Points**: 1002
 
 ## Architecture by Module
 
@@ -19,11 +19,11 @@
 - **File**: `landing.js`
 
 ### www.app
-- **Functions**: 99
+- **Functions**: 117
 - **File**: `app.js`
 
-### packages.hypervisor-dashboard-agent.hypervisor_dashboard_agent.uri_client
-- **Functions**: 52
+### agents.system.hypervisor_dashboard.hypervisor_dashboard_agent.uri_client
+- **Functions**: 56
 - **Classes**: 1
 - **File**: `uri_client.py`
 
@@ -32,8 +32,12 @@
 - **File**: `app.js`
 
 ### www.chat-uri
-- **Functions**: 31
+- **Functions**: 36
 - **File**: `chat-uri.js`
+
+### www.flow-chat
+- **Functions**: 35
+- **File**: `flow-chat.js`
 
 ### packages.urish.urish.scenario_registry
 - **Functions**: 30
@@ -52,28 +56,37 @@
 - **Functions**: 27
 - **File**: `graph_repair.py`
 
+### www.chat-flow-view
+- **Functions**: 27
+- **File**: `chat-flow-view.js`
+
+### packages.urish.urish.repl
+- **Functions**: 26
+- **Classes**: 1
+- **File**: `repl.py`
+
 ### www.examples-gallery
 - **Functions**: 25
 - **File**: `examples-gallery.js`
-
-### packages.urish.urish.repl
-- **Functions**: 24
-- **Classes**: 1
-- **File**: `repl.py`
 
 ### packages.resource-agent-hypervisor.hypervisor.deployment_registry.runtime_state
 - **Functions**: 24
 - **File**: `runtime_state.py`
 
-### packages.hypervisor-dashboard-agent.hypervisor_dashboard_agent.chat_format
-- **Functions**: 23
+### agents.system.hypervisor_dashboard.hypervisor_dashboard_agent.chat_format
+- **Functions**: 24
 - **File**: `chat_format.py`
 
 ### www.chat-voice
 - **Functions**: 23
 - **File**: `chat-voice.js`
 
-### packages.hypervisor-dashboard-agent.hypervisor_dashboard_agent.routes
+### agents.operators.browser_operator.adapters.browser_playwright
+- **Functions**: 21
+- **Classes**: 1
+- **File**: `browser_playwright.py`
+
+### agents.system.hypervisor_dashboard.hypervisor_dashboard_agent.routes
 - **Functions**: 21
 - **Classes**: 5
 - **File**: `routes.py`
@@ -86,18 +99,6 @@
 ### packages.uri3.uri3.results.envelope
 - **Functions**: 20
 - **File**: `envelope.py`
-
-### packages.uri2run.uri2run.runner
-- **Functions**: 20
-- **File**: `runner.py`
-
-### scripts.www.build_examples_docs
-- **Functions**: 20
-- **File**: `build_examples_docs.py`
-
-### packages.urish.urish.cli
-- **Functions**: 19
-- **File**: `cli.py`
 
 ## Key Entry Points
 
@@ -112,14 +113,14 @@ Main execution flows into the system:
 ### packages.urish.urish.commands.dashboard_commands.register_dashboard_commands
 - **Calls**: typer.Typer, typer.Typer, dashboard_app.command, dashboard_app.command, www_app.command, www_app.command, www_app.command, app.add_typer
 
+### packages.uri2ops.uri2ops.cli.main
+- **Calls**: argparse.ArgumentParser, parser.add_subparsers, sub.add_parser, ops.add_subparsers, ops_sub.add_parser, ops_sub.add_parser, desc.add_argument, desc.add_argument
+
 ### packages.uri3.uri3.cli.commands.discovery.register
 - **Calls**: app.command, app.command, app.command, app.command, typer.Option, typer.Option, packages.uri3.uri3.cli.helpers.list_payload, typer.echo
 
 ### www.chat-voice.createVoiceController
 - **Calls**: www.chat-voice.trim, www.chat-voice.apiFetch, www.chat-voice.stringify, www.chat-voice.slice, www.chat-voice.Audio, www.chat-voice.play, www.chat-voice.speakText, www.chat-voice.String
-
-### packages.uri2ops.uri2ops.cli.main
-- **Calls**: argparse.ArgumentParser, parser.add_subparsers, sub.add_parser, ops.add_subparsers, ops_sub.add_parser, ops_sub.add_parser, desc.add_argument, desc.add_argument
 
 ### scripts.examples.audit_agent_reports.main
 - **Calls**: argparse.ArgumentParser, parser.add_argument, parser.add_argument, parser.parse_args, out_dir.mkdir, packages.resource-agent-hypervisor.hypervisor.deployment_registry.loader.load_deployment_registry, AuditReport, audit.findings.extend
@@ -152,6 +153,9 @@ Main execution flows into the system:
 ### scripts.www.monitor_landing.main
 - **Calls**: argparse.ArgumentParser, parser.add_argument, parser.add_argument, parser.add_argument, parser.add_argument, parser.add_argument, parser.parse_args, scripts.www.monitor_landing.load_baseline
 
+### agents.operators.desktop_operator.adapters.android_adb.tap
+- **Calls**: agents.operators.desktop_operator.adapters.android_uri.device_id_from_payload, payload.get, payload.get, payload.get, agents.operators.desktop_operator.adapters.android_adb._run_adb, agents.operators.desktop_operator.adapters.android_adb._task_context, str, write_step_artifact
+
 ### packages.uri3.uri3.graph.adapters.browser_playwright.PlaywrightBrowserAdapter.execute
 - **Calls**: packages.uri3.uri3.graph.adapters.browser_playwright._session_state, state.get, None.execute, urlparse, str, None.start, playwright.chromium.launch, browser.new_page
 
@@ -159,11 +163,20 @@ Main execution flows into the system:
 > Run bounded health supervision or continuous watch mode.
 - **Calls**: app.command, typer.Argument, typer.Option, typer.Option, typer.Option, typer.Option, typer.Option, typer.Option
 
+### packages.urish.urish.backends.call.call_uri
+- **Calls**: packages.urish.urish.backends.call._is_system_uri, packages.uri2run.uri2run.runner.run_backend, result.to_dict, body.setdefault, packages.urish.urish.policy.evaluate_policy, packages.urish.urish.backends.call._call_system_uri, packages.urish.urish.backends.explain.explain_target, str
+
 ### packages.resource-agent-hypervisor.hypervisor.repair.supervisor.repair_apply
 - **Calls**: packages.resource-agent-hypervisor.hypervisor.repair.supervisor._repo_root, packages.resource-agent-hypervisor.hypervisor.repair.supervisor.diagnose_agent, packages.resource-agent-hypervisor.hypervisor.repair.supervisor._repair_playbook_candidates, packages.resource-agent-hypervisor.hypervisor.repair.supervisor._execute_repair_playbooks, packages.resource-agent-hypervisor.hypervisor.repair.supervisor._envelope, packages.resource-agent-hypervisor.hypervisor.events.emit_result_event, inspection.get, packages.resource-agent-hypervisor.hypervisor.repair.supervisor._healthy_repair_apply_body
 
 ### packages.uri3.uri3.cli.commands.workflow.register
 - **Calls**: app.command, app.command, app.command, packages.uri3.uri3.graph.graph_validator.validate_workflow_graph, typer.echo, packages.uri3.uri3.graph.execution_plan.build_execution_plan, typer.echo, typer.Option
+
+### agents.operators.desktop_operator.adapters.pcwin_uia.focus
+- **Calls**: agents.operators.desktop_operator.adapters.pcwin_uri.window_id_from_payload, str, agents.operators.desktop_operator.adapters.pcwin_uia._task_context, str, Desktop, window.set_focus, write_step_artifact, agents.operators.desktop_operator.adapters.pcwin_uia.uia_available
+
+### agents.operators.desktop_operator.adapters.screen_gnome.observe
+- **Calls**: agents.operators.desktop_operator.adapters.screen_gnome._task_context, str, temp_path.parent.mkdir, agents.operators.desktop_operator.adapters.screen_gnome._capture_screenshot, temp_path.read_bytes, write_step_artifact, agents.operators.desktop_operator.adapters.screen_gnome._list_windows, write_step_artifact
 
 ### packages.uri3.uri3.graph.adapters.registry.AssertionAdapter.execute
 - **Calls**: payload.get, payload.get, payload.get, context.resolve_ref, node.uri.endswith, payload.get, payload.get, bool
@@ -177,24 +190,11 @@ Main execution flows into the system:
 ### scripts.www.build_examples_docs.main
 - **Calls**: argparse.ArgumentParser, parser.add_argument, parser.add_argument, parser.parse_args, scripts.www.build_examples_docs.list_example_dirs, scripts.www.build_examples_docs.build_overview_section, scripts.www.build_examples_docs.build_page, args.out.parent.mkdir
 
-### packages.nl2uri.nl2uri.cli.flow
-> Generate compact URI flow (*.uri.flow.yaml style).
-- **Calls**: app.command, typer.Option, typer.Option, typer.Option, typer.Option, typer.Option, typer.Option, typer.Option
+### agents.operators.browser_operator.adapters.browser_playwright.close_playwright_session
+- **Calls**: state.get, state.get, state.get, state.get, None.pop, agents.operators.browser_operator.adapters.browser_playwright._run_sync, None.get, None.pop
 
-### packages.uri3.uri3.resolvers.file_resolver.resolve_file
-- **Calls**: packages.uri3.uri3.resolvers.file_resolver.path_from_file_uri, path.exists, str, path.exists, path.stat, data.update, mimetypes.guess_type, path.is_file
-
-### packages.uri3.uri3.doctor.checks.verify.check_replay_failures
-- **Calls**: sorted, packages.uri3.uri3.doctor.checks._helpers.check_result, logs_dir.is_dir, packages.uri3.uri3.doctor.checks._helpers.check_result, logs_dir.glob, packages.uri2verify.uri2verify.replay.replay_workflow_events, summary.get, summary.get
-
-### www.app.handleSubmit
-- **Calls**: www.app.preventDefault, www.app.trim, www.app.appendMessage, www.app.escapeHtml, www.app.looksLikeUri, www.app.extractUri, www.app.callUri, www.app.test
-
-### uri2ops.operation_registry.models.OperationSpec.from_mapping
-- **Calls**: cls, data.get, data.get, data.get, data.get, uri2ops.operation_registry.models.OperationRegistry.list, bool, bool
-
-### packages.uri3.uri3.graph.models.GraphNode.from_dict
-- **Calls**: cls, str, str, str, data.get, data.get, dict, uri2ops.operation_registry.models.OperationRegistry.list
+### agents.system.hypervisor_dashboard.hypervisor_dashboard_agent.routes.api_uri_call
+- **Calls**: router.post, agents.system.hypervisor_dashboard.hypervisor_dashboard_agent.uri_client.uri_implies_dry_run, agents.system.hypervisor_dashboard.hypervisor_dashboard_agent.policy.decision_for_uri, result.setdefault, result.get, HTTPException, agents.system.hypervisor_dashboard.hypervisor_dashboard_agent.uri_client.call_system_uri, result.get
 
 ## Process Flows
 
@@ -215,19 +215,19 @@ register_ecosystem_commands [packages.urish.urish.commands.ecosystem_commands]
 register_dashboard_commands [packages.urish.urish.commands.dashboard_commands]
 ```
 
-### Flow 4: register
+### Flow 4: main
+```
+main [packages.uri2ops.uri2ops.cli]
+```
+
+### Flow 5: register
 ```
 register [packages.uri3.uri3.cli.commands.discovery]
 ```
 
-### Flow 5: createVoiceController
+### Flow 6: createVoiceController
 ```
 createVoiceController [www.chat-voice]
-```
-
-### Flow 6: main
-```
-main [packages.uri2ops.uri2ops.cli]
 ```
 
 ### Flow 7: run_target
@@ -258,9 +258,9 @@ call_uri [www.api-bridge.bridge]
 - **Methods**: 28
 - **Key Methods**: www.assets.api-client.TaskinityApiClient.setBaseUrl, www.assets.api-client.TaskinityApiClient.useMock, www.assets.api-client.TaskinityApiClient.isMock, www.assets.api-client.TaskinityApiClient.health, www.assets.api-client.TaskinityApiClient.res, www.assets.api-client.TaskinityApiClient.data, www.assets.api-client.TaskinityApiClient.call, www.assets.api-client.TaskinityApiClient.res, www.assets.api-client.TaskinityApiClient.data, www.assets.api-client.TaskinityApiClient.ask
 
-### uri2ops.server.service.OperatorService
+### packages.uri2ops.uri2ops.server.service.OperatorService
 - **Methods**: 9
-- **Key Methods**: uri2ops.server.service.OperatorService.__init__, uri2ops.server.service.OperatorService.registry, uri2ops.server.service.OperatorService.registry_export, uri2ops.server.service.OperatorService.list_operations, uri2ops.server.service.OperatorService.describe_operation, uri2ops.server.service.OperatorService.list_registry_sources, uri2ops.server.service.OperatorService.validate_task, uri2ops.server.service.OperatorService.plan_task, uri2ops.server.service.OperatorService.run_task
+- **Key Methods**: packages.uri2ops.uri2ops.server.service.OperatorService.__init__, packages.uri2ops.uri2ops.server.service.OperatorService.registry, packages.uri2ops.uri2ops.server.service.OperatorService.registry_export, packages.uri2ops.uri2ops.server.service.OperatorService.list_operations, packages.uri2ops.uri2ops.server.service.OperatorService.describe_operation, packages.uri2ops.uri2ops.server.service.OperatorService.list_registry_sources, packages.uri2ops.uri2ops.server.service.OperatorService.validate_task, packages.uri2ops.uri2ops.server.service.OperatorService.plan_task, packages.uri2ops.uri2ops.server.service.OperatorService.run_task
 
 ### packages.resource-agent-hypervisor.hypervisor.uri.client.Uri3Client
 > Thin hypervisor adapter over uri3 routing, scanning and graph utilities.
@@ -314,6 +314,11 @@ Expected runtime API:
 - **Key Methods**: testenv.ssh_agent_host.mock_agent_server.Handler._json, testenv.ssh_agent_host.mock_agent_server.Handler.do_GET, testenv.ssh_agent_host.mock_agent_server.Handler.log_message
 - **Inherits**: BaseHTTPRequestHandler
 
+### agents.operators.browser_operator.adapters.browser_playwright._PlaywrightWorker
+> Dedicated thread for sync Playwright (greenlet-safe, asyncio-loop-safe).
+- **Methods**: 3
+- **Key Methods**: agents.operators.browser_operator.adapters.browser_playwright._PlaywrightWorker.__init__, agents.operators.browser_operator.adapters.browser_playwright._PlaywrightWorker._loop, agents.operators.browser_operator.adapters.browser_playwright._PlaywrightWorker.run
+
 ### uri2ops.operation_registry.models.OperationSpec
 - **Methods**: 2
 - **Key Methods**: uri2ops.operation_registry.models.OperationSpec.from_mapping, uri2ops.operation_registry.models.OperationSpec.to_dict
@@ -329,11 +334,6 @@ Expected runtime API:
 ### packages.uri3.uri3.graph.models.WorkflowGraph
 - **Methods**: 2
 - **Key Methods**: packages.uri3.uri3.graph.models.WorkflowGraph.add_node, packages.uri3.uri3.graph.models.WorkflowGraph.to_dict
-
-### packages.uri3.uri3.graph.adapters.browser_router.BrowserRouterAdapter
-> Deprecated: uri3 delegates operator schemes to uri2ops (see Uri2OpsAdapter).
-- **Methods**: 2
-- **Key Methods**: packages.uri3.uri3.graph.adapters.browser_router.BrowserRouterAdapter.__init__, packages.uri3.uri3.graph.adapters.browser_router.BrowserRouterAdapter.execute
 
 ### uri3.resolvers.http_resolver.HttpResolver
 - **Methods**: 2
@@ -353,7 +353,7 @@ Key functions that process and transform data:
 
 ### packages.urish.urish.repl.parse_repl_line
 > Parse one REPL line into CLI argv, or None when handled as meta-command.
-- **Output to**: line.strip, stripped.lower, _META_HANDLERS.get, packages.urish.urish.repl._handle_context_use, packages.urish.urish.repl._known_commands
+- **Output to**: line.strip, stripped.lower, _META_HANDLERS.get, packages.urish.urish.repl._handle_context_use, packages.urish.urish.repl._looks_like_shell_output
 
 ### packages.urish.urish.backends.proof._format_proof_check_line
 - **Output to**: check.get, check.get, check.get, check.get, check.get
@@ -364,17 +364,17 @@ Key functions that process and transform data:
 ### packages.urigen.urigen.apply_validate.validate_apply_artifact
 - **Output to**: Draft202012Validator, packages.urigen.urigen.apply_validate._load_schema, validator.iter_errors, None.join, str
 
-### packages.uri2ops.uri2ops.cli.validate_cmd
-- **Output to**: validate_task_file, packages.uri2ops.uri2ops.cli._print, packages.uri2ops.uri2ops.cli._print
-
 ### packages.uri2ops.uri2ops.operation_registry.validator.validate_registry_schema
 - **Output to**: json.loads, None.read_text, sorted, uri2ops.operation_registry.loader.registry_schema_path, uri2ops.operation_registry.models.OperationRegistry.list
 
 ### packages.uri2ops.uri2ops.operation_registry.validator.validate_operation_registry
 - **Output to**: registry.list, errors.append, spec.handler.startswith, errors.append, spec.handler.removeprefix
 
-### uri2ops.server.service.OperatorService.validate_task
-- **Output to**: validate_task_data, self.registry
+### packages.uri2ops.uri2ops.server.renderers.mcp_response.resolve_mcp_render_format
+- **Output to**: packages.uri2ops.uri2ops.server.renderers.browser_page.normalize_render_format, HTTPException, str
+
+### packages.uri2ops.uri2ops.server.renderers.browser_page.normalize_render_format
+- **Output to**: None.strip, ValueError, None.lower, str, sorted
 
 ### packages.uri3.uri3.logs.parsing.parse_json_entry
 - **Output to**: line.strip, json.loads, isinstance, isinstance, data.get
@@ -439,16 +439,6 @@ Key functions that process and transform data:
 - **Confidence**: 0.90
 - **Functions**: uri2ops.operation_registry.models.OperationRegistry.list
 
-### recursion_plan_task
-- **Type**: recursion
-- **Confidence**: 0.90
-- **Functions**: uri2ops.server.service.OperatorService.plan_task
-
-### recursion_run_task
-- **Type**: recursion
-- **Confidence**: 0.90
-- **Functions**: uri2ops.server.service.OperatorService.run_task
-
 ### recursion_resolve_uri_values
 - **Type**: recursion
 - **Confidence**: 0.90
@@ -469,26 +459,36 @@ Key functions that process and transform data:
 - **Confidence**: 0.90
 - **Functions**: packages.resource-agent-hypervisor.hypervisor.uri.client.Uri3Client.scan
 
+### recursion_plan_task
+- **Type**: recursion
+- **Confidence**: 0.90
+- **Functions**: packages.uri2ops.uri2ops.server.service.OperatorService.plan_task
+
+### recursion_run_task
+- **Type**: recursion
+- **Confidence**: 0.90
+- **Functions**: packages.uri2ops.uri2ops.server.service.OperatorService.run_task
+
 ## Public API Surface
 
 Functions exposed as public API (no underscore prefix):
 
 - `packages.urish.urish.commands.agent_commands.register_agent_commands` - 71 calls
 - `scripts.architecture_audit.parsers.parse_duplication` - 62 calls
+- `packages.urish.urish.commands.call_commands.register_call_commands` - 58 calls
 - `packages.urish.urish.commands.ecosystem_commands.register_ecosystem_commands` - 56 calls
-- `packages.urish.urish.commands.call_commands.register_call_commands` - 56 calls
 - `packages.urish.urish.commands.dashboard_commands.register_dashboard_commands` - 54 calls
+- `packages.uri2ops.uri2ops.cli.main` - 54 calls
 - `packages.uri3.uri3.cli.commands.discovery.register` - 47 calls
+- `packages.uri2ops.uri2ops.server.routes.mcp.mcp_router` - 43 calls
 - `packages.resource-agent-hypervisor.hypervisor.contract_registry.uri_resolver.fetch_agent_artifacts` - 42 calls
 - `packages.urigen.urigen.cli.build_parser` - 41 calls
-- `packages.urigen.urigen.generator.generate_ecosystem` - 40 calls
 - `scripts.architecture_audit.parsers.parse_map` - 40 calls
+- `packages.urigen.urigen.generator.generate_ecosystem` - 40 calls
 - `packages.urish.urish.backends.dashboard.create_dashboard` - 37 calls
 - `www.chat-voice.createVoiceController` - 37 calls
 - `packages.urish.urish.commands.ticket_commands.register_ticket_commands` - 35 calls
 - `packages.resource-agent-hypervisor.hypervisor.domain_pack.pack_writer.write_domain_pack` - 34 calls
-- `packages.uri2ops.uri2ops.cli.main` - 33 calls
-- `packages.uri2ops.uri2ops.server.routes.mcp.mcp_router` - 33 calls
 - `hypervisor.contract_registry.loader.load_contract_registry` - 33 calls
 - `packages.uri3.uri3.config.llm_profiles.resolve_llm_profile` - 32 calls
 - `scripts.architecture_audit.render.render_markdown` - 32 calls
@@ -496,23 +496,23 @@ Functions exposed as public API (no underscore prefix):
 - `packages.nl2uri.nl2uri.flow_planner.plan_flow` - 30 calls
 - `meta_agent.planner.infer_intent` - 30 calls
 - `packages.urish.urish.commands.observe_commands.register_observe_commands` - 29 calls
-- `agents.custom.screenshot_analysis_agent.analysis.analyze_artifact` - 29 calls
 - `packages.resource-agent-hypervisor.hypervisor.contract_registry.uri_resolver.resolve_contract_path` - 29 calls
 - `packages.resource-agent-hypervisor.hypervisor.contract_registry.uri_resolver.handle_contract_uri` - 29 calls
+- `agents.custom.screenshot_analysis_agent.analysis.analyze_artifact` - 29 calls
+- `agents.operators.browser_operator.adapters.browser_playwright.open_page` - 29 calls
 - `packages.urish.urish.commands.repair_commands.register_repair_commands` - 28 calls
 - `packages.urigen.urigen.apply_planner.build_apply_plan` - 28 calls
 - `uri3.graph.uri_graph.build_graph_from_tree` - 28 calls
 - `packages.resource-agent-hypervisor.hypervisor.deployment_registry.watch.supervise_watch` - 28 calls
 - `scripts.examples.audit_agent_reports.main` - 28 calls
 - `scripts.examples.effective_weather_playwright.main` - 28 calls
+- `agents.operators.browser_operator.adapters.browser_playwright_worker.capture_page` - 28 calls
 - `packages.uri2run.uri2run.runner.run_target` - 27 calls
 - `packages.urish.urish.scenario_registry.try_scenario_intent` - 26 calls
 - `packages.resource-agent-hypervisor.hypervisor.agent_describe.describe_agent` - 26 calls
 - `hypervisor.config.models.HypervisorConfig.from_dict` - 26 calls
-- `scripts.www.build_landing_integrations.main` - 26 calls
 - `packages.resource-agent-hypervisor.hypervisor.contract_registry.uri_resolver.generate_agent_contract` - 26 calls
-- `packages.uri3.uri3.protocols.schemes.spec_registry.build_scheme_registry` - 25 calls
-- `packages.resource-agent-hypervisor.meta_agent.cli.main` - 25 calls
+- `scripts.www.build_landing_integrations.main` - 26 calls
 
 ## System Interactions
 
@@ -526,6 +526,9 @@ graph TD
     register_ecosystem_c --> command
     register_dashboard_c --> Typer
     register_dashboard_c --> command
+    main --> ArgumentParser
+    main --> add_subparsers
+    main --> add_parser
     register --> command
     register --> Option
     createVoiceControlle --> trim
@@ -533,9 +536,6 @@ graph TD
     createVoiceControlle --> stringify
     createVoiceControlle --> slice
     createVoiceControlle --> Audio
-    main --> ArgumentParser
-    main --> add_subparsers
-    main --> add_parser
     main --> add_argument
     main --> parse_args
     main --> mkdir

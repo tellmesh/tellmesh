@@ -18,7 +18,7 @@ class AnalyzeScreenshotRequest(BaseModel):
 
 
 class CaptureAndAnalyzeRequest(BaseModel):
-    operator_url: str = "http://localhost:8791"
+    operator_url: str = "http://localhost:8793"
     target_url: str = "http://localhost:8788/www/"
     adapter: str = "mock"
     approve: bool = True

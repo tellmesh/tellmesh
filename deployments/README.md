@@ -104,7 +104,7 @@ markpact:
 deployment:
   id: hypervisor-dashboard.local
   agent_ref: agent://hypervisor-dashboard
-  target_uri: local://packages/hypervisor-dashboard-agent
+  target_uri: local://agents/system/hypervisor_dashboard
   status: generated
   health_uri: http://localhost:8788/health
   card_uri: http://localhost:8788/.well-known/agent-card.json
@@ -127,13 +127,49 @@ markpact:
   profile: dashboard-agent
 ```
 
+## browser-operator.local
+
+```markpact:deploy browser-operator.local
+deployment:
+  id: browser-operator.local
+  agent_ref: agent://browser-operator
+  target_uri: local://agents/operators/browser_operator
+  status: generated
+  health_uri: http://localhost:8793/health
+  card_uri: http://localhost:8793/.well-known/agent-card.json
+  view_uri: view://process/agent/browser-operator.local/latest
+source:
+  contract: agents/operators/browser_operator.yaml
+runtime:
+  run: hypervisor run-agent browser-operator.local --detach --wait-healthy
+  inspect: hypervisor inspect-agent browser-operator.local
+  direct: uvicorn agents.operators.browser_operator.main:app --host 127.0.0.1 --port 8793
+api:
+  a2a: POST /a2a/tasks
+  mcp_tools: GET /mcp/tools
+  mcp_call: POST /mcp/tools/call
+  environments: GET /environments
+capabilities:
+  schemes:
+    - browser
+execution_environments:
+  local: in-process Playwright on host (pip install -e '.[browser]' && playwright install chromium)
+  docker: Playwright container (requires Docker; URI2OPS_DOCKER_NETWORK=host on Linux)
+  mock: no browser deps
+  remote: delegate to another uri2ops via remote_url / URI2OPS_REMOTE_URL
+logs:
+  process: log://file/output/logs/agents/browser-operator.local.process.log
+markpact:
+  operator_contract: markpact://agents/operators/browser_operator.yaml#browser-operator
+```
+
 ## desktop-operator.local
 
 ```markpact:deploy desktop-operator.local
 deployment:
   id: desktop-operator.local
   agent_ref: agent://desktop-operator
-  target_uri: local://packages/uri2ops
+  target_uri: local://agents/operators/browser_operator
   status: generated
   health_uri: http://localhost:8791/health
   card_uri: http://localhost:8791/.well-known/agent-card.json
@@ -143,14 +179,13 @@ source:
 runtime:
   run: hypervisor run-agent desktop-operator.local --detach --wait-healthy
   inspect: hypervisor inspect-agent desktop-operator.local
-  direct: uri2ops serve --host 127.0.0.1 --port 8791
+  direct: uvicorn agents.operators.desktop_operator.main:app --host 127.0.0.1 --port 8791
 api:
   a2a: POST /a2a/tasks
   mcp_tools: GET /mcp/tools
   mcp_call: POST /mcp/tools/call
 capabilities:
   schemes:
-    - browser
     - screen
     - input
     - pcwin
@@ -170,6 +205,7 @@ Run one watch loop per deployment (separate terminals or systemd units):
 hypervisor supervise weather-map-agent.local --watch --repair auto --interval 15
 hypervisor supervise invoices-agent.local --watch --repair auto --interval 15
 hypervisor supervise user-agent.local --watch --repair auto --interval 15
+hypervisor supervise browser-operator.local --watch --repair auto --interval 15
 hypervisor supervise desktop-operator.local --watch --repair auto --interval 15
 ```
 

@@ -1,0 +1,13 @@
+[project]
+name = "browser-operator-agent"
+version = "0.1.0"
+description = "Isolated browser operator agent for TellMesh"
+requires-python = ">=3.10"
+dependencies = [
+  "uri2ops",
+  "fastapi>=0.115",
+  "uvicorn>=0.27",
+]
+
+[tool.uv.sources]
+uri2ops = { workspace = true }

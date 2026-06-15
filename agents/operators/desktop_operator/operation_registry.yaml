@@ -1,0 +1,82 @@
+version: 1
+
+schemes:
+  screen:
+    operations:
+      observe:
+        kind: query
+        handler: python://agents.operators.desktop_operator.adapters.screen_router:observe
+        output_schema: operator.screen.v1.ScreenObservation
+        side_effects: false
+        produces_artifact: true
+        adapters: [mock, gnome]
+
+  input:
+    operations:
+      type:
+        kind: command
+        handler: python://agents.operators.desktop_operator.adapters.input_router:type_text
+        input_schema: operator.input.v1.TypeTextCommand
+        output_schema: operator.common.v1.OperationResult
+        side_effects: true
+        requires_policy: true
+        adapters: [mock, gnome]
+
+  android:
+    operations:
+      screenshot:
+        kind: query
+        handler: python://agents.operators.desktop_operator.adapters.android_router:screenshot
+        input_schema: operator.android.v1.AndroidScreenshotCommand
+        output_schema: operator.screen.v1.ScreenObservation
+        side_effects: false
+        produces_artifact: true
+        adapters: [mock, adb]
+
+      dump_ui:
+        kind: query
+        handler: python://agents.operators.desktop_operator.adapters.android_router:dump_ui
+        input_schema: operator.android.v1.AndroidUiDump
+        output_schema: operator.android.v1.AndroidUiDump
+        side_effects: false
+        produces_artifact: true
+        adapters: [mock, adb]
+
+      tap:
+        kind: command
+        handler: python://agents.operators.desktop_operator.adapters.android_router:tap
+        input_schema: operator.android.v1.AndroidTapCommand
+        output_schema: operator.common.v1.OperationResult
+        side_effects: true
+        requires_policy: true
+        adapters: [mock, adb]
+
+  pcwin:
+    operations:
+      focus:
+        kind: command
+        handler: python://agents.operators.desktop_operator.adapters.pcwin_router:focus
+        input_schema: operator.pcwin.v1.WindowFocusCommand
+        output_schema: operator.pcwin.v1.WindowFocusResult
+        side_effects: true
+        requires_policy: true
+        adapters: [mock, uia]
+
+      click:
+        kind: command
+        handler: python://agents.operators.desktop_operator.adapters.pcwin_router:click
+        input_schema: operator.pcwin.v1.ControlClickCommand
+        output_schema: operator.pcwin.v1.ControlClickResult
+        side_effects: true
+        requires_policy: true
+        adapters: [mock, uia]
+
+  assertion:
+    operations:
+      check:
+        kind: query
+        handler: python://agents.operators.common.assertion:check
+        output_schema: operator.common.v1.OperationResult
+        side_effects: false
+        requires_policy: false
+        adapters: [builtin]

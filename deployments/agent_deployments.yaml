@@ -29,10 +29,10 @@ deployments:
     contract: contracts/agents/codex_nl_smoke_agent.yaml
 - id: desktop-operator.local
   agent_ref: agent://desktop-operator
-  target_uri: local://packages/uri2ops
+  target_uri: local://agents/operators/desktop_operator
   status: generated
   declared:
-    target_uri: local://packages/uri2ops
+    target_uri: local://agents/operators/desktop_operator
     preferred_port: 8791
     health_uri: http://localhost:8791/health
     card_uri: http://localhost:8791/.well-known/agent-card.json
@@ -43,16 +43,36 @@ deployments:
   metadata:
     source: operator_agent
     role: desktop_operator
-    contract: agents/operators/desktop_operator.yaml
+    contract: agents/operators/desktop_operator/desktop_operator.yaml
     domain_pack: domains/desktop_ops/domain.yaml
     operator_registry: domains/desktop_ops/operator_registry.yaml
     expected_service: uri2ops
-- id: device-robot-operator.local
-  agent_ref: agent://device-robot-operator
-  target_uri: local://packages/uri2ops
+- id: browser-operator.local
+  agent_ref: agent://browser-operator
+  target_uri: local://agents/operators/browser_operator
   status: generated
   declared:
-    target_uri: local://packages/uri2ops
+    target_uri: local://agents/operators/browser_operator
+    preferred_port: 8793
+    health_uri: http://localhost:8793/health
+    card_uri: http://localhost:8793/.well-known/agent-card.json
+  card_uri: http://localhost:8793/.well-known/agent-card.json
+  health_uri: http://localhost:8793/health
+  env:
+    URI2OPS_BASE_URL: http://localhost:8793
+  metadata:
+    source: operator_agent
+    role: browser_operator
+    contract: agents/operators/browser_operator/browser_operator.yaml
+    domain_pack: domains/browser_ops/domain.yaml
+    operator_registry: domains/browser_ops/operator_registry.yaml
+    expected_service: uri2ops
+- id: device-robot-operator.local
+  agent_ref: agent://device-robot-operator
+  target_uri: local://agents/operators/device_robot_operator
+  status: generated
+  declared:
+    target_uri: local://agents/operators/device_robot_operator
     preferred_port: 8792
     health_uri: http://localhost:8792/health
     card_uri: http://localhost:8792/.well-known/agent-card.json
@@ -63,7 +83,7 @@ deployments:
   metadata:
     source: operator_agent
     role: device_robot_operator
-    contract: agents/operators/device_robot_operator.yaml
+    contract: agents/operators/device_robot_operator/device_robot_operator.yaml
     domain_pack: domains/physical_ops/domain.yaml
     operator_registry: domains/physical_ops/operator_registry.yaml
     expected_service: uri2ops
@@ -84,10 +104,10 @@ deployments:
     contract: contracts/agents/gnome_programmer_agent.yaml
 - id: hypervisor-dashboard.local
   agent_ref: agent://hypervisor-dashboard
-  target_uri: local://packages/hypervisor-dashboard-agent
+  target_uri: local://agents/system/hypervisor_dashboard
   status: generated
   declared:
-    target_uri: local://packages/hypervisor-dashboard-agent
+    target_uri: local://agents/system/hypervisor_dashboard
     preferred_port: 8789
     health_uri: http://localhost:8789/health
     card_uri: http://localhost:8789/.well-known/agent-card.json
@@ -96,7 +116,7 @@ deployments:
   metadata:
     source: system_agent
     role: observer_renderer_controller
-    contract: contracts/agents/hypervisor_dashboard_agent.yaml
+    contract: agents/system/hypervisor_dashboard/hypervisor_dashboard.yaml
 - id: invoices-agent.local
   agent_ref: agent://invoices-agent
   target_uri: local://agents/generated/invoices_agent

@@ -3,7 +3,7 @@ kind: taskinity.domain_pack
 metadata:
   id: desktop_ops
   title: Desktop Operations
-  description: Generic capability routing for browser, screen, input, pcwin and Android operations.
+  description: Generic capability routing for screen, input, pcwin and Android operations.
   owner_layer: domains/desktop_ops
 
 boundary:
@@ -18,10 +18,9 @@ contracts:
   operator_agent: agents/operators/desktop_operator.yaml
   operator_registry: domains/desktop_ops/operator_registry.yaml
   scenario_registry: domains/desktop_ops/scenario_registry.yaml
-  operation_registry: packages/uri2ops/uri2ops/operation_registry/registry.yaml
+  operation_registry: agents/operators/desktop_operator/operation_registry.yaml
 
 schemes:
-  - browser
   - screen
   - input
   - pcwin
@@ -34,14 +33,10 @@ policy:
   enforcement:
     policy_module: packages/urish/urish/policy.py
     read_operations:
-      - browser.extract_dom
-      - browser.screenshot
       - screen.observe
       - android.screenshot
       - android.dump_ui
     mutation_operations:
-      - browser.open
-      - browser.click
       - input.type
       - pcwin.focus
       - pcwin.click
@@ -55,7 +50,7 @@ policy:
     - external_side_effect
 
 must_own:
-  - operator capability vocabulary
+  - desktop operator capability vocabulary
   - operation URI routing examples
   - adapter-independent discovery metadata
 

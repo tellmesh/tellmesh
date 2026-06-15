@@ -1,0 +1,45 @@
+version: 1
+kind: taskinity.operator_registry
+metadata:
+  id: browser-ops-operator-registry
+  domain_id: browser_ops
+  description: Operator-facing capability cards for the generic browser operator.
+
+runtime:
+  agent_ref: agent://browser-operator
+  deployment_id: browser-operator.local
+  package: uri2ops
+  health_uri: http://localhost:8793/health
+  card_uri: http://localhost:8793/.well-known/agent-card.json
+  a2a_tasks_uri: http://localhost:8793/a2a/tasks
+  mcp_tools_uri: http://localhost:8793/mcp/tools
+
+cards:
+  - id: browser
+    scheme: browser
+    adapter_boundary: packages/uri2ops
+    adapters:
+      - mock
+      - playwright
+      - auto
+    operations:
+      - id: browser.open
+        uri: browser://chrome/page/open
+        registry_operation: browser.open
+        side_effects: true
+        requires_approval: true
+      - id: browser.extract_dom
+        uri: browser://chrome/page/active/dom
+        registry_operation: browser.extract_dom
+        side_effects: false
+        produces_artifact: true
+      - id: browser.screenshot
+        uri: browser://chrome/page/active/screenshot
+        registry_operation: browser.screenshot
+        side_effects: false
+        produces_artifact: true
+      - id: browser.click
+        uri: browser://chrome/page/active/click
+        registry_operation: browser.click
+        side_effects: true
+        requires_approval: true
