@@ -7,8 +7,12 @@ import sys
 from pathlib import Path
 
 
+def audit_script(repo_root: Path) -> Path:
+    return repo_root.parent.parent / "tellmesh" / "resource-agent-hypervisor" / "scripts" / "architecture_responsibility_audit.py"
+
+
 def load_audit_module(repo_root: Path):
-    path = repo_root / "scripts" / "architecture_responsibility_audit.py"
+    path = audit_script(repo_root)
     spec = importlib.util.spec_from_file_location("architecture_responsibility_audit", path)
     assert spec and spec.loader
     module = importlib.util.module_from_spec(spec)
@@ -237,7 +241,7 @@ def test_audit_cli_outputs_json(repo_root: Path, tmp_path: Path):
     completed = subprocess.run(
         [
             sys.executable,
-            str(repo_root / "scripts" / "architecture_responsibility_audit.py"),
+            str(audit_script(repo_root)),
             "--root",
             str(tmp_path),
             "--map",

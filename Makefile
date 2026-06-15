@@ -8,6 +8,9 @@ WWW_PORT ?= 8788
 WWW_COMPOSE = docker compose -f www/docker-compose.yml
 WWW_BASE = http://localhost:$(WWW_PORT)
 TELLMESH_WWW ?= $(abspath ../../tellmesh/www)
+TELLMESH_ROOT ?= $(abspath ../../tellmesh)
+WWW_SCRIPTS := $(TELLMESH_ROOT)/www/scripts
+HV_SCRIPTS := $(TELLMESH_ROOT)/resource-agent-hypervisor/scripts
 HYPERVISOR_WWW_DIR ?= $(if $(wildcard $(TELLMESH_WWW)/index.html),$(TELLMESH_WWW),$(CURDIR)/www)
 export HYPERVISOR_WWW_DIR
 
@@ -33,13 +36,13 @@ architecture-test:
 	pytest tests/architecture -q
 
 architecture-responsibility-audit:
-	python3 scripts/architecture_responsibility_audit.py --top 30
+	python3 $(HV_SCRIPTS)/architecture_responsibility_audit.py --top 30
 
 doctor:
 	uri3 doctor --json
 
 architecture-gate:
-	bash scripts/ci/architecture_gate.sh
+	bash $(HV_SCRIPTS)/ci/architecture_gate.sh
 
 ci-gate: architecture-gate www-docs-check test examples-test
 
@@ -47,20 +50,20 @@ examples-test:
 	pytest tests/examples -q
 
 examples-comprehensive:
-	python3 scripts/examples/comprehensive_test.py
+	python3 $(HV_SCRIPTS)/examples/comprehensive_test.py
 
 examples-real-report:
-	python3 scripts/examples/comprehensive_test.py --real-only
+	python3 $(HV_SCRIPTS)/examples/comprehensive_test.py --real-only
 
 doql-registry:
-	bash scripts/examples/doql_host_preview.sh
+	bash $(HV_SCRIPTS)/examples/doql_host_preview.sh
 
 examples-comprehensive-mock:
-	python3 scripts/examples/comprehensive_test.py --mock-only
+	python3 $(HV_SCRIPTS)/examples/comprehensive_test.py --mock-only
 
 examples-playwright-proof:
-	python3 scripts/examples/effective_weather_playwright.py
-	python3 scripts/examples/effective_weather_playwright.py --legacy-screenshot
+	python3 $(HV_SCRIPTS)/examples/effective_weather_playwright.py
+	python3 $(HV_SCRIPTS)/examples/effective_weather_playwright.py --legacy-screenshot
 
 uri2flow-test:
 	pytest tests/uri2flow -q
@@ -207,30 +210,30 @@ www-test:
 	pytest tests/hypervisor/test_chat_www.py -q
 
 www-docs:
-	python3 scripts/www/build_examples_docs.py
-	python3 scripts/www/build_landing_integrations.py
-	python3 scripts/www/build_examples_manifest.py
+	python3 $(WWW_SCRIPTS)/build_examples_docs.py
+	python3 $(WWW_SCRIPTS)/build_landing_integrations.py
+	python3 $(WWW_SCRIPTS)/build_examples_manifest.py
 
 www-docs-check:
-	python3 scripts/www/build_examples_docs.py --check
-	python3 scripts/www/build_landing_integrations.py --check
-	python3 scripts/www/build_examples_manifest.py --check
-	python3 scripts/www/check_examples_links.py
+	python3 $(WWW_SCRIPTS)/build_examples_docs.py --check
+	python3 $(WWW_SCRIPTS)/build_landing_integrations.py --check
+	python3 $(WWW_SCRIPTS)/build_examples_manifest.py --check
+	python3 $(WWW_SCRIPTS)/check_examples_links.py
 
 examples-shell:
 	python3 tests/examples/shell_runner.py
 
 www-smoke:
-	bash scripts/www/smoke.sh "$(WWW_BASE)"
+	bash $(WWW_SCRIPTS)/smoke.sh "$(WWW_BASE)"
 
 www-monitor:
-	bash scripts/www/run_monitors.sh
+	bash $(WWW_SCRIPTS)/run_monitors.sh
 
 www-monitor-reset:
-	python3 scripts/www/monitor_landing.py --url "$(WWW_BASE)/www/" --reset-baseline
+	python3 $(WWW_SCRIPTS)/monitor_landing.py --url "$(WWW_BASE)/www/" --reset-baseline
 
 www-monitor-test:
-	bash scripts/www/test_monitors.sh
+	bash $(WWW_SCRIPTS)/test_monitors.sh
 
 www-logs:
 	$(WWW_COMPOSE) logs -f --tail=100

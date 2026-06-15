@@ -7,6 +7,10 @@ from typing import Literal
 
 from tests.examples.catalog import ALL_EXAMPLES, RUN_SH_EXAMPLES
 
+HV_SCRIPTS = "../../tellmesh/resource-agent-hypervisor/scripts"
+WWW_SCRIPTS = "../../tellmesh/www/scripts"
+URI3_SCRIPTS = "../../tellmesh/uri3/scripts"
+
 Tier = Literal["mock", "dry-run", "real", "validate"]
 
 
@@ -192,7 +196,7 @@ REAL_COMMANDS: tuple[CommandSpec, ...] = (
         "ex10-playwright",
         "10",
         "uri2ops current weather health with playwright",
-        ("python3", "scripts/examples/effective_weather_playwright.py", "--engine", "uri2ops"),
+        ("python3", f"{HV_SCRIPTS}/examples/effective_weather_playwright.py", "--engine", "uri2ops"),
         "real",
         ("playwright", "weather_agent"),
         "browser",
@@ -264,7 +268,7 @@ REAL_COMMANDS: tuple[CommandSpec, ...] = (
         "ex15pw-playwright",
         "15pw",
         "uri3 run-flow current weather health with playwright",
-        ("python3", "scripts/examples/effective_weather_playwright.py"),
+        ("python3", f"{HV_SCRIPTS}/examples/effective_weather_playwright.py"),
         "real",
         ("playwright", "weather_agent"),
         "browser",
@@ -286,7 +290,7 @@ REAL_COMMANDS: tuple[CommandSpec, ...] = (
         "landing monitor workflow (playwright)",
         (
             "python3",
-            "scripts/examples/run_uri3_workflow.py",
+            f"{URI3_SCRIPTS}/run_uri3_workflow.py",
             "examples/16_www_landing_monitor/task_graph.yaml",
             "--approve",
             "--browser",
@@ -301,7 +305,7 @@ REAL_COMMANDS: tuple[CommandSpec, ...] = (
         "ex16www-monitor-landing",
         "16www",
         "monitor_landing.py price/uptime check",
-        ("python3", "scripts/www/monitor_landing.py", "--url", "http://localhost:8788/www/"),
+        ("python3", f"{WWW_SCRIPTS}/monitor_landing.py", "--url", "http://localhost:8788/www/"),
         "real",
         ("www_8788",),
         "monitor",
@@ -311,7 +315,7 @@ REAL_COMMANDS: tuple[CommandSpec, ...] = (
         "ex16www-monitor-url-down",
         "16www",
         "monitor_url.py PAGE_DOWN notify (local probe)",
-        ("python3", "scripts/www/monitor_url.py", "--url", "http://127.0.0.1:1/www/", "--notify"),
+        ("python3", f"{WWW_SCRIPTS}/monitor_url.py", "--url", "http://127.0.0.1:1/www/", "--notify"),
         "real",
         (),
         "monitor",

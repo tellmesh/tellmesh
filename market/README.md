@@ -2,7 +2,7 @@
 
 Materiały pozycjonowania, research i go-to-market dla **Taskinity**.
 
-Repo: [Resource Agent System](../README.md). Taskinity = warstwa produktowa (chat, dashboard, API) nad URI (`urish`, `hypervisor`, `uri2run`).
+Repo: [TellMesh](../README.md). Taskinity = warstwa produktowa (chat, dashboard, API) nad URI (`urish`, `hypervisor`, `uri2run`).
 
 ## Start tutaj
 

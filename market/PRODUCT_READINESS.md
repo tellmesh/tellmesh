@@ -1,6 +1,6 @@
 # Gotowość produktu vs obietnica rynkowa
 
-Walidacja implementacji Resource Agent System / Taskinity względem tezy URI-first control plane (stan kodu: v0.5.22+, 2026-06-14).
+Walidacja implementacji TellMesh / Taskinity względem tezy URI-first control plane (stan kodu: v0.5.22+, 2026-06-14).
 
 ## Podsumowanie
 

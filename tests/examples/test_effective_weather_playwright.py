@@ -8,7 +8,7 @@ from pathlib import Path
 import yaml
 
 ROOT = Path(__file__).resolve().parents[2]
-SCRIPT = ROOT / "scripts" / "examples" / "effective_weather_playwright.py"
+SCRIPT = ROOT.parent.parent / "tellmesh" / "resource-agent-hypervisor" / "scripts" / "examples" / "effective_weather_playwright.py"
 SPEC = importlib.util.spec_from_file_location("effective_weather_playwright", SCRIPT)
 assert SPEC is not None
 runner = importlib.util.module_from_spec(SPEC)

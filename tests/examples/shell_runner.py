@@ -169,7 +169,7 @@ def _ex16www(root: Path, env: dict[str, str]) -> int:
         return dry.returncode
     monitor = run_shell(
         root,
-        ["python3", "scripts/www/monitor_landing.py", "--url", "http://localhost:8788/www/"],
+        ["python3", "../../tellmesh/www/scripts/monitor_landing.py", "--url", "http://localhost:8788/www/"],
         env=env,
         timeout_s=120,
     )

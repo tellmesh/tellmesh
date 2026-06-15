@@ -7,12 +7,16 @@ import sys
 from pathlib import Path
 
 
+def _www_scripts(repo_root: Path) -> Path:
+    return repo_root.parent.parent / "tellmesh" / "www" / "scripts"
+
+
 def test_about_parser_loads_cards(repo_root: Path):
     import importlib.util
 
     spec = importlib.util.spec_from_file_location(
         "about_parser",
-        repo_root / "scripts" / "www" / "about_parser.py",
+        _www_scripts(repo_root) / "about_parser.py",
     )
     module = importlib.util.module_from_spec(spec)
     assert spec.loader is not None
@@ -26,7 +30,7 @@ def test_about_parser_loads_cards(repo_root: Path):
 
 
 def test_build_landing_integrations_check(repo_root: Path):
-    script = repo_root / "scripts" / "www" / "build_landing_integrations.py"
+    script = _www_scripts(repo_root) / "build_landing_integrations.py"
     result = subprocess.run(
         [sys.executable, str(script), "--check"],
         cwd=repo_root,
@@ -37,7 +41,7 @@ def test_build_landing_integrations_check(repo_root: Path):
 
 
 def test_build_examples_manifest_check(repo_root: Path):
-    script = repo_root / "scripts" / "www" / "build_examples_manifest.py"
+    script = _www_scripts(repo_root) / "build_examples_manifest.py"
     result = subprocess.run(
         [sys.executable, str(script), "--check"],
         cwd=repo_root,
@@ -48,7 +52,7 @@ def test_build_examples_manifest_check(repo_root: Path):
 
 
 def test_examples_manifest_includes_office_chains(repo_root: Path):
-    script = repo_root / "scripts" / "www" / "build_examples_manifest.py"
+    script = _www_scripts(repo_root) / "build_examples_manifest.py"
     import importlib.util
 
     spec = importlib.util.spec_from_file_location("build_examples_manifest", script)
@@ -73,7 +77,7 @@ def test_index_has_generated_integration_cards(www_root: Path):
 def test_spotlight_includes_full_i18n_cta_and_body(repo_root: Path):
     import importlib.util
 
-    script = repo_root / "scripts" / "www" / "build_landing_integrations.py"
+    script = _www_scripts(repo_root) / "build_landing_integrations.py"
     spec = importlib.util.spec_from_file_location("build_landing_integrations", script)
     module = importlib.util.module_from_spec(spec)
     assert spec.loader is not None
@@ -93,7 +97,7 @@ def test_spotlight_includes_full_i18n_cta_and_body(repo_root: Path):
 def _load_integrations_module(repo_root: Path):
     import importlib.util
 
-    script = repo_root / "scripts" / "www" / "build_landing_integrations.py"
+    script = _www_scripts(repo_root) / "build_landing_integrations.py"
     spec = importlib.util.spec_from_file_location("build_landing_integrations", script)
     module = importlib.util.module_from_spec(spec)
     assert spec.loader is not None
@@ -108,7 +112,7 @@ def test_all_about_cards_reused_on_website(repo_root: Path, www_root: Path):
 
     about_spec = importlib.util.spec_from_file_location(
         "about_parser",
-        repo_root / "scripts" / "www" / "about_parser.py",
+        _www_scripts(repo_root) / "about_parser.py",
     )
     about_mod = importlib.util.module_from_spec(about_spec)
     assert about_spec.loader is not None
