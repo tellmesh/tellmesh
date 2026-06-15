@@ -3,7 +3,7 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 cd "$ROOT"
-source "$ROOT/scripts/examples/cli_fallback.sh"
+source "$ROOT/../resource-agent-hypervisor/scripts/examples/cli_fallback.sh"
 if [[ -x "$ROOT/.venv/bin/python3" ]]; then
   export PY="$ROOT/.venv/bin/python3"
 elif [[ -x "$ROOT/.venv/bin/python" ]]; then
@@ -25,7 +25,7 @@ run_cli hypervisor run-agent gnome-programmer-agent.local --detach --wait-health
 run_cli hypervisor run-agent screenshot-analysis-agent.local --detach --wait-healthy --if-running reuse
 
 echo "== agent reports =="
-"${PY:-python3}" scripts/examples/audit_agent_reports.py >/tmp/taskinity-audit-38.log
+"${PY:-python3}" "$ROOT/../resource-agent-hypervisor/scripts/examples/audit_agent_reports.py" >/tmp/taskinity-audit-38.log
 tail -3 /tmp/taskinity-audit-38.log
 
 echo "== resolve operator URLs =="

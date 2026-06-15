@@ -93,10 +93,10 @@ manifest:
 ```markpact:runtime remote-deploy-agent.local
 runtime:
   module: agents.custom.remote_deploy_agent.main:app
-  path: /home/tom/github/wronai/hypervisor/agents/custom/remote_deploy_agent
+  path: /home/tom/github/tellmesh/tellmesh/agents/custom/remote_deploy_agent
   port: 8135
   health_uri: http://localhost:8135/health
   card_uri: http://localhost:8135/.well-known/agent-card.json
-  command: /home/tom/github/wronai/hypervisor/.venv/bin/python3 -m uvicorn agents.custom.remote_deploy_agent.main:app
+  command: /home/tom/github/tellmesh/tellmesh/.venv/bin/python3 -m uvicorn agents.custom.remote_deploy_agent.main:app
     --host 0.0.0.0 --port 8135
 ```

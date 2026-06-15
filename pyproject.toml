@@ -33,6 +33,7 @@ dependencies = [
     "uri2verify",
     "urigen",
     "urish",
+    "hypervisor",
     "resource-agent-hypervisor",
     "resource-agent-factory",
     "hypervisor-dashboard-agent",
@@ -78,30 +79,31 @@ nl2uri = "nl2uri.cli:main"
 nl2a = "nl2a.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/wronai/hypervisor"
-Repository = "https://github.com/wronai/hypervisor"
-Issues = "https://github.com/wronai/hypervisor/issues"
-Documentation = "https://github.com/wronai/hypervisor#readme"
+Homepage = "https://github.com/tellmesh/tellmesh"
+Repository = "https://github.com/tellmesh/tellmesh"
+Issues = "https://github.com/tellmesh/tellmesh/issues"
+Documentation = "https://github.com/tellmesh/tellmesh#readme"
 
 [tool.uv.workspace]
 members = []
 exclude = ["packages/project"]
 
 [tool.uv.sources]
-uri3 = { path = "../../tellmesh/uri3", editable = true }
-nl2uri = { path = "../../tellmesh/nl2uri", editable = true }
-uri2flow = { path = "../../tellmesh/uri2flow", editable = true }
-uri2ops = { path = "../../tellmesh/uri2ops", editable = true }
-touri = { path = "../../tellmesh/touri", editable = true }
-uri2voice = { path = "../../tellmesh/uri2voice", editable = true }
-uri2pact = { path = "../../tellmesh/uri2pact", editable = true }
-uri2run = { path = "../../tellmesh/uri2run", editable = true }
-urish = { path = "../../tellmesh/urish", editable = true }
-uri2verify = { path = "../../tellmesh/uri2verify", editable = true }
-urigen = { path = "../../tellmesh/urigen", editable = true }
-resource-agent-hypervisor = { path = "../../tellmesh/resource-agent-hypervisor", editable = true }
-resource-agent-factory = { path = "../../tellmesh/resource-agent-factory", editable = true }
-hypervisor-dashboard-agent = { path = "../../tellmesh/hypervisor-dashboard", editable = true }
+hypervisor = { path = "../hypervisor", editable = true }
+uri3 = { path = "../uri3", editable = true }
+nl2uri = { path = "../nl2uri", editable = true }
+uri2flow = { path = "../uri2flow", editable = true }
+uri2ops = { path = "../uri2ops", editable = true }
+touri = { path = "../touri", editable = true }
+uri2voice = { path = "../uri2voice", editable = true }
+uri2pact = { path = "../uri2pact", editable = true }
+uri2run = { path = "../uri2run", editable = true }
+urish = { path = "../urish", editable = true }
+uri2verify = { path = "../uri2verify", editable = true }
+urigen = { path = "../urigen", editable = true }
+resource-agent-hypervisor = { path = "../resource-agent-hypervisor", editable = true }
+resource-agent-factory = { path = "../resource-agent-factory", editable = true }
+hypervisor-dashboard-agent = { path = "../hypervisor-dashboard", editable = true }
 
 [tool.setuptools.packages.find]
 where = [
@@ -146,20 +148,21 @@ markers = [
 ]
 pythonpath = [
     ".",
-    "../../tellmesh/uri3",
-    "../../tellmesh/nl2uri",
-    "../../tellmesh/uri2flow",
-    "../../tellmesh/uri2ops",
-    "../../tellmesh/touri",
-    "../../tellmesh/uri2voice",
-    "../../tellmesh/uri2pact",
-    "../../tellmesh/uri2run",
-    "../../tellmesh/uri2verify",
-    "../../tellmesh/urigen",
-    "../../tellmesh/urish",
-    "../../tellmesh/resource-agent-hypervisor",
-    "../../tellmesh/resource-agent-factory",
-    "../../tellmesh/hypervisor-dashboard",
+    "../hypervisor",
+    "../uri3",
+    "../nl2uri",
+    "../uri2flow",
+    "../uri2ops",
+    "../touri",
+    "../uri2voice",
+    "../uri2pact",
+    "../uri2run",
+    "../uri2verify",
+    "../urigen",
+    "../urish",
+    "../resource-agent-hypervisor",
+    "../resource-agent-factory",
+    "../hypervisor-dashboard",
     "examples/21_touri_voice",
 ]
 

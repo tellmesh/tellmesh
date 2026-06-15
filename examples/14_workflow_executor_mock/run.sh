@@ -3,7 +3,7 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 cd "$ROOT"
-source "$ROOT/scripts/examples/cli_fallback.sh"
+source "$ROOT/../resource-agent-hypervisor/scripts/examples/cli_fallback.sh"
 GRAPH="examples/14_workflow_executor_mock/task_graph.yaml"
 
 echo "=== validate ==="

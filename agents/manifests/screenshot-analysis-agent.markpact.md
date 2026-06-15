@@ -85,10 +85,10 @@ manifest:
 ```markpact:runtime screenshot-analysis-agent.local
 runtime:
   module: agents.custom.screenshot_analysis_agent.main:app
-  path: /home/tom/github/wronai/hypervisor/agents/custom/screenshot_analysis_agent
+  path: /home/tom/github/tellmesh/tellmesh/agents/custom/screenshot_analysis_agent
   port: 8134
   health_uri: http://localhost:8134/health
   card_uri: http://localhost:8134/.well-known/agent-card.json
-  command: /home/tom/github/wronai/hypervisor/.venv/bin/python3 -m uvicorn agents.custom.screenshot_analysis_agent.main:app
+  command: /home/tom/github/tellmesh/tellmesh/.venv/bin/python3 -m uvicorn agents.custom.screenshot_analysis_agent.main:app
     --host 0.0.0.0 --port 8134
 ```

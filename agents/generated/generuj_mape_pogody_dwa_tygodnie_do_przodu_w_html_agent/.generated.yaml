@@ -2,6 +2,5 @@ auto_generated: 'true'
 source: contracts/agents/generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html_agent.yaml
 contract_hash: sha256:1032ca7c45efe2b94b47aa66b6bda819294316637b494c4ac51dd2724c009bda
 generator: resource-agent-factory
-generation_command: PYTHONPATH=packages/resource-agent-factory python -m generator.agent_generator
-  contracts/agents/generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html_agent.yaml
-markpact_readme: file:///home/tom/github/wronai/hypervisor/agents/generated/generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html_agent/README.md
+generation_command: uv run python -m generator.agent_generator contracts/agents/generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html_agent.yaml
+markpact_readme: file:///home/tom/github/tellmesh/tellmesh/agents/generated/generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html_agent/README.md

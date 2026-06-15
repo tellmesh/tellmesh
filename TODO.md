@@ -11,30 +11,19 @@
 
 | Co | Gdzie teraz | Dystrybucja PyPI |
 |---|---|---|
-| Moduł Python **`hypervisor`** | `/home/tom/github/tellmesh/resource-agent-hypervisor/hypervisor/` | `resource-agent-hypervisor` |
+| Moduł Python **`hypervisor`** | `/home/tom/github/tellmesh/hypervisor/hypervisor/` | `hypervisor` |
 | `meta_agent`, `runtime_client` | `/home/tom/github/tellmesh/resource-agent-hypervisor/` | `resource-agent-hypervisor` |
 | Moduł **`generator`** | `/home/tom/github/tellmesh/resource-agent-factory/generator/` | `resource-agent-factory` |
 | **`hypervisor_dashboard_agent`** | `/home/tom/github/tellmesh/hypervisor-dashboard/` | `hypervisor-dashboard-agent` |
-| Monorepo umbrella (agents, domains, examples, tests) | `/home/tom/github/wronai/hypervisor/` | `tellmesh` (pyproject name) |
+| Monorepo umbrella (agents, domains, examples, tests) | `/home/tom/github/tellmesh/tellmesh/` | `tellmesh` (pyproject name) |
 | WWW | `/home/tom/github/tellmesh/www/` | — |
 | URI paczki (uri3, nl2uri, …) | `/home/tom/github/tellmesh/{uri3,nl2uri,...}/` | osobne repo |
 
 **Tak — paczka `hypervisor` jest w** `tellmesh/resource-agent-hypervisor/hypervisor/` (nie w osobnym repo `tellmesh/hypervisor` — to jest docelowy krok).
 
-### Dlaczego `goal -a` w factory pada?
+### Dlaczego `goal -a` w factory padało?
 
-`resource-agent-factory/tests/test_generator.py` importuje `hypervisor.domain_pack.generator`, ale `pyproject.toml` factory **nie deklaruje** zależności od `resource-agent-hypervisor`. W monorepo działa to przez `uv sync` w root `wronai/hypervisor`; w izolowanym repo factory brakuje editable install.
-
-Szybka naprawa (tymczasowa):
-
-```bash
-cd /home/tom/github/tellmesh/resource-agent-factory
-uv add --editable ../resource-agent-hypervisor
-uv sync
-pytest tests/ -q
-```
-
-Docelowo: przenieść `tests/test_generator.py` do `resource-agent-hypervisor/tests/domain_pack/` (duplikat już istnieje) **albo** dodać stałą zależność w pyproject.
+Naprawione: `pyproject.toml` ma zależność `hypervisor`, `tests/conftest.py` ustawia `HYPERVISOR_REPO_ROOT` przed importem generatora, `[project.optional-dependencies] dev` zawiera `pytest`.
 
 ---
 
@@ -65,30 +54,29 @@ Docelowo: przenieść `tests/test_generator.py` do `resource-agent-hypervisor/te
 
 ### Faza 2 — repozytoria i ścieżki
 
-- [ ] Przenieść monorepo: `wronai/hypervisor` → `tellmesh/tellmesh`
-- [ ] Wyodrębnić moduł `hypervisor/` z `resource-agent-hypervisor/` → nowe repo `tellmesh/hypervisor`
-- [ ] Zaktualizować `[tool.uv.sources]` we wszystkich pyproject (ścieżki względem `tellmesh/tellmesh`)
-- [ ] Zaktualizować domyślne `HYPERVISOR_REPO_ROOT` w conftest (tellmesh/tellmesh zamiast wronai/hypervisor)
-- [ ] Zaktualizować `repo_root.py`, `hypervisor_root.sh`, skrypty migracyjne
-- [ ] Zaktualizować `uv.lock` w paczkach URI (wciąż wskazują `wronai/hypervisor/packages/…`)
-- [ ] Zaktualizować README / goal.yaml we wszystkich tellmesh repo (linki do nowego monorepo)
-- [ ] Zaktualizować GitHub remote: `wronai/hypervisor` → `tellmesh/tellmesh` (lub alias)
+- [x] Przenieść monorepo: `wronai/hypervisor` → `tellmesh/tellmesh`
+- [x] Wyodrębnić moduł `hypervisor/` z `resource-agent-hypervisor/` → nowe repo `tellmesh/hypervisor`
+- [x] Zaktualizować `[tool.uv.sources]` we wszystkich pyproject (ścieżki względem `tellmesh/tellmesh`)
+- [x] Zaktualizować domyślne `HYPERVISOR_REPO_ROOT` w conftest (tellmesh/tellmesh zamiast wronai/hypervisor)
+- [x] Zaktualizować `repo_root.py`, `hypervisor_root.sh`, skrypty migracyjne
+- [x] Zaktualizować `uv.lock` w paczkach URI (touri, uri2voice)
+- [x] Zaktualizować README / goal.yaml / pyproject URLs (tellmesh/tellmesh)
+- [ ] Zaktualizować GitHub remote: `wronai/hypervisor` → `tellmesh/tellmesh` (wymaga utworzenia repo + `git remote set-url`)
 
 ### Faza 3 — zależności i testy
 
-- [ ] `resource-agent-factory`: dodać zależność `resource-agent-hypervisor` (lub usunąć duplikat `tests/test_generator.py`)
-- [ ] `resource-agent-hypervisor`: po split — zależność od `hypervisor` (editable path)
-- [ ] Root `tellmesh/tellmesh`: `[tool.uv.sources]` → `../hypervisor`, `../resource-agent-*`
-- [ ] Naprawić `tests/examples/test_comprehensive.py` (run.sh + env)
-- [ ] Usunąć shims `hypervisor/scripts/*` po aktualizacji `examples/*/run.sh`
+- [x] `resource-agent-factory`: dodać zależność `hypervisor` (usunięto duplikat `tests/test_generator.py`)
+- [x] `resource-agent-hypervisor`: zależność od `hypervisor` (editable path)
+- [x] Root `tellmesh/tellmesh`: `[tool.uv.sources]` → `../hypervisor`, `../resource-agent-*`
+- [x] Naprawić `tests/examples/test_comprehensive.py` (run.sh → bezpośrednie ścieżki tellmesh)
+- [x] Usunąć shims `tellmesh/tellmesh/scripts/*` — examples wskazują na `../resource-agent-hypervisor/scripts/`
 - [ ] Regenerować SUMD/SUMR (ścieżki `packages/` → `tellmesh/`)
 
 ### Faza 4 — sprzątanie
 
 - [ ] Usunąć `agents/system/hypervisor_dashboard/` z monorepo (canonical: `tellmesh/hypervisor-dashboard`)
-- [ ] Zaktualizować hardcoded `file:///home/tom/github/wronai/hypervisor/…` w contracts YAML
-- [ ] Docker WWW: build context po przeniesieniu monorepo
-- [ ] Commit + push wszystkich tellmesh repo ze `scripts/`
+- [x] Zaktualizować hardcoded `file:///home/tom/github/wronai/hypervisor/…` w contracts YAML
+- [ ] Commit + push wszystkich tellmesh repo (hypervisor git init — bez commita)
 - [ ] Uruchomić `prefact` ponownie po stabilizacji ścieżek
 
 ### Mapa starych ścieżek (tickety prefact)

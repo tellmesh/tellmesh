@@ -6,7 +6,7 @@ PROMPT="$(cat "$ROOT/examples/18_llm_flow_planner/prompt.txt")"
 FLOW="/tmp/weather.uri.flow.yaml"
 
 cd "$ROOT"
-source "$ROOT/scripts/examples/cli_fallback.sh"
+source "$ROOT/../resource-agent-hypervisor/scripts/examples/cli_fallback.sh"
 mkdir -p output
 
 echo "== rule-based compact flow =="

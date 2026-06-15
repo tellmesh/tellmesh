@@ -3,7 +3,7 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 cd "$ROOT"
-source "$ROOT/scripts/examples/cli_fallback.sh"
+source "$ROOT/../resource-agent-hypervisor/scripts/examples/cli_fallback.sh"
 
 PROMPT="$(cat examples/13_nl2uri_multi_uri_graph/prompt.txt)"
 OUT_DIR="${OUT_DIR:-output/examples/13_nl2uri_multi_uri_graph}"

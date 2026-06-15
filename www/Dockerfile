@@ -9,17 +9,18 @@ RUN apt-get update \
 
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
-COPY wronai/hypervisor/pyproject.toml wronai/hypervisor/uv.lock wronai/hypervisor/README.md ./
-COPY wronai/hypervisor/contracts ./contracts
-COPY wronai/hypervisor/schemas ./schemas
-COPY wronai/hypervisor/deployments ./deployments
-COPY wronai/hypervisor/config ./config
-COPY wronai/hypervisor/domains ./domains
-COPY wronai/hypervisor/knowledge ./knowledge
-COPY wronai/hypervisor/examples ./examples
-COPY wronai/hypervisor/agents ./agents
+COPY tellmesh/tellmesh/pyproject.toml tellmesh/tellmesh/uv.lock tellmesh/tellmesh/README.md ./
+COPY tellmesh/tellmesh/contracts ./contracts
+COPY tellmesh/tellmesh/schemas ./schemas
+COPY tellmesh/tellmesh/deployments ./deployments
+COPY tellmesh/tellmesh/config ./config
+COPY tellmesh/tellmesh/domains ./domains
+COPY tellmesh/tellmesh/knowledge ./knowledge
+COPY tellmesh/tellmesh/examples ./examples
+COPY tellmesh/tellmesh/agents ./agents
 
 # TellMesh editable path deps (patched to tellmesh/* before uv sync)
+COPY tellmesh/hypervisor ./tellmesh/hypervisor
 COPY tellmesh/resource-agent-hypervisor ./tellmesh/resource-agent-hypervisor
 COPY tellmesh/resource-agent-factory ./tellmesh/resource-agent-factory
 COPY tellmesh/hypervisor-dashboard ./tellmesh/hypervisor-dashboard
@@ -36,7 +37,7 @@ COPY tellmesh/urigen ./tellmesh/urigen
 COPY tellmesh/urish ./tellmesh/urish
 
 RUN mkdir -p /app/www output/runtime/agents output/logs output/incidents output/proposals \
-    && sed -i 's|../../tellmesh/|tellmesh/|g' pyproject.toml uv.lock
+    && sed -i 's|path = "../|path = "tellmesh/|g' pyproject.toml uv.lock
 
 ENV UV_SYSTEM_PYTHON=1 \
     UV_COMPILE_BYTECODE=1 \

@@ -56,10 +56,10 @@ env:
 ```markpact:runtime browser-operator.local
 runtime:
   module: agents.operators.browser_operator.main:app
-  path: /home/tom/github/wronai/hypervisor/agents/operators/browser_operator
+  path: /home/tom/github/tellmesh/tellmesh/agents/operators/browser_operator
   port: 8793
   health_uri: http://localhost:8793/health
   card_uri: http://localhost:8793/.well-known/agent-card.json
-  command: /home/tom/github/wronai/hypervisor/.venv/bin/python3 -m uvicorn agents.operators.browser_operator.main:app
+  command: /home/tom/github/tellmesh/tellmesh/.venv/bin/python3 -m uvicorn agents.operators.browser_operator.main:app
     --host 0.0.0.0 --port 8793
 ```

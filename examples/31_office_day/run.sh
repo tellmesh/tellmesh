@@ -3,7 +3,7 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 cd "$ROOT"
-source "$ROOT/scripts/examples/cli_fallback.sh"
+source "$ROOT/../resource-agent-hypervisor/scripts/examples/cli_fallback.sh"
 GRAPH="examples/31_office_day/task_graph.yaml"
 PROMPT_FILE="examples/31_office_day/prompt.txt"
 TASKS=(

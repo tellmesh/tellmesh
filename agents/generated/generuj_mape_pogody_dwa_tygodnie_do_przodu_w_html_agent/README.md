@@ -19,7 +19,7 @@ uvicorn agents.generated.generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html_agent
 ## Reproduce
 
 ```bash
-PYTHONPATH=packages/resource-agent-factory python -m generator.agent_generator contracts/agents/generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html_agent.yaml
+uv run python -m generator.agent_generator contracts/agents/generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html_agent.yaml
 ```
 
 ## Markpact provenance
@@ -33,7 +33,7 @@ source:
   contract_hash: sha256:1032ca7c45efe2b94b47aa66b6bda819294316637b494c4ac51dd2724c009bda
 generator:
   id: resource-agent-factory
-  command: PYTHONPATH=packages/resource-agent-factory python -m generator.agent_generator contracts/agents/generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html_agent.yaml
+  command: uv run python -m generator.agent_generator contracts/agents/generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html_agent.yaml
 runtime:
   default_run: uvicorn agents.generated.generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html_agent.main:app --reload --port 8101
 logs:

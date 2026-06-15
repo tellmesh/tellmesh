@@ -76,11 +76,11 @@ manifest:
 ```markpact:runtime user-agent.local
 runtime:
   module: agents.generated.user_agent.main:app
-  path: /home/tom/github/wronai/hypervisor/agents/generated/user_agent
+  path: /home/tom/github/tellmesh/tellmesh/agents/generated/user_agent
   port: 8102
   health_uri: http://localhost:8102/health
   card_uri: http://localhost:8102/.well-known/agent-card.json
-  command: /home/tom/github/wronai/hypervisor/.venv/bin/python3 -m uvicorn agents.generated.user_agent.main:app
+  command: /home/tom/github/tellmesh/tellmesh/.venv/bin/python3 -m uvicorn agents.generated.user_agent.main:app
     --host 0.0.0.0 --port 8102
 ```
 

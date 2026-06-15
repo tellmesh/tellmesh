@@ -71,11 +71,11 @@ manifest:
 ```markpact:runtime invoices-agent.local
 runtime:
   module: agents.generated.invoices_agent.main:app
-  path: /home/tom/github/wronai/hypervisor/agents/generated/invoices_agent
+  path: /home/tom/github/tellmesh/tellmesh/agents/generated/invoices_agent
   port: 8123
   health_uri: http://localhost:8123/health
   card_uri: http://localhost:8123/.well-known/agent-card.json
-  command: /home/tom/github/wronai/hypervisor/.venv/bin/python3 -m uvicorn agents.generated.invoices_agent.main:app
+  command: /home/tom/github/tellmesh/tellmesh/.venv/bin/python3 -m uvicorn agents.generated.invoices_agent.main:app
     --host 0.0.0.0 --port 8123
 ```
 

@@ -60,11 +60,11 @@ manifest:
 ```markpact:runtime generuj-mape-pogody-dwa-tygodnie-do-przodu-w-html-agent.local
 runtime:
   module: agents.generated.generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html_agent.main:app
-  path: /home/tom/github/wronai/hypervisor/agents/generated/generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html_agent
+  path: /home/tom/github/tellmesh/tellmesh/agents/generated/generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html_agent
   port: 8101
   health_uri: http://localhost:8101/health
   card_uri: http://localhost:8101/.well-known/agent-card.json
-  command: /home/tom/github/wronai/hypervisor/.venv/bin/python3 -m uvicorn agents.generated.generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html_agent.main:app
+  command: /home/tom/github/tellmesh/tellmesh/.venv/bin/python3 -m uvicorn agents.generated.generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html_agent.main:app
     --host 0.0.0.0 --port 8101
 ```
 

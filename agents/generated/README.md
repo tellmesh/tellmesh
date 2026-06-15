@@ -14,7 +14,7 @@ Each agent directory includes:
 Regenerate:
 
 ```bash
-PYTHONPATH=packages/resource-agent-factory python -m generator.agent_generator contracts/agents/*.yaml
+uv run python -m generator.agent_generator contracts/agents/*.yaml
 ```
 
 Each generated agent README also contains `markpact:agent_generation` and

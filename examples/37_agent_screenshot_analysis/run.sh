@@ -3,7 +3,7 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 cd "$ROOT"
-source "$ROOT/scripts/examples/cli_fallback.sh"
+source "$ROOT/../resource-agent-hypervisor/scripts/examples/cli_fallback.sh"
 if [[ -x "$ROOT/.venv/bin/python3" ]]; then
   export PY="$ROOT/.venv/bin/python3"
 elif [[ -x "$ROOT/.venv/bin/python" ]]; then

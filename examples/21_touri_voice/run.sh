@@ -7,7 +7,7 @@ OUT_DIR="$ROOT/output/artifacts/voice"
 PROMPT="${1:-wygeneruj agenta pogodowego, uruchom go lokalnie i sprawdz health w Chrome}"
 
 export PYTHONPATH="$REGISTRY${PYTHONPATH:+:$PYTHONPATH}"
-source "$ROOT/scripts/examples/cli_fallback.sh"
+source "$ROOT/../resource-agent-hypervisor/scripts/examples/cli_fallback.sh"
 PY_BIN="${PY:-}"
 if [[ -z "$PY_BIN" ]]; then
   if command -v python >/dev/null 2>&1; then

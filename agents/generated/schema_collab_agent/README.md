@@ -19,7 +19,7 @@ uvicorn agents.generated.schema_collab_agent.main:app --reload --port 8131
 ## Reproduce
 
 ```bash
-PYTHONPATH=packages/resource-agent-factory python -m generator.agent_generator contracts/agents/schema_collab_agent.yaml
+uv run python -m generator.agent_generator contracts/agents/schema_collab_agent.yaml
 ```
 
 ## Markpact provenance
@@ -33,7 +33,7 @@ source:
   contract_hash: sha256:17b3d806a8ebef60fa04b5234c2f32ccc2b94d7745234e05cbbd5c7e51bb4bd3
 generator:
   id: resource-agent-factory
-  command: PYTHONPATH=packages/resource-agent-factory python -m generator.agent_generator contracts/agents/schema_collab_agent.yaml
+  command: uv run python -m generator.agent_generator contracts/agents/schema_collab_agent.yaml
 runtime:
   default_run: uvicorn agents.generated.schema_collab_agent.main:app --reload --port 8131
 logs:

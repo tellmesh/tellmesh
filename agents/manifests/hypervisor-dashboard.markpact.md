@@ -89,10 +89,10 @@ manifest:
 ```markpact:runtime hypervisor-dashboard.local
 runtime:
   module: agents.system.hypervisor_dashboard.main:app
-  path: /home/tom/github/wronai/hypervisor/agents/system/hypervisor_dashboard
+  path: /home/tom/github/tellmesh/tellmesh/agents/system/hypervisor_dashboard
   port: 8788
   health_uri: http://localhost:8788/health
   card_uri: http://localhost:8788/.well-known/agent-card.json
-  command: /home/tom/github/wronai/hypervisor/.venv/bin/python3 -m uvicorn agents.system.hypervisor_dashboard.main:app
+  command: /home/tom/github/tellmesh/tellmesh/.venv/bin/python3 -m uvicorn agents.system.hypervisor_dashboard.main:app
     --host 0.0.0.0 --port 8788
 ```

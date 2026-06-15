@@ -19,7 +19,7 @@ uvicorn agents.generated.invoices_agent.main:app --reload --port 8123
 ## Reproduce
 
 ```bash
-PYTHONPATH=packages/resource-agent-factory python -m generator.agent_generator contracts/agents/invoices_agent.yaml
+uv run python -m generator.agent_generator contracts/agents/invoices_agent.yaml
 ```
 
 ## Markpact provenance
@@ -33,7 +33,7 @@ source:
   contract_hash: sha256:a536397207b68bed66eefb1defcfb80529b8d2aa4fe82645f2ffa38069c60960
 generator:
   id: resource-agent-factory
-  command: PYTHONPATH=packages/resource-agent-factory python -m generator.agent_generator contracts/agents/invoices_agent.yaml
+  command: uv run python -m generator.agent_generator contracts/agents/invoices_agent.yaml
 runtime:
   default_run: uvicorn agents.generated.invoices_agent.main:app --reload --port 8123
 logs:

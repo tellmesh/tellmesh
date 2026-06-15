@@ -19,7 +19,7 @@ uvicorn agents.generated.weather_map_agent.main:app --reload --port 8101
 ## Reproduce
 
 ```bash
-PYTHONPATH=packages/resource-agent-factory python -m generator.agent_generator contracts/agents/weather_map_agent.yaml
+uv run python -m generator.agent_generator contracts/agents/weather_map_agent.yaml
 ```
 
 ## Markpact provenance
@@ -33,7 +33,7 @@ source:
   contract_hash: sha256:47b69e7e4fc1b3b3e56e5778021526be07db596966aac1362c0782a766ca2485
 generator:
   id: resource-agent-factory
-  command: PYTHONPATH=packages/resource-agent-factory python -m generator.agent_generator contracts/agents/weather_map_agent.yaml
+  command: uv run python -m generator.agent_generator contracts/agents/weather_map_agent.yaml
 runtime:
   default_run: uvicorn agents.generated.weather_map_agent.main:app --reload --port 8101
 logs:

@@ -56,10 +56,10 @@ env:
 ```markpact:runtime device-robot-operator.local
 runtime:
   module: agents.operators.device_robot_operator.main:app
-  path: /home/tom/github/wronai/hypervisor/agents/operators/device_robot_operator
+  path: /home/tom/github/tellmesh/tellmesh/agents/operators/device_robot_operator
   port: 8792
   health_uri: http://localhost:8792/health
   card_uri: http://localhost:8792/.well-known/agent-card.json
-  command: /home/tom/github/wronai/hypervisor/.venv/bin/python3 -m uvicorn agents.operators.device_robot_operator.main:app
+  command: /home/tom/github/tellmesh/tellmesh/.venv/bin/python3 -m uvicorn agents.operators.device_robot_operator.main:app
     --host 0.0.0.0 --port 8792
 ```

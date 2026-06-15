@@ -7,8 +7,8 @@
 WWW_PORT ?= 8788
 WWW_COMPOSE = docker compose -f www/docker-compose.yml
 WWW_BASE = http://localhost:$(WWW_PORT)
-TELLMESH_WWW ?= $(abspath ../../tellmesh/www)
-TELLMESH_ROOT ?= $(abspath ../../tellmesh)
+TELLMESH_WWW ?= $(abspath ../www)
+TELLMESH_ROOT ?= $(abspath ..)
 WWW_SCRIPTS := $(TELLMESH_ROOT)/www/scripts
 HV_SCRIPTS := $(TELLMESH_ROOT)/resource-agent-hypervisor/scripts
 HYPERVISOR_WWW_DIR ?= $(if $(wildcard $(TELLMESH_WWW)/index.html),$(TELLMESH_WWW),$(CURDIR)/www)

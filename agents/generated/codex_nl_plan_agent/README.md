@@ -19,7 +19,7 @@ uvicorn agents.generated.codex_nl_plan_agent.main:app --reload --port 8132
 ## Reproduce
 
 ```bash
-PYTHONPATH=packages/resource-agent-factory python -m generator.agent_generator contracts/agents/codex_nl_plan_agent.yaml
+uv run python -m generator.agent_generator contracts/agents/codex_nl_plan_agent.yaml
 ```
 
 ## Markpact provenance
@@ -33,7 +33,7 @@ source:
   contract_hash: sha256:2d9bc1c0b851ce7acae3b9134afc15449ddc5fe881c3fdb439c4077b9df4c699
 generator:
   id: resource-agent-factory
-  command: PYTHONPATH=packages/resource-agent-factory python -m generator.agent_generator contracts/agents/codex_nl_plan_agent.yaml
+  command: uv run python -m generator.agent_generator contracts/agents/codex_nl_plan_agent.yaml
 runtime:
   default_run: uvicorn agents.generated.codex_nl_plan_agent.main:app --reload --port 8132
 logs:

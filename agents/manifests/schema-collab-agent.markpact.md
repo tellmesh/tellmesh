@@ -79,11 +79,11 @@ manifest:
 ```markpact:runtime schema-collab-agent.local
 runtime:
   module: agents.generated.schema_collab_agent.main:app
-  path: /home/tom/github/wronai/hypervisor/agents/generated/schema_collab_agent
+  path: /home/tom/github/tellmesh/tellmesh/agents/generated/schema_collab_agent
   port: 8131
   health_uri: http://localhost:8131/health
   card_uri: http://localhost:8131/.well-known/agent-card.json
-  command: /home/tom/github/wronai/hypervisor/.venv/bin/python3 -m uvicorn agents.generated.schema_collab_agent.main:app
+  command: /home/tom/github/tellmesh/tellmesh/.venv/bin/python3 -m uvicorn agents.generated.schema_collab_agent.main:app
     --host 0.0.0.0 --port 8131
 ```
 

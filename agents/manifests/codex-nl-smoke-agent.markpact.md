@@ -23,7 +23,7 @@ agent:
 capabilities:
 - name: read_markpact_source
   type: resource_read
-  uri: file:///home/tom/github/wronai/hypervisor/agents/generated/codex_nl_smoke_agent/README.md
+  uri: file:///home/tom/github/tellmesh/tellmesh/agents/generated/codex_nl_smoke_agent/README.md
   output_schema: app.codex.v1.MarkpactSourceView
   renderer: text
   description: Read generated agent README/provenance through file://.
@@ -72,11 +72,11 @@ manifest:
 ```markpact:runtime codex-nl-smoke-agent.local
 runtime:
   module: agents.generated.codex_nl_smoke_agent.main:app
-  path: /home/tom/github/wronai/hypervisor/agents/generated/codex_nl_smoke_agent
+  path: /home/tom/github/tellmesh/tellmesh/agents/generated/codex_nl_smoke_agent
   port: 8130
   health_uri: http://localhost:8130/health
   card_uri: http://localhost:8130/.well-known/agent-card.json
-  command: /home/tom/github/wronai/hypervisor/.venv/bin/python3 -m uvicorn agents.generated.codex_nl_smoke_agent.main:app
+  command: /home/tom/github/tellmesh/tellmesh/.venv/bin/python3 -m uvicorn agents.generated.codex_nl_smoke_agent.main:app
     --host 0.0.0.0 --port 8130
 ```
 
