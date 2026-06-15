@@ -4,15 +4,15 @@ Polish index: [`README.pl.md`](./README.pl.md)
 
 ## Taskinity WWW (readable form)
 
-After `make start` or `urish www serve` (`http://localhost:8788`):
+Static UI source: [`tellmesh/www`](../../tellmesh/www). After `make start` or `urish www serve` (`http://localhost:8788`):
 
 | URL | Description |
 |-----|-------------|
-| [`/www/`](../www/index.html) | Landing — integrations, office, offer |
-| [`/www/chat.html`](../www/chat.html) | NL chat → URI plan → run (dry-run default) |
-| [`/www/przyklady.html`](../www/przyklady.html) | Integration lab (PASS + commands) |
-| [`/www/docs/examples.html`](../www/docs/examples.html) | **Full `examples/*/*` content** |
-| [`/www/demo.html`](../www/demo.html) | URI demo |
+| [`/www/`](../../tellmesh/www/index.html) | Landing — integrations, office, offer |
+| [`/www/chat.html`](../../tellmesh/www/chat.html) | NL chat → URI plan → run (dry-run default) |
+| [`/www/przyklady.html`](../../tellmesh/www/przyklady.html) | Integration lab (PASS + commands) |
+| [`/www/docs/examples.html`](../../tellmesh/www/docs/examples.html) | **Full `examples/*/*` content** |
+| [`/www/demo.html`](../../tellmesh/www/demo.html) | URI demo |
 
 Build docs examples: `make www-docs` · details: [`www/README.md`](../www/README.md)
 
@@ -42,8 +42,8 @@ Build docs examples: `make www-docs` · details: [`www/README.md`](../www/README
 
 - [`README.md`](../README.md) — install, Makefile, examples, `make ci-gate`
 - [`examples/README.md`](../examples/README.md) — `examples/*/*` catalog
-- [`www/docs/examples.html`](../www/docs/examples.html) — **WWW docs** (README + YAML/SH from examples)
-- [`www/przyklady.html`](../www/przyklady.html) — integration lab on WWW
+- [`tellmesh/www/docs/examples.html`](../../tellmesh/www/docs/examples.html) — **WWW docs** (README + YAML/SH from examples)
+- [`tellmesh/www/przyklady.html`](../../tellmesh/www/przyklady.html) — integration lab on WWW
 - [`examples/30_golden_path/`](../examples/30_golden_path/) — 15 min end-to-end tutorial
 - [`domains/desktop_ops/`](../domains/desktop_ops/) — generic desktop operator domain pack
 - [`domains/physical_ops/`](../domains/physical_ops/) — generic robot/device operator domain pack

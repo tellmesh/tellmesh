@@ -45,7 +45,7 @@ Implementation: `urish.intent.split_nl_commands()` → `urish.backends.ask.ask_p
 
 ### Office landing cards ↔ chat
 
-Six cards on [`www/index.html`](../www/index.html) map to canonical scenarios in
+Six cards on [`tellmesh/www/index.html`](../../tellmesh/www/index.html) map to canonical scenarios in
 [`domains/office/scenario_registry.yaml`](../domains/office/scenario_registry.yaml) and
 [`domains/office/README.md`](../domains/office/README.md) (`markpact:scenario`).
 `urish` only loads this declarative registry; office, invoice, bank and ERP terms are
@@ -60,9 +60,9 @@ not hardcoded in the generic package.
 | Bank | Przygotuj przelewy… zatrzymaj przed autoryzacją | `workflow://bank/batch-transfer/dry-run` |
 | Android · 2FA | Bank czeka na potwierdzenie w aplikacji… | `android://device/pixel-7/screenshot` |
 
-- Click a card → `localStorage.taskinity.chatPrompt` → [`www/chat.html`](../www/chat.html)
+- Click a card → `localStorage.taskinity.chatPrompt` → [`tellmesh/www/chat.html`](../../tellmesh/www/chat.html)
 - Quick prompts in chat sidebar use the same six quotes (English labels)
-- i18n: `www/office-cards-i18n.js` (PL / EN / DE on landing)
+- i18n: `tellmesh/www/office-cards-i18n.js` (PL / EN / DE on landing)
 
 Example:
 

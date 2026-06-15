@@ -14,7 +14,7 @@ def test_hypervisor_dashboard_is_registered_as_system_agent(repo_root: Path):
     assert deployment.agent_ref == "agent://hypervisor-dashboard"
     assert deployment.target_uri == "local://agents/system/hypervisor_dashboard"
     assert deployment.metadata["source"] == "system_agent"
-    assert deployment.metadata["contract"] == "agents/system/hypervisor_dashboard/hypervisor_dashboard.yaml"
+    assert deployment.metadata["contract"] == "contracts/agents/hypervisor_dashboard_agent.yaml"
 
     assert local_target_to_module(deployment.target_uri) == "agents.system.hypervisor_dashboard.main:app"
     plan = build_run_plan(deployment, root=repo_root)
@@ -23,11 +23,12 @@ def test_hypervisor_dashboard_is_registered_as_system_agent(repo_root: Path):
 
 
 def test_hypervisor_dashboard_contract_symlink(repo_root: Path):
-    contract = repo_root / "agents/system/hypervisor_dashboard/hypervisor_dashboard.yaml"
-    assert contract.is_symlink()
-    assert contract.resolve().samefile(
-        repo_root / "contracts/agents/hypervisor_dashboard_agent.yaml"
+    contract = repo_root / "contracts/agents/hypervisor_dashboard_agent.yaml"
+    assert contract.is_file()
+    package_contract = (
+        repo_root.parent.parent / "tellmesh" / "hypervisor-dashboard" / "hypervisor_dashboard.yaml"
     )
+    assert package_contract.is_file()
 
 
 def test_hypervisor_dashboard_app_loads():

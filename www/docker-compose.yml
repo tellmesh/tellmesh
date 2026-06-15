@@ -1,15 +1,17 @@
 services:
   www-chat:
     build:
-      context: ..
-      dockerfile: www/Dockerfile
+      context: ../../..
+      dockerfile: wronai/hypervisor/www/Dockerfile
     image: hypervisor-www-chat:latest
     container_name: hypervisor-www-chat
     network_mode: "host"
     pid: "host"
     volumes:
       - ${HYPERVISOR_WWW_DIR:-../../../tellmesh/www}:/app/www:ro
-      - ../packages:/app/packages:ro
+      - ../../../tellmesh/resource-agent-hypervisor:/app/tellmesh/resource-agent-hypervisor:ro
+      - ../../../tellmesh/resource-agent-factory:/app/tellmesh/resource-agent-factory:ro
+      - ../../../tellmesh/hypervisor-dashboard:/app/tellmesh/hypervisor-dashboard:ro
       - ../agents/generated:/app/agents/generated
       - ../config:/app/config:ro
       - ../contracts:/app/contracts

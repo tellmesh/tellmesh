@@ -572,7 +572,8 @@ def test_www_examples_docs_page(client: TestClient):
 
 
 def test_build_examples_docs_script(repo_root: Path, www_root: Path):
-    script = repo_root / "scripts" / "www" / "build_examples_docs.py"
+    scripts = repo_root.parent.parent / "tellmesh" / "www" / "scripts"
+    script = scripts / "build_examples_docs.py"
     out = www_root / "docs" / "examples.html"
     result = subprocess.run(
         [sys.executable, str(script), "--check"],
@@ -585,7 +586,8 @@ def test_build_examples_docs_script(repo_root: Path, www_root: Path):
 
 
 def test_examples_docs_link_check(repo_root: Path):
-    script = repo_root / "scripts" / "www" / "check_examples_links.py"
+    scripts = repo_root.parent.parent / "tellmesh" / "www" / "scripts"
+    script = scripts / "check_examples_links.py"
     result = subprocess.run(
         [sys.executable, str(script)],
         cwd=repo_root,
@@ -726,9 +728,10 @@ def test_www_compose_mounts_system_artifacts(repo_root: Path):
 
 def test_www_dockerfile_includes_generated_agents_and_repair_cases(repo_root: Path):
     dockerfile = (repo_root / "www" / "Dockerfile").read_text()
-    assert "COPY agents ./agents" in dockerfile
-    assert "COPY examples ./examples" in dockerfile
-    assert "COPY knowledge ./knowledge" in dockerfile
+    assert "COPY wronai/hypervisor/agents ./agents" in dockerfile
+    assert "COPY wronai/hypervisor/examples ./examples" in dockerfile
+    assert "COPY wronai/hypervisor/knowledge ./knowledge" in dockerfile
+    assert "COPY tellmesh/resource-agent-hypervisor ./tellmesh/resource-agent-hypervisor" in dockerfile
     assert "mkdir -p /app/www" in dockerfile
 
 

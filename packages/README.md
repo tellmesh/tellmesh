@@ -1,23 +1,27 @@
-# Monorepo packages (v0.6)
+# Hypervisor monorepo — Python packages
 
-Physical Python packages live under `packages/`:
+All Python packages live in the **TellMesh product org** under `~/github/tellmesh/`:
 
-| Directory | Distribution | Modules |
+| TellMesh repo | Distribution | Modules |
 |---|---|---|
-| `packages/uri3/` | `uri3` | `uri3` |
-| `packages/nl2uri/` | `nl2uri` | `nl2uri`, `nl2a` |
-| `packages/uri2flow/` | `uri2flow` | `uri2flow` |
-| `packages/uri2ops/` | `uri2ops` | `uri2ops` |
-| `packages/uri2voice/` | `uri2voice` | `uri2voice` |
-| `packages/uri2pact/` | `uri2pact` | `uri2pact` |
-| `packages/uri2run/` | `uri2run` | `uri2run` |
-| `packages/uri2verify/` | `uri2verify` | `uri2verify` |
-| `packages/urigen/` | `urigen` | `urigen` |
-| `packages/touri/` | `touri` | `touri`, `touri_examples` |
-| `packages/resource-agent-hypervisor/` | `resource-agent-hypervisor` | `hypervisor`, `meta_agent`, `runtime_client` |
-| `packages/resource-agent-factory/` | `resource-agent-factory` | `generator` |
+| [`tellmesh/uri3`](../../tellmesh/uri3) | `uri3` | `uri3` |
+| [`tellmesh/nl2uri`](../../tellmesh/nl2uri) | `nl2uri` | `nl2uri`, `nl2a` |
+| [`tellmesh/uri2flow`](../../tellmesh/uri2flow) | `uri2flow` | `uri2flow` |
+| [`tellmesh/uri2ops`](../../tellmesh/uri2ops) | `uri2ops` | `uri2ops` |
+| [`tellmesh/uri2voice`](../../tellmesh/uri2voice) | `uri2voice` | `uri2voice` |
+| [`tellmesh/uri2pact`](../../tellmesh/uri2pact) | `uri2pact` | `uri2pact` |
+| [`tellmesh/uri2run`](../../tellmesh/uri2run) | `uri2run` | `uri2run` |
+| [`tellmesh/uri2verify`](../../tellmesh/uri2verify) | `uri2verify` | `uri2verify` |
+| [`tellmesh/urigen`](../../tellmesh/urigen) | `urigen` | `urigen` |
+| [`tellmesh/touri`](../../tellmesh/touri) | `touri` | `touri`, `touri_examples` |
+| [`tellmesh/urish`](../../tellmesh/urish) | `urish` | `urish` |
+| [`tellmesh/resource-agent-hypervisor`](../../tellmesh/resource-agent-hypervisor) | `resource-agent-hypervisor` | `hypervisor`, `meta_agent`, `runtime_client` |
+| [`tellmesh/resource-agent-factory`](../../tellmesh/resource-agent-factory) | `resource-agent-factory` | `generator` |
+| [`tellmesh/hypervisor-dashboard`](../../tellmesh/hypervisor-dashboard) | `hypervisor-dashboard-agent` | `hypervisor_dashboard_agent` |
 
-Shared repo assets remain at the repository root:
+This directory keeps only analysis cache (`project/`) and migration scripts reference paths.
+
+Shared repo assets remain at the hypervisor root:
 
 ```txt
 contracts/ schemas/ domains/ agents/ deployments/ config/ examples/ output/ tests/
@@ -25,64 +29,22 @@ contracts/ schemas/ domains/ agents/ deployments/ config/ examples/ output/ test
 
 ## Install
 
-From repo root:
+From hypervisor repo root (requires `~/github/tellmesh/*` sibling checkout):
 
 ```bash
 pip install -e '.[dev]'
-pip install -e '.[browser]'    # Playwright (uri2ops + uri3 workflow)
-pip install -e '.[windows]'   # pywinauto (uri2ops pcwin adapter)
-```
-
-Or with uv workspace:
-
-```bash
+# or
 uv sync
 ```
 
-## CLI entry points
+Path sources: root [`pyproject.toml`](../pyproject.toml) → `[tool.uv.sources]`.
+
+## Split / sync scripts
 
 ```bash
-uri3 --help
-uri2flow --help
-nl2uri --help
-nl2a --help
-hypervisor --help
-uri2ops --help
-uri2run --help
-touri --help
-uri2verify --help
-urigen --help
+python ../../tellmesh/resource-agent-hypervisor/scripts/tellmesh/split_core_packages.py
+python ../../tellmesh/resource-agent-hypervisor/scripts/tellmesh/sync_www.py
+python ../../tellmesh/resource-agent-hypervisor/scripts/tellmesh/move_tests.py
 ```
 
-Governance:
-
-```bash
-uri3 doctor
-uri3 explain <uri>
-touri explain <uri> --registry examples/20_touri_capabilities
-uri2verify replay <workflow-id>
-```
-
-## Capability manifests
-
-```txt
-examples/*/*.uri.capability.yaml
-packages/touri/touri/schemas/uri_capability.schema.json
-```
-
-See [`docs/TOURI.md`](../docs/TOURI.md).
-
-## Operator config
-
-```txt
-config/operator_policy.uri.yaml
-config/operator_registry.uri.yaml
-config/extra_operator_registry.yaml
-packages/uri2ops/uri2ops/operation_registry/registry.yaml   # union (CLI)
-agents/operators/*/operation_registry.yaml                  # deployed agents
-agents/operators/*/main.py                                  # uvicorn entry
-agents/system/hypervisor_dashboard/main.py                  # dashboard entry
-agents/system/hypervisor_dashboard/hypervisor_dashboard_agent/  # dashboard impl
-```
-
-See [`README.md`](../README.md), [`docs/TOURI.md`](../docs/TOURI.md), [`docs/URI2FLOW.md`](../docs/URI2FLOW.md), [`docs/URI2OPS.md`](../docs/URI2OPS.md), and [`examples/README.md`](../examples/README.md).
+Deploy glue for WWW chat: [`www/README.md`](../www/README.md).

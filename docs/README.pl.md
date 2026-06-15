@@ -2,15 +2,15 @@
 
 ## Taskinity WWW (czytelna forma)
 
-Po `make start` lub `urish www serve` (`http://localhost:8788`):
+Źródło UI: [`tellmesh/www`](../../tellmesh/www). Po `make start` lub `urish www serve` (`http://localhost:8788`):
 
 | URL | Opis |
 |-----|------|
-| [`/www/`](../www/index.html) | Landing — integracje, biuro, oferta |
-| [`/www/chat.html`](../www/chat.html) | Chat NL → URI |
-| [`/www/przyklady.html`](../www/przyklady.html) | Lab integracji (PASS + komendy) |
-| [`/www/docs/examples.html`](../www/docs/examples.html) | **Pełna treść `examples/*/*`** |
-| [`/www/demo.html`](../www/demo.html) | Demo URI |
+| [`/www/`](../../tellmesh/www/index.html) | Landing — integracje, biuro, oferta |
+| [`/www/chat.html`](../../tellmesh/www/chat.html) | Chat NL → URI |
+| [`/www/przyklady.html`](../../tellmesh/www/przyklady.html) | Lab integracji (PASS + komendy) |
+| [`/www/docs/examples.html`](../../tellmesh/www/docs/examples.html) | **Pełna treść `examples/*/*`** |
+| [`/www/demo.html`](../../tellmesh/www/demo.html) | Demo URI |
 
 Build docs examples: `make www-docs` · szczegóły: [`www/README.md`](../www/README.md)
 
@@ -37,8 +37,8 @@ Build docs examples: `make www-docs` · szczegóły: [`www/README.md`](../www/RE
 
 - [`README.md`](../README.md) — instalacja, Makefile, przykłady, `make ci-gate`
 - [`examples/README.md`](../examples/README.md) — katalog `examples/*/*`
-- [`www/docs/examples.html`](../www/docs/examples.html) — **docs WWW** (README + YAML/SH z examples)
-- [`www/przyklady.html`](../www/przyklady.html) — lab integracji na WWW
+- [`tellmesh/www/docs/examples.html`](../../tellmesh/www/docs/examples.html) — **docs WWW** (README + YAML/SH z examples)
+- [`tellmesh/www/przyklady.html`](../../tellmesh/www/przyklady.html) — lab integracji na WWW
 - [`examples/30_golden_path/`](../examples/30_golden_path/) — 15 min end-to-end tutorial
 - [`domains/desktop_ops/`](../domains/desktop_ops/) — generyczny pakiet domenowy desktop operatora
 - [`examples/31_office_day/`](../examples/31_office_day/) — biuro: portal, faktury, bank, Android token

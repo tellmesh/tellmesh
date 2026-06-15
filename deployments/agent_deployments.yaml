@@ -130,7 +130,7 @@ deployments:
   metadata:
     source: system_agent
     role: observer_renderer_controller
-    contract: agents/system/hypervisor_dashboard/hypervisor_dashboard.yaml
+    contract: contracts/agents/hypervisor_dashboard_agent.yaml
 - id: invoices-agent.local
   agent_ref: agent://invoices-agent
   target_uri: local://agents/generated/invoices_agent

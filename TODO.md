@@ -5,6 +5,8 @@
 **Total issues:** 365 active, 0 completed
 
 ---
+wyodrebnij paczke python hypervisor z aktualnego projektu i przenies do
+ /home/tom/github/tellmesh/hypervisor
 
 ## 📋 Current Issues (showing 200 of 365)
 

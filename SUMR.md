@@ -15,7 +15,7 @@ SUMD - Structured Unified Markdown Descriptor for AI-aware project refactorizati
 
 ## Metadata
 
-- **name**: `resource-agent-system`
+- **name**: `tellmesh`
 - **version**: `0.5.28`
 - **python_requires**: `>=3.10`
 - **license**: Apache-2.0
@@ -35,7 +35,7 @@ SUMD (description) → DOQL/source (code) → taskfile (automation) → testql (
 // LESS format — define @variables here as needed
 
 app {
-  name: resource-agent-system;
+  name: tellmesh;
   version: 0.5.28;
 }
 

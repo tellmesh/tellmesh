@@ -1,4 +1,4 @@
-# Resource Agent System v0.6
+# TellMesh v0.6
 
 
 ## AI Cost Tracking
@@ -21,15 +21,17 @@ Monorepo: **uri3**, **nl2uri**, **uri2flow**, **uri2ops**, **hypervisor**, **age
 
 ## Taskinity WWW (strony produktowe)
 
+Źródło UI: [`tellmesh/www`](../../tellmesh/www) (montowane jako `/www/` w Dockerze). Deploy glue: [`www/README.md`](www/README.md).
+
 Po `make start` (Docker `:8788`) lub `urish www serve`:
 
 | URL | Plik | Opis |
 |-----|------|------|
-| http://localhost:8788/www/ | [`www/index.html`](www/index.html) | Landing — tour, integracje, przykłady biurowe, oferta |
-| http://localhost:8788/www/chat.html | [`www/chat.html`](www/chat.html) | Chat NL → plan URI → API (dry-run / approve) |
-| http://localhost:8788/www/przyklady.html | [`www/przyklady.html`](www/przyklady.html) | Lab integracji — karty PASS, filtry, komendy z `examples/` |
-| http://localhost:8788/www/docs/examples.html | [`www/docs/examples.html`](www/docs/examples.html) | **Docs examples** — pełna treść `examples/*/*` (README + YAML/SH) |
-| http://localhost:8788/www/demo.html | [`www/demo.html`](www/demo.html) | Demo techniczne URI (statyczne) |
+| http://localhost:8788/www/ | [`tellmesh/www/index.html`](../../tellmesh/www/index.html) | Landing — tour, integracje, przykłady biurowe, oferta |
+| http://localhost:8788/www/chat.html | [`tellmesh/www/chat.html`](../../tellmesh/www/chat.html) | Chat NL → plan URI → API (dry-run / approve) |
+| http://localhost:8788/www/przyklady.html | [`tellmesh/www/przyklady.html`](../../tellmesh/www/przyklady.html) | Lab integracji — karty PASS, filtry, komendy z `examples/` |
+| http://localhost:8788/www/docs/examples.html | [`tellmesh/www/docs/examples.html`](../../tellmesh/www/docs/examples.html) | **Docs examples** — pełna treść `examples/*/*` (README + YAML/SH) |
+| http://localhost:8788/www/demo.html | [`tellmesh/www/demo.html`](../../tellmesh/www/demo.html) | Demo techniczne URI (statyczne) |
 
 Regeneracja docs examples: `make www-docs` · testy WWW: `make www-test` · smoke: `make www-smoke`
 
@@ -269,7 +271,7 @@ make architecture-gate   # tests/architecture + uri3 doctor (boundaries, envelop
 make test                # pełny pytest (~420 testów)
 make examples-test       # integracja examples/* (run.sh + inline demos)
 make ci-gate             # architecture-gate + test + examples-test
-bash scripts/test-all-examples.sh   # 27 checks sekwencyjnie (shell smoke)
+bash ../../tellmesh/resource-agent-hypervisor/scripts/examples/test-all-examples.sh   # 27 checks sekwencyjnie (shell smoke)
 ```
 
 Integracja examples jest w `tests/examples/` — katalog `catalog.py`, parametryzowane `run.sh`, smoke manifestów touri i importów stacku (`uri2run`, `uri3`, `touri`). CI (`.github/workflows/ci.yml`) uruchamia osobny job **Examples integration** po pełnym pytest.
@@ -304,7 +306,7 @@ Przykładowe prompty i kontrakty: [`examples/`](examples/README.md).
 Każdy katalog z `run.sh` można uruchomić bezpośrednio; pełna lista:
 
 ```bash
-bash scripts/test-all-examples.sh
+bash ../../tellmesh/resource-agent-hypervisor/scripts/examples/test-all-examples.sh
 pytest tests/examples -q
 ```
 
@@ -340,7 +342,7 @@ pytest tests/examples -q
 | — | [`examples/22_dashboard_agent`](examples/22_dashboard_agent/) | capability/flow dla dashboard-agent | [`README`](examples/22_dashboard_agent/README.md) |
 | — | [`examples/16_www_landing_monitor`](examples/16_www_landing_monitor/) | monitor landing (task graph) | [`README`](examples/16_www_landing_monitor/README.md) |
 
-**WWW (czytelna forma):** [`www/docs/examples.html`](www/docs/examples.html) — pełna treść wszystkich README + pliki źródłowe · [`www/przyklady.html`](www/przyklady.html) — lab PASS + filtry.
+**WWW (czytelna forma):** [`../../tellmesh/www/docs/examples.html`](../../tellmesh/www/docs/examples.html) — pełna treść wszystkich README + pliki źródłowe · [`../../tellmesh/www/przyklady.html`](../../tellmesh/www/przyklady.html) — lab PASS + filtry.
 
 Docker + SSH testenv:
 
@@ -548,8 +550,8 @@ Pełny indeks: [`docs/README.md`](docs/README.md) · stan projektu: [`TODO.md`](
 | Zasób | Opis |
 |-------|------|
 | [`examples/README.md`](examples/README.md) | Indeks wszystkich przykładów w repo |
-| [`www/docs/examples.html`](www/docs/examples.html) | Pełna treść README + pliki źródłowe (WWW) |
-| [`www/przyklady.html`](www/przyklady.html) | Lab integracji — PASS + komendy |
+| [`../../tellmesh/www/docs/examples.html`](../../tellmesh/www/docs/examples.html) | Pełna treść README + pliki źródłowe (WWW) |
+| [`../../tellmesh/www/przyklady.html`](../../tellmesh/www/przyklady.html) | Lab integracji — PASS + komendy |
 | [`examples/30_golden_path/`](examples/30_golden_path/) | Tutorial 15 min |
 | [`examples/23_nl_to_agent_tutorial/`](examples/23_nl_to_agent_tutorial/) | NL → agent HTTP |
 | [`examples/31_office_day/`](examples/31_office_day/) | Persona biurowa: portal WWW, ERP, bank, Android token |

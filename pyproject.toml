@@ -3,9 +3,9 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "resource-agent-system"
+name = "tellmesh"
 version = "0.5.29"
-description = "WronAI resource agent monorepo — uri3, nl2uri, uri2flow, uri2ops, touri, hypervisor, agent factory"
+description = "TellMesh — URI-first agent monorepo umbrella (uri3, nl2uri, hypervisor, agent factory)"
 readme = "README.md"
 license = "Apache-2.0"
 requires-python = ">=3.10"
@@ -84,7 +84,7 @@ Issues = "https://github.com/wronai/hypervisor/issues"
 Documentation = "https://github.com/wronai/hypervisor#readme"
 
 [tool.uv.workspace]
-members = ["packages/resource-agent-hypervisor", "packages/resource-agent-factory", "agents/system/hypervisor_dashboard"]
+members = []
 exclude = ["packages/project"]
 
 [tool.uv.sources]
@@ -99,23 +99,15 @@ uri2run = { path = "../../tellmesh/uri2run", editable = true }
 urish = { path = "../../tellmesh/urish", editable = true }
 uri2verify = { path = "../../tellmesh/uri2verify", editable = true }
 urigen = { path = "../../tellmesh/urigen", editable = true }
-resource-agent-hypervisor = { workspace = true }
-resource-agent-factory = { workspace = true }
-hypervisor-dashboard-agent = { workspace = true }
+resource-agent-hypervisor = { path = "../../tellmesh/resource-agent-hypervisor", editable = true }
+resource-agent-factory = { path = "../../tellmesh/resource-agent-factory", editable = true }
+hypervisor-dashboard-agent = { path = "../../tellmesh/hypervisor-dashboard", editable = true }
 
 [tool.setuptools.packages.find]
 where = [
-    "agents/system/hypervisor_dashboard",
-    "packages/resource-agent-hypervisor",
-    "packages/resource-agent-factory",
     "examples/21_touri_voice",
 ]
 include = [
-    "hypervisor_dashboard_agent*",
-    "hypervisor*",
-    "meta_agent*",
-    "runtime_client*",
-    "generator*",
     "touri_examples_voice*",
 ]
 
@@ -165,9 +157,9 @@ pythonpath = [
     "../../tellmesh/uri2verify",
     "../../tellmesh/urigen",
     "../../tellmesh/urish",
-    "agents/system/hypervisor_dashboard",
-    "packages/resource-agent-hypervisor",
-    "packages/resource-agent-factory",
+    "../../tellmesh/resource-agent-hypervisor",
+    "../../tellmesh/resource-agent-factory",
+    "../../tellmesh/hypervisor-dashboard",
     "examples/21_touri_voice",
 ]
 

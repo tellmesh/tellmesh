@@ -10,4 +10,4 @@ dependencies = [
 ]
 
 [tool.uv.sources]
-uri2ops = { workspace = true }
+uri2ops = { path = "../../../../../tellmesh/uri2ops", editable = true }

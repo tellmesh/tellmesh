@@ -21,7 +21,7 @@ WronAI resource agent monorepo — uri3, nl2uri, uri2flow, uri2ops, touri, hyper
 
 ## Metadata
 
-- **name**: `resource-agent-system`
+- **name**: `tellmesh`
 - **version**: `0.5.28`
 - **python_requires**: `>=3.10`
 - **license**: Apache-2.0
@@ -41,7 +41,7 @@ SUMD (description) → DOQL/source (code) → taskfile (automation) → testql (
 // LESS format — define @variables here as needed
 
 app {
-  name: resource-agent-system;
+  name: tellmesh;
   version: 0.5.28;
 }
 
@@ -580,7 +580,7 @@ ASSERT[4]{field, operator, expected}:
 
 ```yaml
 project:
-  name: resource-agent-system
+  name: tellmesh
   version: 0.5.28
   env: local
 ```
@@ -635,7 +635,7 @@ uvicorn>=0.27
 ## Deployment
 
 ```bash markpact:run
-pip install resource-agent-system
+pip install tellmesh
 
 # development install
 pip install -e .[dev]

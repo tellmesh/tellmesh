@@ -14,14 +14,6 @@ resolution-markers = [
     "python_full_version < '3.11'",
 ]
 
-[manifest]
-members = [
-    "hypervisor-dashboard-agent",
-    "resource-agent-factory",
-    "resource-agent-hypervisor",
-    "resource-agent-system",
-]
-
 [[package]]
 name = "aiohappyeyeballs"
 version = "2.6.2"
@@ -1260,7 +1252,7 @@ wheels = [
 [[package]]
 name = "hypervisor-dashboard-agent"
 version = "0.1.0"
-source = { editable = "agents/system/hypervisor_dashboard" }
+source = { editable = "../../tellmesh/hypervisor-dashboard" }
 dependencies = [
     { name = "fastapi" },
     { name = "httpx" },
@@ -1270,18 +1262,13 @@ dependencies = [
     { name = "urish" },
 ]
 
-[package.optional-dependencies]
-server = [
-    { name = "uvicorn" },
-]
-
 [package.metadata]
 requires-dist = [
     { name = "fastapi", specifier = ">=0.115" },
     { name = "httpx", specifier = ">=0.27" },
     { name = "jinja2", specifier = ">=3.1" },
     { name = "pyyaml", specifier = ">=6.0" },
-    { name = "resource-agent-hypervisor", editable = "packages/resource-agent-hypervisor" },
+    { name = "resource-agent-hypervisor", editable = "../../tellmesh/resource-agent-hypervisor" },
     { name = "urish", editable = "../../tellmesh/urish" },
     { name = "uvicorn", marker = "extra == 'server'", specifier = ">=0.27" },
 ]
@@ -2053,6 +2040,7 @@ dependencies = [
     { name = "resource-agent-factory" },
     { name = "resource-agent-hypervisor" },
     { name = "typer" },
+    { name = "uri2flow" },
     { name = "uri3" },
 ]
 
@@ -2061,9 +2049,10 @@ requires-dist = [
     { name = "httpx", specifier = ">=0.27" },
     { name = "python-dotenv", specifier = ">=1.0.0" },
     { name = "pyyaml", specifier = ">=6.0" },
-    { name = "resource-agent-factory" },
-    { name = "resource-agent-hypervisor" },
+    { name = "resource-agent-factory", editable = "../../tellmesh/resource-agent-factory" },
+    { name = "resource-agent-hypervisor", editable = "../../tellmesh/resource-agent-hypervisor" },
     { name = "typer", specifier = ">=0.26.7" },
+    { name = "uri2flow", editable = "../../tellmesh/uri2flow" },
     { name = "uri3", editable = "../../tellmesh/uri3" },
 ]
 
@@ -3248,7 +3237,7 @@ wheels = [
 [[package]]
 name = "resource-agent-factory"
 version = "0.5.6"
-source = { editable = "packages/resource-agent-factory" }
+source = { editable = "../../tellmesh/resource-agent-factory" }
 dependencies = [
     { name = "fastapi" },
     { name = "httpx" },
@@ -3269,14 +3258,19 @@ requires-dist = [
 [[package]]
 name = "resource-agent-hypervisor"
 version = "0.5.6"
-source = { editable = "packages/resource-agent-hypervisor" }
+source = { editable = "../../tellmesh/resource-agent-hypervisor" }
 dependencies = [
     { name = "fastapi" },
     { name = "httpx" },
     { name = "jsonschema" },
+    { name = "nl2uri" },
     { name = "pydantic" },
     { name = "pyyaml" },
     { name = "typer" },
+    { name = "uri2ops" },
+    { name = "uri2pact" },
+    { name = "uri2run" },
+    { name = "uri2verify" },
     { name = "uri3" },
 ]
 
@@ -3285,14 +3279,19 @@ requires-dist = [
     { name = "fastapi", specifier = ">=0.115" },
     { name = "httpx", specifier = ">=0.27" },
     { name = "jsonschema", specifier = ">=4.23" },
+    { name = "nl2uri", editable = "../../tellmesh/nl2uri" },
     { name = "pydantic", specifier = ">=2.0" },
     { name = "pyyaml", specifier = ">=6.0" },
     { name = "typer", specifier = ">=0.26.7" },
+    { name = "uri2ops", editable = "../../tellmesh/uri2ops" },
+    { name = "uri2pact", editable = "../../tellmesh/uri2pact" },
+    { name = "uri2run", editable = "../../tellmesh/uri2run" },
+    { name = "uri2verify", editable = "../../tellmesh/uri2verify" },
     { name = "uri3", editable = "../../tellmesh/uri3" },
 ]
 
 [[package]]
-name = "resource-agent-system"
+name = "tellmesh"
 version = "0.5.29"
 source = { editable = "." }
 dependencies = [
@@ -3353,7 +3352,7 @@ requires-dist = [
     { name = "fastapi", specifier = ">=0.115" },
     { name = "goal", marker = "extra == 'dev'", specifier = ">=2.1.0" },
     { name = "httpx", specifier = ">=0.27" },
-    { name = "hypervisor-dashboard-agent", editable = "agents/system/hypervisor_dashboard" },
+    { name = "hypervisor-dashboard-agent", editable = "../../tellmesh/hypervisor-dashboard" },
     { name = "jinja2", specifier = ">=3.1" },
     { name = "jsonschema", specifier = ">=4.23" },
     { name = "markdown", specifier = ">=3.5" },
@@ -3368,8 +3367,8 @@ requires-dist = [
     { name = "python-dotenv", specifier = ">=1.0.0" },
     { name = "pywinauto", marker = "extra == 'windows'", specifier = ">=0.6" },
     { name = "pyyaml", specifier = ">=6.0" },
-    { name = "resource-agent-factory", editable = "packages/resource-agent-factory" },
-    { name = "resource-agent-hypervisor", editable = "packages/resource-agent-hypervisor" },
+    { name = "resource-agent-factory", editable = "../../tellmesh/resource-agent-factory" },
+    { name = "resource-agent-hypervisor", editable = "../../tellmesh/resource-agent-hypervisor" },
     { name = "rich", marker = "extra == 'dev'", specifier = ">=13.0.0" },
     { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.1.0" },
     { name = "touri", editable = "../../tellmesh/touri" },
@@ -3965,11 +3964,14 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
+    { name = "nl2uri", marker = "extra == 'voice'", editable = "../../tellmesh/nl2uri" },
     { name = "pyyaml", specifier = ">=6.0" },
     { name = "uri2pact", editable = "../../tellmesh/uri2pact" },
     { name = "uri2run", editable = "../../tellmesh/uri2run" },
     { name = "uri2verify", editable = "../../tellmesh/uri2verify" },
+    { name = "uri2voice", marker = "extra == 'voice'", editable = "../../tellmesh/uri2voice" },
 ]
+provides-extras = ["voice"]
 
 [[package]]
 name = "tqdm"
@@ -4069,6 +4071,7 @@ dependencies = [
     { name = "jsonschema" },
     { name = "pyyaml" },
     { name = "typer" },
+    { name = "uri3" },
 ]
 
 [package.metadata]
@@ -4080,6 +4083,7 @@ requires-dist = [
     { name = "pywinauto", marker = "extra == 'windows'", specifier = ">=0.6" },
     { name = "pyyaml", specifier = ">=6.0" },
     { name = "typer", specifier = ">=0.26.7" },
+    { name = "uri3", editable = "../../tellmesh/uri3" },
     { name = "uvicorn", marker = "extra == 'server'", specifier = ">=0.27" },
 ]
 provides-extras = ["browser", "windows", "server"]
@@ -4111,12 +4115,14 @@ dependencies = [
 requires-dist = [
     { name = "httpx", specifier = ">=0.27" },
     { name = "pyyaml", specifier = ">=6.0" },
+    { name = "touri", marker = "extra == 'test'", editable = "../../tellmesh/touri" },
     { name = "uri2flow", editable = "../../tellmesh/uri2flow" },
     { name = "uri2ops", editable = "../../tellmesh/uri2ops" },
+    { name = "uri2voice", marker = "extra == 'test'", editable = "../../tellmesh/uri2voice" },
     { name = "uri3", editable = "../../tellmesh/uri3" },
     { name = "websockets", marker = "extra == 'stream'", specifier = ">=12.0" },
 ]
-provides-extras = ["stream"]
+provides-extras = ["stream", "test"]
 
 [[package]]
 name = "uri2verify"
@@ -4148,7 +4154,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "nl2uri", marker = "extra == 'nl2uri'" },
+    { name = "nl2uri", marker = "extra == 'nl2uri'", editable = "../../tellmesh/nl2uri" },
     { name = "pyyaml", specifier = ">=6.0" },
 ]
 provides-extras = ["nl2uri"]
@@ -4217,10 +4223,10 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "httpx", specifier = ">=0.27" },
-    { name = "hypervisor-dashboard-agent", marker = "extra == 'dashboard'" },
+    { name = "hypervisor-dashboard-agent", marker = "extra == 'dashboard'", editable = "../../tellmesh/hypervisor-dashboard" },
     { name = "nl2uri", editable = "../../tellmesh/nl2uri" },
     { name = "pyyaml", specifier = ">=6.0" },
-    { name = "resource-agent-hypervisor" },
+    { name = "resource-agent-hypervisor", editable = "../../tellmesh/resource-agent-hypervisor" },
     { name = "typer", specifier = ">=0.26.7" },
     { name = "uri2flow", editable = "../../tellmesh/uri2flow" },
     { name = "uri2ops", editable = "../../tellmesh/uri2ops" },

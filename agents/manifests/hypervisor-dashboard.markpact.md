@@ -70,7 +70,7 @@ deployment:
 metadata:
   source: system_agent
   role: observer_renderer_controller
-  contract: agents/system/hypervisor_dashboard/hypervisor_dashboard.yaml
+  contract: contracts/agents/hypervisor_dashboard_agent.yaml
 runtime:
   run: hypervisor run-agent hypervisor-dashboard.local --detach --wait-healthy
   inspect: hypervisor inspect-agent hypervisor-dashboard.local
