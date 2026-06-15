@@ -17,6 +17,7 @@ COPY config ./config
 COPY domains ./domains
 COPY agents ./agents
 COPY knowledge ./knowledge
+COPY examples ./examples
 
 RUN mkdir -p output/runtime/agents output/logs output/incidents output/proposals
 

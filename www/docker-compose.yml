@@ -15,6 +15,7 @@ services:
       - ../contracts:/app/contracts:ro
       - ../deployments:/app/deployments
       - ../domains:/app/domains:ro
+      - ../examples:/app/examples:ro
       - ../knowledge:/app/knowledge:ro
       - ../schemas:/app/schemas:ro
       - ../output:/app/output

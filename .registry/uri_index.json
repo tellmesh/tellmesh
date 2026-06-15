@@ -1,5 +1,5 @@
 {
-  "count": 14,
+  "count": 17,
   "entries": [
     {
       "uri": "workflow://bank/batch-transfer",
@@ -84,6 +84,24 @@
       "capability": "weather.forecast.html",
       "matched_registry": "touri",
       "backend_type": "python"
+    },
+    {
+      "uri": "workflow://graph/website-screenshot-schedule",
+      "capability": "workflow.website_screenshot_schedule",
+      "matched_registry": "touri",
+      "backend_type": "uri_graph"
+    },
+    {
+      "uri": "workflow://graph/website-screenshot-schedule/dry-run",
+      "capability": "workflow.website_screenshot_schedule.dry_run",
+      "matched_registry": "touri",
+      "backend_type": "uri_graph"
+    },
+    {
+      "uri": "cron://www/monitor/landing",
+      "capability": "cron.www.landing_monitor",
+      "matched_registry": "touri",
+      "backend_type": "shell"
     }
   ]
 }

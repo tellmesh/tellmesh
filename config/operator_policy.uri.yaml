@@ -47,3 +47,24 @@ spec:
     pcwin:click:
       require_approval: true
       allowed_adapters: [mock, uia]
+    robot:state:
+      require_approval: false
+      allowed_adapters: [mock]
+    robot:move:
+      require_approval: true
+      allowed_adapters: [mock]
+    robot:stop:
+      require_approval: true
+      allowed_adapters: [mock]
+    robot:mission_start:
+      require_approval: true
+      allowed_adapters: [mock]
+    device:status:
+      require_approval: false
+      allowed_adapters: [mock]
+    device:read:
+      require_approval: false
+      allowed_adapters: [mock]
+    device:write:
+      require_approval: true
+      allowed_adapters: [mock]

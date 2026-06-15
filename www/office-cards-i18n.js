@@ -18,7 +18,7 @@
         badgeAuto: "auto",
         badgeHuman: null,
         snippet:
-          "browser://chrome/page/open → extract_dom → download\nworkflow://office/supplier-report/monthly\nhealth://agent/office-browser-agent.local",
+          "browser://chrome/page/open → extract_dom → download\nworkflow://office/supplier-report/monthly\nhealth://agent/desktop-operator.local",
       },
       portal_zus_form: {
         tag: "Portal · login",
@@ -27,13 +27,13 @@
           "Log into the client portal, fill the ZUS form and submit — show a preview first.",
         flow: [
           "Playwright fills login/password from vault (Marta never sees the password in chat).",
-          'Dry-run: form screenshot → Marta clicks "Confirm send".',
-          "After approve: submit + PDF confirmation in process artifacts.",
+          'Dry-run: form screenshot → <code>human://marta/approve/portal/zus-form</code>.',
+          "After human approve: submit + PDF confirmation in process artifacts.",
         ],
         badgeAuto: null,
         badgeHuman: "Marta preview",
         snippet:
-          "workflow://portal/zus-form/dry-run   # screenshot + plan\nworkflow://portal/zus-form --approve # send after Marta OK",
+          "workflow://portal/zus-form/dry-run   # screenshot + plan\nhuman://marta/approve/portal/zus-form\nworkflow://portal/zus-form/send",
       },
       erp_subiekt: {
         tag: "Windows · UI",
@@ -57,12 +57,12 @@
         flow: [
           "Agent <code>invoices-agent.local</code> fetches orders (API or ERP).",
           "Generates PDF/XML — chat preview: number, amount, customer.",
-          "Marta approves the batch → e-mail / KSeF / ERP send.",
+          "<code>human://marta/approve/invoices/batch</code> → e-mail / KSeF / ERP send.",
         ],
         badgeAuto: null,
         badgeHuman: "list approval",
         snippet:
-          'urish ask "issue yesterday invoices and show preview"\n→ workflow://invoices/batch/dry-run\n→ view://process/agent/invoices-agent.local/latest',
+          'urish ask "issue yesterday invoices and show preview"\n→ workflow://invoices/batch/dry-run\n→ human://marta/approve/invoices/batch\n→ view://process/agent/invoices-agent.local/latest',
       },
       bank_batch: {
         tag: "Online bank",
@@ -71,12 +71,12 @@
         flow: [
           "Browser: bank login, fill transfers from file.",
           "System stops on the authorization screen — <strong>on purpose</strong>.",
-          'Marta + phone: mobile token → then agent clicks "Confirm".',
+          '<code>human://marta/input/bank-token</code> → then agent clicks "Confirm".',
         ],
         badgeAuto: null,
         badgeHuman: "token · 2FA",
         snippet:
-          "workflow://bank/batch-transfer/dry-run\n# STOP before authorization — waits for Marta\nworkflow://bank/batch-transfer --approve",
+          "workflow://bank/batch-transfer/dry-run\n# STOP before authorization — waits for Marta\nhuman://marta/input/bank-token\nworkflow://bank/batch-transfer/confirm",
       },
       android_2fa: {
         tag: "Android · token",
@@ -85,12 +85,12 @@
         flow: [
           "ADB: phone screenshot + banking app UI dump.",
           'Chat preview: "Confirm transfer 12,450 PLN?"',
-          "Marta taps on the phone → agent detects success and finishes in web bank.",
+          "<code>human://marta/approve/android-token</code> → agent detects success and finishes in web bank.",
         ],
         badgeAuto: null,
         badgeHuman: "tap on phone",
         snippet:
-          'android://device/pixel-7/screenshot\nandroid://device/pixel-7/tap  # selector: "Confirm"\n# or: Marta taps manually, agent waits for bank DOM',
+          "android://device/pixel-7/screenshot\nhuman://marta/approve/android-token\n# Marta taps manually; agent waits for bank DOM",
       },
     },
     pl: {
@@ -106,7 +106,7 @@
         ],
         badgeAuto: "automat",
         snippet:
-          "browser://chrome/page/open → extract_dom → download\nworkflow://office/supplier-report/monthly\nhealth://agent/office-browser-agent.local",
+          "browser://chrome/page/open → extract_dom → download\nworkflow://office/supplier-report/monthly\nhealth://agent/desktop-operator.local",
       },
       portal_zus_form: {
         tag: "Portal · logowanie",
@@ -115,12 +115,12 @@
           "Zaloguj się do portalu klienta, uzupełnij formularz ZUS i wyślij — najpierw pokaż podgląd.",
         flow: [
           "Playwright wypełnia login/hasło z vault (Marta nie widzi hasła w chacie).",
-          "Dry-run: screenshot formularza → Marta klika „Zatwierdź wysyłkę”.",
-          "Po approve: submit + potwierdzenie PDF w artefaktach procesu.",
+          "Dry-run: screenshot formularza → <code>human://marta/approve/portal/zus-form</code>.",
+          "Po human approve: submit + potwierdzenie PDF w artefaktach procesu.",
         ],
         badgeHuman: "podgląd Marty",
         snippet:
-          "workflow://portal/zus-form/dry-run   # screenshot + plan\nworkflow://portal/zus-form --approve # wysyłka po OK Marty",
+          "workflow://portal/zus-form/dry-run   # screenshot + plan\nhuman://marta/approve/portal/zus-form\nworkflow://portal/zus-form/send",
       },
       erp_subiekt: {
         tag: "Windows · okna",
@@ -143,11 +143,11 @@
         flow: [
           "Agent <code>invoices-agent.local</code> pobiera zamówienia (API lub ERP).",
           "Generuje PDF/XML — widok w chacie: numer, kwota, kontrahent.",
-          "Marta zatwierdza partię → wysyłka e-mail / KSeF / ERP.",
+          "<code>human://marta/approve/invoices/batch</code> → wysyłka e-mail / KSeF / ERP.",
         ],
         badgeHuman: "akceptacja listy",
         snippet:
-          'urish ask "wystaw faktury za wczoraj i pokaż podgląd"\n→ workflow://invoices/batch/dry-run\n→ view://process/agent/invoices-agent.local/latest',
+          'urish ask "wystaw faktury za wczoraj i pokaż podgląd"\n→ workflow://invoices/batch/dry-run\n→ human://marta/approve/invoices/batch\n→ view://process/agent/invoices-agent.local/latest',
       },
       bank_batch: {
         tag: "Bank online",
@@ -156,11 +156,11 @@
         flow: [
           "Przeglądarka: logowanie do banku, wypełnienie przelewów z pliku.",
           "System zatrzymuje się na ekranie autoryzacji — <strong>celowo</strong>.",
-          "Marta + telefon: token mobilny → potem agent klika „Zatwierdź”.",
+          "<code>human://marta/input/bank-token</code> → potem agent klika „Zatwierdź”.",
         ],
         badgeHuman: "token · 2FA",
         snippet:
-          "workflow://bank/batch-transfer/dry-run\n# STOP przed autoryzacją — czeka na Martę\nworkflow://bank/batch-transfer --approve",
+          "workflow://bank/batch-transfer/dry-run\n# STOP przed autoryzacją — czeka na Martę\nhuman://marta/input/bank-token\nworkflow://bank/batch-transfer/confirm",
       },
       android_2fa: {
         tag: "Android · token",
@@ -169,11 +169,11 @@
         flow: [
           "ADB: screenshot telefonu + dump UI aplikacji bankowej.",
           "Chat pokazuje podgląd: „Potwierdź przelew 12 450 zł?”",
-          "Marta klika na telefonie → agent wykrywa sukces i kończy w banku WWW.",
+          "<code>human://marta/approve/android-token</code> → agent wykrywa sukces i kończy w banku WWW.",
         ],
         badgeHuman: "klik na telefonie",
         snippet:
-          'android://device/pixel-7/screenshot\nandroid://device/pixel-7/tap  # selector: "Potwierdź"\n# lub: Marta klika ręcznie, agent czeka na DOM banku',
+          "android://device/pixel-7/screenshot\nhuman://marta/approve/android-token\n# Marta klika ręcznie; agent czeka na DOM banku",
       },
     },
     de: {
@@ -189,7 +189,7 @@
         ],
         badgeAuto: "auto",
         snippet:
-          "browser://chrome/page/open → extract_dom → download\nworkflow://office/supplier-report/monthly\nhealth://agent/office-browser-agent.local",
+          "browser://chrome/page/open → extract_dom → download\nworkflow://office/supplier-report/monthly\nhealth://agent/desktop-operator.local",
       },
       portal_zus_form: {
         tag: "Portal · Login",
@@ -198,12 +198,12 @@
           "Im Kundenportal anmelden, ZUS-Formular ausfüllen und senden — zuerst Vorschau zeigen.",
         flow: [
           "Playwright füllt Login/Passwort aus Vault (Marta sieht kein Passwort im Chat).",
-          "Dry-run: Formular-Screenshot → Marta klickt „Senden bestätigen“.",
-          "Nach Approve: Submit + PDF-Bestätigung in Prozess-Artefakten.",
+          "Dry-run: Formular-Screenshot → <code>human://marta/approve/portal/zus-form</code>.",
+          "Nach Human Approve: Submit + PDF-Bestätigung in Prozess-Artefakten.",
         ],
         badgeHuman: "Martas Vorschau",
         snippet:
-          "workflow://portal/zus-form/dry-run   # screenshot + plan\nworkflow://portal/zus-form --approve # senden nach OK",
+          "workflow://portal/zus-form/dry-run   # screenshot + plan\nhuman://marta/approve/portal/zus-form\nworkflow://portal/zus-form/send",
       },
       erp_subiekt: {
         tag: "Windows · UI",
@@ -226,11 +226,11 @@
         flow: [
           "Agent <code>invoices-agent.local</code> holt Bestellungen (API oder ERP).",
           "Erzeugt PDF/XML — Chat-Vorschau: Nummer, Betrag, Kunde.",
-          "Marta gibt Batch frei → E-Mail / KSeF / ERP.",
+          "<code>human://marta/approve/invoices/batch</code> → E-Mail / KSeF / ERP.",
         ],
         badgeHuman: "Listenfreigabe",
         snippet:
-          'urish ask "Rechnungen für gestern erstellen und Vorschau zeigen"\n→ workflow://invoices/batch/dry-run\n→ view://process/agent/invoices-agent.local/latest',
+          'urish ask "Rechnungen für gestern erstellen und Vorschau zeigen"\n→ workflow://invoices/batch/dry-run\n→ human://marta/approve/invoices/batch\n→ view://process/agent/invoices-agent.local/latest',
       },
       bank_batch: {
         tag: "Online-Bank",
@@ -239,11 +239,11 @@
         flow: [
           "Browser: Bank-Login, Überweisungen aus Datei ausfüllen.",
           "System stoppt am Autorisierungsbildschirm — <strong>absichtlich</strong>.",
-          "Marta + Telefon: Mobile Token → dann Agent klickt „Bestätigen“.",
+          "<code>human://marta/input/bank-token</code> → dann Agent klickt „Bestätigen“.",
         ],
         badgeHuman: "Token · 2FA",
         snippet:
-          "workflow://bank/batch-transfer/dry-run\n# STOP vor Autorisierung — wartet auf Marta\nworkflow://bank/batch-transfer --approve",
+          "workflow://bank/batch-transfer/dry-run\n# STOP vor Autorisierung — wartet auf Marta\nhuman://marta/input/bank-token\nworkflow://bank/batch-transfer/confirm",
       },
       android_2fa: {
         tag: "Android · Token",
@@ -252,14 +252,45 @@
         flow: [
           "ADB: Telefon-Screenshot + Banking-App UI-Dump.",
           "Chat-Vorschau: „Überweisung 12.450 PLN bestätigen?“",
-          "Marta tippt am Telefon → Agent erkennt Erfolg und beendet Web-Bank.",
+          "<code>human://marta/approve/android-token</code> → Agent erkennt Erfolg und beendet Web-Bank.",
         ],
         badgeHuman: "Tippen am Telefon",
         snippet:
-          'android://device/pixel-7/screenshot\nandroid://device/pixel-7/tap  # selector: "Bestätigen"\n# oder: Marta tippt manuell, Agent wartet auf Bank-DOM',
+          "android://device/pixel-7/screenshot\nhuman://marta/approve/android-token\n# Marta tippt manuell; Agent wartet auf Bank-DOM",
       },
     },
   };
+
+  function _quoteMarks(lang) {
+    const open = lang === "pl" || lang === "de" ? "„" : "“";
+    const close = lang === "pl" || lang === "de" ? "”" : "”";
+    return { open, close };
+  }
+
+  function _applyOfficeCardCopy(cardEl, card, lang) {
+    const tagEl = cardEl.querySelector(".integration-tag");
+    const titleEl = cardEl.querySelector(".office-use-head h3");
+    const quoteEl = cardEl.querySelector(".office-chat-quote");
+    const flowEls = cardEl.querySelectorAll(".office-flow li");
+    const autoBadge = cardEl.querySelector(".office-badge.auto");
+    const humanBadge = cardEl.querySelector(".office-badge.human");
+    const snippetEl = cardEl.querySelector(".integration-snippet");
+    if (tagEl && card.tag) tagEl.textContent = card.tag;
+    if (titleEl && card.title) titleEl.textContent = card.title;
+    if (quoteEl && card.quote) {
+      const cleaned = card.quote.replace(/^["“„']+|["”„']+$/g, "");
+      const { open, close } = _quoteMarks(lang);
+      quoteEl.textContent = `${open}${cleaned}${close}`;
+    }
+    if (card.flow) {
+      flowEls.forEach((li, index) => {
+        if (card.flow[index]) li.innerHTML = card.flow[index];
+      });
+    }
+    if (autoBadge && card.badgeAuto) autoBadge.textContent = card.badgeAuto;
+    if (humanBadge && card.badgeHuman) humanBadge.textContent = card.badgeHuman;
+    if (snippetEl && card.snippet) snippetEl.textContent = card.snippet;
+  }
 
   function applyOfficeCardI18n(lang) {
     const cards = COPY[lang] || COPY.en;
@@ -267,29 +298,7 @@
       const id = cardEl.getAttribute("data-office-card");
       const card = cards[id];
       if (!card) return;
-      const tagEl = cardEl.querySelector(".integration-tag");
-      const titleEl = cardEl.querySelector(".office-use-head h3");
-      const quoteEl = cardEl.querySelector(".office-chat-quote");
-      const flowEls = cardEl.querySelectorAll(".office-flow li");
-      const autoBadge = cardEl.querySelector(".office-badge.auto");
-      const humanBadge = cardEl.querySelector(".office-badge.human");
-      const snippetEl = cardEl.querySelector(".integration-snippet");
-      if (tagEl && card.tag) tagEl.textContent = card.tag;
-      if (titleEl && card.title) titleEl.textContent = card.title;
-      if (quoteEl && card.quote) {
-        const cleaned = card.quote.replace(/^["“„']+|["”„']+$/g, "");
-        const open = lang === "pl" || lang === "de" ? "„" : "“";
-        const close = lang === "pl" || lang === "de" ? "”" : "”";
-        quoteEl.textContent = `${open}${cleaned}${close}`;
-      }
-      if (card.flow) {
-        flowEls.forEach((li, index) => {
-          if (card.flow[index]) li.innerHTML = card.flow[index];
-        });
-      }
-      if (autoBadge && card.badgeAuto) autoBadge.textContent = card.badgeAuto;
-      if (humanBadge && card.badgeHuman) humanBadge.textContent = card.badgeHuman;
-      if (snippetEl && card.snippet) snippetEl.textContent = card.snippet;
+      _applyOfficeCardCopy(cardEl, card, lang);
     });
   }
 

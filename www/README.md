@@ -18,6 +18,40 @@ Polish version: [`README.pl.md`](./README.pl.md)
 
 Default language is **English** (`en`). Users can switch to PL or DE via the nav language toggle; preference is stored in `localStorage` (`taskinity.lang`).
 
+## Generated assets (`make www-docs`)
+
+| Output | Source |
+|--------|--------|
+| `www/docs/examples.html` | `examples/*/README.md` + source files |
+| `www/index.html` `#integracje` cards | `examples/*/ABOUT.md` (YAML + markdown/HTML body) |
+| `www/generated/integrations-i18n.js` | i18n from ABOUT frontmatter |
+| `www/generated/examples-manifest.js` | `examples/*/README.md` titles + `run.sh` |
+
+Integration cards use WordPress-style frontmatter in `examples/*/ABOUT.md`:
+
+```yaml
+---
+landing:
+  cards:
+    - id: woocommerce-connector
+      layout: connector   # connector | card | spotlight
+      order: 20
+      logo: WC
+      i18n:
+        pl: { tag: ..., title: ..., lead: ..., body: ..., cta_label: ..., cta_hint: ... }
+        en: { ... }
+      snippet: |
+        URI: workflow://order/woocommerce-to-erp
+---
+
+<ul><li>HTML body for <code>card</code> layout lists</li></ul>
+Spotlight <code>body</code>, <code>cta_label</code> and <code>cta_hint</code> live in <code>i18n.*</code> (PL/EN/DE).
+Optional per-card <code>body:</code> in frontmatter overrides the shared markdown/HTML block after <code>---</code>.
+Office chains: <code>examples/office_chains.yaml</code> → <code>examples-manifest.js</code> (<code>officeChains</code>).
+```
+
+After editing ABOUT.md or README: `make www-docs` (CI: `make www-docs-check`).
+
 ## Run
 
 ### Docker (recommended)

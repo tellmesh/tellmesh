@@ -1,15 +1,55 @@
 deployments:
+- id: desktop-operator.local
+  agent_ref: agent://desktop-operator
+  target_uri: local://packages/uri2ops
+  status: generated
+  declared:
+    target_uri: local://packages/uri2ops
+    preferred_port: 8791
+    health_uri: http://localhost:8791/health
+    card_uri: http://localhost:8791/.well-known/agent-card.json
+  card_uri: http://localhost:8791/.well-known/agent-card.json
+  health_uri: http://localhost:8791/health
+  env:
+    URI2OPS_BASE_URL: http://localhost:8791
+  metadata:
+    source: operator_agent
+    role: desktop_operator
+    contract: agents/operators/desktop_operator.yaml
+    domain_pack: domains/desktop_ops/domain.yaml
+    operator_registry: domains/desktop_ops/operator_registry.yaml
+    expected_service: uri2ops
+- id: device-robot-operator.local
+  agent_ref: agent://device-robot-operator
+  target_uri: local://packages/uri2ops
+  status: generated
+  declared:
+    target_uri: local://packages/uri2ops
+    preferred_port: 8792
+    health_uri: http://localhost:8792/health
+    card_uri: http://localhost:8792/.well-known/agent-card.json
+  card_uri: http://localhost:8792/.well-known/agent-card.json
+  health_uri: http://localhost:8792/health
+  env:
+    URI2OPS_BASE_URL: http://localhost:8792
+  metadata:
+    source: operator_agent
+    role: device_robot_operator
+    contract: agents/operators/device_robot_operator.yaml
+    domain_pack: domains/physical_ops/domain.yaml
+    operator_registry: domains/physical_ops/operator_registry.yaml
+    expected_service: uri2ops
 - id: hypervisor-dashboard.local
   agent_ref: agent://hypervisor-dashboard
   target_uri: local://packages/hypervisor-dashboard-agent
   status: generated
   declared:
     target_uri: local://packages/hypervisor-dashboard-agent
-    preferred_port: 8788
-    health_uri: http://localhost:8788/health
-    card_uri: http://localhost:8788/.well-known/agent-card.json
-  card_uri: http://localhost:8788/.well-known/agent-card.json
-  health_uri: http://localhost:8788/health
+    preferred_port: 8789
+    health_uri: http://localhost:8789/health
+    card_uri: http://localhost:8789/.well-known/agent-card.json
+  card_uri: http://localhost:8789/.well-known/agent-card.json
+  health_uri: http://localhost:8789/health
   metadata:
     source: system_agent
     role: observer_renderer_controller
@@ -19,11 +59,11 @@ deployments:
   status: generated
   declared:
     target_uri: local://agents/generated/invoices_agent
-    preferred_port: 8103
-    health_uri: http://localhost:8103/health
-    card_uri: http://localhost:8103/.well-known/agent-card.json
-  card_uri: http://localhost:8103/.well-known/agent-card.json
-  health_uri: http://localhost:8103/health
+    preferred_port: 8123
+    health_uri: http://localhost:8123/health
+    card_uri: http://localhost:8123/.well-known/agent-card.json
+  card_uri: http://localhost:8123/.well-known/agent-card.json
+  health_uri: http://localhost:8123/health
   metadata:
     source: contract
     contract: contracts/agents/invoices_agent.yaml
@@ -72,9 +112,11 @@ deployments:
   status: planned
   declared:
     target_uri: local://agents/generated/weather_map_agent
-    preferred_port: 8101
-    health_uri: http://localhost:8101/health
-  health_uri: http://localhost:8101/health
+    preferred_port: 8105
+    health_uri: http://localhost:8105/health
+    card_uri: http://localhost:8105/.well-known/agent-card.json
+  card_uri: http://localhost:8105/.well-known/agent-card.json
+  health_uri: http://localhost:8105/health
   env:
     RESOURCE_RUNTIME_URL: http://localhost:8000
 - id: weather-map-agent.ssh-dev
