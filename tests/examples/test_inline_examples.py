@@ -10,22 +10,31 @@ from tests.conftest import cli_argv
 from tests.examples.conftest import docker_available, run_shell
 
 
+def _local_agent_url(repo_root: Path, env: dict) -> str | None:
+    for port in range(8101, 8131):
+        url = f"http://localhost:{port}/health"
+        probe = run_shell(
+            repo_root,
+            ["curl", "-sf", "--max-time", "2", url],
+            env=env,
+            timeout_s=10,
+        )
+        if probe.returncode == 0:
+            return url.removesuffix("/health")
+    return None
+
+
 @pytest.mark.examples
 def test_example_02_uri3_scan_http(repo_root: Path, examples_env):
-    probe = run_shell(
-        repo_root,
-        ["curl", "-sf", "--max-time", "2", "http://localhost:8101/health"],
-        env=examples_env,
-        timeout_s=10,
-    )
-    if probe.returncode != 0:
-        pytest.skip("no agent on localhost:8101")
+    agent_url = _local_agent_url(repo_root, examples_env)
+    if agent_url is None:
+        pytest.skip("no local HTTP agent on ports 8101-8130")
     result = run_shell(
         repo_root,
         cli_argv(
             "uri3",
             "scan",
-            "http://localhost:8101",
+            agent_url,
             env=examples_env,
             repo_root=repo_root,
         ),
@@ -141,3 +150,54 @@ def test_example_15_playwright_mock_via_uri3(repo_root: Path, examples_env):
         timeout_s=120,
     )
     assert run.returncode == 0
+
+
+@pytest.mark.examples
+def test_example_16www_landing_monitor(repo_root: Path, examples_env):
+    from tests.examples.conftest import www_available
+
+    graph = repo_root / "examples/16_www_landing_monitor/task_graph.yaml"
+    validate = run_shell(
+        repo_root,
+        cli_argv("uri3", "validate-workflow", str(graph), env=examples_env, repo_root=repo_root),
+        env=examples_env,
+    )
+    assert validate.returncode == 0
+    if not www_available():
+        pytest.skip("WWW not running on localhost:8788")
+    dry = run_shell(
+        repo_root,
+        cli_argv(
+            "uri3",
+            "run-workflow",
+            str(graph),
+            "--dry-run",
+            env=examples_env,
+            repo_root=repo_root,
+        ),
+        env=examples_env,
+    )
+    assert dry.returncode == 0
+
+
+@pytest.mark.examples
+def test_example_22_dashboard_agent(repo_root: Path, examples_env):
+    manifest = repo_root / "examples/22_dashboard_agent/process_view.uri.capability.yaml"
+    validate = run_shell(
+        repo_root,
+        cli_argv("touri", "validate", str(manifest), env=examples_env, repo_root=repo_root),
+        env=examples_env,
+    )
+    assert validate.returncode == 0
+    listing = run_shell(
+        repo_root,
+        cli_argv(
+            "touri",
+            "list",
+            "examples/22_dashboard_agent",
+            env=examples_env,
+            repo_root=repo_root,
+        ),
+        env=examples_env,
+    )
+    assert listing.returncode == 0

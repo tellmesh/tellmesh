@@ -1,0 +1,89 @@
+version: 1
+kind: hypervisor.operator_agent
+metadata:
+  id: desktop-operator
+  agent_ref: agent://desktop-operator
+  title: Desktop Operator
+  description: Generic screen, browser, input, Windows UI and Android UI operation agent backed by uri2ops.
+  owner_layer: agents/operators
+  runtime_package: uri2ops
+  capability_domain: domains/desktop_ops
+
+runtime:
+  command: uri2ops serve --host 127.0.0.1 --port 8791
+  deployment_id: desktop-operator.local
+  run_agent_command: hypervisor run-agent desktop-operator.local --detach --wait-healthy
+  health_uri: http://127.0.0.1:8791/health
+  card_uri: http://127.0.0.1:8791/.well-known/agent-card.json
+  a2a_tasks_uri: http://127.0.0.1:8791/a2a/tasks
+  mcp_tools_uri: http://127.0.0.1:8791/mcp/tools
+  mcp_call_uri: http://127.0.0.1:8791/mcp/tools/call
+
+capabilities:
+  - scheme: browser
+    operations:
+      - open
+      - extract_dom
+      - screenshot
+      - click
+    adapters:
+      - mock
+      - playwright
+  - scheme: screen
+    operations:
+      - observe
+    adapters:
+      - mock
+  - scheme: input
+    operations:
+      - type
+    adapters:
+      - mock
+  - scheme: pcwin
+    operations:
+      - focus
+      - click
+    adapters:
+      - mock
+      - uia
+  - scheme: android
+    operations:
+      - screenshot
+      - dump_ui
+      - tap
+    adapters:
+      - mock
+      - adb
+
+policy:
+  default_adapter: mock
+  write_actions_require_approval: true
+  real_adapters_require_explicit_selection: true
+  artifact_redaction: true
+  stop_before:
+    - credential_entry
+    - irreversible_submit
+    - external_side_effect
+
+domain_boundary:
+  owns_domain_logic: false
+  owns_routing: false
+  owns_execution: true
+  allowed_inputs:
+    - operator task YAML
+    - A2A task payload
+    - MCP tool call payload
+    - URI addressed operation
+  forbidden_contents:
+    - business scenario registry
+    - customer workflow defaults
+    - generated domain agent code
+    - hidden approval policy for a specific vertical
+
+contracts:
+  domain_pack: domains/desktop_ops/domain.yaml
+  operator_registry: domains/desktop_ops/operator_registry.yaml
+  scenario_registry: domains/desktop_ops/scenario_registry.yaml
+  operation_registry: packages/uri2ops/uri2ops/operation_registry/registry.yaml
+  task_schema: packages/uri2ops/uri2ops/schemas/operator_task.schema.json
+  docs: docs/DESKTOP_AUTONOMY.md

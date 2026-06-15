@@ -2,7 +2,10 @@
 
 from __future__ import annotations
 
+import sys
+
 from hypervisor.deployment_registry.env import resolve_deployment_env
+from hypervisor.deployment_registry.process import start_process
 from hypervisor.deployment_registry.run_executor import sync_runtime_health_uri
 from hypervisor.deployment_registry.runner import build_run_plan, resolve_deployment
 from hypervisor.deployment_registry.runtime_state import (
@@ -51,6 +54,15 @@ def test_runtime_state_roundtrip(tmp_path):
     assert is_process_alive(999999) is False
 
 
+def test_is_process_alive_treats_permission_error_as_alive(monkeypatch):
+    def deny_signal(pid: int, signal: int) -> None:
+        raise PermissionError("operation not permitted")
+
+    monkeypatch.setattr("os.kill", deny_signal)
+
+    assert is_process_alive(1234) is True
+
+
 def test_sync_runtime_health_uri_updates_network_fields():
     state = {
         "kind": "RuntimeState",
@@ -67,3 +79,23 @@ def test_sync_runtime_health_uri_updates_network_fields():
     assert updated["health_uri"] == "http://localhost:43773/health"
     assert updated["network"]["effective_health_uri"] == "http://localhost:43773/health"
     assert updated["network"]["effective_port"] == 43773
+
+
+def test_start_process_detach_writes_process_log(tmp_path):
+    plan = {
+        "deployment_id": "demo.local",
+        "command": [
+            sys.executable,
+            "-c",
+            "import sys; print('agent-log-test', file=sys.stderr)",
+        ],
+    }
+
+    process = start_process(plan, root=tmp_path, detach=True)
+    assert process is not None
+    process.wait(timeout=5)
+
+    log_path = tmp_path / "output" / "logs" / "agents" / "demo.local.process.log"
+    assert plan["process_log_path"] == str(log_path)
+    assert plan["process_log_uri"] == "log://file/output/logs/agents/demo.local.process.log"
+    assert "agent-log-test" in log_path.read_text(encoding="utf-8")

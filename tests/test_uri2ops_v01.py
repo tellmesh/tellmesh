@@ -49,6 +49,13 @@ def test_policy_blocks_command_without_approve():
     assert reason
 
 
+def test_registry_includes_pcwin_click():
+    registry = load_operation_registry()
+    spec = registry.require("pcwin", "click")
+    assert spec.handler.endswith(":click")
+    assert "mock" in spec.adapters
+
+
 def test_policy_allows_dry_run_without_approve():
     registry = load_operation_registry()
     spec = registry.require("browser", "open")

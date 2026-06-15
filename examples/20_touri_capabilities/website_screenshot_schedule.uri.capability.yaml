@@ -1,0 +1,21 @@
+version: 1
+
+capability:
+  id: workflow.website_screenshot_schedule
+  scheme: workflow
+  uri_template: workflow://graph/website-screenshot-schedule
+  operation: run
+  kind: command
+  description: Run website screenshot schedule (mock or Playwright browser).
+
+backend:
+  type: uri_graph
+  # graph supports relative path (resolved via context root) or native file:// URI
+  # (see uri2run resolve_path, uri3 load_workflow_graph, and markpact file:// in uri2pact/core)
+  graph: examples/35_website_screenshot_schedule/task_graph.yaml
+  dry_run: false
+  browser: mock
+
+policy:
+  side_effects: true
+  requires_approval: true

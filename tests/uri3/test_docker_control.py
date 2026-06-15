@@ -50,9 +50,21 @@ agents:
         encoding="utf-8",
     )
     (tmp_path / "agents" / "generated" / "weather_map_agent").mkdir(parents=True)
+    (tmp_path / "agents" / "generated" / "weather_map_agent" / "Dockerfile").write_text(
+        "FROM scratch\n",
+        encoding="utf-8",
+    )
     result = control_docker("docker://generate/weather-map-agent?action=generate", root=tmp_path)
     assert result["ok"] is True
-    assert (tmp_path / "output/deployments/weather-map-agent/docker-compose.yaml").exists()
+    compose_path = tmp_path / "output/deployments/weather-map-agent/docker-compose.yaml"
+    assert compose_path.exists()
+    import yaml
+
+    compose = yaml.safe_load(compose_path.read_text(encoding="utf-8"))
+    build = compose["services"]["weather_map_agent"]["build"]
+    context_root = (compose_path.parent / build["context"]).resolve()
+    assert context_root == tmp_path.resolve()
+    assert (context_root / build["dockerfile"]).exists()
 
 
 def test_control_docker_container_stop_dry_run():

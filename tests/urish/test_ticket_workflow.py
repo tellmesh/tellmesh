@@ -6,7 +6,6 @@ from pathlib import Path
 from unittest.mock import patch
 
 import yaml
-
 from urish.backends.doctor import doctor_all
 from urish.backends.evolve import evolve_from_ticket
 from urish.backends.ticket import show_ticket
@@ -14,12 +13,21 @@ from urish.cli import main
 from urish.ticket_workflow import build_ticket_workflow, detect_intent_from_ticket
 
 
-def _write_ticket(tmp_path: Path, *, ticket_id: str = "PL-10", description: str = "Add ticket URI") -> Path:
+def _write_ticket(
+    tmp_path: Path,
+    *,
+    ticket_id: str = "PL-10",
+    description: str = "Add ticket URI",
+) -> Path:
     ticket = {
         "$schema": "schemas/ticket.schema.json",
         "apiVersion": "uri3.io/v1",
         "kind": "Ticket",
-        "metadata": {"id": ticket_id, "created_at": "2026-06-14T00:00:00Z", "created_by": "test"},
+        "metadata": {
+            "id": ticket_id,
+            "created_at": "2026-06-14T00:00:00Z",
+            "created_by": "test",
+        },
         "uri": {
             "self": f"ticket://feature/{ticket_id}",
             "proposal": f"evolution://proposal/from-ticket/{ticket_id}",

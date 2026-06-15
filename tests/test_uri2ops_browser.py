@@ -9,7 +9,7 @@ import threading
 from pathlib import Path
 
 import pytest
-
+from uri2ops.operator.adapters import browser_mock
 from uri2ops.operator.adapters.browser_router import resolve_adapter_mode
 from uri2ops.operator.runner import run_task
 from uri2ops.operator.task import load_task
@@ -36,7 +36,21 @@ def test_mock_task_writes_artifacts(tmp_path: Path):
     assert list(artifacts_dir.glob("*.json"))
 
 
-@pytest.mark.skipif(os.environ.get("URI2OPS_PLAYWRIGHT_E2E") != "1", reason="set URI2OPS_PLAYWRIGHT_E2E=1 for Playwright e2e")
+def test_mock_browser_supplier_report_dom_contains_csv(tmp_path: Path):
+    context = {"root": str(tmp_path), "session": {}}
+    opened = browser_mock.open_page(
+        {"url": "https://supplier-portal.example.local/reports/monthly"},
+        context,
+    )
+    dom = browser_mock.extract_dom({}, context)
+    assert opened["ok"] is True
+    assert "csv" in dom["text"]
+
+
+@pytest.mark.skipif(
+    os.environ.get("URI2OPS_PLAYWRIGHT_E2E") != "1",
+    reason="set URI2OPS_PLAYWRIGHT_E2E=1 for Playwright e2e",
+)
 def test_playwright_task_executes_against_local_server(tmp_path: Path):
     pytest.importorskip("playwright")
     host = "127.0.0.1"
@@ -92,8 +106,17 @@ def test_playwright_task_executes_against_local_server(tmp_path: Path):
         result = run_task(task, adapter="playwright", approve=True, root=tmp_path)
         assert result.ok is True
         assert result.steps[1].result["text"] == "ok"
-        workflow_dir = tmp_path / "output" / "artifacts" / "operator" / "workflows" / "browser-health-check"
-        assert (workflow_dir / result.steps[0].id / "open.json").exists() or any(workflow_dir.rglob("open.json"))
+        workflow_dir = (
+            tmp_path
+            / "output"
+            / "artifacts"
+            / "operator"
+            / "workflows"
+            / "browser-health-check"
+        )
+        assert (workflow_dir / result.steps[0].id / "open.json").exists() or any(
+            workflow_dir.rglob("open.json")
+        )
         assert any(workflow_dir.rglob("dom.json"))
     finally:
         server.shutdown()

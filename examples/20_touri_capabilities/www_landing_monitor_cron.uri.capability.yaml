@@ -1,0 +1,23 @@
+version: 1
+
+capability:
+  id: cron.www.landing_monitor
+  scheme: cron
+  uri_template: cron://www/monitor/landing
+  operation: run
+  kind: command
+  description: >
+    Scheduled WWW landing monitor — maps to scripts/www/monitor_landing.py.
+    Install host schedule with scripts/www/install-cron.sh (every 5 min).
+
+schedule:
+  cron: "*/5 * * * *"
+  timezone: Europe/Warsaw
+
+backend:
+  type: shell
+  command: python scripts/www/monitor_landing.py --url http://localhost:8788/www/
+
+policy:
+  side_effects: true
+  requires_approval: false

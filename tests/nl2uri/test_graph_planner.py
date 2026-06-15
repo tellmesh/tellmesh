@@ -37,6 +37,21 @@ def test_plan_tree_contains_domain_root():
     assert "agent://weather-map-agent" in payload["tree"]["children"]
 
 
+def test_plan_screenshot_schedule_stable_id():
+    from nl2uri.graph_planner import WEBSITE_SCREENSHOT_SCHEDULE_ID, plan_screenshot_schedule
+
+    prompt = (
+        "rob rzuty ekranów stron softreck.com prototypowanie.pl www "
+        "co 5 minut do folderu usera ~/images/"
+    )
+    payload = plan_screenshot_schedule(prompt)
+    assert payload["flow"]["id"] == WEBSITE_SCREENSHOT_SCHEDULE_ID
+    assert payload["task"]["id"] == WEBSITE_SCREENSHOT_SCHEDULE_ID
+    assert len(payload["steps"]) == 4
+    assert payload["flow"]["schedule_minutes"] == 5
+    assert payload["flow"]["output_dir"] == "~/images/"
+
+
 def test_plan_task_linear_steps():
     payload = plan_task("otwórz Chrome, przejdź do localhost:8101/health i sprawdź czy działa")
     assert payload["task"]["id"]

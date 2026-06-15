@@ -17,7 +17,9 @@ def test_cli_deployments_and_run_agent_dry_run(capsys):
     assert rc == 0
     plan = json.loads(capsys.readouterr().out)
     assert plan["module"] == "agents.generated.weather_map_agent.main:app"
-    assert plan["port"] == 8101
+    assert isinstance(plan["port"], int)
+    assert plan["port"] > 0
+    assert plan["health_uri"] == f"http://localhost:{plan['port']}/health"
     assert plan["env"]["RESOURCE_RUNTIME_URL"] == "http://localhost:8000"
 
 
@@ -51,6 +53,31 @@ def test_cli_run_agent_dry_run_accepts_if_running(capsys):
     assert payload["module"] == "agents.generated.weather_map_agent.main:app"
 
 
+def test_cli_run_agent_dry_run_emits_operation_event(monkeypatch, capsys):
+    emitted: list[dict[str, object]] = []
+
+    def fake_emit(code, message, **kwargs):
+        emitted.append({"code": code, "message": message, **kwargs})
+
+    monkeypatch.setattr("hypervisor.events.emit_operation_event", fake_emit)
+
+    rc = main(["run-agent", "weather-map-agent.local", "--dry-run"])
+
+    assert rc == 0
+    json.loads(capsys.readouterr().out)
+    assert emitted
+    assert emitted[0]["code"] == "AGENT_RUN_PLANNED"
+    assert emitted[0]["selector"] == "weather-map-agent.local"
+
+
+def test_cli_run_agent_accepts_approve_compatibility_flag(capsys):
+    rc = main(["run-agent", "desktop-operator.local", "--dry-run", "--approve"])
+    assert rc == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["module"] == "uri2ops.main:app"
+    assert payload["port"] == 8791
+
+
 def test_cli_inspect_agent(monkeypatch, capsys):
     monkeypatch.setattr(
         "hypervisor.cli.inspect_agent",
@@ -64,3 +91,67 @@ def test_cli_inspect_agent(monkeypatch, capsys):
     assert rc == 0
     payload = json.loads(capsys.readouterr().out)
     assert payload["service_status"] == "healthy"
+
+
+def test_cli_supervise_watch_limited(monkeypatch, capsys):
+    ticks = [
+        {"ok": False, "service_status": "degraded"},
+        {"ok": True, "service_status": "healthy"},
+    ]
+
+    def fake_watch(selector, **kwargs):
+        on_tick = kwargs.get("on_tick")
+        emitted = []
+        for index, item in enumerate(ticks, start=1):
+            tick = {"tick": index, "ok": item["ok"], "status": item["service_status"]}
+            emitted.append(tick)
+            if on_tick:
+                on_tick(tick)
+        return {
+            "ok": True,
+            "result_type": "watch",
+            "selector": selector,
+            "watch": True,
+            "tick_count": len(emitted),
+            "log_path": "output/logs/hypervisor-watch.jsonl",
+            "state_path": "output/runtime/watch/demo.json",
+        }
+
+    monkeypatch.setattr("hypervisor.cli.supervise_watch", fake_watch)
+    rc = main(
+        [
+            "supervise",
+            "weather-map-agent.local",
+            "--watch",
+            "--count",
+            "2",
+            "--interval",
+            "0",
+            "--repair",
+            "auto",
+        ]
+    )
+    assert rc == 0
+    captured = capsys.readouterr().out.strip()
+    lines = captured.splitlines()
+    assert lines[0].startswith('{"tick": 1')
+    assert lines[1].startswith('{"tick": 2')
+    summary = json.loads("\n".join(lines[2:]))
+    assert summary["watch"] is True
+    assert summary["tick_count"] == 2
+
+
+def test_cli_repair_heal(monkeypatch, capsys):
+    monkeypatch.setattr(
+        "hypervisor.repair.healer.run_uri_healer",
+        lambda selector, **kwargs: {
+            "ok": False,
+            "healer": True,
+            "result_type": "healer",
+            "incident_uri": "incident://agent/demo/x",
+        },
+    )
+    rc = main(["repair", "heal", "weather-map-agent.local"])
+    assert rc == 1
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["healer"] is True

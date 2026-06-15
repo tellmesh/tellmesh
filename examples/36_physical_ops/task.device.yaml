@@ -1,0 +1,40 @@
+task:
+  id: device-read-write-smoke
+  description: Read a mock sensor and write a mock actuator value.
+
+steps:
+  - id: device_status
+    uri: device://device/sensor-1/status
+    operation: status
+    kind: query
+
+  - id: read_temperature
+    uri: device://device/sensor-1/read
+    operation: read
+    kind: query
+    payload:
+      channel: temperature
+      value: 21.5
+      unit: C
+    depends_on:
+      - device_status
+
+  - id: write_relay
+    uri: device://device/relay-1/write
+    operation: write
+    kind: command
+    payload:
+      channel: state
+      value: "on"
+    depends_on:
+      - read_temperature
+
+  - id: verify_sensor_id
+    uri: assertion://contains
+    operation: check
+    kind: query
+    payload:
+      actual_from: read_temperature.device_id
+      expected: sensor-1
+    depends_on:
+      - write_relay

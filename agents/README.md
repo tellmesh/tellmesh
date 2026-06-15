@@ -13,6 +13,7 @@ registries and markpact-readable README blocks.
 |------|------|
 | `agents/generated/` | Generated Python agents from `contracts/agents/*.yaml` |
 | `agents/custom/` | Hand-written extensions outside generated output |
+| `agents/operators/` | Generic capability-agent contracts, for example desktop control |
 | `agents/scenarios/` | NL scenario registries loaded by `urish` |
 
 ## Generate Agents
@@ -62,6 +63,21 @@ PY
 `touri` currently consumes `markpact:capability`; these provenance and run-log
 blocks are parsed through `uri2pact.extract_markpact_blocks` and keep the README
 as the human-visible audit trail.
+
+## Operator Agents
+
+Operator agents are capability contracts. They are allowed to expose browser,
+screen, input and device operations, but they must not contain domain scenario
+data.
+
+Default desktop capability contract:
+
+```txt
+agents/operators/desktop_operator.yaml
+```
+
+It is backed by `uri2ops serve` and documented in
+[`docs/DESKTOP_AUTONOMY.md`](../docs/DESKTOP_AUTONOMY.md).
 
 ## Scenario Registries
 

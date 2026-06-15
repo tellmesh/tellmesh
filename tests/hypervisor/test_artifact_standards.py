@@ -76,11 +76,14 @@ def test_log_event_envelope(tmp_path):
 
 
 def test_deployment_registry_declared_runtime_views():
-    registry = load_deployment_registry(Path(__file__).resolve().parents[2])
+    repo_root = Path(__file__).resolve().parents[2]
+    registry = load_deployment_registry(repo_root)
     deployment = registry.by_id("weather-map-agent.local")
     assert deployment is not None
     assert deployment.declared is not None
-    assert deployment.declared.health_uri == "http://localhost:8101/health"
+    raw = yaml.safe_load((repo_root / "deployments/agent_deployments.yaml").read_text(encoding="utf-8"))
+    row = next(item for item in raw["deployments"] if item["id"] == "weather-map-agent.local")
+    assert deployment.declared.health_uri == row["declared"]["health_uri"]
 
 
 def test_planfile_ticket_import_and_proposal(tmp_path):

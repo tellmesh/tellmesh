@@ -1,0 +1,71 @@
+# Office scenario chains for www/przyklady.html (built into examples-manifest.js).
+chains:
+  - id: portal-report
+    title: Download report from portal
+    chat: Go to the supplier portal and download the CSV report
+    i18n:
+      pl:
+        title: Pobierz raport z portalu
+        chat: Wejdź na portal dostawcy i pobierz raport CSV
+      en:
+        title: Download report from portal
+        chat: Go to the supplier portal and download the CSV report
+      de:
+        title: Bericht vom Portal laden
+        chat: Zum Lieferantenportal gehen und CSV-Bericht laden
+    steps:
+      - 31_office_day
+      - 10_browser_operator
+      - 11_playwright_browser
+  - id: invoice-erp
+    title: Invoice in ERP
+    chat: Issue yesterday's invoices and show a preview
+    i18n:
+      pl:
+        title: Faktura w ERP
+        chat: Wystaw wczorajsze faktury i pokaż podgląd
+      en:
+        title: Invoice in ERP
+        chat: Issue yesterday's invoices and show a preview
+      de:
+        title: Rechnung im ERP
+        chat: Gestrige Rechnungen erstellen und Vorschau zeigen
+    steps:
+      - 31_office_day
+      - 07_invoices_agent
+      - 13_pcwin_operator
+      - 09_run_agent_hypervisor
+  - id: bank-android
+    title: Bank + Android token
+    chat: Prepare transfers and stop before 2FA
+    i18n:
+      pl:
+        title: Bank + token Android
+        chat: Przygotuj przelewy i zatrzymaj się przed 2FA
+      en:
+        title: Bank + Android token
+        chat: Prepare transfers and stop before 2FA
+      de:
+        title: Bank + Android-Token
+        chat: Überweisungen vorbereiten und vor 2FA stoppen
+    steps:
+      - 11_playwright_browser
+      - 12_android_operator
+      - 31_office_day
+  - id: nl-to-agent
+    title: From sentence to HTTP agent
+    chat: Generate an agent and check health in the browser
+    i18n:
+      pl:
+        title: Od zdania do agenta HTTP
+        chat: Wygeneruj agenta i sprawdź health w przeglądarce
+      en:
+        title: From sentence to HTTP agent
+        chat: Generate an agent and check health in the browser
+      de:
+        title: Vom Satz zum HTTP-Agenten
+        chat: Agent erzeugen und Health im Browser prüfen
+    steps:
+      - 23_nl_to_agent_tutorial
+      - 30_golden_path
+      - 04_nl2a_weather_map

@@ -65,6 +65,37 @@ RUN_SH_EXAMPLES: tuple[ExampleSpec, ...] = (
         300,
     ),
     ExampleSpec("30", "golden_path", "run_sh", "examples/30_golden_path/run.sh", timeout_s=180),
+    ExampleSpec("31", "office_day", "run_sh", "examples/31_office_day/run.sh"),
+    ExampleSpec(
+        "32",
+        "ecommerce_integrations",
+        "run_sh",
+        "examples/32_ecommerce_integrations/run.sh",
+    ),
+    ExampleSpec(
+        "33",
+        "office_workflows",
+        "run_sh",
+        "examples/33_office_workflows/run.sh",
+    ),
+    ExampleSpec(
+        "34",
+        "cron_uri",
+        "run_sh",
+        "examples/34_cron_uri/run.sh",
+    ),
+    ExampleSpec(
+        "35",
+        "website_screenshot_schedule",
+        "run_sh",
+        "examples/35_website_screenshot_schedule/run.sh",
+    ),
+    ExampleSpec(
+        "36",
+        "physical_ops",
+        "run_sh",
+        "examples/36_physical_ops/run.sh",
+    ),
     ExampleSpec(
         "01",
         "quickstart_local",
@@ -82,6 +113,8 @@ INLINE_EXAMPLES: tuple[ExampleSpec, ...] = (
     ExampleSpec("07", "invoices_agent", "inline"),
     ExampleSpec("08", "evolution", "inline"),
     ExampleSpec("15pw", "playwright_via_uri3_mock", "inline"),
+    ExampleSpec("16www", "www_landing_monitor", "inline", markers=("www",), timeout_s=120),
+    ExampleSpec("22dash", "dashboard_agent_capabilities", "inline"),
 )
 
 ALL_EXAMPLES = RUN_SH_EXAMPLES + INLINE_EXAMPLES

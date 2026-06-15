@@ -10,6 +10,13 @@ Polish index: [`README.pl.md`](./README.pl.md)
 
 Regenerate docs page: `make www-docs` (`scripts/www/build_examples_docs.py`).
 
+### `ABOUT.md` — landing `#integracje` cards
+
+Optional per example: `examples/<id>/ABOUT.md` (YAML frontmatter + markdown/HTML body).
+Built into [`www/index.html`](../www/index.html) `#integracje` by `scripts/www/build_landing_integrations.py`.
+See [`www/README.md`](../www/README.md) for the schema. Examples with cards today:
+`23_nl_to_agent_tutorial`, `31_office_day`, `32_ecommerce_integrations`, `33_office_workflows`, `34_cron_uri`, `35_website_screenshot_schedule`.
+
 **Common requirements** (from repo root):
 
 ```bash
@@ -62,6 +69,9 @@ pip install -e '.[windows]'   # Windows UIA
 | 31 | [`31_office_day`](./31_office_day/) | **Office: portal → invoices → bank → Android** | `bash examples/31_office_day/run.sh` |
 | 32 | [`32_ecommerce_integrations`](./32_ecommerce_integrations/) | **WooCommerce → BaseLinker → ERP** | `bash examples/32_ecommerce_integrations/run.sh` |
 | 33 | [`33_office_workflows`](./33_office_workflows/) | **Landing office cards → workflow URIs** | `bash examples/33_office_workflows/run.sh` |
+| 34 | [`34_cron_uri`](./34_cron_uri/) | **`cron://` schedules via touri → shell** | `bash examples/34_cron_uri/run.sh` |
+| 35 | [`35_website_screenshot_schedule`](./35_website_screenshot_schedule/) | **Website screenshot schedule (chat → workflow)** | `bash examples/35_website_screenshot_schedule/run.sh` |
+| 36 | [`36_physical_ops`](./36_physical_ops/) | **Robot/device physical ops (mock)** | `bash examples/36_physical_ops/run.sh` |
 | — | [`22_dashboard_agent`](./22_dashboard_agent/) | capability/flow dashboard-agent | [`README`](./22_dashboard_agent/README.md) |
 | — | [`16_www_landing_monitor`](./16_www_landing_monitor/) | WWW landing monitor | [`README`](./16_www_landing_monitor/README.md) |
 
@@ -118,6 +128,7 @@ make ci-gate                        # architecture-gate + pytest + examples-test
 Full guide: [`docs/EXAMPLES_TESTING.md`](../docs/EXAMPLES_TESTING.md) · reports in `output/examples/comprehensive_report.md`
 
 Test catalog: `tests/examples/catalog.py` — every `examples/*/run.sh` must be listed.
+Office chains gallery: `examples/office_chains.yaml` → `www/generated/examples-manifest.js`.
 Markers: `@pytest.mark.docker` (ex03), `@pytest.mark.slow` (ex23), Playwright (ex11, requires `[browser]`).
 
 ## Common commands

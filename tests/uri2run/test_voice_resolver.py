@@ -12,6 +12,13 @@ def test_resolve_stt_mock_to_python():
     assert backend["target"] == "python://uri2voice.stt:transcribe"
 
 
+def test_resolve_stt_whisper_to_python():
+    backend = resolve_voice_backend("stt://local/whisper")
+    assert backend is not None
+    assert backend["type"] == "python"
+    assert backend["target"] == "python://uri2voice.stt_whisper:transcribe_whisper"
+
+
 def test_resolve_tts_mock_to_python():
     backend = resolve_voice_backend("tts://mock/speak")
     assert backend is not None
@@ -19,6 +26,6 @@ def test_resolve_tts_mock_to_python():
 
 
 def test_unknown_voice_uri_returns_touri_or_unresolved():
-    backend = resolve_voice_backend("stt://local/whisper")
+    backend = resolve_voice_backend("stt://unknown/engine")
     assert backend is not None
     assert backend["type"] in {"touri", "voice_unresolved"}

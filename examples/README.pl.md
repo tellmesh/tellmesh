@@ -60,6 +60,9 @@ pip install -e '.[windows]'   # Windows UIA
 | 31 | [`31_office_day`](./31_office_day/) | **Biuro: portal → faktury → bank → Android** | `bash examples/31_office_day/run.sh` |
 | 32 | [`32_ecommerce_integrations`](./32_ecommerce_integrations/) | **WooCommerce → BaseLinker → ERP** | `bash examples/32_ecommerce_integrations/run.sh` |
 | 33 | [`33_office_workflows`](./33_office_workflows/) | **Karty biurowe landingu → workflow URI** | `bash examples/33_office_workflows/run.sh` |
+| 34 | [`34_cron_uri`](./34_cron_uri/) | **`cron://` harmonogramy via touri → shell** | `bash examples/34_cron_uri/run.sh` |
+| 35 | [`35_website_screenshot_schedule`](./35_website_screenshot_schedule/) | **Harmonogram screenshotów strony (chat → workflow)** | `bash examples/35_website_screenshot_schedule/run.sh` |
+| 36 | [`36_physical_ops`](./36_physical_ops/) | **Robot/device — operacje fizyczne (mock)** | `bash examples/36_physical_ops/run.sh` |
 | — | [`22_dashboard_agent`](./22_dashboard_agent/) | capability/flow dashboard-agent | [`README`](./22_dashboard_agent/README.md) |
 | — | [`16_www_landing_monitor`](./16_www_landing_monitor/) | monitor landing WWW | [`README`](./16_www_landing_monitor/README.md) |
 

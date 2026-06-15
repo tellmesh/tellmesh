@@ -6,11 +6,9 @@ from typing import Any
 
 import pytest
 from fastapi.testclient import TestClient
-
 from hypervisor.deployment_registry.runner import build_run_plan, resolve_deployment
 from hypervisor_dashboard_agent.main import app
 from hypervisor_dashboard_agent.uri_client import call_system_uri, list_agent_deployments
-
 
 NEW_AGENT_IDS = ("user-agent.local", "invoices-agent.local")
 
@@ -37,7 +35,7 @@ def test_api_agents_includes_new_deployments(client: TestClient):
 
 @pytest.mark.parametrize("agent_id,port,module", [
     ("user-agent.local", 8102, "agents.generated.user_agent.main:app"),
-    ("invoices-agent.local", 8103, "agents.generated.invoices_agent.main:app"),
+    ("invoices-agent.local", 8123, "agents.generated.invoices_agent.main:app"),
 ])
 def test_build_run_plan_for_new_agents(agent_id: str, port: int, module: str):
     deployment = resolve_deployment(agent_id)
@@ -57,7 +55,10 @@ def test_uri_repair_diagnose_for_new_agent():
     result = call_system_uri("repair://agent/invoices-agent.local/diagnose")
     assert result["result_type"] == "diagnosis"
     assert result["id"] == "invoices-agent.local"
-    assert "repair_plan" in result
+    if result["ok"]:
+        assert "repair_plan" not in result
+    else:
+        assert "repair_plan" in result
 
 
 def test_uri_repair_apply_dry_run(client: TestClient):
@@ -72,6 +73,14 @@ def test_uri_repair_apply_dry_run(client: TestClient):
     assert response.status_code == 200
     payload = response.json()
     assert payload.get("dry_run") is True or payload.get("result_type") == "repair"
+
+
+def test_uri_repair_auto_dry_run():
+    result = call_system_uri("repair://agent/user-agent.local/auto", dry_run=True)
+    assert result["result_type"] == "repair"
+    assert result.get("dry_run") is True
+    assert result.get("planned_action") == "supervise_with_repair"
+    assert "diagnosis" in result
 
 
 def test_uri_repair_apply_requires_approval(client: TestClient):
@@ -111,3 +120,44 @@ def test_hypervisor_repair_supervisor_auto(monkeypatch: pytest.MonkeyPatch):
     result = repair_apply("user-agent.local", approved=True, safe=True)
     assert result["ok"] is True
     assert any(item.get("playbook") == "restart_agent" for item in result.get("actions", []))
+
+
+def test_hypervisor_repair_forced_playbook_runs_when_healthy(
+    monkeypatch: pytest.MonkeyPatch,
+):
+    from hypervisor.repair.supervisor import repair_apply
+
+    fake_diagnosis: dict[str, Any] = {
+        "ok": True,
+        "id": "user-agent.local",
+        "inspection": {"ok": True, "service_status": "healthy"},
+        "classification": {"safe_repairs": []},
+        "known_case": None,
+    }
+    applied: list[str] = []
+
+    monkeypatch.setattr(
+        "hypervisor.repair.supervisor.diagnose_agent",
+        lambda *args, **kwargs: fake_diagnosis,
+    )
+    monkeypatch.setattr(
+        "hypervisor.repair.supervisor.apply_playbook",
+        lambda playbook, **kwargs: applied.append(playbook)
+        or {"ok": True, "playbook": playbook, "status": "synced"},
+    )
+    monkeypatch.setattr(
+        "hypervisor.repair.supervisor.inspect_agent",
+        lambda *args, **kwargs: {"ok": True, "service_status": "healthy"},
+    )
+    monkeypatch.setattr("hypervisor.repair.supervisor.time.sleep", lambda *_args: None)
+
+    result = repair_apply(
+        "user-agent.local",
+        approved=True,
+        safe=True,
+        playbook="sync_health_uri",
+    )
+
+    assert result["ok"] is True
+    assert applied == ["sync_health_uri"]
+    assert result["actions"][0]["status"] == "synced"

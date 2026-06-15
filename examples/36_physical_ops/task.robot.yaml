@@ -1,0 +1,38 @@
+task:
+  id: robot-safety-smoke
+  description: Read robot state, move to a mock pose, then stop.
+
+steps:
+  - id: read_robot_state
+    uri: robot://robot/amr-1/state
+    operation: state
+    kind: query
+
+  - id: move_robot
+    uri: robot://robot/amr-1/move
+    operation: move
+    kind: command
+    payload:
+      target:
+        x: 1.25
+        y: 0.4
+        theta: 0
+    depends_on:
+      - read_robot_state
+
+  - id: stop_robot
+    uri: robot://robot/amr-1/stop
+    operation: stop
+    kind: command
+    depends_on:
+      - move_robot
+
+  - id: verify_robot_id
+    uri: assertion://contains
+    operation: check
+    kind: query
+    payload:
+      actual_from: read_robot_state.robot_id
+      expected: amr-1
+    depends_on:
+      - stop_robot

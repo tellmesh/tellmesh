@@ -1,0 +1,46 @@
+version: 1
+
+capability:
+  id: stt.local.whisper
+  scheme: stt
+  uri_template: stt://local/whisper
+  operation: transcribe
+  kind: command
+  description: Whisper STT via OPENAI_API_KEY or optional local openai-whisper install.
+
+input:
+  payload_schema:
+    type: object
+    properties:
+      audio_base64:
+        type: string
+      mime_type:
+        type: string
+      language:
+        type: string
+      engine:
+        type: string
+        enum: [auto, openai, local]
+
+output:
+  result_type: transcript
+  schema:
+    type: object
+    properties:
+      text:
+        type: string
+      language:
+        type: string
+
+backend:
+  type: python
+  target: python://uri2voice.stt_whisper:transcribe_whisper
+
+policy:
+  side_effects: false
+  requires_approval: false
+
+events:
+  emits:
+    - SpeechTranscriptionRequested
+    - SpeechTranscribed

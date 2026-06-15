@@ -60,9 +60,33 @@ def test_ask_agent_diagnose_plans_repair_uri():
 
 def test_screenshot_prompt_uses_workflow_not_domain():
     intent = detect_intent(
-        "rob rzuty ekranów stron softreck.com prototypowanie.pl www co 5 minut do folderu usera ~/images/"
+        "rob rzuty ekranów stron softreck.com prototypowanie.pl www "
+        "co 5 minut do folderu usera ~/images/"
     )
     assert intent["kind"] == "workflow"
+
+
+def test_screenshot_prompt_plans_stable_workflow_uri():
+    prompt = (
+        "rob rzuty ekranów stron softreck.com prototypowanie.pl www "
+        "co 5 minut do folderu usera ~/images/"
+    )
+    result = ask_prompt(prompt)
+    data = result["data"]
+    assert data["detected_kind"] == "workflow"
+    assert data["planned_uris"] == ["workflow://graph/website-screenshot-schedule/dry-run"]
+    generated = data["generated"]
+    assert generated["flow"]["id"] == "website-screenshot-schedule"
+    assert "softreck.com" in generated["flow"]["sites"][0]
+    assert generated["flow"]["schedule_minutes"] == 5
+    assert generated["flow"]["output_dir"] == "~/images/"
+
+
+def test_screenshot_polish_inflection_detects_workflow():
+    intent = detect_intent("zaplanuj harmonogram screenshotów strony co 5 minut dry-run")
+    assert intent["kind"] == "workflow"
+    result = ask_prompt("zaplanuj harmonogram screenshotów strony co 5 minut dry-run")
+    assert result["data"]["planned_uris"] == ["workflow://graph/website-screenshot-schedule/dry-run"]
 
 
 def test_detect_www_chat_dashboard_intent_without_agent_word():

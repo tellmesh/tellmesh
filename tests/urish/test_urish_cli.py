@@ -30,6 +30,36 @@ def test_load_payload_stdin_envelope():
         assert load_payload(stdin=True, stdin_mode="envelope") == {"text": "hello"}
 
 
+def test_render_text_view_summary():
+    text = render_result(
+        {
+            "ok": True,
+            "workflow_status": "completed",
+            "service_result_status": "succeeded",
+            "result_type": "view",
+            "data": {
+                "ok": True,
+                "result_type": "view",
+                "title": "Weather Map Agent",
+                "data": {
+                    "agent_id": "weather-map-agent.local",
+                    "service_status": "stopped",
+                    "process_status": "stale",
+                    "health_status": "ok",
+                    "incidents": [{"code": "RUNTIME_STATE_STALE", "detail": "dead pid"}],
+                    "recommended_action": "restart",
+                },
+            },
+            "meta": {"runtime": "urish"},
+        },
+        output="text",
+    )
+    assert "Weather Map Agent" in text
+    assert "RUNTIME_STATE_STALE" in text
+    assert "Restart agent" in text
+    assert "OK completed/succeeded view" not in text
+
+
 def test_render_text_envelope():
     text = render_result(
         {
@@ -221,6 +251,10 @@ def test_classify_repair_uri():
     assert classify_uri("repair://agent/demo/apply") == "repair"
 
 
+def test_classify_repair_diagnose_uri_as_read():
+    assert classify_uri("repair://agent/demo/diagnose") == "read"
+
+
 def test_select_from_envelope():
     assert select_from_envelope({"data": {"text": "hello"}}, "data.text") == "hello"
 
@@ -276,6 +310,43 @@ def test_cli_watch_limited():
         code = main(["watch", "health://agent/demo", "--count", "1"])
         assert code == 0
         mocked.assert_called_once()
+
+
+def test_cli_proof_summarizes_one_uri(capsys):
+    with patch("urish.backends.proof.call_uri") as mocked:
+        mocked.return_value = {
+            "ok": True,
+            "workflow_status": "completed",
+            "execution_status": "completed",
+            "service_result_status": "succeeded",
+            "result_type": "view",
+            "data": {
+                "ok": True,
+                "result_type": "view",
+                "view_uri": "view://process/agent/demo.local/latest",
+                "content_type": "text/html",
+                "data": {
+                    "service_status": "healthy",
+                    "process_status": "running",
+                    "health_status": "ok",
+                    "actions": [
+                        {"kind": "repair", "uri": "repair://agent/demo.local/apply"},
+                        {"kind": "mutation", "uri": "ticket://bug/from-incident/demo.local"},
+                    ],
+                },
+            },
+            "meta": {"runtime": "urish", "transport": "hypervisor:system_uri"},
+        }
+        code = main(["proof", "view://process/agent/demo.local/latest", "--json"])
+        assert code == 0
+        payload = json.loads(capsys.readouterr().out)
+        assert payload["result_type"] == "proof"
+        checks = {item["name"]: item for item in payload["data"]["checks"]}
+        assert checks["chat"]["ok"] is True
+        assert checks["web_api"]["ok"] is True
+        assert checks["dashboard_view"]["ok"] is True
+        assert checks["repair_action"]["status"] == "available"
+        assert checks["ticket_action"]["status"] == "available"
 
 
 def test_cli_ecosystem_generate_command(tmp_path):

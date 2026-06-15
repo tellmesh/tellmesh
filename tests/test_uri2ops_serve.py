@@ -24,6 +24,17 @@ def test_serve_health_and_registry_export():
     exported = client.get("/registry")
     assert exported.status_code == 200
     assert "browser" in exported.json()["schemes"]
+    assert "robot" in exported.json()["schemes"]
+    assert "device" in exported.json()["schemes"]
+
+
+def test_uri2ops_main_exports_asgi_app():
+    from uri2ops.main import app
+
+    client = TestClient(app)
+    response = client.get("/health")
+    assert response.status_code == 200
+    assert response.json()["service"] == "uri2ops"
 
 
 def test_serve_agent_card_and_mcp_tools():
@@ -35,6 +46,8 @@ def test_serve_agent_card_and_mcp_tools():
     assert tools.status_code == 200
     names = {tool["name"] for tool in tools.json()["tools"]}
     assert "browser_open" in names
+    assert "robot_state" in names
+    assert "device_status" in names
     assert "run_operator_task" in names
 
 
