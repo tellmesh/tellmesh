@@ -1,0 +1,8 @@
+commands:
+- name: RunTask
+  uri: command://generuj-mape-pogody-dwa-tygodnie-do-przodu-w-html/run
+  handler_uri: python://domains.generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html.handlers.run:handler
+  input_schema_ref: app.generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html.v1.RunTaskCommand
+  emits:
+  - event://generuj-mape-pogody-dwa-tygodnie-do-przodu-w-html/TaskRequested
+  - event://generuj-mape-pogody-dwa-tygodnie-do-przodu-w-html/TaskCompleted

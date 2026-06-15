@@ -1,15 +1,15 @@
 # Real agents, communication, evolution, and multi-agent monitoring
 
-Status verified on 2026-06-14 against the current repo (`deployments/agent_deployments.yaml`, `hypervisor` CLI, dashboard API).
+Status verified on 2026-06-15 against the current repo (`deployments/agent_deployments.yaml`, `config/runtime_environments.yaml`, `hypervisor` CLI, dashboard API).
 
 ## Short answers
 
 | Question | Answer |
 |----------|--------|
 | Can you create **real** agents? | **Yes** — contract-first HTTP agents via `nl2a`, `urigen` / `uri ecosystem`, or evolution proposals. Artifacts land in `contracts/agents/`, `agents/generated/`, and `deployments/agent_deployments.yaml`. |
-| Is there **communication** with them? | **Yes** — each agent exposes `/health`, `/.well-known/agent-card.json`, and resource routes. The hypervisor and dashboard call them through URI schemes (`health://`, `repair://`, `view://`) and HTTP probes. |
+| Is there **communication** with them? | **Yes** — each agent exposes `/health`, `/.well-known/agent-card.json`, and resource routes. The hypervisor and dashboard call system routes through `health://`, `repair://`, `view://`, and operator routes through semantic URI routing. |
 | Can agents be **improved**? | **Yes, in a controlled loop** — diagnose → repair → incident → evolution proposal → regenerate → verify → apply. Agents do not mutate production code without approval. |
-| Do **several agents run at once**? | **Yes** — each deployment has its own port/PID/runtime state. Example: `weather-map-agent.local` on `:8118` and `invoices-agent.local` on `:8123` concurrently. |
+| Do **several agents run at once**? | **Yes** — each deployment has its own port/PID/runtime state. Example declared ports: `weather-map-agent.local` on `:8105` and `invoices-agent.local` on `:8123` concurrently. Ports may rebound when busy. |
 | What **software monitors** many agents? | **`hypervisor`** (registry, inspect, supervise), **`hypervisor-dashboard-agent`** (WWW UI + `/api/events`), **`uri3`** (`logs`, `scan`, `doctor`, `watch`), plus artifacts in `output/logs/`, `output/incidents/`, `output/monitoring/`. |
 
 ## 1. Creating real agents
@@ -73,17 +73,18 @@ Agents are thin FastAPI services. The system talks to them on several layers:
                                              │ inspect / run / repair
                                              ▼
                     ┌────────────────────────────────────────┐
-                    │  weather-map :8118   invoices :8123    │
+                    │  weather-map :8105   invoices :8123    │
                     │  user-agent  :8102   dashboard :8788   │
                     └────────────────────────────────────────┘
 ```
 
 | Layer | Mechanism | Example |
 |-------|-----------|---------|
-| HTTP probe | `GET /health`, agent card | `curl http://localhost:8118/health` |
-| URI scheme | resolver → hypervisor backend | `health://agent/weather-map-agent.local` |
+| HTTP probe | `GET /health`, agent card | `curl http://localhost:8105/health` |
+| System URI scheme | resolver → hypervisor backend | `health://agent/weather-map-agent.local` |
+| Operator URI scheme | `uri3` semantic route → `hypervisor.routing` → `uri2run` → `uri2ops` | `browser://chrome/page/open` |
 | Dashboard API | policy-gated calls | `POST /api/uri/call`, `POST /api/plan/run` |
-| A2A-style card | `/.well-known/agent-card.json` | `uri3 scan http://localhost:8118` |
+| A2A-style card | `/.well-known/agent-card.json` | `uri3 scan http://localhost:8105` |
 | Logs | `log://` resolver | `uri3 logs 'log://hypervisor?grep=weather-map-agent.local'` |
 | Process view | read-only HTML envelope | `view://process/agent/weather-map-agent.local/latest` |
 
@@ -115,8 +116,8 @@ Registry: [`deployments/agent_deployments.yaml`](../deployments/agent_deployment
 
 | Deployment | Port (preferred) | Source |
 |------------|------------------|--------|
-| `hypervisor-dashboard.local` | 8788 | system agent (`packages/hypervisor-dashboard-agent`) |
-| `weather-map-agent.local` | 8118 (rebound if busy) | `nl2a` / domain `weather_map` |
+| `hypervisor-dashboard.local` | 8788 | system agent (`agents/system/hypervisor_dashboard`) |
+| `weather-map-agent.local` | 8105 (declared; rebound if busy) | `nl2a` / domain `weather_map` |
 | `invoices-agent.local` | 8123 | contract `invoices_agent.yaml` |
 | `user-agent.local` | 8102 | contract `user_agent.yaml` |
 
@@ -131,7 +132,7 @@ hypervisor inspect-agent weather-map-agent.local
 hypervisor inspect-agent invoices-agent.local
 ```
 
-If a preferred port is taken, hypervisor **rebinds** to a free port and stores the effective health URI in runtime state (`output/runtime/agents/*/state.json`). Use `repair apply … --playbook sync_health_uri` to align the registry.
+If a preferred port is taken, hypervisor **rebinds** to a free port and stores the effective health URI in runtime state (`output/runtime/agents/*/state.json`). Use `hypervisor repair apply … --playbook sync_health_uri` to align the registry.
 
 **Verified:** `weather-map-agent.local` and `invoices-agent.local` both report `service_status: healthy` when started with `--detach`.
 
@@ -170,7 +171,7 @@ Chat plan run supports `auto_repair` and optional `speak_summary` (mock TTS). Vo
 ```bash
 uri3 logs 'log://hypervisor?level=ERROR&limit=50'
 uri3 logs 'log://file/output/logs/agents/weather-map-agent.local.process.log'
-uri3 scan http://localhost:8118
+uri3 scan http://localhost:8105
 uri3 doctor
 uri3 doctor --strict
 ```

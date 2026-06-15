@@ -1,0 +1,12 @@
+resources:
+- id: generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html.result.v1
+  kind: resource
+  uri_template: resource://generuj-mape-pogody-dwa-tygodnie-do-przodu-w-html/result/{id}
+  stability: experimental
+  version: v1
+  schema_ref: app.generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html.v1.TaskResultView
+  projection_ref: generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html_result_view
+  renderer_ref: json
+  owner_agent: generuj-mape-pogody-dwa-tygodnie-do-przodu-w-html-agent
+  read_method: resources/read
+  mime_type: application/json

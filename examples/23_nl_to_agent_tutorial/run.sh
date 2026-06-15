@@ -23,8 +23,14 @@ section() {
 
 section "0. Wymagania"
 if ! command -v nl2uri >/dev/null 2>&1; then
-  echo "Instalacja pakietów dev…"
-  pip install -e '.[dev]' >/dev/null
+  if [[ "${HYPERVISOR_EXAMPLE_AUTO_INSTALL:-0}" == "1" ]]; then
+    echo "Instalacja pakietów dev..."
+    "${PYTHON:-python3}" -m pip install -e '.[dev]' >/dev/null
+  else
+    echo "Brak CLI nl2uri w PATH. Uruchom najpierw: make ensure-dev" >&2
+    echo "Aby pozwolić temu przykładowi instalować zależności, ustaw HYPERVISOR_EXAMPLE_AUTO_INSTALL=1." >&2
+    exit 1
+  fi
 fi
 echo "Repo: $ROOT"
 echo "UTF-8: LANG=$LANG"

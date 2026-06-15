@@ -3331,7 +3331,7 @@ touri list examples/22_dashboard_agent
 <p>Dashboard działa po <code>make start</code> → http://localhost:8788/www/chat.html</p>
 <h2 id="powiazane">Powiązane</h2>
 <ul>
-<li><a href="../../packages/hypervisor-dashboard-agent/README.md"><code>packages/hypervisor-dashboard-agent/README.md</code></a></li>
+<li><a href="../../agents/system/hypervisor_dashboard/README.md"><code>agents/system/hypervisor_dashboard/README.md</code></a></li>
 <li><a href="../../docs/DASHBOARD.md"><code>docs/DASHBOARD.md</code></a></li>
 <li><a href="../09_run_agent_hypervisor/"><code>09_run_agent_hypervisor</code></a></li>
 </ul></div>
@@ -5096,30 +5096,36 @@ set -euo pipefail
 
 ROOT=&quot;$(cd &quot;$(dirname &quot;${BASH_SOURCE[0]}&quot;)/../..&quot; &amp;&amp; pwd)&quot;
 cd &quot;$ROOT&quot;
+source &quot;$ROOT/scripts/examples/cli_fallback.sh&quot;
+if [[ -x &quot;$ROOT/.venv/bin/python3&quot; ]]; then
+  export PY=&quot;$ROOT/.venv/bin/python3&quot;
+elif [[ -x &quot;$ROOT/.venv/bin/python&quot; ]]; then
+  export PY=&quot;$ROOT/.venv/bin/python&quot;
+fi
 
 echo &quot;== 37_agent_screenshot_analysis ==&quot;
 ADAPTER=&quot;${ADAPTER:-mock}&quot;
 
-hypervisor run-agent desktop-operator.local --detach --wait-healthy --if-running reuse
-hypervisor run-agent screenshot-analysis-agent.local --detach --wait-healthy --if-running reuse
+run_cli hypervisor run-agent browser-operator.local --detach --wait-healthy --if-running restart
+run_cli hypervisor run-agent screenshot-analysis-agent.local --detach --wait-healthy --if-running reuse
 
 echo &quot;== schema discovery ==&quot;
-uri call schema://agent/desktop-operator.local --json &gt;/tmp/taskinity-desktop-schema.json
-uri call schema://agent/screenshot-analysis-agent.local --json &gt;/tmp/taskinity-screenshot-analysis-schema.json
+run_cli uri call schema://agent/browser-operator.local --json &gt;/tmp/taskinity-browser-schema.json
+run_cli uri call schema://agent/screenshot-analysis-agent.local --json &gt;/tmp/taskinity-screenshot-analysis-schema.json
 python3 - &lt;&lt;&#x27;PY&#x27;
 import json
 from pathlib import Path
 
-for name in (&quot;desktop&quot;, &quot;screenshot-analysis&quot;):
+for name in (&quot;browser&quot;, &quot;screenshot-analysis&quot;):
     path = Path(f&quot;/tmp/taskinity-{name}-schema.json&quot;)
     data = json.loads(path.read_text())
     payload = data.get(&quot;data&quot;) if isinstance(data.get(&quot;data&quot;), dict) else data
     print(name, payload.get(&quot;agent_id&quot;), [c.get(&quot;name&quot;) for c in payload.get(&quot;capabilities&quot;, [])][:6])
 PY
 
-DESKTOP_URL=&quot;$(python3 - &lt;&lt;&#x27;PY&#x27;
+BROWSER_URL=&quot;$(python3 - &lt;&lt;&#x27;PY&#x27;
 import json
-data = json.load(open(&quot;/tmp/taskinity-desktop-schema.json&quot;))
+data = json.load(open(&quot;/tmp/taskinity-browser-schema.json&quot;))
 payload = data.get(&quot;data&quot;) if isinstance(data.get(&quot;data&quot;), dict) else data
 print(str(payload[&quot;card_uri&quot;]).rsplit(&quot;/.well-known/&quot;, 1)[0])
 PY
@@ -5131,20 +5137,20 @@ payload = data.get(&quot;data&quot;) if isinstance(data.get(&quot;data&quot;), d
 print(str(payload[&quot;card_uri&quot;]).rsplit(&quot;/.well-known/&quot;, 1)[0])
 PY
 )&quot;
-echo &quot;desktop_url=$DESKTOP_URL&quot;
+echo &quot;browser_url=$BROWSER_URL&quot;
 echo &quot;analyzer_url=$ANALYZER_URL&quot;
 echo &quot;adapter=$ADAPTER&quot;
 
 echo &quot;== capture/analyze tick 1 ==&quot;
 curl -s -X POST &quot;$ANALYZER_URL/skills/capture_and_analyze&quot; \
   -H &#x27;Content-Type: application/json&#x27; \
-  -d &quot;{\&quot;operator_url\&quot;:\&quot;$DESKTOP_URL\&quot;,\&quot;target_url\&quot;:\&quot;http://localhost:8788/www/\&quot;,\&quot;adapter\&quot;:\&quot;$ADAPTER\&quot;,\&quot;approve\&quot;:true,\&quot;run_label\&quot;:\&quot;example37\&quot;}&quot; \
+  -d &quot;{\&quot;operator_url\&quot;:\&quot;$BROWSER_URL\&quot;,\&quot;target_url\&quot;:\&quot;http://localhost:8788/www/\&quot;,\&quot;adapter\&quot;:\&quot;$ADAPTER\&quot;,\&quot;approve\&quot;:true,\&quot;run_label\&quot;:\&quot;example37\&quot;}&quot; \
   &gt;/tmp/taskinity-screenshot-analysis-1.json
 
 echo &quot;== capture/analyze tick 2 ==&quot;
 curl -s -X POST &quot;$ANALYZER_URL/skills/capture_and_analyze&quot; \
   -H &#x27;Content-Type: application/json&#x27; \
-  -d &quot;{\&quot;operator_url\&quot;:\&quot;$DESKTOP_URL\&quot;,\&quot;target_url\&quot;:\&quot;http://localhost:8788/www/\&quot;,\&quot;adapter\&quot;:\&quot;$ADAPTER\&quot;,\&quot;approve\&quot;:true,\&quot;run_label\&quot;:\&quot;example37\&quot;}&quot; \
+  -d &quot;{\&quot;operator_url\&quot;:\&quot;$BROWSER_URL\&quot;,\&quot;target_url\&quot;:\&quot;http://localhost:8788/www/\&quot;,\&quot;adapter\&quot;:\&quot;$ADAPTER\&quot;,\&quot;approve\&quot;:true,\&quot;run_label\&quot;:\&quot;example37\&quot;}&quot; \
   &gt;/tmp/taskinity-screenshot-analysis-2.json
 
 python3 - &lt;&lt;&#x27;PY&#x27;
@@ -5235,6 +5241,12 @@ set -euo pipefail
 
 ROOT=&quot;$(cd &quot;$(dirname &quot;${BASH_SOURCE[0]}&quot;)/../..&quot; &amp;&amp; pwd)&quot;
 cd &quot;$ROOT&quot;
+source &quot;$ROOT/scripts/examples/cli_fallback.sh&quot;
+if [[ -x &quot;$ROOT/.venv/bin/python3&quot; ]]; then
+  export PY=&quot;$ROOT/.venv/bin/python3&quot;
+elif [[ -x &quot;$ROOT/.venv/bin/python&quot; ]]; then
+  export PY=&quot;$ROOT/.venv/bin/python&quot;
+fi
 
 echo &quot;== 38_autonomous_agents ==&quot;
 ADAPTER=&quot;${ADAPTER:-mock}&quot;
@@ -5244,14 +5256,35 @@ if [[ &quot;$ADAPTER&quot; == &quot;gnome&quot; ]]; then
   export WAYLAND_DISPLAY=&quot;${WAYLAND_DISPLAY:-wayland-0}&quot;
 fi
 
-hypervisor run-agent desktop-operator.local --detach --wait-healthy --if-running reuse
-hypervisor run-agent remote-deploy-agent.local --detach --wait-healthy --if-running reuse
-hypervisor run-agent gnome-programmer-agent.local --detach --wait-healthy --if-running reuse
-hypervisor run-agent screenshot-analysis-agent.local --detach --wait-healthy --if-running reuse
+run_cli hypervisor run-agent desktop-operator.local --detach --wait-healthy --if-running restart
+run_cli hypervisor run-agent browser-operator.local --detach --wait-healthy --if-running restart
+run_cli hypervisor run-agent remote-deploy-agent.local --detach --wait-healthy --if-running reuse
+run_cli hypervisor run-agent gnome-programmer-agent.local --detach --wait-healthy --if-running reuse
+run_cli hypervisor run-agent screenshot-analysis-agent.local --detach --wait-healthy --if-running reuse
 
 echo &quot;== agent reports ==&quot;
-python scripts/examples/audit_agent_reports.py &gt;/tmp/taskinity-audit-38.log
+&quot;${PY:-python3}&quot; scripts/examples/audit_agent_reports.py &gt;/tmp/taskinity-audit-38.log
 tail -3 /tmp/taskinity-audit-38.log
+
+echo &quot;== resolve operator URLs ==&quot;
+run_cli uri call schema://agent/desktop-operator.local --json &gt;/tmp/taskinity-desktop-schema-38.json
+run_cli uri call schema://agent/browser-operator.local --json &gt;/tmp/taskinity-browser-schema-38.json
+DESKTOP_URL=&quot;$(python3 - &lt;&lt;&#x27;PY&#x27;
+import json
+data = json.load(open(&quot;/tmp/taskinity-desktop-schema-38.json&quot;))
+payload = data.get(&quot;data&quot;) if isinstance(data.get(&quot;data&quot;), dict) else data
+print(str(payload[&quot;card_uri&quot;]).rsplit(&quot;/.well-known/&quot;, 1)[0])
+PY
+)&quot;
+BROWSER_URL=&quot;$(python3 - &lt;&lt;&#x27;PY&#x27;
+import json
+data = json.load(open(&quot;/tmp/taskinity-browser-schema-38.json&quot;))
+payload = data.get(&quot;data&quot;) if isinstance(data.get(&quot;data&quot;), dict) else data
+print(str(payload[&quot;card_uri&quot;]).rsplit(&quot;/.well-known/&quot;, 1)[0])
+PY
+)&quot;
+echo &quot;desktop_url=$DESKTOP_URL&quot;
+echo &quot;browser_url=$BROWSER_URL&quot;
 
 echo &quot;== remote deploy plan (ssh-dev) ==&quot;
 curl -s -X POST &quot;http://localhost:8135/skills/plan_remote_deploy&quot; \
@@ -5271,14 +5304,14 @@ echo &quot;== gnome programmer session ==&quot;
 GNOME_URL=&quot;http://localhost:8136&quot;
 curl -s -X POST &quot;$GNOME_URL/skills/run_programmer_session&quot; \
   -H &#x27;Content-Type: application/json&#x27; \
-  -d &quot;{\&quot;operator_url\&quot;:\&quot;http://localhost:8791\&quot;,\&quot;adapter\&quot;:\&quot;$ADAPTER\&quot;,\&quot;approve\&quot;:true,\&quot;command_text\&quot;:\&quot;echo autonomy\&quot;}&quot; \
+  -d &quot;{\&quot;operator_url\&quot;:\&quot;$DESKTOP_URL\&quot;,\&quot;adapter\&quot;:\&quot;$ADAPTER\&quot;,\&quot;approve\&quot;:true,\&quot;command_text\&quot;:\&quot;echo autonomy\&quot;}&quot; \
   &gt;/tmp/taskinity-gnome-session.json
 
 echo &quot;== screenshot collaboration ==&quot;
 ANALYZER_URL=&quot;http://localhost:8134&quot;
 curl -s -X POST &quot;$ANALYZER_URL/skills/capture_and_analyze&quot; \
   -H &#x27;Content-Type: application/json&#x27; \
-  -d &quot;{\&quot;operator_url\&quot;:\&quot;http://localhost:8791\&quot;,\&quot;target_url\&quot;:\&quot;http://localhost:8788/www/\&quot;,\&quot;adapter\&quot;:\&quot;$ADAPTER\&quot;,\&quot;approve\&quot;:true,\&quot;run_label\&quot;:\&quot;example38\&quot;}&quot; \
+  -d &quot;{\&quot;operator_url\&quot;:\&quot;$BROWSER_URL\&quot;,\&quot;target_url\&quot;:\&quot;http://localhost:8788/www/\&quot;,\&quot;adapter\&quot;:\&quot;$ADAPTER\&quot;,\&quot;approve\&quot;:true,\&quot;run_label\&quot;:\&quot;example38\&quot;}&quot; \
   &gt;/tmp/taskinity-screenshot-38.json
 
 python3 - &lt;&lt;&#x27;PY&#x27;

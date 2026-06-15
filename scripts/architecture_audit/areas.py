@@ -11,7 +11,7 @@ AREA_PATTERNS: tuple[tuple[str, tuple[str, ...]], ...] = (
     ("domain_artifacts", ("domains/", "agents/scenarios/")),
     ("operator_contracts", ("agents/operators/",)),
     ("command_surface", ("scripts/", "Makefile", "project.sh")),
-    ("dashboard_app", ("packages/hypervisor-dashboard-agent/", "www/", "scripts/www/")),
+    ("dashboard_app", ("agents/system/", "www/", "scripts/www/")),
     ("system_control", ("packages/resource-agent-hypervisor/", "hypervisor/")),
     ("runtime_uri_core", ("packages/uri3/", "uri3/")),
     ("runtime_transports", ("packages/uri2run/",)),

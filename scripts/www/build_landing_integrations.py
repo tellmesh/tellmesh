@@ -13,9 +13,15 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[2]
 EXAMPLES = ROOT / "examples"
-GENERATED = ROOT / "www" / "generated"
+_SCRIPT_DIR = Path(__file__).resolve().parent
+if str(_SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(_SCRIPT_DIR))
+from www_root import www_dir  # noqa: E402
+
+WWW = www_dir()
+GENERATED = WWW / "generated"
 CACHE = GENERATED / "cache" / "about"
-INDEX = ROOT / "www" / "index.html"
+INDEX = WWW / "index.html"
 START_CONNECTORS = "<!-- @integrations-connectors:start -->"
 END_CONNECTORS = "<!-- @integrations-connectors:end -->"
 START_GRID = "<!-- @integrations-grid:start -->"

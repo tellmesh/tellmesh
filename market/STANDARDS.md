@@ -90,9 +90,11 @@ MCP w Taskinity to **HTTP wrapper**, nie stdio MCP server. Klienci Cursor/IDE wy
 
 | Warstwa | MCP | A2A | Port | Uwagi |
 |---------|-----|-----|------|-------|
-| **uri2ops serve** | ✅ | ✅ | 8791 | Główny punkt protokołów |
+| **browser-operator (uri2ops)** | ✅ | ✅ | 8793 | `browser://` — Playwright/mock |
+| **desktop-operator (uri2ops)** | ✅ | ✅ | 8791 | `screen://`, `input://`, `pcwin://`, `android://` |
+| **device-robot-operator** | ✅ | ✅ | 8792 | `robot://`, `device://` |
 | **hypervisor-dashboard** | ❌ | ⚠️ card only | 8788 | REST: `/api/ask`, `/api/uri/call` |
-| **Wygenerowani agenci** | ❌ | ⚠️ partial | 8101 | `/health`, `/commands` |
+| **Wygenerowani agenci** | ❌ | ⚠️ partial | 8101+ | `/health`, `/commands` |
 | **uri2run (klient)** | ✅ | ✅ | — | Transport do zdalnych serwerów |
 
 ## Komunikat marketingowy vs standardy

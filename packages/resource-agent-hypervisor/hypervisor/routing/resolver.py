@@ -8,8 +8,8 @@ from uri3.routing import explain_semantic_uri
 
 from hypervisor.paths import find_repo_root
 from hypervisor.routing.models import HypervisorRouteResolution
-from hypervisor.routing.registry_bridge import load_runtime_registry, resolve_operator_by_scheme
 from hypervisor.routing.policy import evaluate_route_policy_decision
+from hypervisor.routing.registry_bridge import load_runtime_registry, resolve_operator_by_scheme
 
 
 def resolve_hypervisor_route(
@@ -68,6 +68,9 @@ def resolve_hypervisor_route(
         "agent_uri": agent_uri,
         "adapter": selected_adapter,
     }
+    session = _payload_session(payload or {})
+    if session is not None:
+        context["session"] = session
     return HypervisorRouteResolution(
         route=route,
         agent_uri=agent_uri,
@@ -102,6 +105,11 @@ def _select_environment_and_adapter(
     if environment == "mock":
         adapter = "mock"
     return environment, adapter
+
+
+def _payload_session(payload: dict[str, Any]) -> dict[str, Any] | None:
+    session = payload.get("session")
+    return session if isinstance(session, dict) else None
 
 
 def _normalize_environment(value: str, registry: dict[str, Any]) -> str:

@@ -1,0 +1,6 @@
+views:
+- name: generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html_result_view
+  schema_ref: app.generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html.v1.TaskResultView
+  renderer: json
+  mime_type: application/json
+  rebuildable: true

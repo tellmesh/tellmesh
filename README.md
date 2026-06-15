@@ -3,11 +3,11 @@
 
 ## AI Cost Tracking
 
-![PyPI](https://img.shields.io/badge/pypi-costs-blue) ![Version](https://img.shields.io/badge/version-0.5.28-blue) ![Python](https://img.shields.io/badge/python-3.9+-blue) ![License](https://img.shields.io/badge/license-Apache--2.0-green)
-![AI Cost](https://img.shields.io/badge/AI%20Cost-$20.35-orange) ![Human Time](https://img.shields.io/badge/Human%20Time-14.5h-blue) ![Model](https://img.shields.io/badge/Model-openrouter%2Fqwen%2Fqwen3--coder--next-lightgrey)
+![PyPI](https://img.shields.io/badge/pypi-costs-blue) ![Version](https://img.shields.io/badge/version-0.5.29-blue) ![Python](https://img.shields.io/badge/python-3.9+-blue) ![License](https://img.shields.io/badge/license-Apache--2.0-green)
+![AI Cost](https://img.shields.io/badge/AI%20Cost-$26.20-orange) ![Human Time](https://img.shields.io/badge/Human%20Time-18.2h-blue) ![Model](https://img.shields.io/badge/Model-openrouter%2Fqwen%2Fqwen3--coder--next-lightgrey)
 
-- 🤖 **LLM usage:** $20.3507 (33 commits)
-- 👤 **Human dev:** ~$1454 (14.5h @ $100/h, 30min dedup)
+- 🤖 **LLM usage:** $26.1988 (42 commits)
+- 👤 **Human dev:** ~$1820 (18.2h @ $100/h, 30min dedup)
 
 Generated on 2026-06-15 using [openrouter/qwen/qwen3-coder-next](https://openrouter.ai/qwen/qwen3-coder-next)
 
@@ -627,7 +627,7 @@ URI configuration: [`docs/CONFIG_URI_YAML.md`](docs/CONFIG_URI_YAML.md) · [`con
 | touri | [`packages/touri/README.md`](packages/touri/README.md) | — | [`CHANGELOG.md`](packages/touri/CHANGELOG.md) |
 | urish | [`packages/urish/README.md`](packages/urish/README.md) | — | — |
 | urigen | [`packages/urigen/README.md`](packages/urigen/README.md) | — | — |
-| hypervisor-dashboard-agent | [`packages/hypervisor-dashboard-agent/README.md`](packages/hypervisor-dashboard-agent/README.md) | — | — |
+| hypervisor-dashboard | [`agents/system/hypervisor_dashboard/README.md`](agents/system/hypervisor_dashboard/README.md) | — | — |
 | All | [`packages/README.md`](packages/README.md) | [`TODO.md`](TODO.md) | [`CHANGELOG.md`](CHANGELOG.md) |
 
 Older API versions: [`docs/HYPERVISOR_V0_2.md`](docs/HYPERVISOR_V0_2.md) … [`V0_4`](docs/HYPERVISOR_V0_4.md), [`docs/URI2LLM.md`](docs/URI2LLM.md). The URI resolver is today in `uri3.resolvers`.

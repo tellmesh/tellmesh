@@ -22,6 +22,6 @@ Dashboard działa po `make start` → http://localhost:8788/www/chat.html
 
 ## Powiązane
 
-- [`packages/hypervisor-dashboard-agent/README.md`](../../packages/hypervisor-dashboard-agent/README.md)
+- [`agents/system/hypervisor_dashboard/README.md`](../../agents/system/hypervisor_dashboard/README.md)
 - [`docs/DASHBOARD.md`](../../docs/DASHBOARD.md)
 - [`09_run_agent_hypervisor`](../09_run_agent_hypervisor/)

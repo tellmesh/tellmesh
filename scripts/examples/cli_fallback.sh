@@ -9,6 +9,9 @@ if [[ -d "$ROOT/packages" ]]; then
   PACKAGE_PYTHONPATH="$(find "$ROOT/packages" -maxdepth 1 -mindepth 1 -type d | paste -sd: -)"
   export PYTHONPATH="$PACKAGE_PYTHONPATH${PYTHONPATH:+:$PYTHONPATH}"
 fi
+if [[ -d "$ROOT/.venv/bin" ]]; then
+  export PATH="$ROOT/.venv/bin${PATH:+:$PATH}"
+fi
 
 run_cli() {
   local name="$1"

@@ -17,9 +17,10 @@ def call_uri(
     approved: bool = False,
 ) -> ServiceResult:
     """Resolve a URI through hypervisor routing and execute the selected runtime backend."""
+    call_payload = payload if payload is not None else {}
     resolution = resolve_hypervisor_route(
         input_uri,
-        payload=payload,
+        payload=call_payload,
         root=root,
         environment=environment,
         approved=approved,
@@ -62,7 +63,7 @@ def call_uri(
             meta={"resolution": resolution.to_dict()},
         )
 
-    result = run_backend(resolution.runtime, payload or {}, resolution.context)
+    result = run_backend(resolution.runtime, call_payload, resolution.context)
     result.uri = result.uri or input_uri
     result.meta.setdefault("canonical_uri", resolution.route.canonical_uri)
     result.meta.setdefault("agent_uri", resolution.agent_uri)

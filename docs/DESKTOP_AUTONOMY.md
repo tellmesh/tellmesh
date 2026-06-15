@@ -7,8 +7,10 @@ domain logic inside the hypervisor.
 NL/domain prompt
   -> domains/* scenario or workflow
   -> URI task graph
-  -> agent://desktop-operator
-  -> uri2ops operation registry
+  -> uri3 semantic routing
+  -> hypervisor.routing selects agent://desktop-operator + environment
+  -> uri2run uri2ops transport
+  -> agents/operators/desktop_operator operation registry
   -> browser / screen / input / pcwin / android adapter
   -> artifacts, logs, validation and approval gates
 ```
@@ -18,12 +20,13 @@ NL/domain prompt
 | Layer | Owns | Must not own |
 |-------|------|--------------|
 | `domains/*` | Business workflows, scenario routing, domain vocabulary | Desktop adapter implementation |
-| `agents/operators/` | Capability-agent contracts | Domain scenario data |
-| `packages/uri2ops` | Operation registry, adapters, A2A/MCP serve runtime | Business workflows |
+| `agents/operators/` | Capability-agent contracts, registries, adapters | Domain scenario data |
+| `agents/operators/common/` | Shared operator utilities (assertion checks) | Domain-specific logic |
+| `tellmesh/uri2ops` package | A2A/MCP serve runtime, dispatcher, policy, union registry | Business workflows, adapter implementations |
 | `hypervisor` | Deployment, policy, events, incidents, approval | Direct clicking, typing or OS control |
 
 The default capability contract is
-[`agents/operators/desktop_operator.yaml`](../agents/operators/desktop_operator.yaml).
+[`agents/operators/desktop_operator/desktop_operator.yaml`](../agents/operators/desktop_operator/desktop_operator.yaml).
 The generic routing/domain pack is
 [`domains/desktop_ops/`](../domains/desktop_ops/).
 
@@ -32,17 +35,30 @@ The generic routing/domain pack is
 Start the desktop operator HTTP daemon:
 
 ```bash
-uri2ops serve --host 127.0.0.1 --port 8791
+hypervisor run-agent desktop-operator.local --detach --wait-healthy
 ```
 
-Or run it through the hypervisor deployment registry:
+Or run uvicorn directly:
+
+```bash
+uvicorn agents.operators.desktop_operator.main:app --host 127.0.0.1 --port 8791
+```
+
+The `uri2ops serve` CLI remains available for union-registry dev workflows. Use
+a free dev port when the dedicated desktop operator already owns `8791`:
+
+```bash
+uri2ops serve --host 127.0.0.1 --port 8795
+```
+
+Or inspect through the hypervisor deployment registry:
 
 ```bash
 hypervisor run-agent desktop-operator.local --detach --wait-healthy
 hypervisor inspect-agent desktop-operator.local
 ```
 
-Health and discovery:
+Health and discovery for the dedicated desktop operator:
 
 ```bash
 curl -s http://127.0.0.1:8791/health
@@ -93,8 +109,10 @@ android://device/<id>/screenshot
 workflow://office/<task>/dry-run
 ```
 
-The scenario remains in `domains/office/`. The executable operation remains in
-`uri2ops`. The capability contract remains in `agents/operators/`.
+The scenario remains in `domains/office/`. The executable URI is normalized by
+`uri3`, resolved by `hypervisor.routing`, transported by `uri2run`, and finally
+dispatched through `uri2ops`. The capability contract and adapter code remain
+in `agents/operators/`.
 
 For generic operator discovery, use the dedicated `desktop_ops` pack:
 
@@ -113,11 +131,13 @@ When an LLM generates an app or agent for desktop autonomy:
 
 1. Put business routing and examples in `domains/<domain>/`.
 2. Put generated HTTP agents in `agents/generated/`.
-3. Reuse `agent://desktop-operator` for browser, screen, input, pcwin and
-   android operations.
-4. Use `agent://device-robot-operator` and `domains/physical_ops/` for
+3. Reuse `agent://browser-operator` for `browser://` operations (port 8793).
+4. Reuse `agent://desktop-operator` for screen, input, pcwin and android
+   operations (port 8791).
+5. Use `agent://device-robot-operator` and `domains/physical_ops/` for
    `robot://` and `device://` operations instead of adding physical hardware to
    the desktop operator.
-5. Do not create a new desktop agent per scenario.
-6. Do not put domain-specific names, approval shortcuts or workflow defaults in
-   `agents/operators/desktop_operator.yaml`.
+6. Do not create a new desktop agent per scenario.
+7. Do not put domain-specific names, approval shortcuts or workflow defaults in
+   `agents/operators/desktop_operator/desktop_operator.yaml` or
+   `agents/operators/browser_operator/browser_operator.yaml`.

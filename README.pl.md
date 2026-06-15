@@ -569,7 +569,7 @@ Konfiguracja URI: [`docs/CONFIG_URI_YAML.md`](docs/CONFIG_URI_YAML.md) · [`conf
 | touri | [`packages/touri/README.md`](packages/touri/README.md) | — | [`CHANGELOG.md`](packages/touri/CHANGELOG.md) |
 | urish | [`packages/urish/README.md`](packages/urish/README.md) | — | — |
 | urigen | [`packages/urigen/README.md`](packages/urigen/README.md) | — | — |
-| hypervisor-dashboard-agent | [`packages/hypervisor-dashboard-agent/README.md`](packages/hypervisor-dashboard-agent/README.md) | — | — |
+| hypervisor-dashboard | [`agents/system/hypervisor_dashboard/README.md`](agents/system/hypervisor_dashboard/README.md) | — | — |
 | Wszystkie | [`packages/README.md`](packages/README.md) | [`TODO.md`](TODO.md) | [`CHANGELOG.md`](CHANGELOG.md) |
 
 Starsze wersje API: [`docs/HYPERVISOR_V0_2.md`](docs/HYPERVISOR_V0_2.md) … [`V0_4`](docs/HYPERVISOR_V0_4.md), [`docs/URI2LLM.md`](docs/URI2LLM.md). Resolver URI jest dziś w `uri3.resolvers`.

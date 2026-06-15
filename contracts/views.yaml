@@ -82,3 +82,11 @@ views:
   - repair_plan
   - classification
   rendererHint: json
+- name: generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html_result_view
+  viewKind: json
+  mimeType: application/json
+  columns:
+  - place
+  - days
+  - model
+  rendererHint: json

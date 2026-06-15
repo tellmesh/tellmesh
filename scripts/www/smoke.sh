@@ -8,21 +8,27 @@ echo "→ GET $BASE/health"
 curl -fsS "$BASE/health" | grep -q '"agent":"hypervisor-dashboard"'
 
 echo "→ GET $BASE/www/"
-curl -fsS "$BASE/www/" | grep -q "Taskinity"
-curl -fsS "$BASE/www/" | grep -Eq "Autonomy in practice|Autonomia w praktyce"
-curl -fsS "$BASE/www/" | grep -q "tour-live-strip"
-curl -fsS "$BASE/www/" | grep -q "tour-copy-chat"
-curl -fsS "$BASE/www/" | grep -q "scenario-lab"
-curl -fsS "$BASE/www/" | grep -q "scenario-terminal"
-curl -fsS "$BASE/www/" | grep -q "system-map"
-curl -fsS "$BASE/www/" | grep -q "Deployment registry"
-curl -fsS "$BASE/www/chat.html" | grep -q "Taskinity Chat"
-curl -fsS "$BASE/www/chat.html" | grep -q "copy-chat-btn"
+WWW_HTML="$(curl -fsS "$BASE/www/")"
+CHAT_HTML="$(curl -fsS "$BASE/www/chat.html")"
+grep -q "TellMesh" <<<"$WWW_HTML"
+grep -q "Text2Ops" <<<"$WWW_HTML"
+grep -q 'id="control-plane"' <<<"$WWW_HTML"
+grep -q 'id="deploy-gate"' <<<"$WWW_HTML"
+grep -q "scenario-tabs" <<<"$WWW_HTML"
+grep -q "demo-terminal" <<<"$WWW_HTML"
+grep -q "TellMesh Chat" <<<"$CHAT_HTML"
+grep -q "copy-chat-btn" <<<"$CHAT_HTML"
 
 echo "→ POST $BASE/api/ask"
 curl -fsS -X POST "$BASE/api/ask" \
   -H "Content-Type: application/json" \
   -d '{"prompt":"stwórz dashboard agenta hypervisor"}' \
   | grep -q "dashboard-agent"
+
+echo "→ POST $BASE/api/uri/call (workflow dry-run)"
+curl -fsS -X POST "$BASE/api/uri/call" \
+  -H "Content-Type: application/json" \
+  -d '{"uri":"workflow://bank/batch-transfer/dry-run","dry_run":true}' \
+  | grep -q '"ok":true'
 
 echo "smoke ok — $BASE/www/"

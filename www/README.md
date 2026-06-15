@@ -1,6 +1,10 @@
 # Taskinity WWW (`www/`)
 
-Product site + chat interface connected to the `hypervisor-dashboard-agent` API.
+> **Canonical static site:** [`tellmesh/www`](https://github.com/tellmesh/www) (`~/github/tellmesh/www`).
+> This folder keeps deploy glue (`Dockerfile`, `docker-compose.yml`) and a local mirror.
+> Generators write to the tellmesh checkout when `../../tellmesh/www/index.html` exists.
+
+Product site + chat interface connected to the hypervisor dashboard agent API (`agents/system/hypervisor_dashboard`).
 
 Polish version: [`README.pl.md`](./README.pl.md)
 

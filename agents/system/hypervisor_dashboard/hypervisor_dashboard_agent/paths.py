@@ -4,11 +4,10 @@ from pathlib import Path
 
 
 def repo_www_dir() -> Path | None:
-    """Return repo-root www/ when running inside the hypervisor workspace."""
+    """Return TellMesh www/ for static UI (hypervisor www/ or tellmesh/www checkout)."""
     try:
-        from uri3.paths import find_repo_root
+        from hypervisor.paths import resolve_www_dir
 
-        www = find_repo_root() / "www"
-        return www if www.is_dir() else None
+        return resolve_www_dir(Path(__file__).resolve())
     except Exception:  # noqa: BLE001
         return None

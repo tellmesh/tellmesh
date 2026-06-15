@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass, field
+from dataclasses import dataclass, field
 from typing import Any
 
 from uri3.routing import UriRoute
@@ -37,7 +37,27 @@ class HypervisorRouteResolution:
     )
 
     def to_dict(self) -> dict[str, Any]:
-        payload = asdict(self)
-        payload["route"] = self.route.to_dict()
-        payload["policy"] = self.policy.to_dict()
-        return payload
+        return {
+            "route": self.route.to_dict(),
+            "agent_uri": self.agent_uri,
+            "deployment_id": self.deployment_id,
+            "environment_uri": self.environment_uri,
+            "contract_uri": self.contract_uri,
+            "policy_uri": self.policy_uri,
+            "side_effects": self.side_effects,
+            "requires_approval": self.requires_approval,
+            "runtime": dict(self.runtime),
+            "context": _public_context(self.context),
+            "policy": self.policy.to_dict(),
+        }
+
+
+def _public_context(context: dict[str, Any]) -> dict[str, Any]:
+    public = dict(context)
+    session = public.get("session")
+    if isinstance(session, dict):
+        public["session"] = {
+            "present": True,
+            "keys": sorted(str(key) for key in session),
+        }
+    return public

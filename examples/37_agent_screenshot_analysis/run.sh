@@ -3,30 +3,36 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 cd "$ROOT"
+source "$ROOT/scripts/examples/cli_fallback.sh"
+if [[ -x "$ROOT/.venv/bin/python3" ]]; then
+  export PY="$ROOT/.venv/bin/python3"
+elif [[ -x "$ROOT/.venv/bin/python" ]]; then
+  export PY="$ROOT/.venv/bin/python"
+fi
 
 echo "== 37_agent_screenshot_analysis =="
 ADAPTER="${ADAPTER:-mock}"
 
-hypervisor run-agent desktop-operator.local --detach --wait-healthy --if-running reuse
-hypervisor run-agent screenshot-analysis-agent.local --detach --wait-healthy --if-running reuse
+run_cli hypervisor run-agent browser-operator.local --detach --wait-healthy --if-running restart
+run_cli hypervisor run-agent screenshot-analysis-agent.local --detach --wait-healthy --if-running reuse
 
 echo "== schema discovery =="
-uri call schema://agent/desktop-operator.local --json >/tmp/taskinity-desktop-schema.json
-uri call schema://agent/screenshot-analysis-agent.local --json >/tmp/taskinity-screenshot-analysis-schema.json
+run_cli uri call schema://agent/browser-operator.local --json >/tmp/taskinity-browser-schema.json
+run_cli uri call schema://agent/screenshot-analysis-agent.local --json >/tmp/taskinity-screenshot-analysis-schema.json
 python3 - <<'PY'
 import json
 from pathlib import Path
 
-for name in ("desktop", "screenshot-analysis"):
+for name in ("browser", "screenshot-analysis"):
     path = Path(f"/tmp/taskinity-{name}-schema.json")
     data = json.loads(path.read_text())
     payload = data.get("data") if isinstance(data.get("data"), dict) else data
     print(name, payload.get("agent_id"), [c.get("name") for c in payload.get("capabilities", [])][:6])
 PY
 
-DESKTOP_URL="$(python3 - <<'PY'
+BROWSER_URL="$(python3 - <<'PY'
 import json
-data = json.load(open("/tmp/taskinity-desktop-schema.json"))
+data = json.load(open("/tmp/taskinity-browser-schema.json"))
 payload = data.get("data") if isinstance(data.get("data"), dict) else data
 print(str(payload["card_uri"]).rsplit("/.well-known/", 1)[0])
 PY
@@ -38,20 +44,20 @@ payload = data.get("data") if isinstance(data.get("data"), dict) else data
 print(str(payload["card_uri"]).rsplit("/.well-known/", 1)[0])
 PY
 )"
-echo "desktop_url=$DESKTOP_URL"
+echo "browser_url=$BROWSER_URL"
 echo "analyzer_url=$ANALYZER_URL"
 echo "adapter=$ADAPTER"
 
 echo "== capture/analyze tick 1 =="
 curl -s -X POST "$ANALYZER_URL/skills/capture_and_analyze" \
   -H 'Content-Type: application/json' \
-  -d "{\"operator_url\":\"$DESKTOP_URL\",\"target_url\":\"http://localhost:8788/www/\",\"adapter\":\"$ADAPTER\",\"approve\":true,\"run_label\":\"example37\"}" \
+  -d "{\"operator_url\":\"$BROWSER_URL\",\"target_url\":\"http://localhost:8788/www/\",\"adapter\":\"$ADAPTER\",\"approve\":true,\"run_label\":\"example37\"}" \
   >/tmp/taskinity-screenshot-analysis-1.json
 
 echo "== capture/analyze tick 2 =="
 curl -s -X POST "$ANALYZER_URL/skills/capture_and_analyze" \
   -H 'Content-Type: application/json' \
-  -d "{\"operator_url\":\"$DESKTOP_URL\",\"target_url\":\"http://localhost:8788/www/\",\"adapter\":\"$ADAPTER\",\"approve\":true,\"run_label\":\"example37\"}" \
+  -d "{\"operator_url\":\"$BROWSER_URL\",\"target_url\":\"http://localhost:8788/www/\",\"adapter\":\"$ADAPTER\",\"approve\":true,\"run_label\":\"example37\"}" \
   >/tmp/taskinity-screenshot-analysis-2.json
 
 python3 - <<'PY'

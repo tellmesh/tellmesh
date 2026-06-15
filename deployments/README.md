@@ -22,8 +22,8 @@ deployment:
   agent_ref: agent://weather-map-agent
   target_uri: local://agents/generated/weather_map_agent
   status: generated
-  health_uri: http://localhost:8118/health
-  card_uri: http://localhost:8118/.well-known/agent-card.json
+  health_uri: http://localhost:8105/health
+  card_uri: http://localhost:8105/.well-known/agent-card.json
   view_uri: view://process/agent/weather-map-agent.local/latest
 source:
   contract: domains/weather_map/uri_tree.yaml
@@ -139,7 +139,7 @@ deployment:
   card_uri: http://localhost:8793/.well-known/agent-card.json
   view_uri: view://process/agent/browser-operator.local/latest
 source:
-  contract: agents/operators/browser_operator.yaml
+  contract: agents/operators/browser_operator/browser_operator.yaml
 runtime:
   run: hypervisor run-agent browser-operator.local --detach --wait-healthy
   inspect: hypervisor inspect-agent browser-operator.local
@@ -160,7 +160,7 @@ execution_environments:
 logs:
   process: log://file/output/logs/agents/browser-operator.local.process.log
 markpact:
-  operator_contract: markpact://agents/operators/browser_operator.yaml#browser-operator
+  operator_contract: markpact://agents/operators/browser_operator/browser_operator.yaml#browser-operator
 ```
 
 ## desktop-operator.local
@@ -169,13 +169,13 @@ markpact:
 deployment:
   id: desktop-operator.local
   agent_ref: agent://desktop-operator
-  target_uri: local://agents/operators/browser_operator
+  target_uri: local://agents/operators/desktop_operator
   status: generated
   health_uri: http://localhost:8791/health
   card_uri: http://localhost:8791/.well-known/agent-card.json
   view_uri: view://process/agent/desktop-operator.local/latest
 source:
-  contract: agents/operators/desktop_operator.yaml
+  contract: agents/operators/desktop_operator/desktop_operator.yaml
 runtime:
   run: hypervisor run-agent desktop-operator.local --detach --wait-healthy
   inspect: hypervisor inspect-agent desktop-operator.local
@@ -194,7 +194,7 @@ logs:
   process: log://file/output/logs/agents/desktop-operator.local.process.log
   watch: log://file/output/logs/hypervisor-watch.jsonl
 markpact:
-  operator_contract: markpact://agents/operators/desktop_operator.yaml#desktop-operator
+  operator_contract: markpact://agents/operators/desktop_operator/desktop_operator.yaml#desktop-operator
 ```
 
 ## Fleet watch (all local agents)

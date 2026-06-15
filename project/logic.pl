@@ -121,7 +121,7 @@ project_file('agents/system/hypervisor_dashboard/hypervisor_dashboard_agent/even
 project_file('agents/system/hypervisor_dashboard/hypervisor_dashboard_agent/main.py', 25, 'python').
 project_file('agents/system/hypervisor_dashboard/hypervisor_dashboard_agent/models.py', 83, 'python').
 project_file('agents/system/hypervisor_dashboard/hypervisor_dashboard_agent/monitor_webhook.py', 128, 'python').
-project_file('agents/system/hypervisor_dashboard/hypervisor_dashboard_agent/paths.py', 15, 'python').
+project_file('agents/system/hypervisor_dashboard/hypervisor_dashboard_agent/paths.py', 14, 'python').
 project_file('agents/system/hypervisor_dashboard/hypervisor_dashboard_agent/plan_runner.py', 174, 'python').
 project_file('agents/system/hypervisor_dashboard/hypervisor_dashboard_agent/policy.py', 55, 'python').
 project_file('agents/system/hypervisor_dashboard/hypervisor_dashboard_agent/presentation.py', 83, 'python').
@@ -287,7 +287,7 @@ project_file('packages/resource-agent-hypervisor/hypervisor/evolution/proposal_f
 project_file('packages/resource-agent-hypervisor/hypervisor/evolution/validator.py', 46, 'python').
 project_file('packages/resource-agent-hypervisor/hypervisor/integrations/planfile/__init__.py', 14, 'python').
 project_file('packages/resource-agent-hypervisor/hypervisor/integrations/planfile/ticket_mapper.py', 96, 'python').
-project_file('packages/resource-agent-hypervisor/hypervisor/paths.py', 6, 'python').
+project_file('packages/resource-agent-hypervisor/hypervisor/paths.py', 77, 'python').
 project_file('packages/resource-agent-hypervisor/hypervisor/policy_gate/__init__.py', 1, 'python').
 project_file('packages/resource-agent-hypervisor/hypervisor/policy_gate/gate.py', 27, 'python').
 project_file('packages/resource-agent-hypervisor/hypervisor/repair/__init__.py', 18, 'python').
@@ -344,6 +344,16 @@ project_file('packages/resource-agent-hypervisor/meta_agent/repair/pipeline.py',
 project_file('packages/resource-agent-hypervisor/meta_agent/repair/rules.py', 83, 'python').
 project_file('packages/resource-agent-hypervisor/runtime_client/__init__.py', 1, 'python').
 project_file('packages/resource-agent-hypervisor/runtime_client/client.py', 48, 'python').
+project_file('packages/uri2flow/uri2flow/__init__.py', 17, 'python').
+project_file('packages/uri2flow/uri2flow/cli.py', 76, 'python').
+project_file('packages/uri2flow/uri2flow/expander.py', 82, 'python').
+project_file('packages/uri2flow/uri2flow/loaders/__init__.py', 20, 'python').
+project_file('packages/uri2flow/uri2flow/loaders/markpact_loader.py', 24, 'python').
+project_file('packages/uri2flow/uri2flow/models.py', 48, 'python').
+project_file('packages/uri2flow/uri2flow/parser.py', 100, 'python').
+project_file('packages/uri2flow/uri2flow/resolver.py', 111, 'python').
+project_file('packages/uri2flow/uri2flow/utils.py', 39, 'python').
+project_file('packages/uri2flow/uri2flow/validator.py', 65, 'python').
 project_file('project.sh', 59, 'shell').
 project_file('scripts/architecture_audit/__init__.py', 21, 'python').
 project_file('scripts/architecture_audit/areas.py', 157, 'python').
@@ -358,7 +368,7 @@ project_file('scripts/architecture_responsibility_audit.py', 29, 'python').
 project_file('scripts/ci/architecture_gate.sh', 57, 'shell').
 project_file('scripts/ci/ensure_editable_install.sh', 20, 'shell').
 project_file('scripts/examples/audit_agent_reports.py', 428, 'python').
-project_file('scripts/examples/cli_fallback.sh', 63, 'shell').
+project_file('scripts/examples/cli_fallback.sh', 66, 'shell').
 project_file('scripts/examples/comprehensive_test.py', 391, 'python').
 project_file('scripts/examples/doql_host_preview.sh', 75, 'shell').
 project_file('scripts/examples/effective_weather_playwright.py', 467, 'python').
@@ -367,12 +377,13 @@ project_file('scripts/fix-generated-ownership.sh', 19, 'shell').
 project_file('scripts/tellmesh/fix_and_publish.py', 130, 'python').
 project_file('scripts/tellmesh/move_tests.py', 138, 'python').
 project_file('scripts/tellmesh/split_packages.py', 280, 'python').
+project_file('scripts/tellmesh/sync_www.py', 86, 'python').
 project_file('scripts/test-all-examples.sh', 6, 'shell').
 project_file('scripts/www/about_parser.py', 54, 'python').
-project_file('scripts/www/build_examples_docs.py', 325, 'python').
-project_file('scripts/www/build_examples_manifest.py', 165, 'python').
-project_file('scripts/www/build_landing_integrations.py', 314, 'python').
-project_file('scripts/www/check_examples_links.py', 107, 'python').
+project_file('scripts/www/build_examples_docs.py', 327, 'python').
+project_file('scripts/www/build_examples_manifest.py', 171, 'python').
+project_file('scripts/www/build_landing_integrations.py', 320, 'python').
+project_file('scripts/www/check_examples_links.py', 112, 'python').
 project_file('scripts/www/install-cron.sh', 151, 'shell').
 project_file('scripts/www/md_html.py', 49, 'python').
 project_file('scripts/www/monitor_landing.py', 134, 'python').
@@ -383,6 +394,7 @@ project_file('scripts/www/site_nav.py', 78, 'python').
 project_file('scripts/www/smoke.sh', 29, 'shell').
 project_file('scripts/www/test_monitors.sh', 180, 'shell').
 project_file('scripts/www/verify_agents.sh', 35, 'shell').
+project_file('scripts/www/www_root.py', 19, 'python').
 project_file('testenv/ssh_agent_host/entrypoint.sh', 8, 'shell').
 project_file('testenv/ssh_agent_host/mock_agent_server.py', 58, 'python').
 project_file('tests/__init__.py', 1, 'python').
@@ -396,7 +408,7 @@ project_file('tests/architecture/test_result_envelope_contract.py', 65, 'python'
 project_file('tests/architecture/test_technical_ok_business_fail.py', 54, 'python').
 project_file('tests/architecture/test_uri2run_envelope.py', 28, 'python').
 project_file('tests/capabilities/weather_forecast/test_fixtures.py', 23, 'python').
-project_file('tests/conftest.py', 109, 'python').
+project_file('tests/conftest.py', 122, 'python').
 project_file('tests/domain_pack/__init__.py', 2, 'python').
 project_file('tests/domain_pack/test_generator.py', 84, 'python').
 project_file('tests/examples/capabilities.py', 220, 'python').
@@ -465,8 +477,18 @@ project_file('tests/hypervisor/test_uri_healer.py', 23, 'python').
 project_file('tests/hypervisor/test_view_routing.py', 32, 'python').
 project_file('tests/hypervisor/test_www_integrations_build.py', 202, 'python').
 project_file('tests/integration/__init__.py', 2, 'python').
+project_file('tests/integration/test_flow_to_workflow_execution.py', 39, 'python').
+project_file('tests/integration/test_nl2a_e2e.py', 93, 'python').
+project_file('tests/integration/test_uri3_uri2ops_delegation.py', 43, 'python').
 project_file('tests/meta_agent/__init__.py', 2, 'python').
 project_file('tests/meta_agent/test_repair.py', 80, 'python').
+project_file('tests/nl2uri/test_domain_planner.py', 32, 'python').
+project_file('tests/nl2uri/test_flow_planner.py', 50, 'python').
+project_file('tests/nl2uri/test_flow_planner_llm.py', 70, 'python').
+project_file('tests/nl2uri/test_flow_repair.py', 97, 'python').
+project_file('tests/nl2uri/test_graph_planner.py', 75, 'python').
+project_file('tests/nl2uri/test_graph_planner_llm.py', 119, 'python').
+project_file('tests/nl2uri/test_weather_forecast.py', 60, 'python').
 project_file('tests/resource_agent_factory/test_default_port.py', 15, 'python').
 project_file('tests/scripts/test_architecture_responsibility_audit.py', 260, 'python').
 project_file('tests/test_capability_tests.py', 11, 'python').
@@ -487,6 +509,62 @@ project_file('tests/test_uri2llm_v04.py', 22, 'python').
 project_file('tests/test_uri3.py', 12, 'python').
 project_file('tests/test_uri_tree_validator.py', 5, 'python').
 project_file('tests/test_validate.py', 9, 'python').
+project_file('tests/uri2flow/conftest.py', 15, 'python').
+project_file('tests/uri2flow/test_cli.py', 13, 'python').
+project_file('tests/uri2flow/test_expand_branching_flow.py', 14, 'python').
+project_file('tests/uri2flow/test_expand_linear_flow.py', 15, 'python').
+project_file('tests/uri2flow/test_flow_defaults.py', 58, 'python').
+project_file('tests/uri2flow/test_parser_forms.py', 16, 'python').
+project_file('tests/uri2flow/test_uri2flow_markpact_loader.py', 125, 'python').
+project_file('tests/uri2pact/test_markpact_scenarios.py', 35, 'python').
+project_file('tests/uri2run/test_protocol_transports.py', 201, 'python').
+project_file('tests/uri2run/test_stream_transports.py', 83, 'python').
+project_file('tests/uri2run/test_transport_matrix.py', 145, 'python').
+project_file('tests/uri2run/test_uri2run.py', 115, 'python').
+project_file('tests/uri2run/test_voice_resolver.py', 32, 'python').
+project_file('tests/uri2run/test_workflow_transport.py', 44, 'python').
+project_file('tests/uri3/__init__.py', 2, 'python').
+project_file('tests/uri3/test_browser_adapter.py', 109, 'python').
+project_file('tests/uri3/test_cli.py', 88, 'python').
+project_file('tests/uri3/test_dispatch.py', 23, 'python').
+project_file('tests/uri3/test_docker_control.py', 115, 'python').
+project_file('tests/uri3/test_doctor.py', 43, 'python').
+project_file('tests/uri3/test_envelope_migrate.py', 30, 'python').
+project_file('tests/uri3/test_explain_extended.py', 72, 'python').
+project_file('tests/uri3/test_explain_uri.py', 42, 'python').
+project_file('tests/uri3/test_file_resolver.py', 29, 'python').
+project_file('tests/uri3/test_http_scanner.py', 43, 'python').
+project_file('tests/uri3/test_lifecycle_envelope.py', 33, 'python').
+project_file('tests/uri3/test_llm_profiles.py', 34, 'python').
+project_file('tests/uri3/test_log_reader_meta.py', 20, 'python').
+project_file('tests/uri3/test_log_uri.py', 87, 'python').
+project_file('tests/uri3/test_replay.py', 60, 'python').
+project_file('tests/uri3/test_resolvers.py', 107, 'python').
+project_file('tests/uri3/test_result_envelope.py', 58, 'python').
+project_file('tests/uri3/test_router_call.py', 20, 'python').
+project_file('tests/uri3/test_schema.py', 99, 'python').
+project_file('tests/uri3/test_service_result.py', 32, 'python').
+project_file('tests/uri3/test_ssh_auth.py', 55, 'python').
+project_file('tests/uri3/test_ssh_scanner.py', 65, 'python').
+project_file('tests/uri3/test_uri_yaml.py', 39, 'python').
+project_file('tests/uri3/test_workflow_executor.py', 148, 'python').
+project_file('tests/uri3/test_workflow_graph.py', 53, 'python').
+project_file('tests/urigen/test_urigen_cycle.py', 217, 'python').
+project_file('tests/urish/test_agent_backend.py', 27, 'python').
+project_file('tests/urish/test_agent_factory.py', 106, 'python').
+project_file('tests/urish/test_ask_dashboard.py', 183, 'python').
+project_file('tests/urish/test_call_routing.py', 27, 'python').
+project_file('tests/urish/test_desktop_policy.py', 53, 'python').
+project_file('tests/urish/test_office_intent.py', 76, 'python').
+project_file('tests/urish/test_office_scenarios.py', 80, 'python').
+project_file('tests/urish/test_physical_policy.py', 40, 'python').
+project_file('tests/urish/test_prompt_split.py', 34, 'python').
+project_file('tests/urish/test_render.py', 51, 'python').
+project_file('tests/urish/test_repl.py', 130, 'python').
+project_file('tests/urish/test_scenario_registry_boundary.py', 21, 'python').
+project_file('tests/urish/test_ticket_workflow.py', 139, 'python').
+project_file('tests/urish/test_urish_cli.py', 466, 'python').
+project_file('tests/urish/test_workflow_run.py', 126, 'python').
 project_file('tree.sh', 2, 'shell').
 project_file('www/api-bridge/bridge.py', 200, 'python').
 project_file('www/app.js', 732, 'javascript').
@@ -909,7 +987,7 @@ python_function('agents/system/hypervisor_dashboard/hypervisor_dashboard_agent/m
 python_function('agents/system/hypervisor_dashboard/hypervisor_dashboard_agent/monitor_webhook.py', '_monitor_path', 2, 1, 1).
 python_function('agents/system/hypervisor_dashboard/hypervisor_dashboard_agent/monitor_webhook.py', '_write_log_event', 1, 4, 9).
 python_function('agents/system/hypervisor_dashboard/hypervisor_dashboard_agent/monitor_webhook.py', 'write_monitor_webhook', 1, 9, 12).
-python_function('agents/system/hypervisor_dashboard/hypervisor_dashboard_agent/paths.py', 'repo_www_dir', 0, 3, 2).
+python_function('agents/system/hypervisor_dashboard/hypervisor_dashboard_agent/paths.py', 'repo_www_dir', 0, 2, 3).
 python_function('agents/system/hypervisor_dashboard/hypervisor_dashboard_agent/plan_runner.py', 'agent_id_from_uri', 1, 3, 2).
 python_function('agents/system/hypervisor_dashboard/hypervisor_dashboard_agent/plan_runner.py', '_execute_uri', 1, 7, 6).
 python_function('agents/system/hypervisor_dashboard/hypervisor_dashboard_agent/plan_runner.py', '_attempt_auto_repair', 1, 2, 1).
@@ -1399,6 +1477,12 @@ python_function('packages/resource-agent-hypervisor/hypervisor/integrations/plan
 python_function('packages/resource-agent-hypervisor/hypervisor/integrations/planfile/ticket_mapper.py', 'load_planfile_strategy', 1, 2, 4).
 python_function('packages/resource-agent-hypervisor/hypervisor/integrations/planfile/ticket_mapper.py', 'import_tickets_from_planfile', 1, 10, 9).
 python_function('packages/resource-agent-hypervisor/hypervisor/integrations/planfile/ticket_mapper.py', 'propose_from_ticket_path', 1, 3, 7).
+python_function('packages/resource-agent-hypervisor/hypervisor/paths.py', '_is_hypervisor_root', 1, 3, 2).
+python_function('packages/resource-agent-hypervisor/hypervisor/paths.py', '_walk_hypervisor_root', 1, 4, 3).
+python_function('packages/resource-agent-hypervisor/hypervisor/paths.py', 'find_repo_root', 1, 6, 6).
+python_function('packages/resource-agent-hypervisor/hypervisor/paths.py', 'repo_root', 0, 1, 1).
+python_function('packages/resource-agent-hypervisor/hypervisor/paths.py', '_looks_like_www', 1, 2, 2).
+python_function('packages/resource-agent-hypervisor/hypervisor/paths.py', 'resolve_www_dir', 1, 6, 7).
 python_function('packages/resource-agent-hypervisor/hypervisor/policy_gate/gate.py', 'evaluate_change', 2, 5, 4).
 python_function('packages/resource-agent-hypervisor/hypervisor/repair/classifier.py', '_incident_text', 1, 5, 3).
 python_function('packages/resource-agent-hypervisor/hypervisor/repair/classifier.py', '_warning_text', 1, 5, 3).
@@ -1559,6 +1643,36 @@ python_function('packages/resource-agent-hypervisor/meta_agent/repair/rules.py',
 python_function('packages/resource-agent-hypervisor/meta_agent/repair/rules.py', 'repair_resource_read_capability', 2, 8, 6).
 python_function('packages/resource-agent-hypervisor/meta_agent/repair/rules.py', 'repair_command_capability', 2, 4, 5).
 python_function('packages/resource-agent-hypervisor/meta_agent/repair/rules.py', 'repair_capabilities', 2, 6, 7).
+python_function('packages/uri2flow/uri2flow/cli.py', 'cmd_validate', 1, 2, 4).
+python_function('packages/uri2flow/uri2flow/cli.py', 'cmd_expand', 1, 3, 7).
+python_function('packages/uri2flow/uri2flow/cli.py', 'cmd_print', 1, 1, 4).
+python_function('packages/uri2flow/uri2flow/cli.py', 'build_parser', 0, 1, 5).
+python_function('packages/uri2flow/uri2flow/cli.py', 'main', 1, 1, 3).
+python_function('packages/uri2flow/uri2flow/expander.py', '_node_from_step', 3, 11, 3).
+python_function('packages/uri2flow/uri2flow/expander.py', '_edges_from_depends', 1, 4, 2).
+python_function('packages/uri2flow/uri2flow/expander.py', 'expand_flow', 1, 6, 7).
+python_function('packages/uri2flow/uri2flow/expander.py', 'dump_yaml', 1, 1, 1).
+python_function('packages/uri2flow/uri2flow/parser.py', '_as_list', 1, 5, 4).
+python_function('packages/uri2flow/uri2flow/parser.py', '_parse_step', 1, 10, 11).
+python_function('packages/uri2flow/uri2flow/parser.py', 'parse_flow', 1, 12, 7).
+python_function('packages/uri2flow/uri2flow/parser.py', 'load_flow', 1, 4, 8).
+python_function('packages/uri2flow/uri2flow/resolver.py', '_find_repo_root', 1, 7, 6).
+python_function('packages/uri2flow/uri2flow/resolver.py', '_pattern_to_regex', 1, 4, 7).
+python_function('packages/uri2flow/uri2flow/resolver.py', '_match_pattern', 2, 2, 3).
+python_function('packages/uri2flow/uri2flow/resolver.py', '_load_flow_defaults_config', 0, 4, 7).
+python_function('packages/uri2flow/uri2flow/resolver.py', '_defaults_from_entry', 1, 3, 4).
+python_function('packages/uri2flow/uri2flow/resolver.py', '_defaults_from_scheme', 1, 3, 4).
+python_function('packages/uri2flow/uri2flow/resolver.py', '_defaults_from_patterns', 1, 7, 6).
+python_function('packages/uri2flow/uri2flow/resolver.py', '_fallback_defaults', 0, 4, 5).
+python_function('packages/uri2flow/uri2flow/resolver.py', 'default_operation_for_uri', 1, 3, 4).
+python_function('packages/uri2flow/uri2flow/resolver.py', 'clear_defaults_cache', 0, 1, 1).
+python_function('packages/uri2flow/uri2flow/utils.py', 'slugify', 1, 2, 3).
+python_function('packages/uri2flow/uri2flow/utils.py', 'scheme_of', 1, 1, 1).
+python_function('packages/uri2flow/uri2flow/utils.py', 'path_parts', 1, 4, 4).
+python_function('packages/uri2flow/uri2flow/utils.py', 'node_id_from_uri', 2, 5, 7).
+python_function('packages/uri2flow/uri2flow/validator.py', 'validate_flow_document', 1, 10, 7).
+python_function('packages/uri2flow/uri2flow/validator.py', 'validate_expanded_flow', 1, 2, 5).
+python_function('packages/uri2flow/uri2flow/validator.py', 'validate_flow', 1, 11, 4).
 python_function('scripts/architecture_audit/areas.py', 'normalize_path', 1, 1, 3).
 python_function('scripts/architecture_audit/areas.py', 'area_for_path', 1, 13, 3).
 python_function('scripts/architecture_audit/areas.py', 'domain_term_present', 2, 2, 2).
@@ -1653,6 +1767,8 @@ python_function('scripts/tellmesh/split_packages.py', 'append_uv_sources', 2, 5,
 python_function('scripts/tellmesh/split_packages.py', 'ensure_repo', 2, 7, 6).
 python_function('scripts/tellmesh/split_packages.py', 'publish_with_goal', 2, 3, 2).
 python_function('scripts/tellmesh/split_packages.py', 'main', 0, 2, 8).
+python_function('scripts/tellmesh/sync_www.py', 'sync_www', 0, 8, 10).
+python_function('scripts/tellmesh/sync_www.py', 'main', 0, 5, 12).
 python_function('scripts/www/about_parser.py', 'split_frontmatter', 1, 4, 6).
 python_function('scripts/www/about_parser.py', 'load_about', 1, 7, 10).
 python_function('scripts/www/about_parser.py', 'iter_about_files', 1, 3, 3).
@@ -1663,7 +1779,7 @@ python_function('scripts/www/build_examples_docs.py', 'slug_for_overview', 0, 1,
 python_function('scripts/www/build_examples_docs.py', 'rewrite_example_links', 1, 1, 3).
 python_function('scripts/www/build_examples_docs.py', '_resolve_target', 1, 3, 3).
 python_function('scripts/www/build_examples_docs.py', '_is_external_or_anchor', 1, 3, 1).
-python_function('scripts/www/build_examples_docs.py', '_rewrite_known_www_target', 3, 4, 2).
+python_function('scripts/www/build_examples_docs.py', '_rewrite_known_www_target', 3, 4, 3).
 python_function('scripts/www/build_examples_docs.py', '_rewrite_examples_target', 3, 8, 5).
 python_function('scripts/www/build_examples_docs.py', '_rewrite_url', 2, 7, 8).
 python_function('scripts/www/build_examples_docs.py', 'md_to_html', 1, 1, 2).
@@ -1728,6 +1844,7 @@ python_function('scripts/www/site_nav.py', 'brand_logo_src', 1, 1, 0).
 python_function('scripts/www/site_nav.py', 'render_brand', 0, 2, 1).
 python_function('scripts/www/site_nav.py', 'render_topbar', 0, 5, 2).
 python_function('scripts/www/site_nav.py', 'render_footer', 0, 1, 0).
+python_function('scripts/www/www_root.py', 'www_dir', 0, 2, 1).
 python_function('tests/architecture/envelope_helpers.py', 'normalize_service_result', 1, 2, 2).
 python_function('tests/architecture/envelope_helpers.py', 'assert_service_result_shape', 1, 5, 4).
 python_function('tests/architecture/envelope_helpers.py', 'assert_workflow_result_shape', 1, 2, 2).
@@ -1749,6 +1866,7 @@ python_function('tests/architecture/test_uri2run_envelope.py', 'test_uri2run_she
 python_function('tests/capabilities/weather_forecast/test_fixtures.py', 'test_weather_forecast_fixtures_exist', 1, 3, 2).
 python_function('tests/capabilities/weather_forecast/test_fixtures.py', 'test_good_fixture_contains_expected_marker', 1, 3, 1).
 python_function('tests/conftest.py', 'repo_root', 0, 4, 6).
+python_function('tests/conftest.py', '_hypervisor_repo_root_env', 1, 2, 5).
 python_function('tests/conftest.py', 'workspace_pythonpath', 1, 4, 4).
 python_function('tests/conftest.py', 'workspace_env', 1, 4, 9).
 python_function('tests/conftest.py', 'cli_argv', 1, 11, 7).
@@ -2167,11 +2285,62 @@ python_function('tests/hypervisor/test_www_integrations_build.py', '_load_integr
 python_function('tests/hypervisor/test_www_integrations_build.py', 'test_all_about_cards_reused_on_website', 1, 27, 18).
 python_function('tests/hypervisor/test_www_integrations_build.py', 'test_index_integrations_match_fragment', 1, 4, 8).
 python_function('tests/hypervisor/test_www_integrations_build.py', 'test_ecommerce_cards_use_distinct_bodies', 1, 6, 2).
+python_function('tests/integration/test_flow_to_workflow_execution.py', 'test_compact_flow_to_dry_run', 1, 4, 5).
+python_function('tests/integration/test_flow_to_workflow_execution.py', 'test_branching_flow_has_expected_edges', 1, 5, 1).
+python_function('tests/integration/test_flow_to_workflow_execution.py', 'test_nl2uri_flow_expands_and_validates', 0, 3, 4).
+python_function('tests/integration/test_nl2a_e2e.py', 'isolated_project', 2, 3, 7).
+python_function('tests/integration/test_nl2a_e2e.py', 'test_nl2a_full_pipeline_weather_map', 1, 20, 9).
+python_function('tests/integration/test_nl2a_e2e.py', 'test_nl2a_cli_generate_no_llm', 1, 8, 4).
+python_function('tests/integration/test_uri3_uri2ops_delegation.py', 'test_default_operator_adapter_is_uri2ops', 0, 2, 2).
+python_function('tests/integration/test_uri3_uri2ops_delegation.py', 'test_uri2ops_delegation_mock_browser_workflow', 1, 5, 4).
 python_function('tests/meta_agent/test_repair.py', 'test_repair_agent_block_fills_metadata', 0, 5, 1).
 python_function('tests/meta_agent/test_repair.py', 'test_repair_resource_read_fills_renderer_and_schema', 0, 3, 1).
 python_function('tests/meta_agent/test_repair.py', 'test_repair_command_fills_fields', 0, 3, 1).
 python_function('tests/meta_agent/test_repair.py', 'test_repair_capabilities_deduplicates_names', 0, 3, 3).
 python_function('tests/meta_agent/test_repair.py', 'test_repair_agent_spec_integration', 1, 4, 6).
+python_function('tests/nl2uri/test_domain_planner.py', 'test_normalize_bad_llm_weather_tree_uses_deterministic_template', 0, 6, 2).
+python_function('tests/nl2uri/test_domain_planner.py', 'test_plan_from_prompt_weather_no_llm_full_tree', 0, 6, 1).
+python_function('tests/nl2uri/test_flow_planner.py', 'test_classify_uri_flow_for_sequential_process', 0, 2, 1).
+python_function('tests/nl2uri/test_flow_planner.py', 'test_classify_task_prompt_as_uri_flow', 0, 2, 1).
+python_function('tests/nl2uri/test_flow_planner.py', 'test_classify_condition_stays_workflow_graph', 0, 2, 1).
+python_function('tests/nl2uri/test_flow_planner.py', 'test_plan_flow_weather_prompt', 0, 8, 2).
+python_function('tests/nl2uri/test_flow_planner.py', 'test_plan_auto_prefers_uri_flow_for_weather', 0, 2, 1).
+python_function('tests/nl2uri/test_flow_planner.py', 'test_flow_expands_to_valid_workflow_graph', 0, 4, 2).
+python_function('tests/nl2uri/test_flow_planner_llm.py', 'test_build_flow_planner_system_prompt_includes_compact_shape', 0, 5, 1).
+python_function('tests/nl2uri/test_flow_planner_llm.py', 'test_plan_flow_with_llm_validates_compact_output', 1, 4, 2).
+python_function('tests/nl2uri/test_flow_planner_llm.py', 'test_plan_flow_with_llm_converts_graph_nodes', 1, 3, 3).
+python_function('tests/nl2uri/test_flow_planner_llm.py', 'test_plan_flow_with_llm_fallback_on_invalid', 1, 4, 2).
+python_function('tests/nl2uri/test_flow_planner_llm.py', 'test_plan_flow_use_llm_flag', 1, 2, 3).
+python_function('tests/nl2uri/test_flow_repair.py', 'test_extract_flow_payload_from_graph_nodes', 0, 4, 3).
+python_function('tests/nl2uri/test_flow_repair.py', 'test_sanitize_flow_step_drops_unknown_scheme', 0, 3, 1).
+python_function('tests/nl2uri/test_flow_repair.py', 'test_repair_flow_body_from_task_steps', 0, 4, 2).
+python_function('tests/nl2uri/test_flow_repair.py', 'test_validate_expanded_flow_accepts_weather_flow', 0, 2, 2).
+python_function('tests/nl2uri/test_flow_repair.py', 'test_repair_and_validate_flow_branching', 0, 4, 2).
+python_function('tests/nl2uri/test_flow_repair.py', 'test_repair_and_validate_flow_rejects_empty', 0, 1, 2).
+python_function('tests/nl2uri/test_graph_planner.py', 'test_classify_resource_tree', 0, 2, 1).
+python_function('tests/nl2uri/test_graph_planner.py', 'test_classify_task_graph', 0, 2, 1).
+python_function('tests/nl2uri/test_graph_planner.py', 'test_classify_workflow_graph', 0, 2, 1).
+python_function('tests/nl2uri/test_graph_planner.py', 'test_plan_single_status', 0, 3, 1).
+python_function('tests/nl2uri/test_graph_planner.py', 'test_plan_list_health_and_card', 0, 3, 2).
+python_function('tests/nl2uri/test_graph_planner.py', 'test_plan_tree_contains_domain_root', 0, 3, 1).
+python_function('tests/nl2uri/test_graph_planner.py', 'test_plan_screenshot_schedule_stable_id', 0, 6, 2).
+python_function('tests/nl2uri/test_graph_planner.py', 'test_plan_task_linear_steps', 0, 4, 1).
+python_function('tests/nl2uri/test_graph_planner.py', 'test_plan_workflow_generate_run_check', 0, 5, 1).
+python_function('tests/nl2uri/test_graph_planner.py', 'test_plan_auto_matches_classifier', 0, 2, 2).
+python_function('tests/nl2uri/test_graph_planner_llm.py', 'test_build_graph_planner_system_prompt_includes_registry', 0, 5, 1).
+python_function('tests/nl2uri/test_graph_planner_llm.py', 'test_sanitize_node_drops_unknown_scheme', 0, 3, 2).
+python_function('tests/nl2uri/test_graph_planner_llm.py', 'test_sanitize_node_coerces_operation', 0, 3, 1).
+python_function('tests/nl2uri/test_graph_planner_llm.py', 'test_repair_graph_body_from_task_shape', 0, 4, 2).
+python_function('tests/nl2uri/test_graph_planner_llm.py', 'test_extract_graph_payload_accepts_graph_nodes_top_level', 0, 2, 1).
+python_function('tests/nl2uri/test_graph_planner_llm.py', 'test_plan_graph_with_llm_validates_output', 1, 4, 3).
+python_function('tests/nl2uri/test_graph_planner_llm.py', 'test_plan_graph_with_llm_fallback_on_invalid', 1, 4, 2).
+python_function('tests/nl2uri/test_graph_planner_llm.py', 'test_plan_task_use_llm_flag', 1, 2, 4).
+python_function('tests/nl2uri/test_weather_forecast.py', 'test_is_weather_forecast_prompt', 2, 2, 2).
+python_function('tests/nl2uri/test_weather_forecast.py', 'test_weather_forecast_uri_from_polish_prompt', 0, 2, 1).
+python_function('tests/nl2uri/test_weather_forecast.py', 'test_extract_weather_place_and_days', 0, 4, 2).
+python_function('tests/nl2uri/test_weather_forecast.py', 'test_detect_weather_intent', 0, 4, 1).
+python_function('tests/nl2uri/test_weather_forecast.py', 'test_ask_weather_forecast_plans_executable_uri', 0, 4, 1).
+python_function('tests/nl2uri/test_weather_forecast.py', 'test_plan_weather_forecast_payload', 0, 4, 1).
 python_function('tests/resource_agent_factory/test_default_port.py', 'test_default_port_from_deployment_registry', 1, 2, 2).
 python_function('tests/resource_agent_factory/test_default_port.py', 'test_default_port_falls_back_to_8101', 2, 2, 2).
 python_function('tests/scripts/test_architecture_responsibility_audit.py', 'load_audit_module', 1, 2, 3).
@@ -2217,6 +2386,311 @@ python_function('tests/test_uri3.py', 'test_validate_uri', 0, 3, 1).
 python_function('tests/test_uri3.py', 'test_graph_weather_tree', 0, 3, 3).
 python_function('tests/test_uri_tree_validator.py', 'test_uri_tree_schema_ok', 0, 2, 1).
 python_function('tests/test_validate.py', 'test_user_agent_contract_is_valid', 0, 2, 2).
+python_function('tests/uri2flow/conftest.py', 'repo_root', 0, 4, 6).
+python_function('tests/uri2flow/test_cli.py', 'test_cli_expand', 2, 4, 3).
+python_function('tests/uri2flow/test_expand_branching_flow.py', 'test_expand_branching_flow', 1, 6, 1).
+python_function('tests/uri2flow/test_expand_linear_flow.py', 'test_expand_linear_flow', 1, 7, 1).
+python_function('tests/uri2flow/test_flow_defaults.py', 'setup_function', 0, 1, 1).
+python_function('tests/uri2flow/test_flow_defaults.py', 'test_pattern_match_hypervisor_run', 0, 4, 1).
+python_function('tests/uri2flow/test_flow_defaults.py', 'test_pattern_match_hypervisor_restart', 0, 3, 1).
+python_function('tests/uri2flow/test_flow_defaults.py', 'test_pattern_match_browser_open', 0, 3, 1).
+python_function('tests/uri2flow/test_flow_defaults.py', 'test_pattern_match_dom_extract', 0, 3, 1).
+python_function('tests/uri2flow/test_flow_defaults.py', 'test_pattern_match_screen_observe', 0, 3, 1).
+python_function('tests/uri2flow/test_flow_defaults.py', 'test_pattern_match_input_type', 0, 4, 1).
+python_function('tests/uri2flow/test_flow_defaults.py', 'test_scheme_default_for_http', 0, 3, 1).
+python_function('tests/uri2flow/test_flow_defaults.py', 'test_fallback_for_unknown_scheme', 0, 3, 1).
+python_function('tests/uri2flow/test_parser_forms.py', 'test_accepts_string_and_mapping_forms', 0, 4, 2).
+python_function('tests/uri2flow/test_uri2flow_markpact_loader.py', '_markpact_ref', 2, 2, 0).
+python_function('tests/uri2flow/test_uri2flow_markpact_loader.py', 'test_is_markpact_registry', 0, 3, 1).
+python_function('tests/uri2flow/test_uri2flow_markpact_loader.py', 'test_extract_markpact_flow_blocks', 0, 4, 2).
+python_function('tests/uri2flow/test_uri2flow_markpact_loader.py', 'test_load_markpact_flow_dict', 1, 3, 3).
+python_function('tests/uri2flow/test_uri2flow_markpact_loader.py', 'test_load_flow_markpact_ref', 1, 4, 2).
+python_function('tests/uri2flow/test_uri2flow_markpact_loader.py', 'test_expand_flow_markpact_ref', 1, 5, 3).
+python_function('tests/uri2flow/test_uri2flow_markpact_loader.py', 'test_markpact_flow_requires_fragment_when_ambiguous', 1, 1, 3).
+python_function('tests/uri2flow/test_uri2flow_markpact_loader.py', 'test_markpact_flow_matches_yaml_flow', 1, 2, 2).
+python_function('tests/uri2flow/test_uri2flow_markpact_loader.py', 'test_resolve_markpact_ref', 1, 3, 3).
+python_function('tests/uri2flow/test_uri2flow_markpact_loader.py', 'test_uri2flow_expand_cli', 2, 4, 4).
+python_function('tests/uri2flow/test_uri2flow_markpact_loader.py', 'test_missing_flow_fragment_raises', 1, 1, 3).
+python_function('tests/uri2flow/test_uri2flow_markpact_loader.py', 'test_missing_markpact_readme_raises', 1, 1, 2).
+python_function('tests/uri2pact/test_markpact_scenarios.py', 'test_load_office_markpact_scenarios', 1, 3, 1).
+python_function('tests/uri2pact/test_markpact_scenarios.py', 'test_load_office_markpact_scenario_registry_includes_yaml', 1, 5, 3).
+python_function('tests/uri2run/test_protocol_transports.py', 'test_docker_transport_dry_run', 0, 6, 2).
+python_function('tests/uri2run/test_protocol_transports.py', 'test_run_target_docker_scheme', 0, 3, 2).
+python_function('tests/uri2run/test_protocol_transports.py', 'test_ssh_transport_resolve_mode', 0, 5, 2).
+python_function('tests/uri2run/test_protocol_transports.py', 'test_ssh_transport_exec_mode', 1, 4, 4).
+python_function('tests/uri2run/test_protocol_transports.py', 'test_mcp_transport_list_tools', 1, 4, 4).
+python_function('tests/uri2run/test_protocol_transports.py', 'test_mcp_transport_call_tool', 1, 5, 6).
+python_function('tests/uri2run/test_protocol_transports.py', 'test_a2a_transport_agent_card', 1, 3, 4).
+python_function('tests/uri2run/test_protocol_transports.py', 'test_a2a_transport_tasks', 1, 4, 6).
+python_function('tests/uri2run/test_protocol_transports.py', 'test_run_target_mcp_scheme', 1, 2, 3).
+python_function('tests/uri2run/test_protocol_transports.py', 'test_mcp_transport_http_error', 1, 3, 4).
+python_function('tests/uri2run/test_stream_transports.py', 'test_stdio_transport_json_roundtrip', 0, 5, 2).
+python_function('tests/uri2run/test_stream_transports.py', 'test_run_target_stdio_scheme', 0, 2, 1).
+python_function('tests/uri2run/test_stream_transports.py', 'test_sse_transport_parses_events', 1, 3, 4).
+python_function('tests/uri2run/test_stream_transports.py', 'test_ws_transport_without_dependency', 0, 3, 2).
+python_function('tests/uri2run/test_stream_transports.py', 'test_uri3_workflow_python_runtime_adapter', 1, 5, 2).
+python_function('tests/uri2run/test_transport_matrix.py', 'test_python_transport', 0, 4, 3).
+python_function('tests/uri2run/test_transport_matrix.py', 'test_shell_transport_success', 0, 5, 3).
+python_function('tests/uri2run/test_transport_matrix.py', 'test_shell_transport_failure', 0, 3, 2).
+python_function('tests/uri2run/test_transport_matrix.py', 'test_http_transport_success', 1, 6, 4).
+python_function('tests/uri2run/test_transport_matrix.py', 'test_http_transport_uses_backend_options_and_retries', 1, 7, 7).
+python_function('tests/uri2run/test_transport_matrix.py', 'test_shell_transport_supports_argv_without_shell', 0, 4, 2).
+python_function('tests/uri2run/test_transport_matrix.py', 'test_flow_transport_dry_run', 1, 4, 3).
+python_function('tests/uri2run/test_transport_matrix.py', 'test_touri_delegates_python_backend_to_uri2run', 1, 4, 2).
+python_function('tests/uri2run/test_transport_matrix.py', 'test_unsupported_transport', 0, 5, 1).
+python_function('tests/uri2run/test_uri2run.py', 'test_run_target_stt_mock_scheme', 0, 5, 2).
+python_function('tests/uri2run/test_uri2run.py', 'test_cli_call_stt_mock_scheme_outputs_json', 1, 4, 3).
+python_function('tests/uri2run/test_uri2run.py', 'test_run_target_python_returns_service_result', 0, 5, 2).
+python_function('tests/uri2run/test_uri2run.py', 'test_run_target_shell_scheme_with_args', 0, 5, 2).
+python_function('tests/uri2run/test_uri2run.py', 'test_run_backend_mock_returns_shared_envelope', 0, 5, 2).
+python_function('tests/uri2run/test_uri2run.py', 'test_cli_call_python_outputs_json', 1, 4, 3).
+python_function('tests/uri2run/test_uri2run.py', 'test_touri_python_backend_delegates_to_uri2run', 1, 5, 3).
+python_function('tests/uri2run/test_voice_resolver.py', 'test_resolve_stt_mock_to_python', 0, 4, 1).
+python_function('tests/uri2run/test_voice_resolver.py', 'test_resolve_stt_whisper_to_python', 0, 4, 1).
+python_function('tests/uri2run/test_voice_resolver.py', 'test_resolve_tts_mock_to_python', 0, 3, 1).
+python_function('tests/uri2run/test_voice_resolver.py', 'test_unknown_voice_uri_returns_touri_or_unresolved', 0, 3, 1).
+python_function('tests/uri2run/test_workflow_transport.py', 'test_flow_and_graph_transports_share_dry_run_path', 1, 9, 4).
+python_function('tests/uri2run/test_workflow_transport.py', 'test_workflow_transport_invalid_graph_uses_error_code', 0, 3, 3).
+python_function('tests/uri3/test_browser_adapter.py', 'test_resolve_browser_mode_mock', 0, 2, 2).
+python_function('tests/uri3/test_browser_adapter.py', 'test_mock_adapter_writes_artifact_files', 1, 5, 4).
+python_function('tests/uri3/test_browser_adapter.py', 'test_playwright_browser_workflow', 1, 4, 18).
+python_function('tests/uri3/test_cli.py', 'runner', 0, 1, 1).
+python_function('tests/uri3/test_cli.py', 'test_scan_shortcuts_load_defaults', 0, 3, 2).
+python_function('tests/uri3/test_cli.py', 'test_resolve_scan_target_by_name', 0, 2, 2).
+python_function('tests/uri3/test_cli.py', 'test_resolve_scan_target_full_uri', 0, 2, 2).
+python_function('tests/uri3/test_cli.py', 'test_cli_list_command', 1, 4, 1).
+python_function('tests/uri3/test_cli.py', 'test_cli_list_json', 1, 4, 2).
+python_function('tests/uri3/test_cli.py', 'test_cli_no_args_shows_quick_reference', 1, 3, 1).
+python_function('tests/uri3/test_cli.py', 'test_cli_scan_without_args_shows_help', 2, 3, 2).
+python_function('tests/uri3/test_cli.py', 'test_cli_scan_shortcut_name', 2, 3, 5).
+python_function('tests/uri3/test_cli.py', 'test_cli_scan_all', 2, 3, 4).
+python_function('tests/uri3/test_cli.py', 'test_cli_call_docker_dry_run', 1, 4, 2).
+python_function('tests/uri3/test_dispatch.py', 'test_parse_instance_env', 0, 2, 1).
+python_function('tests/uri3/test_dispatch.py', 'test_parse_instance_docker_stack', 0, 3, 1).
+python_function('tests/uri3/test_dispatch.py', 'test_resolve_target_pypi', 0, 2, 1).
+python_function('tests/uri3/test_docker_control.py', 'test_parse_docker_stack_uri', 0, 6, 2).
+python_function('tests/uri3/test_docker_control.py', 'test_resolve_docker_generate_plan', 0, 4, 1).
+python_function('tests/uri3/test_docker_control.py', 'test_control_docker_up_dry_run', 0, 4, 1).
+python_function('tests/uri3/test_docker_control.py', 'test_control_docker_generate_writes_file', 2, 5, 8).
+python_function('tests/uri3/test_docker_control.py', 'test_control_docker_container_stop_dry_run', 0, 2, 1).
+python_function('tests/uri3/test_docker_control.py', 'test_control_docker_up_recovers_from_name_conflict', 1, 5, 6).
+python_function('tests/uri3/test_doctor.py', 'test_doctor_passes_on_repo', 1, 9, 1).
+python_function('tests/uri3/test_doctor.py', 'test_doctor_build_registry_writes_indexes', 2, 5, 3).
+python_function('tests/uri3/test_doctor.py', 'test_build_registry_indexes_content', 1, 4, 1).
+python_function('tests/uri3/test_envelope_migrate.py', 'test_migrate_workflow_log_adds_status_fields', 1, 6, 6).
+python_function('tests/uri3/test_explain_extended.py', 'test_explain_includes_verification_hints', 1, 5, 1).
+python_function('tests/uri3/test_explain_extended.py', 'test_explain_includes_fallbacks_and_data_quality', 1, 5, 3).
+python_function('tests/uri3/test_explain_extended.py', 'test_explain_runtime_transport_for_stdio_backend', 1, 3, 3).
+python_function('tests/uri3/test_explain_uri.py', 'test_explain_weather_uri_matches_touri', 1, 5, 1).
+python_function('tests/uri3/test_explain_uri.py', 'test_explain_http_uri_matches_uri3', 1, 3, 1).
+python_function('tests/uri3/test_explain_uri.py', 'test_explain_file_uri_matches_uri3', 2, 3, 3).
+python_function('tests/uri3/test_explain_uri.py', 'test_explain_browser_uri_matches_uri2ops', 1, 3, 1).
+python_function('tests/uri3/test_explain_uri.py', 'test_explain_unknown_scheme_denied', 1, 3, 1).
+python_function('tests/uri3/test_file_resolver.py', 'test_resolve_file_uri_returns_metadata', 1, 8, 5).
+python_function('tests/uri3/test_file_resolver.py', 'test_path_from_file_uri_unquotes_spaces', 1, 2, 3).
+python_function('tests/uri3/test_http_scanner.py', 'test_scan_http_health_uri_does_not_double_path', 1, 6, 7).
+python_function('tests/uri3/test_http_scanner.py', 'test_scan_http_404_health_is_error', 1, 5, 5).
+python_function('tests/uri3/test_http_scanner.py', 'test_health_scan_ok_requires_200', 0, 2, 2).
+python_function('tests/uri3/test_lifecycle_envelope.py', 'test_lifecycle_plan_payload_has_status_envelope', 0, 6, 1).
+python_function('tests/uri3/test_lifecycle_envelope.py', 'test_lifecycle_stopped_payload_has_status_envelope', 0, 3, 1).
+python_function('tests/uri3/test_llm_profiles.py', 'test_load_llm_config_has_domain_planner', 0, 3, 2).
+python_function('tests/uri3/test_llm_profiles.py', 'test_resolve_llm_profile_domain_planner', 1, 6, 3).
+python_function('tests/uri3/test_llm_profiles.py', 'test_resolve_llm_profile_respects_default_env', 1, 3, 2).
+python_function('tests/uri3/test_log_reader_meta.py', 'test_read_logs_result_missing_file', 2, 6, 5).
+python_function('tests/uri3/test_log_uri.py', '_write_sample_log', 1, 2, 4).
+python_function('tests/uri3/test_log_uri.py', 'test_resolve_log_uri', 0, 7, 1).
+python_function('tests/uri3/test_log_uri.py', 'test_read_logs_with_filters', 2, 5, 4).
+python_function('tests/uri3/test_log_uri.py', 'test_read_logs_from_explicit_file', 2, 2, 4).
+python_function('tests/uri3/test_log_uri.py', 'test_call_log_uri_returns_entries', 2, 3, 3).
+python_function('tests/uri3/test_log_uri.py', 'test_scan_log_uri', 2, 5, 4).
+python_function('tests/uri3/test_log_uri.py', 'test_summarize_logs', 2, 4, 3).
+python_function('tests/uri3/test_replay.py', 'test_replay_workflow_events_by_id', 1, 5, 2).
+python_function('tests/uri3/test_replay.py', 'test_replay_workflow_events_by_path', 1, 3, 3).
+python_function('tests/uri3/test_replay.py', 'test_build_task_payload_from_step_started_events', 1, 4, 3).
+python_function('tests/uri3/test_replay.py', 'test_create_regression_test_writes_pytest', 1, 5, 4).
+python_function('tests/uri3/test_resolvers.py', 'test_env_uri_resolution', 1, 4, 2).
+python_function('tests/uri3/test_resolvers.py', 'test_llm_uri_resolution', 0, 4, 1).
+python_function('tests/uri3/test_resolvers.py', 'test_pypi_uri_resolution', 0, 2, 1).
+python_function('tests/uri3/test_resolvers.py', 'test_python_uri_resolution', 0, 3, 1).
+python_function('tests/uri3/test_resolvers.py', 'test_http_uri_resolution', 0, 2, 1).
+python_function('tests/uri3/test_resolvers.py', 'test_a2a_uri_resolution', 0, 3, 1).
+python_function('tests/uri3/test_resolvers.py', 'test_mcp_uri_resolution', 0, 2, 1).
+python_function('tests/uri3/test_resolvers.py', 'test_resource_uri_resolution', 0, 3, 1).
+python_function('tests/uri3/test_resolvers.py', 'test_python_call', 0, 2, 1).
+python_function('tests/uri3/test_resolvers.py', 'test_env_call_set_persists_to_dotenv', 2, 5, 4).
+python_function('tests/uri3/test_resolvers.py', 'test_env_call_set_updates_existing_key', 2, 5, 4).
+python_function('tests/uri3/test_resolvers.py', 'test_router_resolve_returns_uri_resolution', 0, 2, 4).
+python_function('tests/uri3/test_resolvers.py', 'test_unsupported_scheme', 0, 1, 2).
+python_function('tests/uri3/test_resolvers.py', 'test_deprecated_uri2llm_reexport', 0, 3, 5).
+python_function('tests/uri3/test_result_envelope.py', 'test_uri3_workflow_result_includes_status_envelope', 1, 6, 2).
+python_function('tests/uri3/test_result_envelope.py', 'test_uri3_workflow_blocked_has_failed_service_status', 0, 4, 2).
+python_function('tests/uri3/test_result_envelope.py', 'test_uri2ops_task_result_includes_status_envelope', 1, 3, 3).
+python_function('tests/uri3/test_router_call.py', 'test_resolve_docker_stack', 0, 4, 1).
+python_function('tests/uri3/test_router_call.py', 'test_call_docker_stack_dry_run', 0, 4, 1).
+python_function('tests/uri3/test_schema.py', 'test_normalize_scheme', 0, 4, 1).
+python_function('tests/uri3/test_schema.py', 'test_get_scheme_schema_log', 0, 7, 1).
+python_function('tests/uri3/test_schema.py', 'test_get_scheme_schema_unknown', 0, 1, 2).
+python_function('tests/uri3/test_schema.py', 'test_list_schemes_includes_log', 0, 3, 2).
+python_function('tests/uri3/test_schema.py', 'test_analyze_concrete_log_uri', 0, 7, 1).
+python_function('tests/uri3/test_schema.py', 'test_analyze_invalid_log_uri', 0, 3, 1).
+python_function('tests/uri3/test_schema.py', 'test_describe_scheme_only', 0, 3, 1).
+python_function('tests/uri3/test_schema.py', 'test_describe_concrete_uri', 0, 3, 1).
+python_function('tests/uri3/test_schema.py', 'test_cli_schema_log_scheme', 0, 4, 3).
+python_function('tests/uri3/test_schema.py', 'test_cli_schema_list', 0, 3, 3).
+python_function('tests/uri3/test_schema.py', 'test_cli_schema_analyze', 0, 4, 3).
+python_function('tests/uri3/test_service_result.py', 'test_service_result_finalize_sets_three_status_levels', 0, 6, 2).
+python_function('tests/uri3/test_service_result.py', 'test_error_envelope_normalizes_legacy_detail', 0, 3, 3).
+python_function('tests/uri3/test_service_result.py', 'test_success_service_result', 0, 3, 2).
+python_function('tests/uri3/test_ssh_auth.py', 'test_resolve_ssh_password_from_env', 1, 2, 3).
+python_function('tests/uri3/test_ssh_auth.py', 'test_resolve_ssh_password_from_profile', 2, 2, 5).
+python_function('tests/uri3/test_ssh_auth.py', 'test_build_ssh_command_uses_sshpass_when_password_set', 1, 3, 3).
+python_function('tests/uri3/test_ssh_auth.py', 'test_ssh_auth_hint_on_permission_denied', 1, 3, 3).
+python_function('tests/uri3/test_ssh_scanner.py', 'test_parse_ssh_uri', 0, 6, 1).
+python_function('tests/uri3/test_ssh_scanner.py', 'test_parse_ssh_uri_requires_host', 0, 1, 2).
+python_function('tests/uri3/test_ssh_scanner.py', 'test_scan_ssh_invalid_uri', 0, 4, 2).
+python_function('tests/uri3/test_ssh_scanner.py', 'test_resolve_ssh_alias', 0, 2, 1).
+python_function('tests/uri3/test_ssh_scanner.py', 'test_scan_ssh_unreachable', 1, 4, 4).
+python_function('tests/uri3/test_ssh_scanner.py', 'test_scan_ssh_success', 1, 2, 5).
+python_function('tests/uri3/test_uri_yaml.py', 'test_is_uri', 0, 5, 1).
+python_function('tests/uri3/test_uri_yaml.py', 'test_load_llm_uri_yaml', 0, 5, 2).
+python_function('tests/uri3/test_uri_yaml.py', 'test_load_uri_yaml_unwraps_artifact_envelope', 0, 7, 1).
+python_function('tests/uri3/test_uri_yaml.py', 'test_resolve_uri_values_keeps_secrets_by_default', 0, 2, 2).
+python_function('tests/uri3/test_workflow_executor.py', 'test_run_workflow_dry_run_completes', 0, 9, 4).
+python_function('tests/uri3/test_workflow_executor.py', 'test_run_workflow_blocks_command_without_approve', 0, 9, 2).
+python_function('tests/uri3/test_workflow_executor.py', 'test_run_workflow_execute_mock_with_approve', 1, 12, 7).
+python_function('tests/uri3/test_workflow_executor.py', 'test_run_workflow_accepts_workflow_graph_object', 1, 3, 2).
+python_function('tests/uri3/test_workflow_executor.py', 'test_run_workflow_skips_conditional_branch', 1, 5, 1).
+python_function('tests/uri3/test_workflow_executor.py', 'test_run_workflow_service_failure_uses_completed_with_service_error', 1, 7, 2).
+python_function('tests/uri3/test_workflow_graph.py', 'test_load_task_payload', 0, 4, 2).
+python_function('tests/uri3/test_workflow_graph.py', 'test_validate_task_payload', 0, 2, 1).
+python_function('tests/uri3/test_workflow_graph.py', 'test_execution_plan_order', 0, 2, 1).
+python_function('tests/uri3/test_workflow_graph.py', 'test_detect_cycle', 0, 4, 6).
+python_function('tests/urigen/test_urigen_cycle.py', 'test_plan_generate_verify_explain_cycle', 1, 17, 9).
+python_function('tests/urigen/test_urigen_cycle.py', 'test_profile_aliases_are_canonicalized', 0, 8, 3).
+python_function('tests/urigen/test_urigen_cycle.py', 'test_apply_plan_and_transaction', 2, 9, 8).
+python_function('tests/urigen/test_urigen_cycle.py', '_setup_apply_tmp', 2, 1, 5).
+python_function('tests/urigen/test_urigen_cycle.py', 'test_apply_plan_includes_diff', 2, 4, 4).
+python_function('tests/urigen/test_urigen_cycle.py', 'test_apply_idempotent_second_run', 2, 6, 6).
+python_function('tests/urigen/test_urigen_cycle.py', 'test_apply_failure_rolls_back_created_files', 3, 5, 6).
+python_function('tests/urigen/test_urigen_cycle.py', 'test_apply_manual_rollback_restores_files', 2, 4, 4).
+python_function('tests/urigen/test_urigen_cycle.py', 'test_proposal_and_ecosystem_have_envelope', 1, 9, 6).
+python_function('tests/urigen/test_urigen_cycle.py', 'test_plan_and_verify_do_not_touch_repo_roots', 2, 7, 6).
+python_function('tests/urigen/test_urigen_cycle.py', 'test_cli_plan_generate_verify', 1, 5, 3).
+python_function('tests/urigen/test_urigen_cycle.py', 'test_cli_profiles_lists_aliases', 1, 4, 2).
+python_function('tests/urish/test_agent_backend.py', 'test_agent_action_run_forwards_detach_once', 0, 2, 3).
+python_function('tests/urish/test_agent_factory.py', 'test_detect_agent_factory_intent', 0, 5, 1).
+python_function('tests/urish/test_agent_factory.py', 'test_dashboard_prompt_still_uses_ecosystem_intent', 0, 3, 1).
+python_function('tests/urish/test_agent_factory.py', 'test_build_agent_contract_from_uri_prompt', 0, 7, 2).
+python_function('tests/urish/test_agent_factory.py', 'test_build_agent_contract_from_robot_uri_prompt', 0, 5, 1).
+python_function('tests/urish/test_agent_factory.py', 'test_ask_agent_factory_returns_lifecycle_steps', 0, 8, 3).
+python_function('tests/urish/test_agent_factory.py', 'test_generate_agent_dry_run_does_not_write', 1, 5, 2).
+python_function('tests/urish/test_agent_factory.py', 'test_ssh_prompt_plans_remote_deployment', 1, 5, 2).
+python_function('tests/urish/test_agent_factory.py', 'test_ssh_keyword_uses_default_target', 1, 3, 1).
+python_function('tests/urish/test_agent_factory.py', 'test_ask_ssh_prompt_includes_deploy_steps', 0, 3, 2).
+python_function('tests/urish/test_ask_dashboard.py', 'test_detect_dashboard_agent_intent', 0, 5, 1).
+python_function('tests/urish/test_ask_dashboard.py', 'test_detect_agent_process_view_intent', 0, 5, 1).
+python_function('tests/urish/test_ask_dashboard.py', 'test_detect_agent_diagnose_intent', 0, 5, 1).
+python_function('tests/urish/test_ask_dashboard.py', 'test_detect_agent_health_intent', 0, 4, 1).
+python_function('tests/urish/test_ask_dashboard.py', 'test_ask_agent_process_view_plans_hypervisor_uri', 0, 5, 2).
+python_function('tests/urish/test_ask_dashboard.py', 'test_ask_agent_diagnose_plans_repair_uri', 0, 4, 1).
+python_function('tests/urish/test_ask_dashboard.py', 'test_screenshot_prompt_uses_workflow_not_domain', 0, 2, 1).
+python_function('tests/urish/test_ask_dashboard.py', 'test_screenshot_prompt_plans_stable_workflow_uri', 0, 7, 1).
+python_function('tests/urish/test_ask_dashboard.py', 'test_screenshot_polish_inflection_detects_workflow', 0, 3, 2).
+python_function('tests/urish/test_ask_dashboard.py', 'test_weather_forecast_prompt_plans_weather_uri', 0, 6, 2).
+python_function('tests/urish/test_ask_dashboard.py', 'test_detect_www_chat_dashboard_intent_without_agent_word', 0, 4, 1).
+python_function('tests/urish/test_ask_dashboard.py', 'test_ask_dashboard_includes_generate_and_semantic_id', 0, 10, 3).
+python_function('tests/urish/test_ask_dashboard.py', 'test_plan_ecosystem_dashboard_profile', 0, 4, 1).
+python_function('tests/urish/test_ask_dashboard.py', 'test_dashboard_ecosystem_generate_verify', 1, 11, 8).
+python_function('tests/urish/test_ask_dashboard.py', 'test_dashboard_create_plan_only', 0, 5, 2).
+python_function('tests/urish/test_call_routing.py', 'test_dashboard_view_uris_are_system', 0, 3, 2).
+python_function('tests/urish/test_call_routing.py', 'test_weather_like_view_uris_are_not_system', 0, 3, 2).
+python_function('tests/urish/test_call_routing.py', 'test_misrouted_view_forecast_does_not_raise', 1, 4, 4).
+python_function('tests/urish/test_desktop_policy.py', 'test_desktop_operator_policy_distinguishes_reads_and_mutations', 0, 12, 1).
+python_function('tests/urish/test_desktop_policy.py', 'test_desktop_mutations_default_to_real_in_dev_policy', 0, 13, 3).
+python_function('tests/urish/test_office_intent.py', 'test_detect_office_invoice_batch', 0, 4, 1).
+python_function('tests/urish/test_office_intent.py', 'test_detect_office_portal_report', 0, 4, 1).
+python_function('tests/urish/test_office_intent.py', 'test_detect_office_bank_transfer', 0, 4, 1).
+python_function('tests/urish/test_office_intent.py', 'test_detect_office_invoice_status', 0, 3, 1).
+python_function('tests/urish/test_office_intent.py', 'test_agent_diagnose_still_wins_over_office', 0, 3, 1).
+python_function('tests/urish/test_office_intent.py', 'test_ask_office_invoice_batch', 0, 5, 2).
+python_function('tests/urish/test_office_intent.py', 'test_detect_office_ecommerce_sync', 0, 4, 1).
+python_function('tests/urish/test_office_intent.py', 'test_detect_office_allegro_erp_failure', 0, 4, 1).
+python_function('tests/urish/test_office_intent.py', 'test_ask_office_ecommerce_sync', 0, 4, 2).
+python_function('tests/urish/test_office_scenarios.py', 'test_landing_quote_maps_to_scenario', 4, 8, 4).
+python_function('tests/urish/test_office_scenarios.py', 'test_ask_landing_quote_returns_card_uris', 4, 4, 3).
+python_function('tests/urish/test_office_scenarios.py', 'test_office_scenario_count_matches_landing', 0, 2, 2).
+python_function('tests/urish/test_physical_policy.py', 'test_physical_operator_policy_distinguishes_reads_and_mutations', 0, 7, 1).
+python_function('tests/urish/test_physical_policy.py', 'test_physical_mutations_default_to_real_in_dev_policy', 0, 10, 3).
+python_function('tests/urish/test_prompt_split.py', 'test_split_nl_commands_single_line', 0, 2, 1).
+python_function('tests/urish/test_prompt_split.py', 'test_split_nl_commands_multiline', 0, 2, 1).
+python_function('tests/urish/test_prompt_split.py', 'test_ask_prompt_batch', 0, 5, 2).
+python_function('tests/urish/test_render.py', 'test_render_view_fallback_helper', 0, 5, 1).
+python_function('tests/urish/test_render.py', 'test_render_view_summary_in_text_mode', 0, 3, 1).
+python_function('tests/urish/test_repl.py', 'test_parse_repl_line_bare_uri_real_mode_by_default', 0, 2, 2).
+python_function('tests/urish/test_repl.py', 'test_parse_repl_line_bare_uri_dry_run_mode', 0, 2, 2).
+python_function('tests/urish/test_repl.py', 'test_parse_repl_line_repair_apply_adds_approve_in_real_mode', 0, 2, 2).
+python_function('tests/urish/test_repl.py', 'test_parse_repl_line_dry_run_uri_skips_approve_in_real_mode', 0, 3, 2).
+python_function('tests/urish/test_repl.py', 'test_parse_repl_line_natural_language_uses_ask_without_dry_run_by_default', 0, 2, 2).
+python_function('tests/urish/test_repl.py', 'test_parse_repl_line_natural_language_ask_dry_run_when_enabled', 0, 2, 2).
+python_function('tests/urish/test_repl.py', 'test_parse_repl_line_explicit_command_passthrough', 0, 2, 2).
+python_function('tests/urish/test_repl.py', 'test_parse_repl_line_meta_help_returns_none', 1, 4, 3).
+python_function('tests/urish/test_repl.py', 'test_main_empty_argv_starts_repl', 0, 2, 3).
+python_function('tests/urish/test_repl.py', 'test_run_repl_executes_uri_line', 0, 6, 3).
+python_function('tests/urish/test_repl.py', 'test_execute_cli_argv_view_uri', 1, 2, 3).
+python_function('tests/urish/test_scenario_registry_boundary.py', 'test_office_scenarios_are_loaded_from_domains_registry', 0, 6, 2).
+python_function('tests/urish/test_scenario_registry_boundary.py', 'test_urish_has_no_office_specific_compat_modules', 1, 3, 1).
+python_function('tests/urish/test_ticket_workflow.py', '_write_ticket', 1, 1, 3).
+python_function('tests/urish/test_ticket_workflow.py', 'test_detect_dashboard_intent_from_ticket', 0, 3, 1).
+python_function('tests/urish/test_ticket_workflow.py', 'test_ticket_workflow_includes_ecosystem_steps', 0, 4, 2).
+python_function('tests/urish/test_ticket_workflow.py', 'test_show_ticket_returns_next_steps', 1, 4, 3).
+python_function('tests/urish/test_ticket_workflow.py', 'test_evolve_from_ticket_generates_proposal_and_steps', 1, 6, 11).
+python_function('tests/urish/test_ticket_workflow.py', 'test_doctor_strict_adds_artifact_checks', 0, 6, 3).
+python_function('tests/urish/test_ticket_workflow.py', 'test_cli_doctor_strict_flag', 0, 2, 3).
+python_function('tests/urish/test_urish_cli.py', 'test_load_payload_from_json', 0, 2, 1).
+python_function('tests/urish/test_urish_cli.py', 'test_load_payload_from_file', 1, 2, 3).
+python_function('tests/urish/test_urish_cli.py', 'test_load_payload_stdin_envelope', 0, 2, 4).
+python_function('tests/urish/test_urish_cli.py', 'test_render_text_view_summary', 0, 5, 1).
+python_function('tests/urish/test_urish_cli.py', 'test_render_text_envelope', 0, 3, 1).
+python_function('tests/urish/test_urish_cli.py', 'test_shortcuts_load', 0, 2, 1).
+python_function('tests/urish/test_urish_cli.py', 'test_shortcut_specs_preserve_payload', 0, 4, 1).
+python_function('tests/urish/test_urish_cli.py', 'test_cli_call_python_mock', 0, 2, 3).
+python_function('tests/urish/test_urish_cli.py', 'test_cli_default_uri_invokes_call', 0, 2, 3).
+python_function('tests/urish/test_urish_cli.py', 'test_cli_plan_passes_plain_defaults_to_call_backend', 0, 5, 2).
+python_function('tests/urish/test_urish_cli.py', 'test_cli_call_accepts_payload_at_file', 1, 3, 3).
+python_function('tests/urish/test_urish_cli.py', 'test_cli_call_shortcut_uses_default_payload', 0, 4, 2).
+python_function('tests/urish/test_urish_cli.py', 'test_cli_call_shortcut_explicit_payload_wins', 0, 3, 2).
+python_function('tests/urish/test_urish_cli.py', 'test_resolve_target_uri_passthrough', 0, 2, 1).
+python_function('tests/urish/test_urish_cli.py', 'test_policy_blocks_mutation_without_approval', 0, 4, 2).
+python_function('tests/urish/test_urish_cli.py', 'test_policy_allows_read', 0, 3, 2).
+python_function('tests/urish/test_urish_cli.py', 'test_policy_force_dry_run', 0, 3, 2).
+python_function('tests/urish/test_urish_cli.py', 'test_classify_repair_uri', 0, 2, 1).
+python_function('tests/urish/test_urish_cli.py', 'test_classify_repair_diagnose_uri_as_read', 0, 2, 1).
+python_function('tests/urish/test_urish_cli.py', 'test_select_from_envelope', 0, 2, 1).
+python_function('tests/urish/test_urish_cli.py', 'test_cli_ask_command', 0, 2, 3).
+python_function('tests/urish/test_urish_cli.py', 'test_cli_select_command', 0, 2, 5).
+python_function('tests/urish/test_urish_cli.py', 'test_cli_policy_blocked_exit_code', 0, 2, 1).
+python_function('tests/urish/test_urish_cli.py', 'test_cli_ticket_list', 0, 2, 2).
+python_function('tests/urish/test_urish_cli.py', 'test_cli_repair_diagnose', 0, 2, 3).
+python_function('tests/urish/test_urish_cli.py', 'test_cli_watch_limited', 0, 2, 3).
+python_function('tests/urish/test_urish_cli.py', 'test_cli_proof_summarizes_one_uri', 1, 9, 4).
+python_function('tests/urish/test_urish_cli.py', 'test_cli_ecosystem_generate_command', 1, 2, 5).
+python_function('tests/urish/test_urish_cli.py', 'test_cli_ecosystem_profiles_command', 0, 2, 1).
+python_function('tests/urish/test_urish_cli.py', 'test_cli_dashboard_create_plan_only', 0, 4, 3).
+python_function('tests/urish/test_urish_cli.py', 'test_cli_agent_run_passes_detach_once', 0, 2, 3).
+python_function('tests/urish/test_urish_cli.py', 'test_cli_agent_create_dashboard_alias', 0, 4, 3).
+python_function('tests/urish/test_urish_cli.py', 'test_cli_www_create_from_nl_prompt', 0, 5, 3).
+python_function('tests/urish/test_urish_cli.py', 'test_cli_agent_describe_does_not_crash_on_typer_signature', 0, 2, 1).
+python_function('tests/urish/test_urish_cli.py', 'test_cli_agent_describe_writes_output', 1, 4, 4).
+python_function('tests/urish/test_workflow_run.py', 'test_run_workflow_uri_dry_run', 0, 3, 2).
+python_function('tests/urish/test_workflow_run.py', 'test_explain_workflow_order_resolves_touri', 0, 3, 2).
+python_function('tests/urish/test_workflow_run.py', 'test_run_workflow_supplier_report', 0, 2, 2).
+python_function('tests/urish/test_workflow_run.py', 'test_run_workflow_portal_zus_dry_run', 0, 2, 2).
+python_function('tests/urish/test_workflow_run.py', 'test_run_workflow_bank_batch_dry_run', 0, 2, 2).
+python_function('tests/urish/test_workflow_run.py', 'test_explain_cron_uri_resolves_touri', 0, 3, 2).
+python_function('tests/urish/test_workflow_run.py', 'test_run_cron_www_monitor_dry_run', 0, 2, 2).
+python_function('tests/urish/test_workflow_run.py', 'test_call_health_agent_system_uri', 0, 3, 3).
+python_function('tests/urish/test_workflow_run.py', 'test_call_cron_uri_uses_touri_backend', 1, 5, 3).
+python_function('tests/urish/test_workflow_run.py', 'test_call_device_uri_uses_hypervisor_operator_routing', 1, 6, 3).
 python_function('www/api-bridge/bridge.py', 'envelope', 3, 3, 0).
 python_function('www/api-bridge/bridge.py', 'run_cmd', 2, 3, 3).
 python_function('www/api-bridge/bridge.py', 'health', 0, 1, 2).
@@ -2357,6 +2831,11 @@ python_class('packages/resource-agent-hypervisor/runtime_client/client.py', 'Res
 python_method('ResourceRuntimeClient', '__init__', 2, 1, 1).
 python_method('ResourceRuntimeClient', 'read_resource', 1, 2, 4).
 python_method('ResourceRuntimeClient', 'dispatch_command', 2, 2, 4).
+python_class('packages/uri2flow/uri2flow/models.py', 'FlowStep').
+python_class('packages/uri2flow/uri2flow/models.py', 'FlowDocument').
+python_method('FlowDocument', 'to_dict', 0, 11, 2).
+python_class('packages/uri2flow/uri2flow/parser.py', 'FlowParseError').
+python_class('packages/uri2flow/uri2flow/resolver.py', 'OperationDefaults').
 python_class('scripts/architecture_audit/models.py', 'ModuleEntry').
 python_class('scripts/architecture_audit/models.py', 'DupFragment').
 python_class('scripts/architecture_audit/models.py', 'DupGroup').

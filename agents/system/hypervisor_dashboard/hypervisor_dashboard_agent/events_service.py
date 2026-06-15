@@ -8,7 +8,9 @@ from typing import Any
 
 import yaml
 
-from hypervisor_dashboard_agent.uri_client import inspect_agent, list_agent_deployments
+from hypervisor.deployment_registry.supervisor import inspect_agent
+
+from hypervisor_dashboard_agent.uri_client import list_agent_deployments
 
 
 # Prefer shared if available (from main hypervisor package); fallback for standalone.

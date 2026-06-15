@@ -1,0 +1,5 @@
+renderers:
+- id: json
+  view_kind: json
+  allowed_mime_types:
+  - application/json

@@ -8,8 +8,10 @@ hidden hardware logic inside the hypervisor.
 NL/domain prompt
   -> domains/physical_ops scenario
   -> URI task graph
-  -> agent://device-robot-operator
-  -> uri2ops operation registry
+  -> uri3 semantic routing
+  -> hypervisor.routing selects agent://device-robot-operator + environment
+  -> uri2run uri2ops transport
+  -> agents/operators/device_robot_operator operation registry
   -> robot/device adapter
   -> artifacts, logs, validation and approval gates
 ```
@@ -64,12 +66,12 @@ device://device/relay-1/write
 | Layer | Owns | Must not own |
 |-------|------|--------------|
 | `domains/physical_ops` | Generic physical routing vocabulary and safety boundaries | Hardware adapter implementation |
-| `agents/operators/` | Capability-agent contracts | Factory/warehouse process data |
-| `packages/uri2ops` | Operation registry, adapters, task execution, A2A/MCP serve runtime | Business workflows |
+| `agents/operators/` | Capability-agent contracts, registries, adapters | Factory/warehouse process data |
+| `tellmesh/uri2ops` package | A2A/MCP serve runtime, dispatcher, policy, union registry | Business workflows, adapter implementations |
 | `hypervisor` | Deployment, policy, events, incidents, approval | Direct device control |
 
 The capability contract is
-[`agents/operators/device_robot_operator.yaml`](../agents/operators/device_robot_operator.yaml).
+[`agents/operators/device_robot_operator/device_robot_operator.yaml`](../agents/operators/device_robot_operator/device_robot_operator.yaml).
 The generic routing/domain pack is
 [`domains/physical_ops/`](../domains/physical_ops/).
 

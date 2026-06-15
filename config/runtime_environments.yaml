@@ -102,7 +102,7 @@ operators:
       mcp_tools: http://127.0.0.1:8793/mcp/tools
       mcp_call: http://127.0.0.1:8793/mcp/tools/call
     contracts:
-      operator: agents/operators/browser_operator.yaml
+      operator: agents/operators/browser_operator/browser_operator.yaml
       domain_pack: domains/browser_ops/domain.yaml
 
   desktop-operator.local:
@@ -126,7 +126,7 @@ operators:
       - DBUS_SESSION_BUS_ADDRESS
       - XAUTHORITY
     contracts:
-      operator: agents/operators/desktop_operator.yaml
+      operator: agents/operators/desktop_operator/desktop_operator.yaml
       domain_pack: domains/desktop_ops/domain.yaml
 
   device-robot-operator.local:
@@ -144,7 +144,7 @@ operators:
       environments: http://127.0.0.1:8792/environments
       mcp_call: http://127.0.0.1:8792/mcp/tools/call
     contracts:
-      operator: agents/operators/device_robot_operator.yaml
+      operator: agents/operators/device_robot_operator/device_robot_operator.yaml
       domain_pack: domains/physical_ops/domain.yaml
 
 # Layer 3 — control plane (orchestration only, never executes browser)

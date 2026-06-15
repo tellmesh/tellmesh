@@ -173,8 +173,10 @@ def _is_cross_area(source_areas: list[str]) -> bool:
 
 
 def _is_runtime_operator_boundary(source_areas: list[str]) -> bool:
-    runtime_operator_areas = {"runtime_uri_core", "operation_runtime"}
-    return set(source_areas) & runtime_operator_areas == runtime_operator_areas
+    areas_set = set(source_areas)
+    if {"runtime_uri_core", "operation_runtime"} <= areas_set:
+        return True
+    return {"runtime_uri_core", "operator_contracts"} <= areas_set
 
 
 def _classify_duplication(group: DupGroup, areas: list[str]) -> tuple[str, str, str, str]:
@@ -193,8 +195,8 @@ def _classify_duplication(group: DupGroup, areas: list[str]) -> tuple[str, str, 
             "runtime_operator_boundary_duplication",
             "warning",
             "P1",
-            "Keep browser/desktop operation implementation in uri2ops and let "
-            "uri3 reference it through an adapter contract.",
+            "Keep browser/desktop operation implementation in agents/operators/* "
+            "and let uri3 reference it through an adapter contract.",
         )
     if _is_cross_area(source):
         return (

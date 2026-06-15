@@ -45,6 +45,15 @@ def local_target_to_relative_path(target_uri: str) -> Path:
     return Path(parsed.path.lstrip("/"))
 
 
+def repo_python_executable(repo: Path) -> str:
+    """Prefer the repo virtualenv interpreter for local agent processes."""
+    for name in ("python3", "python"):
+        candidate = repo / ".venv" / "bin" / name
+        if candidate.is_file():
+            return str(candidate)
+    return sys.executable
+
+
 def local_target_to_module(target_uri: str) -> str:
     relative = local_target_to_relative_path(target_uri)
     parts = relative.parts
@@ -78,7 +87,7 @@ def build_local_run_plan(
     if not agent_path.exists():
         raise FileNotFoundError(f"Generated agent path not found: {agent_path}")
     command = [
-        sys.executable,
+        repo_python_executable(repo),
         "-m",
         "uvicorn",
         module,

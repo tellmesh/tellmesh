@@ -5,7 +5,7 @@
     "schema_version": 1,
     "description": "Central index for resources, capabilities, schemas, events and projections."
   },
-  "contract_hash": "sha256:743bfb17a530993746320f8e0c7690415611ac8fa8ada9862f003c442435f53c",
+  "contract_hash": "sha256:7965f239a76e91650a0f2c453cc0c2f0f71c1a504545417628ff32e9b51f4841",
   "resources": [
     {
       "uri": "resource://users/{user_id}",
@@ -94,6 +94,15 @@
       "schema": "dashboard.v1.RepairDiagnosisView",
       "renderer": "json",
       "owner_agent": "hypervisor-dashboard",
+      "stability": "experimental",
+      "version": "v1"
+    },
+    {
+      "uri": "resource://generuj-mape-pogody-dwa-tygodnie-do-przodu-w-html/result/{id}",
+      "projection": "generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html_result_view",
+      "schema": "app.generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html.v1.TaskResultView",
+      "renderer": "json",
+      "owner_agent": "generuj-mape-pogody-dwa-tygodnie-do-przodu-w-html-agent",
       "stability": "experimental",
       "version": "v1"
     }
@@ -211,6 +220,17 @@
         "classification"
       ],
       "rendererHint": "json"
+    },
+    {
+      "name": "generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html_result_view",
+      "viewKind": "json",
+      "mimeType": "application/json",
+      "columns": [
+        "place",
+        "days",
+        "model"
+      ],
+      "rendererHint": "json"
     }
   ],
   "capabilities": [
@@ -317,6 +337,20 @@
       "renderer": null,
       "emits": [
         "CronMonitorRequested"
+      ]
+    },
+    {
+      "name": "run",
+      "agent": "generuj-mape-pogody-dwa-tygodnie-do-przodu-w-html-agent",
+      "type": "command",
+      "uri": null,
+      "command": "RunTask",
+      "input_schema": "app.generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html.v1.RunTaskCommand",
+      "output_schema": null,
+      "renderer": null,
+      "emits": [
+        "TaskRequested",
+        "TaskCompleted"
       ]
     },
     {
@@ -669,8 +703,8 @@
     }
   ],
   "counts": {
-    "resources": 10,
-    "views": 10,
-    "capabilities": 39
+    "resources": 11,
+    "views": 11,
+    "capabilities": 40
   }
 }

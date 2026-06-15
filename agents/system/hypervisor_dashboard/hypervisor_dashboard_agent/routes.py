@@ -8,8 +8,6 @@ from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import HTMLResponse, RedirectResponse, StreamingResponse
 from fastapi.templating import Jinja2Templates
 from hypervisor.paths import find_repo_root
-from pydantic import BaseModel, Field
-
 from hypervisor_dashboard_agent.agent_card import AGENT_CARD
 from hypervisor_dashboard_agent.chat_format import (
     format_ask_markdown,
@@ -22,10 +20,12 @@ from hypervisor_dashboard_agent.plan_runner import PlanRunOptions, run_planned_u
 from hypervisor_dashboard_agent.policy import decision_for_uri, preview_action
 from hypervisor_dashboard_agent.uri_client import (
     call_system_uri,
+    explain_system_uri,
     list_agent_deployments,
     resolve_view_uri,
     uri_implies_dry_run,
 )
+from pydantic import BaseModel, Field
 
 router = APIRouter()
 templates = Jinja2Templates(
@@ -154,7 +154,10 @@ def api_ask(body: AskRequest) -> dict[str, Any]:
     from urish.chat_uri import resolve_ask_input
 
     try:
-        prompt_text, prompt_meta, llm_from_uri, _dry_run_from_uri = resolve_ask_input(body.prompt, body.uri)
+        prompt_text, prompt_meta, llm_from_uri, _dry_run_from_uri = resolve_ask_input(
+            body.prompt,
+            body.uri,
+        )
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
@@ -196,6 +199,26 @@ def api_ask(body: AskRequest) -> dict[str, Any]:
 @router.post("/api/uri/preview")
 def api_uri_preview(body: UriCallRequest) -> dict[str, Any]:
     return preview_action(body.uri, policy=body.policy)
+
+
+@router.post("/api/uri/explain")
+def api_uri_explain(body: UriCallRequest) -> dict[str, Any]:
+    try:
+        result = explain_system_uri(
+            body.uri,
+            approved=body.approved,
+            dry_run=body.dry_run,
+            payload=body.payload,
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    result["preview"] = preview_action(body.uri, policy=body.policy)
+    result["policy"] = {
+        "dry_run": body.dry_run,
+        "approved": body.approved,
+        "policy": body.policy,
+    }
+    return result
 
 
 @router.post("/api/uri/call")
@@ -247,7 +270,9 @@ def api_uri_call(body: UriCallRequest) -> dict[str, Any]:
     if result.get("result_type") == "ask":
         ask_data = result.get("data")
         result["message_markdown"] = (
-            format_ask_markdown(ask_data) if isinstance(ask_data, dict) else format_uri_result_markdown(result)
+            format_ask_markdown(ask_data)
+            if isinstance(ask_data, dict)
+            else format_uri_result_markdown(result)
         )
     else:
         result["message_markdown"] = format_uri_result_markdown(result)

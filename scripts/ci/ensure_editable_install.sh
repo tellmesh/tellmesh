@@ -4,7 +4,9 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 if [[ -z "${PY:-}" ]]; then
-  if command -v python >/dev/null 2>&1; then
+  if [[ -x "$ROOT/.venv/bin/python" ]]; then
+    PY="$ROOT/.venv/bin/python"
+  elif command -v python >/dev/null 2>&1; then
     PY="python"
   else
     PY="python3"
@@ -16,4 +18,4 @@ if "$PY" -c "import touri, uri2run, uri3, uri2ops, uri2flow, uri2verify, uri2pac
 fi
 
 echo "Installing workspace packages (editable)…" >&2
-"$PY" -m pip install -q -e "$ROOT"
+"$PY" -m pip install -q --no-deps -e "$ROOT"

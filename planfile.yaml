@@ -17,84 +17,6 @@ sprints:
   objectives:
   - Fix code quality issues
   task_patterns:
-  - id: ticket-aac55abe
-    name: Fix relative-imports issues
-    description: Resolve 2 relative-imports issues in agents/generated/user_agent/main.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - agents/generated/user_agent/main.py
-    rule_id: relative-imports
-    count: 2
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-9f67ccf0
-    name: Fix unused-imports issues
-    description: Resolve 2 unused-imports issues in agents/generated/user_agent/main.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - agents/generated/user_agent/main.py
-    rule_id: unused-imports
-    count: 2
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-16ad8cc2
-    name: Fix wildcard-imports issues
-    description: Resolve 2 wildcard-imports issues in agents/generated/user_agent/routes.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - agents/generated/user_agent/routes.py
-    rule_id: wildcard-imports
-    count: 2
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-1c87827e
-    name: Fix wildcard-imports issues
-    description: Resolve 1 wildcard-imports issues in agents/generated/weather_map_agent/routes.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - agents/generated/weather_map_agent/routes.py
-    rule_id: wildcard-imports
-    count: 1
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-bf353904
-    name: Fix relative-imports issues
-    description: Resolve 2 relative-imports issues in agents/generated/weather_map_agent/main.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - agents/generated/weather_map_agent/main.py
-    rule_id: relative-imports
-    count: 2
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-975ce41a
-    name: Fix unused-imports issues
-    description: Resolve 2 unused-imports issues in agents/generated/weather_map_agent/main.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - agents/generated/weather_map_agent/main.py
-    rule_id: unused-imports
-    count: 2
-    model_hints:
-      planning: balanced
-      implementation: balanced
   - id: ticket-2ee22785
     name: Fix unused-imports issues
     description: Resolve 2 unused-imports issues in domains/weather_map/handlers/generate_weather_map.py
@@ -157,123 +79,6 @@ sprints:
     - testenv/ssh_agent_host/mock_agent_server.py
     rule_id: ai-boilerplate
     count: 1
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-690b4c67
-    name: Fix unused-imports issues
-    description: Resolve 2 unused-imports issues in packages/nl2uri/nl2uri/domain_planner.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - packages/nl2uri/nl2uri/domain_planner.py
-    rule_id: unused-imports
-    count: 2
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-e9652153
-    name: Fix smart-return-type issues
-    description: Resolve 2 smart-return-type issues in packages/nl2uri/nl2a/cli.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - packages/nl2uri/nl2a/cli.py
-    rule_id: smart-return-type
-    count: 2
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-7d2726b5
-    name: Fix unused-imports issues
-    description: Resolve 2 unused-imports issues in packages/nl2uri/nl2a/cli.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - packages/nl2uri/nl2a/cli.py
-    rule_id: unused-imports
-    count: 2
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-b0ccd6d4
-    name: Fix ai-boilerplate issues
-    description: Resolve 2 ai-boilerplate issues in packages/nl2uri/nl2a/cli.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - packages/nl2uri/nl2a/cli.py
-    rule_id: ai-boilerplate
-    count: 2
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-a402183b
-    name: Fix smart-return-type issues
-    description: Resolve 2 smart-return-type issues in packages/nl2uri/nl2uri/cli.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - packages/nl2uri/nl2uri/cli.py
-    rule_id: smart-return-type
-    count: 2
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-3e8a9532
-    name: Fix ai-boilerplate issues
-    description: Resolve 2 ai-boilerplate issues in packages/nl2uri/nl2uri/cli.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - packages/nl2uri/nl2uri/cli.py
-    rule_id: ai-boilerplate
-    count: 2
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-a8b52d89
-    name: Fix smart-return-type issues
-    description: Resolve 1 smart-return-type issues in packages/nl2uri/nl2uri/writer.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - packages/nl2uri/nl2uri/writer.py
-    rule_id: smart-return-type
-    count: 1
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-b05ca504
-    name: Fix string-concat issues
-    description: Resolve 2 string-concat issues in packages/nl2uri/nl2uri/pipeline.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - packages/nl2uri/nl2uri/pipeline.py
-    rule_id: string-concat
-    count: 2
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-dbae451c
-    name: Fix unused-imports issues
-    description: Resolve 2 unused-imports issues in packages/nl2uri/nl2uri/pipeline.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - packages/nl2uri/nl2uri/pipeline.py
-    rule_id: unused-imports
-    count: 2
     model_hints:
       planning: balanced
       implementation: balanced
@@ -1200,32 +1005,6 @@ sprints:
     model_hints:
       planning: balanced
       implementation: balanced
-  - id: ticket-4173afc6
-    name: Fix smart-return-type issues
-    description: Resolve 2 smart-return-type issues in packages/uri3/uri3/graph/uri_graph.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - packages/uri3/uri3/graph/uri_graph.py
-    rule_id: smart-return-type
-    count: 2
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-a192f40c
-    name: Fix unused-imports issues
-    description: Resolve 2 unused-imports issues in packages/uri3/uri3/logs/reader.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - packages/uri3/uri3/logs/reader.py
-    rule_id: unused-imports
-    count: 2
-    model_hints:
-      planning: balanced
-      implementation: balanced
   - id: ticket-8fe1ea3e
     name: Fix magic-numbers issues
     description: Resolve 1 magic-numbers issues in packages/resource-agent-hypervisor/hypervisor/cli.py
@@ -1252,68 +1031,289 @@ sprints:
     model_hints:
       planning: balanced
       implementation: balanced
-  - id: ticket-87d349be
+  - id: ticket-79dbb6a7
     name: Fix unused-imports issues
-    description: Resolve 10 unused-imports issues in packages/nl2uri/nl2uri/cli.py
+    description: Resolve 2 unused-imports issues in agents/custom/gnome_programmer_agent/agent_card.py
     task_type: prefactor
-    priority: high
+    priority: medium
+    estimate: 1d
+    files:
+    - agents/custom/gnome_programmer_agent/agent_card.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-923917c6
+    name: Fix relative-imports issues
+    description: Resolve 2 relative-imports issues in agents/custom/gnome_programmer_agent/main.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - agents/custom/gnome_programmer_agent/main.py
+    rule_id: relative-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-05d29d12
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in agents/custom/gnome_programmer_agent/main.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - agents/custom/gnome_programmer_agent/main.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-6785f9c9
+    name: Fix string-concat issues
+    description: Resolve 1 string-concat issues in agents/custom/gnome_programmer_agent/programmer.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - agents/custom/gnome_programmer_agent/programmer.py
+    rule_id: string-concat
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-4ae46590
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in agents/custom/gnome_programmer_agent/programmer.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - agents/custom/gnome_programmer_agent/programmer.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-e887c037
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in agents/custom/remote_deploy_agent/agent_card.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - agents/custom/remote_deploy_agent/agent_card.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-85b8d0a5
+    name: Fix relative-imports issues
+    description: Resolve 2 relative-imports issues in agents/custom/remote_deploy_agent/main.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - agents/custom/remote_deploy_agent/main.py
+    rule_id: relative-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-edb3d979
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in agents/custom/remote_deploy_agent/main.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - agents/custom/remote_deploy_agent/main.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-d88fc582
+    name: Fix string-concat issues
+    description: Resolve 1 string-concat issues in agents/custom/remote_deploy_agent/deploy.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - agents/custom/remote_deploy_agent/deploy.py
+    rule_id: string-concat
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-293715d6
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in agents/custom/remote_deploy_agent/deploy.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - agents/custom/remote_deploy_agent/deploy.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-9bfab0e5
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in agents/custom/screenshot_analysis_agent/agent_card.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - agents/custom/screenshot_analysis_agent/agent_card.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-8b3434f1
+    name: Fix duplicate-imports issues
+    description: Resolve 2 duplicate-imports issues in agents/custom/screenshot_analysis_agent/analysis.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - agents/custom/screenshot_analysis_agent/analysis.py
+    rule_id: duplicate-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-9e65836c
+    name: Fix string-concat issues
+    description: Resolve 1 string-concat issues in agents/custom/screenshot_analysis_agent/analysis.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - agents/custom/screenshot_analysis_agent/analysis.py
+    rule_id: string-concat
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-3491b46c
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in agents/custom/screenshot_analysis_agent/analysis.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - agents/custom/screenshot_analysis_agent/analysis.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-8418b082
+    name: Fix magic-numbers issues
+    description: Resolve 4 magic-numbers issues in agents/custom/screenshot_analysis_agent/analysis.py
+    task_type: prefactor
+    priority: medium
     estimate: 2d
     files:
-    - packages/nl2uri/nl2uri/cli.py
-    rule_id: unused-imports
-    count: 10
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-7beb6f42
-    name: Fix unused-imports issues
-    description: Resolve 2 unused-imports issues in packages/nl2uri/nl2uri/graph_planner_llm.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - packages/nl2uri/nl2uri/graph_planner_llm.py
-    rule_id: unused-imports
-    count: 2
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-1bfcaeeb
-    name: Fix unused-imports issues
-    description: Resolve 2 unused-imports issues in packages/nl2uri/nl2uri/graph_repair.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - packages/nl2uri/nl2uri/graph_repair.py
-    rule_id: unused-imports
-    count: 2
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-88df7d99
-    name: Fix unused-imports issues
-    description: Resolve 2 unused-imports issues in packages/nl2uri/nl2uri/flow_planner.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - packages/nl2uri/nl2uri/flow_planner.py
-    rule_id: unused-imports
-    count: 2
-    model_hints:
-      planning: balanced
-      implementation: balanced
-  - id: ticket-465f8054
-    name: Fix magic-numbers issues
-    description: Resolve 1 magic-numbers issues in packages/nl2uri/nl2uri/flow_planner.py
-    task_type: prefactor
-    priority: medium
-    estimate: 1d
-    files:
-    - packages/nl2uri/nl2uri/flow_planner.py
+    - agents/custom/screenshot_analysis_agent/analysis.py
     rule_id: magic-numbers
-    count: 1
+    count: 4
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-a5796a00
+    name: Fix relative-imports issues
+    description: Resolve 2 relative-imports issues in agents/custom/screenshot_analysis_agent/main.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - agents/custom/screenshot_analysis_agent/main.py
+    rule_id: relative-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-870d6410
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in agents/custom/screenshot_analysis_agent/main.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - agents/custom/screenshot_analysis_agent/main.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-fdd8b008
+    name: Fix relative-imports issues
+    description: Resolve 4 relative-imports issues in agents/custom/gnome_programmer_agent/routes.py
+    task_type: prefactor
+    priority: medium
+    estimate: 2d
+    files:
+    - agents/custom/gnome_programmer_agent/routes.py
+    rule_id: relative-imports
+    count: 4
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-9b6ba6ea
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in agents/custom/gnome_programmer_agent/routes.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - agents/custom/gnome_programmer_agent/routes.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-87007691
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in agents/operators/browser_operator/adapters/browser_mock.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - agents/operators/browser_operator/adapters/browser_mock.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-8eeec92c
+    name: Fix relative-imports issues
+    description: Resolve 4 relative-imports issues in agents/custom/remote_deploy_agent/routes.py
+    task_type: prefactor
+    priority: medium
+    estimate: 2d
+    files:
+    - agents/custom/remote_deploy_agent/routes.py
+    rule_id: relative-imports
+    count: 4
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-a445b72d
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in agents/custom/remote_deploy_agent/routes.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - agents/custom/remote_deploy_agent/routes.py
+    rule_id: unused-imports
+    count: 2
     model_hints:
       planning: balanced
       implementation: balanced

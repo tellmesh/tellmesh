@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.10] - 2026-06-15
+
+### Fixed
+- Fix unused-imports issues (ticket-79dbb6a7)
+- Fix relative-imports issues (ticket-923917c6)
+- Fix unused-imports issues (ticket-05d29d12)
+- Fix string-concat issues (ticket-6785f9c9)
+- Fix unused-imports issues (ticket-4ae46590)
+- Fix unused-imports issues (ticket-e887c037)
+- Fix relative-imports issues (ticket-85b8d0a5)
+- Fix unused-imports issues (ticket-edb3d979)
+- Fix string-concat issues (ticket-d88fc582)
+- Fix unused-imports issues (ticket-293715d6)
+- Fix unused-imports issues (ticket-9bfab0e5)
+- Fix duplicate-imports issues (ticket-8b3434f1)
+- Fix string-concat issues (ticket-9e65836c)
+- Fix unused-imports issues (ticket-3491b46c)
+- Fix magic-numbers issues (ticket-8418b082)
+- Fix relative-imports issues (ticket-a5796a00)
+- Fix unused-imports issues (ticket-870d6410)
+- Fix relative-imports issues (ticket-fdd8b008)
+- Fix unused-imports issues (ticket-9b6ba6ea)
+- Fix unused-imports issues (ticket-87007691)
+- Fix relative-imports issues (ticket-8eeec92c)
+- Fix unused-imports issues (ticket-a445b72d)
+
 ## [Unreleased]
 
 ### Added
@@ -161,6 +187,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   (`lifecycle.py` reuses healthy agent when already running).
 - Fixed lifecycle envelope marking `ok=true` when only PID exists but HTTP health fails.
 - Fixed effective `health_uri` derived from uvicorn `--port` in runtime state (ex23 port drift).
+
+## [0.5.29] - 2026-06-15
+
+### Docs
+- Update CHANGELOG.md
+- Update README.md
+- Update README.pl.md
+- Update SUMD.md
+- Update SUMR.md
+- Update TODO.md
+- Update agents/generated/generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html_agent/README.md
+- Update deployments/README.md
+- Update docs/AGENTS_AND_MONITORING.md
+- Update docs/DASHBOARD.md
+- ... and 13 more files
+
+### Test
+- Update tests/conftest.py
+
+### Other
+- Update .gitignore
+- Update Makefile
+- Update agents/generated/generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html_agent/.generated.yaml
+- Update agents/generated/generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html_agent/Dockerfile
+- Update agents/generated/generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html_agent/__init__.py
+- Update agents/generated/generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html_agent/agent_card.py
+- Update agents/generated/generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html_agent/main.py
+- Update agents/generated/generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html_agent/routes.py
+- Update agents/generated/generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html_agent/tests/test_contract.py
+- Update agents/system/hypervisor_dashboard/hypervisor_dashboard_agent/events_service.py
+- ... and 59 more files
 
 ## [0.5.28] - 2026-06-15
 

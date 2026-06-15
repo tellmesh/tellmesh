@@ -1,5 +1,7 @@
 # Byte-compiled / optimized / DLL files
 .code2llm_cache/
+packages/project/
+packages/.code2llm_cache/
 .idea/
 operator/
 workflows/

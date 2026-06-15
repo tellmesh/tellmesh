@@ -2,12 +2,12 @@
 
 app {
   name: resource-agent-system;
-  version: 0.5.14;
+  version: 0.5.28;
 }
 
 dependencies {
-  runtime: "fastapi>=0.115, httpx>=0.27, jinja2>=3.1, jsonschema>=4.23, pydantic>=2.0, python-dotenv>=1.0.0, pyyaml>=6.0, typer>=0.12";
-  dev: "pytest>=7.0, pytest-cov>=4.0, pytest-asyncio>=0.21.0, ruff>=0.1.0, mypy>=1.0, build>=1.0, goal>=2.1.0, costs>=0.1.20, pfix>=0.1.60, rich>=13.0.0";
+  runtime: "fastapi>=0.115, uvicorn>=0.27, httpx>=0.27, jinja2>=3.1, jsonschema>=4.23, markdown>=3.5, pydantic>=2.0, python-dotenv>=1.0.0, pyyaml>=6.0, typer>=0.26.7, uri3, nl2uri, uri2flow, uri2ops, touri, uri2voice, uri2pact, uri2run, uri2verify, urigen, urish, resource-agent-hypervisor, resource-agent-factory, hypervisor-dashboard-agent";
+  dev: "pytest>=7.0, pytest-cov>=4.0, pytest-asyncio>=0.21.0, ruff>=0.1.0, mypy>=1.0, build>=1.0, goal>=2.1.0, costs>=0.1.20, pfix>=0.1.60, rich>=13.0.0, uvicorn>=0.27";
   browser: playwright>=1.40;
   windows: pywinauto>=0.6;
   server: uvicorn>=0.27;
@@ -33,8 +33,26 @@ interface[type="cli"] page[name="uri2ops"] {
 interface[type="cli"] page[name="uri2flow"] {
   entry: uri2flow.cli:main;
 }
+interface[type="cli"] page[name="uri2run"] {
+  entry: uri2run.cli:main;
+}
+interface[type="cli"] page[name="uri"] {
+  entry: urish.cli:main;
+}
+interface[type="cli"] page[name="urish"] {
+  entry: urish.cli:main;
+}
+interface[type="cli"] page[name="taskinity"] {
+  entry: urish.cli:main;
+}
 interface[type="cli"] page[name="touri"] {
   entry: touri.cli:main;
+}
+interface[type="cli"] page[name="uri2verify"] {
+  entry: uri2verify.cli:main;
+}
+interface[type="cli"] page[name="urigen"] {
+  entry: urigen.cli:main;
 }
 interface[type="cli"] page[name="nl2uri"] {
   entry: nl2uri.cli:main;
@@ -61,6 +79,65 @@ workflow[name="verify"] {
 workflow[name="test"] {
   trigger: manual;
   step-1: run cmd=pytest -q;
+}
+
+workflow[name="architecture-test"] {
+  trigger: manual;
+  step-1: run cmd=pytest tests/architecture -q;
+}
+
+workflow[name="architecture-responsibility-audit"] {
+  trigger: manual;
+  step-1: run cmd=python3 scripts/architecture_responsibility_audit.py --top 30;
+}
+
+workflow[name="doctor"] {
+  trigger: manual;
+  step-1: run cmd=uri3 doctor --json;
+}
+
+workflow[name="architecture-gate"] {
+  trigger: manual;
+  step-1: run cmd=bash scripts/ci/architecture_gate.sh;
+}
+
+workflow[name="ci-gate"] {
+  trigger: manual;
+  step-1: depend target=architecture-gate;
+  step-2: depend target=www-docs-check;
+  step-3: depend target=test;
+  step-4: depend target=examples-test;
+}
+
+workflow[name="examples-test"] {
+  trigger: manual;
+  step-1: run cmd=pytest tests/examples -q;
+}
+
+workflow[name="examples-comprehensive"] {
+  trigger: manual;
+  step-1: run cmd=python3 scripts/examples/comprehensive_test.py;
+}
+
+workflow[name="examples-real-report"] {
+  trigger: manual;
+  step-1: run cmd=python3 scripts/examples/comprehensive_test.py --real-only;
+}
+
+workflow[name="doql-registry"] {
+  trigger: manual;
+  step-1: run cmd=bash scripts/examples/doql_host_preview.sh;
+}
+
+workflow[name="examples-comprehensive-mock"] {
+  trigger: manual;
+  step-1: run cmd=python3 scripts/examples/comprehensive_test.py --mock-only;
+}
+
+workflow[name="examples-playwright-proof"] {
+  trigger: manual;
+  step-1: run cmd=python3 scripts/examples/effective_weather_playwright.py;
+  step-2: run cmd=python3 scripts/examples/effective_weather_playwright.py --legacy-screenshot;
 }
 
 workflow[name="uri2flow-test"] {
@@ -133,7 +210,7 @@ workflow[name="graph"] {
 
 workflow[name="nl2a-weather"] {
   trigger: manual;
-  step-1: run cmd=python -m nl2a.cli generate --no-llm -p "$(WEATHER_PROMPT)";
+  step-1: run cmd=python -m nl2a.cli --no-llm -p "$(WEATHER_PROMPT)";
 }
 
 workflow[name="run-user-agent"] {
@@ -215,6 +292,119 @@ workflow[name="clean"] {
   trigger: manual;
   step-1: run cmd=rm -rf agents/generated/* output/* .pytest_cache;
   step-2: run cmd=find . -type d -name __pycache__ -prune -exec rm -rf {} +;
+}
+
+workflow[name="ensure-dev"] {
+  trigger: manual;
+  step-1: run cmd=$(PYTHON) -c "import uvicorn" 2>/dev/null || { \;
+  step-2: run cmd=echo "Installing dev deps into project Python…"; \;
+  step-3: run cmd=$(PYTHON) -m pip install -q -e ".[dev]"; \;
+  step-4: run cmd=};
+  step-5: run cmd=$(PYTHON) -c "import sys, uvicorn; import typer._click.decorators; print('ok: uvicorn + typer', typer.__version__, 'via', sys.executable)" 2>/dev/null || { \;
+  step-6: run cmd=echo "Repairing typer (need >=0.26.7 with bundled click)…"; \;
+  step-7: run cmd=$(PYTHON) -m pip install -q 'typer>=0.26.7'; \;
+  step-8: run cmd=};
+  step-9: run cmd=$(PYTHON) -c "import sys, uvicorn, typer; import typer._click.decorators; print('ok: uvicorn + typer', typer.__version__, 'via', sys.executable)";
+}
+
+workflow[name="agent-health"] {
+  trigger: manual;
+  step-1: run cmd=echo "Agents:";
+  step-2: run cmd=for id in weather-map-agent.local invoices-agent.local user-agent.local; do \;
+  step-3: run cmd=uri=$$($(HYPERVISOR) inspect-agent $$id 2>/dev/null | $(PYTHON) -c "import json,sys; print(json.load(sys.stdin).get('effective_health_uri',''))" 2>/dev/null || true); \;
+  step-4: run cmd=if [ -n "$$uri" ]; then \;
+  step-5: run cmd=echo "  $$id -> $$uri"; \;
+  step-6: run cmd=curl -fsS "$$uri" 2>/dev/null | $(PYTHON) -m json.tool || echo "    (unreachable)"; \;
+  step-7: run cmd=fi; \;
+  step-8: run cmd=done;
+}
+
+workflow[name="start"] {
+  trigger: manual;
+  step-1: run cmd=$(WWW_COMPOSE) up -d --build;
+  step-2: run cmd=echo "Waiting for www chat health on $(WWW_BASE)…";
+  step-3: run cmd=for i in $$(seq 1 30); do \;
+  step-4: run cmd=if curl -fsS "$(WWW_BASE)/health" >/dev/null 2>&1; then break; fi; \;
+  step-5: run cmd=if [ "$$i" -eq 30 ]; then echo "timeout waiting for health"; exit 1; fi; \;
+  step-6: run cmd=sleep 1; \;
+  step-7: run cmd=done;
+  step-8: run cmd=curl -fsS "$(WWW_BASE)/health" | python3 -m json.tool;
+  step-9: run cmd=echo "Chat UI: $(WWW_BASE)/www/";
+  step-10: run cmd=echo "Tip: run local agents with: make start-agents";
+}
+
+workflow[name="start-agents"] {
+  trigger: manual;
+  step-1: run cmd=$(HYPERVISOR) run-agent weather-map-agent.local --detach --if-running reuse --wait-healthy;
+  step-2: run cmd=$(HYPERVISOR) run-agent invoices-agent.local --detach --if-running reuse --wait-healthy;
+  step-3: run cmd=$(HYPERVISOR) run-agent user-agent.local --detach --if-running reuse --wait-healthy;
+  step-4: run cmd=$(MAKE) agent-health;
+}
+
+workflow[name="start-full"] {
+  trigger: manual;
+  step-1: depend target=start;
+  step-2: depend target=start-agents;
+}
+
+workflow[name="uri-shell"] {
+  trigger: manual;
+  step-1: run cmd=urish;
+}
+
+workflow[name="stop"] {
+  trigger: manual;
+  step-1: run cmd=$(WWW_COMPOSE) down;
+}
+
+workflow[name="www-test"] {
+  trigger: manual;
+  step-1: run cmd=pytest tests/hypervisor/test_chat_www.py -q;
+}
+
+workflow[name="www-docs"] {
+  trigger: manual;
+  step-1: run cmd=python3 scripts/www/build_examples_docs.py;
+  step-2: run cmd=python3 scripts/www/build_landing_integrations.py;
+  step-3: run cmd=python3 scripts/www/build_examples_manifest.py;
+}
+
+workflow[name="www-docs-check"] {
+  trigger: manual;
+  step-1: run cmd=python3 scripts/www/build_examples_docs.py --check;
+  step-2: run cmd=python3 scripts/www/build_landing_integrations.py --check;
+  step-3: run cmd=python3 scripts/www/build_examples_manifest.py --check;
+  step-4: run cmd=python3 scripts/www/check_examples_links.py;
+}
+
+workflow[name="examples-shell"] {
+  trigger: manual;
+  step-1: run cmd=python3 tests/examples/shell_runner.py;
+}
+
+workflow[name="www-smoke"] {
+  trigger: manual;
+  step-1: run cmd=bash scripts/www/smoke.sh "$(WWW_BASE)";
+}
+
+workflow[name="www-monitor"] {
+  trigger: manual;
+  step-1: run cmd=bash scripts/www/run_monitors.sh;
+}
+
+workflow[name="www-monitor-reset"] {
+  trigger: manual;
+  step-1: run cmd=python3 scripts/www/monitor_landing.py --url "$(WWW_BASE)/www/" --reset-baseline;
+}
+
+workflow[name="www-monitor-test"] {
+  trigger: manual;
+  step-1: run cmd=bash scripts/www/test_monitors.sh;
+}
+
+workflow[name="www-logs"] {
+  trigger: manual;
+  step-1: run cmd=$(WWW_COMPOSE) logs -f --tail=100;
 }
 
 tests {

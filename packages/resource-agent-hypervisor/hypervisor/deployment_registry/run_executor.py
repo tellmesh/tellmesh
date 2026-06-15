@@ -113,6 +113,26 @@ def sync_runtime_health_uri(state: dict[str, Any], health_uri: str) -> dict[str,
     return updated
 
 
+def _workspace_pythonpath(repo: Path) -> str:
+    import os
+
+    paths = [str(repo.resolve())]
+    packages = repo / "packages"
+    if packages.is_dir():
+        for child in sorted(packages.iterdir()):
+            if child.is_dir():
+                paths.append(str(child))
+    for extra in (
+        repo / "agents" / "system" / "hypervisor_dashboard",
+        repo / "examples" / "21_touri_voice",
+    ):
+        if extra.is_dir():
+            paths.append(str(extra))
+    prefix = os.pathsep.join(paths)
+    existing = os.environ.get("PYTHONPATH", "")
+    return f"{prefix}{os.pathsep}{existing}" if existing else prefix
+
+
 def prepare_runtime_env(deployment: AgentDeployment, *, repo: Path) -> dict[str, str]:
     import os
 
@@ -123,12 +143,12 @@ def prepare_runtime_env(deployment: AgentDeployment, *, repo: Path) -> dict[str,
         root=repo,
         resolve_secrets=True,
     )
-    repo_root = str(repo.resolve())
-    existing_pythonpath = env.get("PYTHONPATH") or os.environ.get("PYTHONPATH", "")
+    workspace_path = _workspace_pythonpath(repo)
+    existing_pythonpath = env.get("PYTHONPATH") or ""
     env["PYTHONPATH"] = (
-        f"{repo_root}{os.pathsep}{existing_pythonpath}"
+        f"{workspace_path}{os.pathsep}{existing_pythonpath}"
         if existing_pythonpath
-        else repo_root
+        else workspace_path
     )
     role = (deployment.metadata or {}).get("role")
     if role == "desktop_operator":
@@ -265,6 +285,9 @@ def persist_rebound_port(
 ) -> dict[str, object] | None:
     rebound = plan.get("port_rebound")
     if not rebound:
+        return None
+    # Operator agents keep canonical contract ports in the registry; effective port lives in runtime state.
+    if (deployment.metadata or {}).get("source") == "operator_agent":
         return None
     port = int(rebound.get("to") or plan.get("port") or 0)
     if port <= 0:

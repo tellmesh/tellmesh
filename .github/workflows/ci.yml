@@ -17,16 +17,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-          cache: pip
 
-      - name: Install package (editable + dev)
-        run: pip install -e ".[dev]"
+      - name: Install dependencies (uv lockfile)
+        run: uv sync --frozen --extra dev
 
       - name: Run architecture gate (boundaries + uri3 doctor)
-        run: bash scripts/ci/architecture_gate.sh
+        run: uv run bash scripts/ci/architecture_gate.sh
 
   test:
     name: Full test suite
@@ -36,22 +39,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-          cache: pip
 
-      - name: Install package (editable + dev)
-        run: pip install -e ".[dev]"
+      - name: Install dependencies (uv lockfile)
+        run: uv sync --frozen --extra dev
 
       - name: pytest
-        run: pytest -q
+        run: uv run pytest -q
 
       - name: Check www docs examples are up to date
         run: |
-          pip install markdown
-          python3 scripts/www/build_examples_docs.py --check
-          python3 scripts/www/check_examples_links.py
+          uv run make www-docs-check
+          uv run python3 scripts/www/check_examples_links.py
 
   examples:
     name: Examples integration
@@ -61,15 +66,43 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-          cache: pip
 
-      - name: Install package (editable + dev + browser)
+      - name: Install dependencies (uv lockfile + browser)
         run: |
-          pip install -e ".[dev,browser]"
-          playwright install chromium
+          uv sync --frozen --extra dev --extra browser
+          uv run playwright install chromium
 
       - name: Run examples tests
-        run: pytest tests/examples -q
+        run: uv run pytest tests/examples -q
+
+  www-docker:
+    name: WWW Docker smoke
+    runs-on: ubuntu-latest
+    needs: architecture-gate
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build and smoke-test www chat image
+        run: |
+          docker compose -f www/docker-compose.yml build
+          docker compose -f www/docker-compose.yml up -d
+          for i in $(seq 1 30); do
+            if curl -fsS http://localhost:8788/health >/dev/null 2>&1; then break; fi
+            sleep 2
+          done
+          curl -fsS http://localhost:8788/health
+          curl -fsS http://localhost:8788/www/chat.html | head -c 200
+          docker exec hypervisor-www-chat python -c "import urish.backends.run"
+          curl -fsS -X POST http://localhost:8788/api/uri/call \
+            -H 'Content-Type: application/json' \
+            -d '{"uri":"workflow://bank/batch-transfer/dry-run","dry_run":true}' \
+            | python3 -c "import sys,json; d=json.load(sys.stdin); assert d['ok'] is True, d"
+          docker compose -f www/docker-compose.yml down

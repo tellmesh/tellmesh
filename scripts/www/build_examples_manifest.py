@@ -10,8 +10,14 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
+_SCRIPT_DIR = Path(__file__).resolve().parent
+if str(_SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(_SCRIPT_DIR))
+
+from www_root import www_dir  # noqa: E402
+
 EXAMPLES = ROOT / "examples"
-OUT = ROOT / "www" / "generated" / "examples-manifest.js"
+OUT = www_dir() / "generated" / "examples-manifest.js"
 OFFICE_CHAINS = EXAMPLES / "office_chains.yaml"
 
 sys.path.insert(0, str(ROOT / "scripts" / "www"))

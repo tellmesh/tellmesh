@@ -9,8 +9,7 @@ uri:
 spec:
   version: 1
 
-  local:
-    path: packages/uri2ops/uri2ops/operation_registry/registry.yaml
+  local: {}
 
   remotes:
     - id: extra-local

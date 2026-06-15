@@ -4,24 +4,31 @@ FROM python:3.11-slim
 WORKDIR /app
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends curl \
+    && apt-get install -y --no-install-recommends curl git \
     && rm -rf /var/lib/apt/lists/*
 
-COPY pyproject.toml README.md ./
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+
+COPY pyproject.toml uv.lock README.md ./
 COPY packages ./packages
+COPY agents ./agents
 COPY www ./www
 COPY contracts ./contracts
 COPY schemas ./schemas
 COPY deployments ./deployments
 COPY config ./config
 COPY domains ./domains
-COPY agents ./agents
 COPY knowledge ./knowledge
 COPY examples ./examples
 
 RUN mkdir -p output/runtime/agents output/logs output/incidents output/proposals
 
-RUN pip install --no-cache-dir -e ".[server]"
+ENV UV_SYSTEM_PYTHON=1 \
+    UV_COMPILE_BYTECODE=1 \
+    UV_LINK_MODE=copy \
+    PATH="/app/.venv/bin:$PATH"
+
+RUN uv sync --frozen --no-dev --extra server
 
 ENV PYTHONUNBUFFERED=1
 EXPOSE 8788

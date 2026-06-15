@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from urish.policy import PolicyOptions, evaluate_policy
+from hypervisor.routing.policy import PolicyRequest, evaluate_route_policy
 
 
 @dataclass
@@ -22,19 +22,21 @@ def decision_for_uri(
     readonly: bool = False,
     policy: str = "dev",
 ) -> ApprovalDecision:
-    options = PolicyOptions.from_flags(
-        dry_run=dry_run,
-        approve=approved,
-        readonly=readonly,
-        policy=policy,
+    evaluation = evaluate_route_policy(
+        uri,
+        request=PolicyRequest(
+            approved=approved,
+            dry_run=dry_run,
+            readonly=readonly,
+            policy=policy,
+            strict_approve=True,
+        ),
     )
-    allowed, reason, force_dry_run = evaluate_policy(uri, options=options)
-    requires_approval = not allowed and reason is not None and "requires" in (reason or "")
     return ApprovalDecision(
-        allowed=allowed,
-        reason=reason,
-        force_dry_run=force_dry_run,
-        requires_approval=requires_approval or (not allowed and not dry_run and not approved),
+        allowed=evaluation.allowed,
+        reason=evaluation.reason,
+        force_dry_run=evaluation.force_dry_run,
+        requires_approval=evaluation.requires_approval,
     )
 
 

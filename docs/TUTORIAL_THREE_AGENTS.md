@@ -8,10 +8,10 @@ Polish version: [`TUTORIAL_THREE_AGENTS.pl.md`](./TUTORIAL_THREE_AGENTS.pl.md)
 
 | Agent | Deployment id | Port (default) | Source |
 |-------|---------------|----------------|--------|
-| Weather map | `weather-map-agent.local` | 8118 | `nl2a` / `domains/weather_map` |
+| Weather map | `weather-map-agent.local` | 8105 | `nl2a` / `domains/weather_map` |
 | Invoices | `invoices-agent.local` | 8123 | `contracts/agents/invoices_agent.yaml` |
 | User demo | `user-agent.local` | 8102 | `contracts/agents/user_agent.yaml` |
-| Dashboard (monitor) | `hypervisor-dashboard.local` | 8788 | `packages/hypervisor-dashboard-agent` |
+| Dashboard (monitor) | `hypervisor-dashboard.local` | 8788 | `agents/system/hypervisor_dashboard` |
 
 The dashboard is the **fourth** process — it lists the other three and merges their health into `/api/events`.
 
@@ -70,7 +70,7 @@ hypervisor inspect-agent user-agent.local
 Quick HTTP probe:
 
 ```bash
-curl -s http://localhost:8118/health   # weather (port may rebound — check inspect output)
+curl -s http://localhost:8105/health   # weather (port may rebound — check inspect output)
 curl -s http://localhost:8123/health   # invoices
 curl -s http://localhost:8102/health     # user-agent
 ```
@@ -163,7 +163,7 @@ Example runtime state fields:
 {
   "kind": "RuntimeState",
   "uri": { "self": "runtime://agent/weather-map-agent.local/state" },
-  "network": { "effective_port": 8118, "effective_health_uri": "http://localhost:8118/health" },
+  "network": { "effective_port": 8105, "effective_health_uri": "http://localhost:8105/health" },
   "process": { "pid": 66273, "log_uri": "log://file/output/logs/agents/weather-map-agent.local.process.log" }
 }
 ```
@@ -274,7 +274,9 @@ In the foreign system:
 3. **Agent code** — run generator command from `markpact:agent_generation`, or copy `agents/generated/`
 4. **Runtime telemetry** — poll `GET /health` + ingest `output/runtime/agents/*/state.json` or stream `/api/events`
 
-Planned (not shipped): `markpact:scenario`, `uri3 scan markpact://…` — see [`TODO.md`](../TODO.md).
+Shipped for local loaders: `markpact:scenario` and `markpact:scenario_registry`
+from `domains/office/README.md`. Planned: `uri3 scan markpact://…` as a
+generic discovery surface — see [`TODO.md`](../TODO.md).
 
 ### E. HTTP / JSON export (no markpact)
 

@@ -8,28 +8,35 @@ Rejestr operacji mapuje schematy URI i nazwy operacji na handlery, semantykę CQ
 ## Lokalizacja plików
 
 ```txt
-uri2ops/operation_registry/registry.yaml     # kanoniczny registry pakietu (packages/uri2ops/uri2ops/...)
-config/operator_registry.uri.yaml            # merge dla serve / remote
-config/extra_operator_registry.yaml          # rozszerzenia projektu
-schemas/operator_registry.schema.json        # JSON Schema walidacji
+installed uri2ops/operation_registry/registry.yaml          # kanoniczny union registry
+agents/operators/*/operation_registry.yaml                 # registry per operator-agent
+config/operator_registry.uri.yaml                          # źródła merge dla serve / remote
+config/extra_operator_registry.yaml                        # rozszerzenia projektu
+schemas/operator_registry.schema.json                      # JSON Schema walidacji
 ```
 
 ## Przykład wpisu
 
 ```yaml
-browser:
-  operations:
-    open:
-      kind: command
-      handler: python://uri2ops.operator.adapters.browser_mock:open_page
-      input_schema: operator.browser.v1.BrowserPageOpenCommand
-      side_effects: true
-      requires_policy: true
-    extract_dom:
-      kind: query
-      handler: python://uri2ops.operator.adapters.browser_mock:extract_dom
-      input_schema: operator.browser.v1.BrowserPageQuery
-      side_effects: false
+version: 1
+schemes:
+  browser:
+    operations:
+      open:
+        kind: command
+        handler: python://agents.operators.browser_operator.adapters.browser_router:open_page
+        input_schema: operator.browser.v1.BrowserPageOpenCommand
+        output_schema: operator.common.v1.OperationResult
+        side_effects: true
+        requires_policy: true
+        adapters: [mock, playwright]
+      extract_dom:
+        kind: query
+        handler: python://agents.operators.browser_operator.adapters.browser_router:extract_dom
+        output_schema: operator.browser.v1.DomSnapshot
+        side_effects: false
+        produces_artifact: true
+        adapters: [mock, playwright]
 ```
 
 Handlery real backendów są w routerach (`browser_router`, `android_router`, `pcwin_router`) — wybór mock vs real przez `--adapter auto`.
@@ -43,16 +50,18 @@ Handlery real backendów są w routerach (`browser_router`, `android_router`, `p
 
 ## Remote registry (v0.5)
 
-`uri2ops serve` i `resolve_operation_registry()` ładują merge:
+`uri2ops serve`, `resolve_operation_registry()` and semantic URI explain read
+`config/operator_registry.uri.yaml` as source configuration. In the current
+repo the local source is the default registry shipped with the installed
+`uri2ops` package, plus this project extension:
 
-1. `packages/uri2ops/uri2ops/operation_registry/registry.yaml`
-2. `config/operator_registry.uri.yaml`
-3. `config/extra_operator_registry.yaml`
+1. installed `uri2ops/operation_registry/registry.yaml`
+2. `config/extra_operator_registry.yaml`
 
 ```bash
 uri2ops registry list
 uri2ops registry validate
-curl http://127.0.0.1:8791/registry
+curl http://127.0.0.1:8795/registry
 ```
 
 ## Protobuf / JSON Schema

@@ -9,8 +9,13 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_PAGE = ROOT / "www" / "docs" / "examples.html"
-WWW_DIR = ROOT / "www"
+_SCRIPT_DIR = Path(__file__).resolve().parent
+if str(_SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(_SCRIPT_DIR))
+from www_root import www_dir  # noqa: E402
+
+DEFAULT_PAGE = www_dir() / "docs" / "examples.html"
+WWW_DIR = www_dir()
 MALFORMED = re.compile(r"\.\[\./\]")
 HREF_RE = re.compile(r"""href=(["'])(.*?)\1""", re.IGNORECASE)
 

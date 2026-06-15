@@ -1,4 +1,24 @@
 deployments:
+- id: browser-operator.local
+  agent_ref: agent://browser-operator
+  target_uri: local://agents/operators/browser_operator
+  status: generated
+  declared:
+    target_uri: local://agents/operators/browser_operator
+    preferred_port: 8793
+    health_uri: http://localhost:8793/health
+    card_uri: http://localhost:8793/.well-known/agent-card.json
+  card_uri: http://localhost:8793/.well-known/agent-card.json
+  health_uri: http://localhost:8793/health
+  env:
+    URI2OPS_BASE_URL: http://localhost:8793
+  metadata:
+    source: operator_agent
+    role: browser_operator
+    contract: agents/operators/browser_operator/browser_operator.yaml
+    domain_pack: domains/browser_ops/domain.yaml
+    operator_registry: domains/browser_ops/operator_registry.yaml
+    expected_service: uri2ops
 - id: codex-nl-plan-agent.local
   agent_ref: agent://codex-nl-plan-agent
   target_uri: local://agents/generated/codex_nl_plan_agent
@@ -47,26 +67,6 @@ deployments:
     domain_pack: domains/desktop_ops/domain.yaml
     operator_registry: domains/desktop_ops/operator_registry.yaml
     expected_service: uri2ops
-- id: browser-operator.local
-  agent_ref: agent://browser-operator
-  target_uri: local://agents/operators/browser_operator
-  status: generated
-  declared:
-    target_uri: local://agents/operators/browser_operator
-    preferred_port: 8793
-    health_uri: http://localhost:8793/health
-    card_uri: http://localhost:8793/.well-known/agent-card.json
-  card_uri: http://localhost:8793/.well-known/agent-card.json
-  health_uri: http://localhost:8793/health
-  env:
-    URI2OPS_BASE_URL: http://localhost:8793
-  metadata:
-    source: operator_agent
-    role: browser_operator
-    contract: agents/operators/browser_operator/browser_operator.yaml
-    domain_pack: domains/browser_ops/domain.yaml
-    operator_registry: domains/browser_ops/operator_registry.yaml
-    expected_service: uri2ops
 - id: device-robot-operator.local
   agent_ref: agent://device-robot-operator
   target_uri: local://agents/operators/device_robot_operator
@@ -87,6 +87,20 @@ deployments:
     domain_pack: domains/physical_ops/domain.yaml
     operator_registry: domains/physical_ops/operator_registry.yaml
     expected_service: uri2ops
+- id: generuj-mape-pogody-dwa-tygodnie-do-przodu-w-html-agent.local
+  agent_ref: agent://generuj-mape-pogody-dwa-tygodnie-do-przodu-w-html-agent
+  target_uri: local://agents/generated/generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html_agent
+  status: generated
+  declared:
+    target_uri: local://agents/generated/generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html_agent
+    preferred_port: 8101
+    health_uri: http://localhost:8101/health
+    card_uri: http://localhost:8101/.well-known/agent-card.json
+  card_uri: http://localhost:8101/.well-known/agent-card.json
+  health_uri: http://localhost:8101/health
+  metadata:
+    source: uri_tree
+    domain_id: generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html
 - id: gnome-programmer-agent.local
   agent_ref: agent://gnome-programmer-agent
   target_uri: local://agents/custom/gnome_programmer_agent
@@ -108,11 +122,11 @@ deployments:
   status: generated
   declared:
     target_uri: local://agents/system/hypervisor_dashboard
-    preferred_port: 8789
-    health_uri: http://localhost:8789/health
-    card_uri: http://localhost:8789/.well-known/agent-card.json
-  card_uri: http://localhost:8789/.well-known/agent-card.json
-  health_uri: http://localhost:8789/health
+    preferred_port: 8788
+    health_uri: http://localhost:8788/health
+    card_uri: http://localhost:8788/.well-known/agent-card.json
+  card_uri: http://localhost:8788/.well-known/agent-card.json
+  health_uri: http://localhost:8788/health
   metadata:
     source: system_agent
     role: observer_renderer_controller

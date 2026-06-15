@@ -10,8 +10,15 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
+_SCRIPT_DIR = Path(__file__).resolve().parent
+if str(_SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(_SCRIPT_DIR))
+
+from site_nav import render_footer, render_topbar  # noqa: E402
+from www_root import www_dir  # noqa: E402
+
 EXAMPLES = ROOT / "examples"
-OUT = ROOT / "www" / "docs" / "examples.html"
+OUT = www_dir() / "docs" / "examples.html"
 
 TEXT_EXTENSIONS = {".md", ".txt", ".yaml", ".yml", ".sh"}
 SKIP_NAMES = {"README.md", "ABOUT.md"}
@@ -62,12 +69,13 @@ def _is_external_or_anchor(raw: str) -> bool:
 
 
 def _rewrite_known_www_target(label: str, target: Path, fragment: str) -> str | None:
-    if target == (ROOT / "www" / "docs" / "examples.html"):
+    www = www_dir()
+    if target == (www / "docs" / "examples.html"):
         return f"[{label}](examples.html{fragment})"
-    if target == ROOT / "www" / "przyklady.html":
+    if target == www / "przyklady.html":
         return f"[{label}](../przyklady.html{fragment})"
-    if target.parent == ROOT / "www":
-        rel = target.relative_to(ROOT / "www")
+    if target.parent == www:
+        rel = target.relative_to(www)
         return f"[{label}](../{rel.as_posix()}{fragment})"
     return None
 
@@ -218,33 +226,28 @@ def build_page(entries: list[tuple[str, str, str]], overview_html: str) -> str:
     sections = overview_html + "".join(section for _, _, section in entries)
     built_at = "deterministic"
 
+    sidebar_toggle = (
+        '<button type="button" class="btn btn-ghost docs-sidebar-toggle" '
+        'id="docs-sidebar-toggle">Spis treści</button>'
+    )
+    topbar = render_topbar(prefix="../", active="examples", extra_actions=sidebar_toggle)
+    footer = render_footer(prefix="../")
+
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Examples — Taskinity documentation</title>
+  <title>Examples — TellMesh documentation</title>
   <meta name="description" content="Full documentation for examples/*/* — README and source files from the hypervisor repository.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../landing.css">
+  <link rel="stylesheet" href="../site-shell.css">
 </head>
-<body class="docs-body">
-  <nav class="site-nav" aria-label="Main navigation">
-    <div class="container">
-      <a class="brand" href="/www/">
-        <span class="brand-mark" aria-hidden="true"></span>
-        Taskinity
-      </a>
-      <div class="nav-links">
-        <a class="nav-hide-mobile" href="../index.html">Landing</a>
-        <a class="nav-hide-mobile" href="../przyklady.html">Integration lab</a>
-        <a href="../chat.html">Chat</a>
-        <button type="button" class="btn btn-ghost docs-sidebar-toggle" id="docs-sidebar-toggle">Table of contents</button>
-      </div>
-    </div>
-  </nav>
+<body class="docs-body shell-page">
+{topbar}
 
   <div class="docs-layout container">
     <aside class="docs-sidebar" id="docs-sidebar" aria-label="Table of contents">
@@ -271,11 +274,7 @@ def build_page(entries: list[tuple[str, str, str]], overview_html: str) -> str:
     </main>
   </div>
 
-  <footer class="site-footer">
-    <div class="container">
-      <p>Taskinity · <a href="../index.html">Home</a> · <a href="../przyklady.html">Integration lab</a> · <a href="../chat.html">Chat</a></p>
-    </div>
-  </footer>
+{footer}
 
   <script src="../docs-examples.js" defer></script>
 </body>

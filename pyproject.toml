@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "resource-agent-system"
-version = "0.5.28"
+version = "0.5.29"
 description = "WronAI resource agent monorepo — uri3, nl2uri, uri2flow, uri2ops, touri, hypervisor, agent factory"
 readme = "README.md"
 license = "Apache-2.0"
@@ -13,6 +13,7 @@ authors = [{ name = "Tom Sapletta", email = "tom@sapletta.com" }]
 
 dependencies = [
     "fastapi>=0.115",
+    "uvicorn>=0.27",
     "httpx>=0.27",
     "jinja2>=3.1",
     "jsonschema>=4.23",
@@ -21,6 +22,20 @@ dependencies = [
     "python-dotenv>=1.0.0",
     "pyyaml>=6.0",
     "typer>=0.26.7",
+    "uri3",
+    "nl2uri",
+    "uri2flow",
+    "uri2ops",
+    "touri",
+    "uri2voice",
+    "uri2pact",
+    "uri2run",
+    "uri2verify",
+    "urigen",
+    "urish",
+    "resource-agent-hypervisor",
+    "resource-agent-factory",
+    "hypervisor-dashboard-agent",
 ]
 
 [project.optional-dependencies]
@@ -69,62 +84,39 @@ Issues = "https://github.com/wronai/hypervisor/issues"
 Documentation = "https://github.com/wronai/hypervisor#readme"
 
 [tool.uv.workspace]
-members = ["packages/*"]
+members = ["packages/resource-agent-hypervisor", "packages/resource-agent-factory", "agents/system/hypervisor_dashboard"]
+exclude = ["packages/project"]
 
 [tool.uv.sources]
-uri3 = { workspace = true }
-nl2uri = { workspace = true }
+uri3 = { path = "../../tellmesh/uri3", editable = true }
+nl2uri = { path = "../../tellmesh/nl2uri", editable = true }
+uri2flow = { path = "../../tellmesh/uri2flow", editable = true }
+uri2ops = { path = "../../tellmesh/uri2ops", editable = true }
+touri = { path = "../../tellmesh/touri", editable = true }
+uri2voice = { path = "../../tellmesh/uri2voice", editable = true }
+uri2pact = { path = "../../tellmesh/uri2pact", editable = true }
+uri2run = { path = "../../tellmesh/uri2run", editable = true }
+urish = { path = "../../tellmesh/urish", editable = true }
+uri2verify = { path = "../../tellmesh/uri2verify", editable = true }
+urigen = { path = "../../tellmesh/urigen", editable = true }
 resource-agent-hypervisor = { workspace = true }
 resource-agent-factory = { workspace = true }
-uri2flow = { workspace = true }
-uri2ops = { workspace = true }
-touri = { workspace = true }
-uri2voice = { workspace = true }
-uri2pact = { workspace = true }
-uri2run = { workspace = true }
-urish = { workspace = true }
-uri2verify = { workspace = true }
-urigen = { workspace = true }
 hypervisor-dashboard-agent = { workspace = true }
 
 [tool.setuptools.packages.find]
 where = [
-    "packages/uri3",
-    "packages/nl2uri",
-    "packages/uri2flow",
-    "packages/uri2ops",
-    "packages/touri",
-    "packages/uri2voice",
-    "packages/uri2pact",
-    "packages/uri2run",
-    "packages/uri2verify",
-    "packages/urigen",
-    "packages/urish",
-    "packages/hypervisor-dashboard-agent",
+    "agents/system/hypervisor_dashboard",
     "packages/resource-agent-hypervisor",
     "packages/resource-agent-factory",
     "examples/21_touri_voice",
 ]
 include = [
-    "uri2ops*",
-    "uri2flow*",
-    "uri2pact*",
-    "uri2run*",
-    "uri2verify*",
-    "uri2voice*",
-    "urigen*",
-    "urish*",
     "hypervisor_dashboard_agent*",
-    "touri*",
-    "touri_examples*",
-    "touri_examples_voice*",
-    "uri3*",
-    "nl2uri*",
-    "nl2a*",
     "hypervisor*",
     "meta_agent*",
     "runtime_client*",
     "generator*",
+    "touri_examples_voice*",
 ]
 
 [tool.setuptools.package-data]
@@ -161,18 +153,19 @@ markers = [
     "monitor: landing/uptime monitor automation",
 ]
 pythonpath = [
-    "packages/uri3",
-    "packages/nl2uri",
-    "packages/uri2flow",
-    "packages/uri2ops",
-    "packages/touri",
-    "packages/uri2voice",
-    "packages/uri2pact",
-    "packages/uri2run",
-    "packages/uri2verify",
-    "packages/urigen",
-    "packages/urish",
-    "packages/hypervisor-dashboard-agent",
+    ".",
+    "../../tellmesh/uri3",
+    "../../tellmesh/nl2uri",
+    "../../tellmesh/uri2flow",
+    "../../tellmesh/uri2ops",
+    "../../tellmesh/touri",
+    "../../tellmesh/uri2voice",
+    "../../tellmesh/uri2pact",
+    "../../tellmesh/uri2run",
+    "../../tellmesh/uri2verify",
+    "../../tellmesh/urigen",
+    "../../tellmesh/urish",
+    "agents/system/hypervisor_dashboard",
     "packages/resource-agent-hypervisor",
     "packages/resource-agent-factory",
     "examples/21_touri_voice",

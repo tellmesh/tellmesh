@@ -1,6 +1,6 @@
 # Taskinity WWW (`www/`)
 
-Strona produktowa + interfejs czatu podłączony do API `hypervisor-dashboard-agent`.
+Strona produktowa + interfejs czatu podłączony do API dashboardu (`agents/system/hypervisor_dashboard`).
 
 ## Strony
 

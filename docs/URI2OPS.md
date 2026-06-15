@@ -1,19 +1,25 @@
 # uri2ops
 
-`uri2ops` to samodzielny pakiet **URI Operation Registry + Operator Runtime** w katalogu repo [`uri2ops/`](../uri2ops/).
+`uri2ops` to samodzielny pakiet **URI Operation Registry + Operator Runtime**.
+Po splicie monorepo źródło pakietu jest poza tym repozytorium: w tym
+workspace lokalny checkout jest pod `/home/tom/github/tellmesh/uri2ops`, a
+odpowiadające repo upstream to [`tellmesh/uri2ops`](https://github.com/tellmesh/uri2ops).
+Ten repozytorium używa pakietu przez `tool.uv.sources` w
+[`pyproject.toml`](../pyproject.toml).
 
 Hypervisor **nie klika, nie pisze i nie steruje OS** — wykonanie operatora należy do `uri2ops`.
 
 ## Architektura
 
 ```txt
-nl2uri  → URI task/workflow graph (single, list, tree, task, graph)
-uri3    → parsing, validation, uri3 run-workflow (MVP executor)
-uri2ops → operation registry + adapters + policy + artifacts + serve
-hypervisor → deployment, lifecycle, audit, approval gate (future)
+nl2uri     → URI task/workflow graph (single, list, tree, task, graph)
+uri3       → parsing, validation, semantic routing, uri3 run-workflow
+hypervisor → deployment, lifecycle, policy, audit, operator/environment routing
+uri2run    → transport dispatch
+uri2ops    → operation registry + adapters + policy + artifacts + serve
 ```
 
-Pełna dokumentacja pakietu: [`packages/uri2ops/README.md`](../packages/uri2ops/README.md).
+Pełna dokumentacja pakietu: [`tellmesh/uri2ops`](https://github.com/tellmesh/uri2ops).
 
 ## CLI
 
@@ -25,7 +31,7 @@ uri2ops plan examples/10_browser_operator/task.health.yaml
 uri2ops run examples/10_browser_operator/task.health.yaml --adapter mock --approve
 uri2ops run examples/10_browser_operator/task.health.yaml --adapter playwright --approve
 uri2ops run examples/10_browser_operator/task.health.yaml --adapter auto --approve
-uri2ops serve --host 127.0.0.1 --port 8791
+uri2ops serve --host 127.0.0.1 --port 8795
 uri2ops registry list
 uri2ops registry validate
 ```
@@ -57,17 +63,34 @@ artifact://operator/workflows/{task_id}/{run_id}/{step_id}/...
 | Plik | Rola |
 |------|------|
 | [`config/operator_policy.uri.yaml`](../config/operator_policy.uri.yaml) | Polityka approve/risk |
-| [`config/operator_registry.uri.yaml`](../config/operator_registry.uri.yaml) | Bazowy rejestr operacji |
+| [`config/operator_registry.uri.yaml`](../config/operator_registry.uri.yaml) | Bazowy rejestr operacji (CLI merge) |
 | [`config/extra_operator_registry.yaml`](../config/extra_operator_registry.yaml) | Rozszerzenia (merge) |
-| [`packages/uri2ops/uri2ops/operation_registry/registry.yaml`](../packages/uri2ops/uri2ops/operation_registry/registry.yaml) | Kanoniczny registry pakietu |
+| installed `uri2ops/operation_registry/registry.yaml` | Union registry dla CLI/testów |
+| [`agents/operators/*/operation_registry.yaml`](../agents/operators/) | Per-agent registry używany przez deployment |
 
 ## HTTP daemon (v0.5)
 
+Deployed operator agents start via `agents/operators/<name>/main.py` (uvicorn)
+and are selected by `hypervisor.routing` for operator URI schemes:
+
+| Deployment | Schemes | Declared port |
+|------------|---------|---------------|
+| `browser-operator.local` | `browser://`, `dom://` | 8793 |
+| `desktop-operator.local` | `screen://`, `input://`, `pcwin://`, `android://` | 8791 |
+| `device-robot-operator.local` | `robot://`, `device://` | 8792 |
+
+The `uri2ops serve` CLI remains for local dev and union-registry workflows. Use
+a free port so it does not collide with dedicated operator agents:
+
 ```bash
-uri2ops serve --port 8791
-curl http://127.0.0.1:8791/health
-curl http://127.0.0.1:8791/registry
-curl -X POST http://127.0.0.1:8791/run -H 'Content-Type: application/json' -d @task.json
+hypervisor run-agent browser-operator.local --detach --wait-healthy
+# or direct:
+uvicorn agents.operators.browser_operator.main:app --host 127.0.0.1 --port 8793
+
+uri2ops serve --port 8795   # union registry (dev/CLI)
+curl http://127.0.0.1:8795/health
+curl http://127.0.0.1:8795/registry
+curl -X POST http://127.0.0.1:8795/run -H 'Content-Type: application/json' -d @task.json
 ```
 
 A2A: `/.well-known/agent-card.json`, `POST /a2a/tasks`  
@@ -90,4 +113,4 @@ Przykład: [`examples/14_uri2ops_serve/`](../examples/14_uri2ops_serve/README.md
 - [`docs/OPERATOR_RUNTIME.md`](./OPERATOR_RUNTIME.md) — przepływ wykonania
 - [`docs/URI_OPERATION_REGISTRY.md`](./URI_OPERATION_REGISTRY.md) — format registry
 - [`docs/OPERATOR_SECURITY.md`](./OPERATOR_SECURITY.md) — zasady bezpieczeństwa
-- [`packages/uri2ops/CHANGELOG.md`](../packages/uri2ops/CHANGELOG.md) · [`packages/uri2ops/TODO.md`](../packages/uri2ops/TODO.md)
+- [`tellmesh/uri2ops`](https://github.com/tellmesh/uri2ops)

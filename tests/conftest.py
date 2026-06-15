@@ -31,22 +31,34 @@ def repo_root() -> Path:
     raise RuntimeError("hypervisor repo root not found")
 
 
+@pytest.fixture(scope="session", autouse=True)
+def _hypervisor_repo_root_env(repo_root: Path):
+    previous = os.environ.get("HYPERVISOR_REPO_ROOT")
+    os.environ["HYPERVISOR_REPO_ROOT"] = str(repo_root.resolve())
+    yield
+    if previous is None:
+        os.environ.pop("HYPERVISOR_REPO_ROOT", None)
+    else:
+        os.environ["HYPERVISOR_REPO_ROOT"] = previous
+
+
 def workspace_pythonpath(repo_root: Path) -> str:
+    tellmesh_root = repo_root.parent.parent / "tellmesh"
     paths = [
-        repo_root,  # root for top-level like domains/ (for externalized domain planners etc.)
+        repo_root,
+        tellmesh_root / "uri3",
+        tellmesh_root / "nl2uri",
+        tellmesh_root / "uri2flow",
+        tellmesh_root / "uri2ops",
+        tellmesh_root / "touri",
+        tellmesh_root / "uri2voice",
+        tellmesh_root / "uri2pact",
+        tellmesh_root / "uri2run",
+        tellmesh_root / "uri2verify",
+        tellmesh_root / "urigen",
+        tellmesh_root / "urish",
         repo_root / "packages" / "resource-agent-factory",
         repo_root / "packages" / "resource-agent-hypervisor",
-        repo_root / "packages" / "nl2uri",
-        repo_root / "packages" / "uri3",
-        repo_root / "packages" / "uri2flow",
-        repo_root / "packages" / "uri2ops",
-        repo_root / "packages" / "touri",
-        repo_root / "packages" / "uri2voice",
-        repo_root / "packages" / "uri2pact",
-        repo_root / "packages" / "uri2run",
-        repo_root / "packages" / "uri2verify",
-        repo_root / "packages" / "urigen",
-        repo_root / "packages" / "urish",
         repo_root / "agents" / "system" / "hypervisor_dashboard",
         repo_root / "examples" / "21_touri_voice",
     ]
@@ -58,6 +70,7 @@ def workspace_pythonpath(repo_root: Path) -> str:
 def workspace_env(repo_root: Path) -> dict[str, str]:
     env = os.environ.copy()
     env["PYTHONPATH"] = workspace_pythonpath(repo_root)
+    env["HYPERVISOR_REPO_ROOT"] = str(repo_root.resolve())
     env.setdefault("LANG", "en_US.UTF-8")
     env.setdefault("LC_ALL", env["LANG"])
     bin_dirs = [Path(sys.executable).resolve().parent, repo_root / ".venv" / "bin"]

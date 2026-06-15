@@ -7,6 +7,9 @@
 WWW_PORT ?= 8788
 WWW_COMPOSE = docker compose -f www/docker-compose.yml
 WWW_BASE = http://localhost:$(WWW_PORT)
+TELLMESH_WWW ?= $(abspath ../../tellmesh/www)
+HYPERVISOR_WWW_DIR ?= $(if $(wildcard $(TELLMESH_WWW)/index.html),$(TELLMESH_WWW),$(CURDIR)/www)
+export HYPERVISOR_WWW_DIR
 
 # Prefer repo .venv so start-agents works outside an activated shell (conda base often lacks uvicorn).
 PYTHON := $(shell if [ -x .venv/bin/python ]; then echo .venv/bin/python; else command -v python3; fi)
@@ -38,7 +41,7 @@ doctor:
 architecture-gate:
 	bash scripts/ci/architecture_gate.sh
 
-ci-gate: architecture-gate test examples-test
+ci-gate: architecture-gate www-docs-check test examples-test
 
 examples-test:
 	pytest tests/examples -q

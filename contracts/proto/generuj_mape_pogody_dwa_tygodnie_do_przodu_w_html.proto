@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package app.generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html.v1;
+
+message RunTaskCommand {
+  string input = 1;
+}
+
+message TaskRequested {
+  string input = 1;
+  int64 requested_at = 2;
+}
+
+message TaskCompleted {
+  string result_id = 1;
+  string output = 2;
+  int64 completed_at = 3;
+}
+
+message TaskResultView {
+  string result_id = 1;
+  string output = 2;
+}

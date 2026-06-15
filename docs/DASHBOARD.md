@@ -13,7 +13,8 @@ agent://hypervisor-dashboard
 deployment://hypervisor-dashboard.local   (port 8788)
 ```
 
-Package: `packages/hypervisor-dashboard-agent/`
+Package: `agents/system/hypervisor_dashboard/` (module `hypervisor_dashboard_agent`)
+Runtime registry: [`config/runtime_environments.yaml`](../config/runtime_environments.yaml) declares `8788` for the control-plane profile; `make start` uses the same port.
 
 ## Capabilities
 
@@ -61,7 +62,7 @@ Product chat is **not** a separate backend — it calls the same dashboard-agent
 
 ```text
 NL prompt  →  POST /api/ask  →  urish ask  →  markdown plan (URIs + next_steps)
-User action  →  POST /api/uri/call or /api/plan/run  →  policy gate  →  touri / uri3 / hypervisor
+User action  →  POST /api/uri/explain, /api/uri/call or /api/plan/run  →  policy gate  →  uri3 / hypervisor
 ```
 
 Important:
@@ -69,7 +70,8 @@ Important:
 - Chat **plans** on Enter; it runs only after a URI action or **Run plan** button.
 - Paste **one NL command per line** for batch planning (`Detected N commands`).
 - Six **office cards** on the landing page map to [`domains/office/`](../domains/office/) (same URIs as chat quick prompts).
-- Default **dry-run** in UI; use Run with approve or `uri run … --approve` for execution.
+- Default **dry-run** in UI; use Run with approve, `uri call … --approve`, or `hypervisor call … --approve` for execution.
+- **Explain URI** (`POST /api/uri/explain`) returns `uri3` explain data plus hypervisor runtime resolution for operator URIs.
 - **Run plan** (`POST /api/plan/run`): optional `auto_repair` + retry on agent URI failures; checkbox **speak result** → mock TTS summary.
 - Sidebar events: `/api/events` and SSE `/api/events/stream` — incidents, monitor snapshots, **log events** (`output/logs/*.jsonl`), live agent health.
 - Monitor webhooks: `POST /api/monitors/webhook` writes `output/monitoring/webhook-*.json`
