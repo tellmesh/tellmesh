@@ -40,6 +40,52 @@ def test_hypervisor_treats_playwright_as_adapter_not_environment(repo_root: Path
     assert resolution.context["adapter"] == "playwright"
 
 
+def test_hypervisor_preserves_payload_session_reference(monkeypatch, repo_root: Path):
+    session: dict[str, Any] = {}
+    captured: dict[str, Any] = {}
+
+    def fake_run_backend(backend, payload, context):
+        captured["payload"] = payload
+        captured["context"] = context
+        context["session"]["opened"] = True
+        return service_result(ok=True, result_type="fake", data={"executed": True})
+
+    monkeypatch.setattr("uri2run.run_backend", fake_run_backend)
+
+    result = call_uri(
+        "browser://chrome/page/open",
+        payload={"url": "https://example.com", "environment": "playwright", "session": session},
+        root=repo_root,
+        approved=True,
+    ).to_dict()
+
+    assert result["ok"] is True
+    assert captured["payload"]["session"] is session
+    assert captured["context"]["session"] is session
+    assert session["opened"] is True
+
+
+def test_hypervisor_resolution_to_dict_summarizes_live_session(repo_root: Path):
+    class LiveObject:
+        def __deepcopy__(self, memo):
+            raise AssertionError("live session objects must not be deep-copied")
+
+    resolution = resolve_hypervisor_route(
+        "browser://chrome/page/open",
+        payload={
+            "url": "https://example.com",
+            "environment": "playwright",
+            "session": {"playwright": LiveObject()},
+        },
+        root=repo_root,
+        approved=True,
+    )
+
+    payload = resolution.to_dict()
+
+    assert payload["context"]["session"] == {"present": True, "keys": ["playwright"]}
+
+
 def test_hypervisor_blocks_side_effecting_route_without_approval(repo_root: Path):
     result = call_uri(
         "browser://chrome/page/open",
