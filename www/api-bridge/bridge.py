@@ -182,42 +182,15 @@ def events(limit: int = 20) -> dict[str, Any]:
 @app.post("/api/ask")
 @app.post("/api/nl/ask")
 def ask(body: AskCall) -> dict[str, Any]:
-    prompt = body.prompt.lower()
-    agent = "weather-map-agent.local"
+    from hypervisor_dashboard_agent.chat_format import format_ask_markdown
+    from urish.backends.ask import ask_prompt
 
-    # Very small deterministic NL mapper. Replace with urish ask / nl2uri if desired.
-    if "diagnoz" in prompt:
-        uri = f"repair://agent/{agent}/diagnose"
-        intent = "diagnose_agent"
-    elif "napraw" in prompt:
-        uri = f"repair://agent/{agent}/apply"
-        intent = "repair_agent"
-    elif "health" in prompt or "sprawd" in prompt:
-        uri = f"health://agent/{agent}"
-        intent = "check_health"
-    elif "ticket" in prompt:
-        uri = "ticket://bug/from-incident/inc_20260614_001"
-        intent = "create_ticket"
-    elif "proposal" in prompt or "ewoluc" in prompt:
-        uri = "evolution://proposal/from-ticket/PL-1"
-        intent = "create_proposal"
-    else:
-        uri = f"view://process/agent/{agent}/latest"
-        intent = "show_process"
-
-    data = {
-        "intent": intent,
-        "detected_kind": "runtime",
-        "planned_uris": [uri],
-        "uri": uri,
-        "next_steps": [f"urish call {uri} --dry-run"],
-        "explanation": "Backend API zamienił polecenie naturalne na URI.",
-    }
-    result = envelope(True, "nl_plan", data, prompt=body.prompt)
-    result["message_markdown"] = (
-        f"## Plan NL\n\nIntent: `{intent}`\n\n### Planowane URI\n- `{uri}`\n\n"
-        f"```bash\nurish call {uri} --dry-run\n```"
-    )
+    envelope = ask_prompt(body.prompt, dry_run=body.dry_run, use_llm=body.llm)
+    data = envelope.get("data") or {}
+    markdown = format_ask_markdown(data)
+    result = envelope
+    result["message_markdown"] = markdown
+    result["ok"] = True
     return result
 
 

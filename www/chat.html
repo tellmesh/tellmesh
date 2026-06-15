@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,47 +11,48 @@
     <header class="header">
       <div>
         <h1>Taskinity Chat</h1>
-        <p class="subtitle">NL → plan → URI · połączenie z API systemu</p>
+        <p class="subtitle">NL → plan → URI · connected to system API</p>
       </div>
       <div class="header-actions">
-        <span id="status-pill" class="pill pill--pending">łączenie…</span>
-        <button class="ghost-btn" type="button" id="copy-chat-btn" title="Kopiuj całą rozmowę">Kopiuj chat</button>
-        <button class="ghost-btn" type="button" id="refresh-btn">Odśwież</button>
-        <a class="link" href="/">Strona główna</a>
+        <span id="status-pill" class="pill pill--pending">connecting…</span>
+        <button class="ghost-btn" type="button" id="copy-chat-btn" title="Copy entire conversation">Copy chat</button>
+        <button class="ghost-btn" type="button" id="clear-chat-btn" title="Clear current conversation">Clear</button>
+        <button class="ghost-btn" type="button" id="refresh-btn">Refresh</button>
+        <a class="link" href="/">Home</a>
         <a class="link" href="/ui/agents">Dashboard UI</a>
-        <a class="link" href="demo.html">Demo techniczne</a>
+        <a class="link" href="demo.html">Technical demo</a>
       </div>
     </header>
 
     <main class="workspace">
       <aside class="sidebar" aria-label="System">
         <section class="panel">
-          <h2>Połączenie</h2>
+          <h2>Connection</h2>
           <dl class="kv">
             <div>
               <dt>API</dt>
-              <dd id="api-detail">sprawdzanie…</dd>
+              <dd id="api-detail">checking…</dd>
             </div>
             <div>
-              <dt>Tryb</dt>
+              <dt>Mode</dt>
               <dd>policy gate + dry-run</dd>
             </div>
           </dl>
         </section>
 
         <section class="panel">
-          <h2>NL komendy</h2>
+          <h2>NL commands</h2>
           <div id="quick-prompts" class="quick-list"></div>
         </section>
 
         <section class="panel">
-          <h2>Agenci</h2>
-          <div id="agent-list" class="list list--empty">ładowanie…</div>
+          <h2>Agents</h2>
+          <div id="agent-list" class="list list--empty">loading…</div>
         </section>
 
         <section class="panel">
-          <h2>Zdarzenia</h2>
-          <div id="event-list" class="list list--empty">ładowanie…</div>
+          <h2>Events</h2>
+          <div id="event-list" class="list list--empty">loading…</div>
         </section>
       </aside>
 
@@ -63,7 +64,7 @@
             <textarea
               id="prompt"
               rows="2"
-              placeholder="Napisz polecenie NL albo wklej URI agent://…"
+              placeholder="Type one command per line or paste a URI like agent://…"
               autocomplete="off"
             ></textarea>
             <div class="composer-bar">
@@ -71,7 +72,20 @@
                 <input type="checkbox" id="dry-run" checked>
                 dry-run
               </label>
-              <button type="submit" id="send-btn">Wyślij</button>
+              <label class="checkbox">
+                <input type="checkbox" id="speak-summary">
+                speak result
+              </label>
+              <label class="checkbox voice-engine-label" for="voice-engine">
+                voice
+                <select id="voice-engine" aria-label="Voice STT engine">
+                  <option value="auto">auto</option>
+                  <option value="mock">mock</option>
+                  <option value="whisper">whisper</option>
+                </select>
+              </label>
+              <button type="button" class="ghost-btn mic-btn" id="mic-btn" title="Record voice (Whisper STT)">🎤</button>
+              <button type="submit" id="send-btn">Send</button>
             </div>
           </form>
         </footer>
@@ -81,6 +95,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
-  <script src="app.js"></script>
+  <script src="app.js?v=chat-autonomy-v2-20260614"></script>
 </body>
 </html>

@@ -5,14 +5,15 @@ services:
       dockerfile: www/Dockerfile
     image: hypervisor-www-chat:latest
     container_name: hypervisor-www-chat
-    ports:
-      - "${WWW_PORT:-8788}:8788"
+    network_mode: "host"
+    pid: "host"
     volumes:
       - ../www:/app/www:ro
+      - ../packages:/app/packages:ro
       - ../agents/generated:/app/agents/generated:ro
       - ../config:/app/config:ro
       - ../contracts:/app/contracts:ro
-      - ../deployments:/app/deployments:ro
+      - ../deployments:/app/deployments
       - ../domains:/app/domains:ro
       - ../knowledge:/app/knowledge:ro
       - ../schemas:/app/schemas:ro

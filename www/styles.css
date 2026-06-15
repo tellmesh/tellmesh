@@ -278,6 +278,13 @@ button {
   flex-wrap: wrap;
 }
 
+.uri-action-group {
+  display: inline-flex;
+  gap: 0.25rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 .block-actions button,
 .uri-actions button {
   font-size: 0.76rem;
@@ -298,6 +305,51 @@ button {
 .uri-chip {
   max-width: 100%;
   overflow-wrap: anywhere;
+}
+
+.plan-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.55rem;
+}
+
+.plan-actions button {
+  border: 1px solid var(--accent);
+  background: rgba(95, 214, 178, 0.12);
+  color: var(--accent);
+  border-radius: 6px;
+  padding: 0.3rem 0.55rem;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.plan-actions button:hover {
+  background: rgba(95, 214, 178, 0.22);
+}
+
+.mic-btn {
+  min-width: 2.4rem;
+}
+
+.mic-btn.is-recording {
+  border-color: #e85d5d;
+  color: #ffb4b4;
+  animation: mic-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes mic-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+
+.voice-engine-label select {
+  margin-left: 0.25rem;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 0.8rem;
 }
 
 .composer {

@@ -1,10 +1,24 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Taskinity — command center dla automatyzacji i agentów AI</title>
-  <meta name="description" content="Jeden chat i dashboard: co działa, co padło, incident, ticket, naprawa. Skrypty, n8n, API, Docker. Polski pilot 7–14 dni.">
+  <title>Taskinity — command center for automation and AI agents</title>
+  <meta name="description" content="One chat and dashboard for WordPress, WooCommerce, BaseLinker, Allegro, ERP, CRM, AI agents, health checks, incidents and repairs.">
+  <script>
+    (function () {
+      try {
+        var theme = localStorage.getItem("taskinity.theme") || "dark";
+        var lang = localStorage.getItem("taskinity.lang") || "en";
+        if (!/^(warm|dark|light)$/.test(theme)) theme = "dark";
+        if (!/^(pl|en|de)$/.test(lang)) lang = "en";
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.lang = lang;
+      } catch (err) {
+        document.documentElement.dataset.theme = "dark";
+      }
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -20,9 +34,25 @@
       <div class="nav-links">
         <a class="nav-hide-mobile" href="#problem">Problem</a>
         <a class="nav-hide-mobile" href="#tour">Jak działa</a>
+        <a class="nav-hide-mobile" href="#integracje">Integracje</a>
+        <a class="nav-hide-mobile" href="#przyklady-biuro">Przykłady biuro</a>
+        <a class="nav-hide-mobile" href="przyklady.html">Lab integracji</a>
+        <a class="nav-hide-mobile" href="docs/examples.html">Docs examples</a>
         <a class="nav-hide-mobile" href="#oferta">Oferta</a>
         <a href="chat.html">Otwórz chat</a>
         <a class="btn btn-primary" href="#kontakt">Umów demo</a>
+        <div class="site-controls" aria-label="Ustawienia strony">
+          <div class="segmented-control" aria-label="Język">
+            <button type="button" data-lang-choice="pl" aria-pressed="true">PL</button>
+            <button type="button" data-lang-choice="en" aria-pressed="false">EN</button>
+            <button type="button" data-lang-choice="de" aria-pressed="false">DE</button>
+          </div>
+          <div class="segmented-control theme-control" aria-label="Motyw">
+            <button type="button" data-theme-choice="warm" aria-pressed="false">Warm</button>
+            <button type="button" data-theme-choice="dark" aria-pressed="true">Dark</button>
+            <button type="button" data-theme-choice="light" aria-pressed="false">Light</button>
+          </div>
+        </div>
       </div>
     </div>
   </nav>
@@ -102,7 +132,7 @@
   <section id="tour" class="tour reveal">
     <div class="container">
       <div class="section-head">
-        <h2>Autonomia w praktyce</h2>
+        <h2>Autonomy in practice</h2>
         <p>Interaktywny pokaz: komenda NL tworzy agentów, runtime odbija zajęte porty, a supervisor naprawia awarię w pętli.</p>
       </div>
 
@@ -146,7 +176,7 @@
             <div class="tour-progress" aria-hidden="true"><div class="tour-progress-bar" id="tour-progress-bar"></div></div>
             <span class="tour-count" id="tour-count">1 / 6</span>
             <button type="button" class="btn btn-ghost" id="tour-play" aria-pressed="false">⏸ Pauza</button>
-            <button type="button" class="btn btn-ghost" id="tour-copy-chat" title="Kopiuj widoczną rozmowę z demo">Kopiuj chat</button>
+            <button type="button" class="btn btn-ghost" id="tour-copy-chat" title="Copy visible demo chat">Copy chat</button>
             <button type="button" class="btn btn-ghost" id="tour-next" aria-label="Następny slajd">Dalej →</button>
           </div>
 
@@ -175,6 +205,8 @@
               <button type="button" class="scenario-tab is-active" data-scenario="agents" role="tab" aria-selected="true">3 agenci</button>
               <button type="button" class="scenario-tab" data-scenario="ports" role="tab" aria-selected="false">Port zajęty</button>
               <button type="button" class="scenario-tab" data-scenario="repair" role="tab" aria-selected="false">Awaria + repair</button>
+              <button type="button" class="scenario-tab" data-scenario="ecommerce" role="tab" aria-selected="false">E-commerce</button>
+              <button type="button" class="scenario-tab" data-scenario="office" role="tab" aria-selected="false">Biuro</button>
             </div>
             <div class="scenario-grid">
               <div class="scenario-terminal" id="scenario-terminal" aria-live="polite"></div>
@@ -292,6 +324,539 @@
     </div>
   </section>
 
+  <section id="integracje" class="reveal">
+    <div class="container">
+      <div class="section-head">
+        <h2>Integrations in 3 steps</h2>
+        <p>
+          Nie zastępujemy WordPressa, WooCommerce, Baselinkera ani Allegro — spinamy je w jeden command center.
+          Każda integracja to ten sam wzorzec: <strong>zdarzenie → URI → health → chat przy awarii</strong>.
+        </p>
+      </div>
+
+      <div class="integration-steps">
+        <article class="integration-step">
+          <span class="integration-step-num">1</span>
+          <h3>Podłącz źródło</h3>
+          <p>Webhook, REST API, plugin WordPress, cron lub skrypt — cokolwiek już masz. Taskinity woła to przez <code>http://</code> lub <code>shell://</code>.</p>
+        </article>
+        <article class="integration-step">
+          <span class="integration-step-num">2</span>
+          <h3>Zarejestruj proces</h3>
+          <p>Jeden wpis w rejestrze deploymentów: nazwa, health URI, logi. Widzisz status w dashboardzie i API — bez grzebania po pięciu panelach.</p>
+        </article>
+        <article class="integration-step">
+          <span class="integration-step-num">3</span>
+          <h3>Monitoruj i naprawiaj</h3>
+          <p>Health co 5 min, alert webhookiem, chat po polsku: „co się stało z synchronizacją Allegro?”. Dry-run przed każdą mutacją.</p>
+        </article>
+      </div>
+
+      <div class="integration-hub" aria-label="Taskinity jako hub integracji">
+        <div class="integration-hub-center">
+          <strong>Taskinity</strong>
+          <span>chat · health · incident · repair</span>
+        </div>
+        <div class="integration-spokes">
+          <span class="integration-spoke">Strony WWW</span>
+          <span class="integration-spoke">ERP</span>
+          <span class="integration-spoke">CRM</span>
+          <span class="integration-spoke">WordPress</span>
+          <span class="integration-spoke">WooCommerce</span>
+          <span class="integration-spoke">Baselinker</span>
+          <span class="integration-spoke">Allegro.pl</span>
+        </div>
+      </div>
+
+      <div class="integration-simple">
+        <div class="integration-simple-copy">
+          <span class="scenario-kicker">Najprostszy wzorzec</span>
+          <h3>Nie przepinasz firmy na nowy system. Dokładasz cienką warstwę nad tym, co już działa.</h3>
+          <p>
+            Każdy portal, ERP, CRM albo sklep dostaje jeden opis procesu: skąd przychodzi zdarzenie,
+            jakie URI ma zostać wykonane, gdzie sprawdzić health i kto akceptuje kroki ryzykowne.
+          </p>
+        </div>
+        <div class="integration-pipeline" aria-label="Prosty przepływ integracji">
+          <div class="integration-pipeline-step">
+            <span>01</span>
+            <strong>System źródłowy</strong>
+            <p>WordPress, WooCommerce, BaseLinker, Allegro, ERP, CRM lub portal WWW.</p>
+          </div>
+          <div class="integration-pipeline-step">
+            <span>02</span>
+            <strong>Webhook / API</strong>
+            <p>REST, cron, plugin, skrypt, Playwright albo adapter okienkowy.</p>
+          </div>
+          <div class="integration-pipeline-step">
+            <span>03</span>
+            <strong>URI workflow</strong>
+            <p><code>workflow://order/sync</code>, <code>health://agent/...</code>, <code>repair://...</code>.</p>
+          </div>
+          <div class="integration-pipeline-step">
+            <span>04</span>
+            <strong>Chat i proof</strong>
+            <p>Wynik, screenshot, logi, dry-run, approval i raport audytowy w jednym miejscu.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="connector-board" aria-label="Gotowe receptury integracji">
+        <article class="connector-card">
+          <div class="connector-card-top">
+            <span class="connector-logo">WP</span>
+            <div>
+              <span class="integration-tag">WordPress</span>
+              <h3>Lead z formularza do CRM</h3>
+            </div>
+          </div>
+          <p>Hook formularza lub REST API wysyła zdarzenie do Taskinity, a agent dopisuje kontakt w CRM i odsyła potwierdzenie.</p>
+          <pre class="integration-snippet">NL: "połącz formularz WordPress z CRM i alertuj błędy"
+URI: workflow://lead/wordpress-to-crm
+API: POST /api/uri/call</pre>
+        </article>
+
+        <article class="connector-card">
+          <div class="connector-card-top">
+            <span class="connector-logo">WC</span>
+            <div>
+              <span class="integration-tag">WooCommerce</span>
+              <h3>Zamówienie do faktury i magazynu</h3>
+            </div>
+          </div>
+          <p>Webhook sklepu uruchamia workflow: pobierz zamówienie, sprawdź płatność, wystaw fakturę i zsynchronizuj stan.</p>
+          <pre class="integration-snippet">NL: "pilnuj zamówień WooCommerce i fakturuj po płatności"
+URI: workflow://order/woocommerce-to-erp
+Health: health://agent/invoices-agent.local</pre>
+        </article>
+
+        <article class="connector-card">
+          <div class="connector-card-top">
+            <span class="connector-logo">BL</span>
+            <div>
+              <span class="integration-tag">BaseLinker</span>
+              <h3>Marketplace hub bez ślepych cronów</h3>
+            </div>
+          </div>
+          <p>Cron lub n8n woła API BaseLinker, a Taskinity porównuje zamówienia, stany i błędy synchronizacji z ERP.</p>
+          <pre class="integration-snippet">NL: "sprawdź rozjazd stanów BaseLinker i WooCommerce"
+URI: workflow://sync/baselinker-inventory
+Repair: repair://agent/baselinker-sync.local/diagnose</pre>
+        </article>
+
+        <article class="connector-card">
+          <div class="connector-card-top">
+            <span class="connector-logo">AL</span>
+            <div>
+              <span class="integration-tag">Allegro.pl</span>
+              <h3>OAuth, zamówienia, zwroty</h3>
+            </div>
+          </div>
+          <p>Agent pilnuje tokenu OAuth, pobiera checkout forms, wykrywa 429/503 i pokazuje w chacie, które zamówienie utknęło.</p>
+          <pre class="integration-snippet">NL: "zdiagnozuj synchronizację Allegro z ERP"
+URI: workflow://allegro/orders-to-erp
+Logs: log://agent/allegro-sync.local?level=error</pre>
+        </article>
+
+        <article class="connector-card">
+          <div class="connector-card-top">
+            <span class="connector-logo">ERP</span>
+            <div>
+              <span class="integration-tag">ERP · CRM</span>
+              <h3>Comarch, Subiekt, HubSpot, Salesforce</h3>
+            </div>
+          </div>
+          <p>REST, SOAP, CSV, SQL albo okna Windows. System rozdziela automatyczne kroki od tych, które wymagają akceptacji człowieka.</p>
+          <pre class="integration-snippet">NL: "wystaw faktury w ERP i pokaż podgląd"
+URI: workflow://invoices/batch/dry-run
+UI: pcwin://window/Subiekt/focus</pre>
+        </article>
+
+        <article class="connector-card">
+          <div class="connector-card-top">
+            <span class="connector-logo">WWW</span>
+            <div>
+              <span class="integration-tag">Strony i portale</span>
+              <h3>Logowanie, pobieranie danych, formularze</h3>
+            </div>
+          </div>
+          <p>Playwright lub browser adapter wykonuje czynności w portalu, robi screenshot i zatrzymuje się przed wysyłką danych.</p>
+          <pre class="integration-snippet">NL: "pobierz raport CSV z portalu dostawcy"
+URI: workflow://office/supplier-report/monthly
+Proof: artifact://workflow/.../screenshot.png</pre>
+        </article>
+      </div>
+
+      <div class="integration-faststart">
+        <div>
+          <span class="scenario-kicker">Start w 15 minut</span>
+          <h3>Minimalny kontrakt integracji</h3>
+          <p>Najpierw nie budujesz pełnego konektora. Rejestrujesz jeden proces, jeden health check i jeden sposób diagnozy.</p>
+        </div>
+        <pre class="integration-snippet"># 1. Opisz proces językiem biura
+urish ask "połącz WooCommerce, BaseLinker i ERP; pokaż błędy w chacie"
+
+# 2. Sprawdź plan bez skutków ubocznych
+uri explain workflow://order/woocommerce-to-erp
+
+# 3. Uruchom dopiero po approval
+uri run workflow://order/woocommerce-to-erp --approve
+
+# 4. Monitoruj i diagnozuj
+uri call health://agent/invoices-agent.local
+urish ask "dlaczego zamówienie z Allegro nie trafiło do ERP?"</pre>
+      </div>
+
+      <div class="integration-grid">
+        <article class="integration-card">
+          <div class="integration-card-head">
+            <span class="integration-tag">Strony · API</span>
+            <h3>Inne strony i systemy</h3>
+          </div>
+          <ul>
+            <li>Webhook <code>POST /api/uri/call</code> z Twojej aplikacji (formularz, SaaS, panel klienta).</li>
+            <li>Monitor URL co 5 min — alert, gdy strona lub endpoint padnie.</li>
+            <li>Reverse proxy (nginx) → health check na <code>/health</code> agenta.</li>
+          </ul>
+          <pre class="integration-snippet">curl -X POST http://localhost:8788/api/uri/call \
+  -H "Content-Type: application/json" \
+  -d '{"uri":"health://agent/invoices-agent.local","dry_run":true}'</pre>
+        </article>
+
+        <article class="integration-card">
+          <div class="integration-card-head">
+            <span class="integration-tag">ERP · CRM</span>
+            <h3>Comarch · Subiekt · Salesforce · HubSpot</h3>
+          </div>
+          <ul>
+            <li>Cron lub n8n woła REST ERP → agent zapisuje wynik i logi błędów 401/500.</li>
+            <li>Przy awarii: incident z kontekstem (endpoint, payload, ostatni sukces).</li>
+            <li>Ticket do developera z gotowym planem naprawy — bez ręcznego kopiowania logów.</li>
+          </ul>
+          <pre class="integration-snippet"># przykład: faktura nie weszła do ERP
+urish ask "zdiagnozuj agenta invoices-agent.local"
+# → repair://agent/invoices-agent.local/diagnose</pre>
+        </article>
+
+        <article class="integration-card">
+          <div class="integration-card-head">
+            <span class="integration-tag">WordPress</span>
+            <h3>WP · formularze · REST</h3>
+          </div>
+          <ul>
+            <li>Plugin lub <code>functions.php</code>: hook <code>woocommerce_order_status_changed</code> → webhook do Taskinity.</li>
+            <li>Application Password + REST API — odczyt statusu bez edycji core WP.</li>
+            <li>Formularz kontaktowy / lead → URI workflow (mail → CRM → potwierdzenie).</li>
+          </ul>
+          <pre class="integration-snippet">// WordPress → Taskinity (uproszczony hook)
+wp_remote_post('http://taskinity.local/api/uri/call', [
+  'body' => json_encode(['uri' => 'workflow://order/wp-to-crm', 'dry_run' => true]),
+]);</pre>
+        </article>
+
+        <article class="integration-card">
+          <div class="integration-card-head">
+            <span class="integration-tag">WooCommerce</span>
+            <h3>Sklep · zamówienia · stany</h3>
+          </div>
+          <ul>
+            <li>Webhook <code>order.created</code> / <code>order.updated</code> → agent faktur lub magazynu.</li>
+            <li>Health na endpoint Woo REST — widać od razu, czy synchronizacja stoi.</li>
+            <li>Chat: „dlaczego zamówienie #4521 nie poszło do Baselinkera?”</li>
+          </ul>
+          <pre class="integration-snippet"># WooCommerce REST (Consumer key)
+GET /wp-json/wc/v3/orders?status=processing
+→ agent invoices-agent.local → ERP / Baselinker</pre>
+        </article>
+
+        <article class="integration-card">
+          <div class="integration-card-head">
+            <span class="integration-tag">Baselinker</span>
+            <h3>Magazyn · marketplace hub</h3>
+          </div>
+          <ul>
+            <li>API Baselinker (<code>getOrders</code>, <code>updateInventory</code>) jako krok workflow URI.</li>
+            <li>Cron co N minut + porównanie liczby zamówień vs WooCommerce / Allegro.</li>
+            <li>Alert, gdy rozjazd stanów magazynowych przekroczy próg.</li>
+          </ul>
+          <pre class="integration-snippet"># shell:// lub python:// wrapper na API Baselinker
+uri run workflow://sync/baselinker-inventory/dry-run
+uri run workflow://sync/baselinker-inventory --approve</pre>
+        </article>
+
+        <article class="integration-card">
+          <div class="integration-card-head">
+            <span class="integration-tag">Allegro.pl</span>
+            <h3>Aukcje · zamówienia · OAuth</h3>
+          </div>
+          <ul>
+            <li>Agent z tokenem OAuth Allegro — pobieranie zamówień, status wysyłki, zwroty.</li>
+            <li>Integracja z Baselinkerem lub bezpośrednio do ERP — jeden rejestr procesów.</li>
+            <li>Przy 429/503: supervisor retry z backoff, incident zamiast cichego failu.</li>
+          </ul>
+          <pre class="integration-snippet"># Allegro REST → URI agent
+GET https://api.allegro.pl/order/checkout-forms
+→ workflow://allegro/orders-to-erp
+→ health://agent/invoices-agent.local</pre>
+        </article>
+      </div>
+
+      <div class="integration-example tech-block">
+        <h3>Przykład: WooCommerce → Baselinker → ERP (jeden widok)</h3>
+        <p>Typowy pilot e-commerce — trzy systemy, jeden chat przy awarii:</p>
+        <pre>1. WooCommerce webhook  →  workflow://order/new
+2. Baselinker sync      →  shell://scripts/sync-baselinker.sh
+3. ERP faktura          →  http://erp.local/api/invoices  (agent invoices-agent.local)
+4. Taskinity            →  health co 5 min + webhook alert + chat NL
+
+# gdy coś padnie:
+"Zdiagnozuj synchronizację Allegro i pokaż ostatnie błędy ERP"
+→ repair://agent/invoices-agent.local/diagnose</pre>
+        <p class="integration-example-cta">
+          <a class="btn btn-secondary" href="chat.html">Wypróbuj pytanie w chacie</a>
+          <span>Pilot 3 procesów obejmuje właśnie taki układ.</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="przyklady-biuro" class="reveal">
+    <div class="container">
+      <div class="section-head">
+        <h2>How an office works — concrete examples</h2>
+        <p>
+          Marta, specjalista ds. rozliczeń, nie pisze skryptów. Opisuje zadanie po polsku w chacie.
+          Taskinity planuje kroki: strona WWW, portal, okna w systemie, faktura, bank — a gdy trzeba tokenu na telefonie,
+          <strong>prosi Martę o jeden klik</strong> i kontynuuje resztę.
+        </p>
+      </div>
+
+      <div class="office-persona">
+        <div class="office-persona-copy">
+          <span class="office-persona-kicker">Persona · pilot biurowy</span>
+          <h3>Marta — rozliczenia i faktury</h3>
+          <p>
+            Codziennie: pobiera dane z portali, wystawia faktury w ERP, sprawdza PDF-y, robi przelewy w banku.
+            Token mobilny akceptuje na Androidzie. Wcześniej traciła godziny na „dlaczego to znowu nie poszło”.
+          </p>
+          <ul class="office-persona-stats">
+            <li><strong>~2 h/d</strong> powtarzalnych kliknięć</li>
+            <li><strong>5 systemów</strong> na raz</li>
+            <li><strong>1 chat</strong> zamiast pięciu okien</li>
+          </ul>
+        </div>
+        <div class="office-day" aria-label="Typowy dzień Marty">
+          <div class="office-day-item">
+            <time>08:30</time>
+            <p>„Pobierz zestawienie VAT z portalu i wrzuć do folderu rozliczeń.”</p>
+          </div>
+          <div class="office-day-item">
+            <time>10:00</time>
+            <p>„Wystaw faktury za wczorajsze zamówienia i pokaż podgląd przed wysyłką.”</p>
+          </div>
+          <div class="office-day-item">
+            <time>13:15</time>
+            <p>„Zaloguj się do banku i przygotuj paczkę przelewów — czekam na token.”</p>
+          </div>
+          <div class="office-day-item">
+            <time>16:45</time>
+            <p>„Co dziś padło? Pokaż status faktur, banku i synchronizacji z portalem.”</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="office-use-grid">
+        <article class="office-use-card" data-office-card="website_report">
+          <div class="office-use-head">
+            <span class="office-use-icon" aria-hidden="true">🌐</span>
+            <div>
+              <span class="integration-tag">Website</span>
+              <h3>Fetch data from a website</h3>
+            </div>
+          </div>
+          <blockquote class="office-chat-quote">“Go to the supplier website, download this month’s CSV report and save it to billing.”</blockquote>
+          <ol class="office-flow">
+            <li>Browser opens the URL and logs in (password vault).</li>
+            <li>Click “Download report” → file lands in <code>output/billing/</code>.</li>
+            <li>Health checks expected file size and date.</li>
+          </ol>
+          <div class="office-badges">
+            <span class="office-badge auto">auto</span>
+            <span class="office-badge uri">browser://</span>
+          </div>
+          <pre class="integration-snippet">browser://chrome/page/open → extract_dom → download
+workflow://office/supplier-report/monthly
+health://agent/office-browser-agent.local</pre>
+        </article>
+
+        <article class="office-use-card" data-office-card="portal_zus_form">
+          <div class="office-use-head">
+            <span class="office-use-icon" aria-hidden="true">🔐</span>
+            <div>
+              <span class="integration-tag">Portal · login</span>
+              <h3>Log in and complete a portal task</h3>
+            </div>
+          </div>
+          <blockquote class="office-chat-quote">“Log into the client portal, fill the ZUS form and submit — show a preview first.”</blockquote>
+          <ol class="office-flow">
+            <li>Playwright fills login/password from vault (Marta never sees the password in chat).</li>
+            <li>Dry-run: form screenshot → Marta clicks “Confirm send”.</li>
+            <li>After approve: submit + PDF confirmation in process artifacts.</li>
+          </ol>
+          <div class="office-badges">
+            <span class="office-badge human">Marta preview</span>
+            <span class="office-badge uri">workflow://</span>
+          </div>
+          <pre class="integration-snippet">workflow://portal/zus-form/dry-run   # screenshot + plan
+workflow://portal/zus-form --approve # send after Marta OK</pre>
+        </article>
+
+        <article class="office-use-card" data-office-card="erp_subiekt">
+          <div class="office-use-head">
+            <span class="office-use-icon" aria-hidden="true">🪟</span>
+            <div>
+              <span class="integration-tag">Windows · UI</span>
+              <h3>Desktop tasks in ERP / Subiekt</h3>
+            </div>
+          </div>
+          <blockquote class="office-chat-quote">“Open Subiekt, paste Excel data into the invoice and save as draft.”</blockquote>
+          <ol class="office-flow">
+            <li>UI Automation focuses the app window (<code>pcwin://</code>).</li>
+            <li>Click fields, paste from file, save — step-by-step with log.</li>
+            <li>If the window does not open: incident + ticket instead of silent fail.</li>
+          </ol>
+          <div class="office-badges">
+            <span class="office-badge auto">auto</span>
+            <span class="office-badge uri">pcwin://</span>
+          </div>
+          <pre class="integration-snippet">pcwin://window/Subiekt GT/focus
+pcwin://control/NumerFaktury/set_text
+pcwin://control/Zapisz/click</pre>
+        </article>
+
+        <article class="office-use-card" data-office-card="invoice_batch_woo">
+          <div class="office-use-head">
+            <span class="office-use-icon" aria-hidden="true">🧾</span>
+            <div>
+              <span class="integration-tag">Invoices</span>
+              <h3>Issue, review and send invoices</h3>
+            </div>
+          </div>
+          <blockquote class="office-chat-quote">“Issue invoices for WooCommerce orders, show the list for approval and send only approved ones.”</blockquote>
+          <ol class="office-flow">
+            <li>Agent <code>invoices-agent.local</code> fetches orders (API or ERP).</li>
+            <li>Generates PDF/XML — chat preview: number, amount, customer.</li>
+            <li>Marta approves the batch → e-mail / KSeF / ERP send.</li>
+          </ol>
+          <div class="office-badges">
+            <span class="office-badge human">list approval</span>
+            <span class="office-badge uri">invoices-agent</span>
+          </div>
+          <pre class="integration-snippet">urish ask "issue yesterday invoices and show preview"
+→ workflow://invoices/batch/dry-run
+→ view://process/agent/invoices-agent.local/latest</pre>
+        </article>
+
+        <article class="office-use-card" data-office-card="bank_batch">
+          <div class="office-use-head">
+            <span class="office-use-icon" aria-hidden="true">🏦</span>
+            <div>
+              <span class="integration-tag">Online bank</span>
+              <h3>Bank transfer on the website</h3>
+            </div>
+          </div>
+          <blockquote class="office-chat-quote">“Prepare supplier transfers from the list — stop before authorization.”</blockquote>
+          <ol class="office-flow">
+            <li>Browser: bank login, fill transfers from file.</li>
+            <li>System stops on the authorization screen — <strong>on purpose</strong>.</li>
+            <li>Marta + phone: mobile token → then agent clicks “Confirm”.</li>
+          </ol>
+          <div class="office-badges">
+            <span class="office-badge human">token · 2FA</span>
+            <span class="office-badge uri">browser://</span>
+          </div>
+          <pre class="integration-snippet">workflow://bank/batch-transfer/dry-run
+# STOP before authorization — waits for Marta
+workflow://bank/batch-transfer --approve</pre>
+        </article>
+
+        <article class="office-use-card" data-office-card="android_2fa">
+          <div class="office-use-head">
+            <span class="office-use-icon" aria-hidden="true">📱</span>
+            <div>
+              <span class="integration-tag">Android · token</span>
+              <h3>Phone approval (2FA)</h3>
+            </div>
+          </div>
+          <blockquote class="office-chat-quote">“The bank waits for app confirmation — show me the phone screen.”</blockquote>
+          <ol class="office-flow">
+            <li>ADB: phone screenshot + banking app UI dump.</li>
+            <li>Chat preview: “Confirm transfer 12,450 PLN?”</li>
+            <li>Marta taps on the phone → agent detects success and finishes in web bank.</li>
+          </ol>
+          <div class="office-badges">
+            <span class="office-badge human">tap on phone</span>
+            <span class="office-badge uri">android://</span>
+          </div>
+          <pre class="integration-snippet">android://device/pixel-7/screenshot
+android://device/pixel-7/tap  # selector: "Confirm"
+# or: Marta taps manually, agent waits for bank DOM</pre>
+        </article>
+      </div>
+
+      <div class="office-combined tech-block">
+        <h3>Jeden proces: faktura → bank → token (pełny łańcuch)</h3>
+        <p>Marta uruchamia jednym poleceniem cały łańcuch biurowy — Taskinity rejestruje każdy krok i pokazuje, gdzie proces stanął:</p>
+        <pre>08:30  workflow://office/supplier-report/monthly     → CSV OK
+10:00  workflow://invoices/batch/dry-run             → 8 faktur, podgląd PDF
+10:15  Marta: "wyślij zatwierdzone"                  → approve
+13:00  workflow://bank/batch-transfer/dry-run         → STOP · czeka na 2FA
+13:02  android://device/pixel-7/screenshot           → podgląd w chacie
+13:03  Marta potwierdza na telefonie                 → human-in-the-loop
+13:04  browser://bank/confirm                          → przelewy wysłane
+16:45  urish ask "co dziś padło w rozliczeniach?"     → jeden raport statusu</pre>
+        <p class="integration-example-cta">
+          <a class="btn btn-secondary" href="chat.html">Wypróbuj pytanie biurowe w chacie</a>
+          <span>Przykład: „Co się stało z procesem faktur?”</span>
+        </p>
+      </div>
+
+      <div class="office-honest">
+        <h3>Co działa od razu, a co wymaga pilota</h3>
+        <div class="office-honest-grid">
+          <article>
+            <strong>Gotowe w demo</strong>
+            <ul>
+              <li>Chat NL → plan URI → dry-run / approve</li>
+              <li>Health, logi, incident, ticket dla agentów</li>
+              <li>Przykłady: przeglądarka, Android (mock/ADB), Windows UIA (mock)</li>
+            </ul>
+          </article>
+          <article>
+            <strong>Wymaga konfiguracji u klienta</strong>
+            <ul>
+              <li>Logowanie do konkretnego banku / portalu (selektory, MFA)</li>
+              <li>Połączenie z Waszym ERP (Subiekt, Comarch, wFirma…)</li>
+              <li>Telefon Android podłączony przez ADB lub profil pracy</li>
+            </ul>
+          </article>
+          <article>
+            <strong>Zawsze z człowiekiem w pętli</strong>
+            <ul>
+              <li>Token mobilny, SMS, biometria — Marta klika, system czeka</li>
+              <li>Wysyłka faktur / przelewów — approve przed mutacją</li>
+              <li>Audyt: kto zatwierdził, kiedy, jaki screenshot</li>
+            </ul>
+          </article>
+        </div>
+        <p class="integration-example-cta" style="margin-top:1rem">
+          <a class="btn btn-primary" href="przyklady.html">Lab integracji — sprawdzone przykłady z examples/*/*</a>
+          <a class="btn btn-secondary" href="docs/examples.html">Docs examples — pełna zawartość README</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
   <section id="oferta" class="reveal">
     <div class="container">
       <div class="section-head">
@@ -360,6 +925,14 @@ $ urish proof view://process/invoice-sync/latest</pre>
       </div>
       <div class="faq-list">
         <div class="faq-item">
+          <button type="button" class="faq-q">Czy Taskinity obsługuje banki i token na telefonie?</button>
+          <div class="faq-a"><div class="faq-a-inner">Tak — w modelu human-in-the-loop. Agent wypełnia przelew w banku online, zatrzymuje się przed autoryzacją, pokazuje podgląd (w tym screenshot z Androida przez ADB). Marta klika token na telefonie, potem system kończy krok. Bez omijania 2FA.</div></div>
+        </div>
+        <div class="faq-item">
+          <button type="button" class="faq-q">Jak podłączyć WooCommerce, Baselinker lub Allegro?</button>
+          <div class="faq-a"><div class="faq-a-inner">Webhook lub cron woła URI agenta (np. synchronizacja zamówień). Taskinity rejestruje proces, monitoruje health i przy awarii pokazuje incident w chacie — bez wymiany całego stacku e-commerce.</div></div>
+        </div>
+        <div class="faq-item">
           <button type="button" class="faq-q">Czy zastępujecie n8n / Make / Zapier?</button>
           <div class="faq-a"><div class="faq-a-inner">Nie. Masz już automatyzacje — Taskinity pokazuje, które działają, które padły i co dalej.</div></div>
         </div>
@@ -404,6 +977,7 @@ $ urish proof view://process/invoice-sync/latest</pre>
     </div>
   </footer>
 
+  <script src="office-cards-i18n.js"></script>
   <script src="landing.js"></script>
 </body>
 </html>
