@@ -1,0 +1,9 @@
+flow:
+  id: browser-health-check
+  description: Open agent health page in Chrome and capture DOM + screenshot (GUI browser).
+
+do:
+  - browser://chrome/page/open:
+      url: http://localhost:8101/health
+  - browser://chrome/page/active/dom
+  - browser://chrome/page/active/screenshot

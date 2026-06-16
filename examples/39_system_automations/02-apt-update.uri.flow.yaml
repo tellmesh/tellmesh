@@ -1,0 +1,12 @@
+flow:
+  id: system-apt-update
+  description: Refresh package index and upgrade installed packages (TUI).
+
+defaults:
+  approved: true
+
+do:
+  - shell://apt-get:
+      args: ["update"]
+  - shell://apt-get:
+      args: ["upgrade", "-y"]

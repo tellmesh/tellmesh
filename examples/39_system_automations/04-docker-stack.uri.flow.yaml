@@ -1,0 +1,14 @@
+flow:
+  id: start-urisys-stack
+  description: Start uribrowser and urikvm Docker stacks and probe health endpoints.
+
+defaults:
+  approved: true
+
+do:
+  - shell://docker:
+      args: ["compose", "-f", "urisys/uribrowser-docker/docker-compose.yml", "up", "-d"]
+  - shell://docker:
+      args: ["compose", "-f", "urisys/urikvm-docker/docker-compose.yml", "up", "-d"]
+  - http://localhost:8792/health
+  - http://localhost:8793/health

@@ -1,0 +1,19 @@
+flow:
+  id: gui-open-software-center
+  description: Open Software Center via keyboard and click Updates (desktop GUI / HIM + KVM).
+
+defaults:
+  approved: true
+  dry_run: true
+
+do:
+  - him://local/keyboard/command/hotkey:
+      keys: ["super"]
+  - him://local/keyboard/command/type-text:
+      text: Software
+  - him://local/keyboard/command/key:
+      key: Return
+  - kvm://local/monitor/primary/query/screenshot
+  - ocr://local/image/latest/query/text
+  - kvm://local/task/command/click-text:
+      text: Updates

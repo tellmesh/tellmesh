@@ -1,0 +1,27 @@
+flow:
+  id: check-runtime-env
+  description: Verify env:// provider and LLM config visibility.
+
+do:
+  - id: env_health
+    uri: env://runtime/query/health
+    operation: query
+    kind: query
+
+  - id: env_allow_real
+    uri: env://runtime/var/URISYS_ALLOW_REAL/query/value
+    operation: query
+    kind: query
+    after: env_health
+
+  - id: env_llm_model
+    uri: env://runtime/var/LLM_MODEL/query/value
+    operation: query
+    kind: query
+    after: env_allow_real
+
+  - id: env_api_key_masked
+    uri: env://runtime/secret/OPENROUTER_API_KEY/query/masked
+    operation: query
+    kind: query
+    after: env_llm_model

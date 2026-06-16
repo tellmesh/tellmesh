@@ -1,0 +1,15 @@
+flow:
+  id: llm-guided-gui-click
+  description: Screenshot, OCR, LLM vision analyze, then click Install (KVM + OCR + LLM).
+
+defaults:
+  approved: true
+  dry_run: true
+
+do:
+  - kvm://local/monitor/primary/query/screenshot
+  - ocr://local/image/latest/query/text
+  - llm://local/vision/query/analyze:
+      target_text: Install
+  - kvm://local/task/command/click-text:
+      text: Install

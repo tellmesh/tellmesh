@@ -1,0 +1,41 @@
+flow:
+  id: install-update-verify-browser
+  description: apt update, install Chromium, open health in Chrome, desktop OK click.
+
+defaults:
+  approved: true
+  dry_run: true
+
+do:
+  - id: env_check
+    uri: env://runtime/query/health
+    operation: query
+    kind: query
+
+  - id: apt_update
+    uri: shell://apt-get
+    payload:
+      args: ["update"]
+    after: env_check
+
+  - id: install_chromium
+    uri: shell://apt-get
+    payload:
+      args: ["install", "-y", "chromium-browser"]
+    after: apt_update
+
+  - id: open_health
+    uri: browser://chrome/page/open
+    payload:
+      url: http://localhost:8101/health
+    after: install_chromium
+
+  - id: screenshot
+    uri: browser://chrome/page/active/screenshot
+    after: open_health
+
+  - id: desktop_ok
+    uri: kvm://local/task/command/click-text
+    payload:
+      text: OK
+    after: screenshot

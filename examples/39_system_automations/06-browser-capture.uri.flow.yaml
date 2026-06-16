@@ -1,0 +1,9 @@
+flow:
+  id: capture-landing
+  description: Open a public site in Chrome and capture DOM + screenshot.
+
+do:
+  - browser://chrome/page/open:
+      url: https://example.com
+  - browser://chrome/page/active/dom
+  - browser://chrome/page/active/screenshot
