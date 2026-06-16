@@ -13,7 +13,16 @@ export OPENROUTER_API_KEY=...
 nl2uri graph -p "$(cat prompt.txt)" --llm --validate --dry-run
 ```
 
-Execute validated workflow with mock browser:
+Execute browser/assertion slice via uri2ops (recommended for operator steps):
+
+```bash
+bash examples/16_llm_graph_planner/run.sh
+# or manually:
+uri2ops import-graph ../uri2ops/examples/16_nl2uri_operator_bridge/workflow.health.yaml --validate --out /tmp/task.yaml
+uri2ops run /tmp/task.yaml --adapter mock --approve
+```
+
+Full workflow via uri3 (includes domain/agent/hypervisor nodes):
 
 ```bash
 nl2uri graph -p "$(cat prompt.txt)" --validate > /tmp/workflow.yaml

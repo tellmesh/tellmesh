@@ -15,6 +15,28 @@ Generated on 2026-06-15 using [openrouter/qwen/qwen3-coder-next](https://openrou
 
 Monorepo: **uri3**, **nl2uri**, **uri2flow**, **uri2ops**, **hypervisor**, **agent factory** — contract-first thin agents with pipeline `prompt → URI plan → Domain Pack → generated agent`, plus the URI operator layer.
 
+## Package index (sibling repos)
+
+| Package | Role | README |
+|---------|------|--------|
+| **uri3** | resolve, validate, workflow graphs | [`../uri3`](../uri3) |
+| **nl2uri** | NL → URI tree / flow / graph | [`../nl2uri`](../nl2uri) |
+| **uri2flow** | compact flow → workflow graph | [`../uri2flow`](../uri2flow) |
+| **uri2ops** | operator registry + execution | [`../uri2ops`](../uri2ops) |
+| **touri** | capability manifests | [`../touri`](../touri) |
+| **uri2run** | transport backends | [`../uri2run`](../uri2run) |
+| **uri2verify** | replay, data quality, capability plans | [`../uri2verify`](../uri2verify) |
+| **uri2voice** | STT/TTS/voice command handlers | [`../uri2voice`](../uri2voice) |
+| **uri2pact** | markpact:// README registries | [`../uri2pact`](../uri2pact) |
+| **urigen** | ecosystem generator | [`../urigen`](../urigen) |
+| **urish** | unified `uri` shell | [`../urish`](../urish) |
+| **hypervisor** | control plane CLI | [`../hypervisor`](../hypervisor) |
+| **resource-agent-hypervisor** | runtime client | [`../resource-agent-hypervisor`](../resource-agent-hypervisor) |
+| **resource-agent-factory** | agent generation | [`../resource-agent-factory`](../resource-agent-factory) |
+| **hypervisor-dashboard** | system agent UI :8788 | [`../hypervisor-dashboard`](../hypervisor-dashboard) |
+
+Org-wide status: [`../TODO_STATUS.md`](../TODO_STATUS.md)
+
 **New user:** start with [`docs/GETTING_STARTED.md`](docs/GETTING_STARTED.md) — one model `URI → plan → verify → apply/run → observe → repair/evolve` and one shell `uri` / `urish`.
 
 **Repository map:** [`docs/README.md`](docs/README.md) (index of `docs/*`) · [`docs/SYSTEM_MAP.md`](docs/SYSTEM_MAP.md) (current structure from `project/map.toon.yaml`) · [`examples/README.md`](examples/README.md) (index of `examples/*/*`) · [`TODO.md`](TODO.md) · [`CHANGELOG.md`](CHANGELOG.md) · [`www/README.md`](www/README.md) (product pages)

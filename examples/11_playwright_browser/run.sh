@@ -4,12 +4,24 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 cd "$ROOT"
 
+if ! "${PYTHON:-python3}" - <<'PY'
+try:
+    import playwright  # noqa: F401
+except ImportError:
+    raise SystemExit(1)
+PY
+then
+  echo "Skipping Playwright demo: install browser extras first"
+  echo "  pip install -e '../uri2ops[browser]'"
+  echo "  playwright install chromium"
+  exit 0
+fi
+
 "${PYTHON:-python3}" - <<'PY'
 import http.server
 import socket
 import tempfile
 import threading
-from pathlib import Path
 
 import yaml
 
