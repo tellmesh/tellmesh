@@ -3,7 +3,7 @@
 
 ## Overview
 
-- **Project**: /home/tom/github/wronai/hypervisor
+- **Project**: /home/tom/github/tellmesh/tellmesh
 - **Primary Language**: python
 - **Languages**: python: 303, yaml: 145, json: 76, shell: 40, javascript: 17
 - **Analysis Mode**: static

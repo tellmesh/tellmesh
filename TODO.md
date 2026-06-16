@@ -61,7 +61,7 @@ Naprawione: `pyproject.toml` ma zależność `hypervisor`, `tests/conftest.py` u
 - [x] Zaktualizować `repo_root.py`, `hypervisor_root.sh`, skrypty migracyjne
 - [x] Zaktualizować `uv.lock` w paczkach URI (touri, uri2voice)
 - [x] Zaktualizować README / goal.yaml / pyproject URLs (tellmesh/tellmesh)
-- [ ] Zaktualizować GitHub remote: `wronai/hypervisor` → `tellmesh/tellmesh` (wymaga utworzenia repo + `git remote set-url`)
+- [x] Zaktualizować GitHub remote: `wronai/hypervisor` → `tellmesh/tellmesh`
 
 ### Faza 3 — zależności i testy
 
@@ -75,7 +75,7 @@ Naprawione: `pyproject.toml` ma zależność `hypervisor`, `tests/conftest.py` u
 ### Faza 4 — sprzątanie
 
 - [ ] Usunąć `agents/system/hypervisor_dashboard/` z monorepo (canonical: `tellmesh/hypervisor-dashboard`)
-- [x] Zaktualizować hardcoded `file:///home/tom/github/wronai/hypervisor/…` w contracts YAML
+- [x] Zaktualizować hardcoded `file:///home/tom/github/tellmesh/tellmesh/…` w contracts YAML
 - [ ] Commit + push wszystkich tellmesh repo (hypervisor git init — bez commita)
 - [ ] Uruchomić `prefact` ponownie po stabilizacji ścieżek
 

@@ -1,6 +1,6 @@
 # Hypervisor dashboard — deploy entry
 
-Python package: [`tellmesh/hypervisor-dashboard`](../../../../tellmesh/hypervisor-dashboard) (`hypervisor-dashboard-agent`).
+Python package: [`tellmesh/hypervisor-dashboard`](../../../hypervisor-dashboard) (`hypervisor-dashboard-agent`).
 
 This folder keeps only the deployment entry used by Docker and `hypervisor run-agent`:
 

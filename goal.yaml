@@ -222,7 +222,7 @@ git:
     format: '{prefix}{version}'
 strategies:
   python:
-    test: uv run --extra dev pytest tests/ -v
+    test: env HYPERVISOR_REPO_ROOT=/home/tom/github/tellmesh/tellmesh uv run --extra dev pytest tests/ -q
     build: python -m build
     publish: twine upload dist/tellmesh-{version}*
     publish_enabled: true

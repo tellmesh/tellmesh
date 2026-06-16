@@ -5,7 +5,7 @@
     "schema_version": 1,
     "description": "Central index for resources, capabilities, schemas, events and projections."
   },
-  "contract_hash": "sha256:7965f239a76e91650a0f2c453cc0c2f0f71c1a504545417628ff32e9b51f4841",
+  "contract_hash": "sha256:1c07d64e991cbabdfbc576321b2187662429c8f5e490d08dc0145f9c3a8a009e",
   "resources": [
     {
       "uri": "resource://users/{user_id}",
@@ -273,7 +273,7 @@
       "name": "read_markpact_source",
       "agent": "codex-nl-smoke-agent",
       "type": "resource_read",
-      "uri": "file:///home/tom/github/wronai/hypervisor/agents/generated/codex_nl_smoke_agent/README.md",
+      "uri": "file:///home/tom/github/tellmesh/tellmesh/agents/generated/codex_nl_smoke_agent/README.md",
       "command": null,
       "input_schema": null,
       "output_schema": "app.codex.v1.MarkpactSourceView",
@@ -308,7 +308,7 @@
       "name": "read_markpact_source",
       "agent": "codex-uri-smoke-agent",
       "type": "resource_read",
-      "uri": "file:///home/tom/github/wronai/hypervisor/agents/generated/codex_uri_smoke_agent/README.md",
+      "uri": "file:///home/tom/github/tellmesh/tellmesh/agents/generated/codex_uri_smoke_agent/README.md",
       "command": null,
       "input_schema": null,
       "output_schema": "app.codex.v1.MarkpactSourceView",

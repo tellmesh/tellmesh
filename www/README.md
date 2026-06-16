@@ -12,7 +12,7 @@ make start
 # → http://localhost:8788/www/
 ```
 
-`HYPERVISOR_WWW_DIR` defaults to `../../tellmesh/www` (see root `Makefile`). The compose file mounts that checkout read-only into `/app/www`.
+`HYPERVISOR_WWW_DIR` defaults to `../www` (see root `Makefile`). The compose file mounts that checkout read-only into `/app/www`.
 
 ## Files here
 
@@ -30,4 +30,4 @@ make www-docs      # updates tellmesh/www when checkout exists
 make www-docs-check
 ```
 
-Full product site docs: [`tellmesh/www/README.md`](../../tellmesh/www/README.md).
+Full product site docs: [`tellmesh/www/README.md`](../www/README.md).

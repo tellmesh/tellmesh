@@ -63,7 +63,7 @@ POST /commands
 
 ## Capabilities
 
-- `read_markpact_source` — `resource_read`, URI: `file:///home/tom/github/wronai/hypervisor/agents/generated/codex_uri_smoke_agent/README.md`
+- `read_markpact_source` — `resource_read`, URI: `file:///home/tom/github/tellmesh/tellmesh/agents/generated/codex_uri_smoke_agent/README.md`
 
 - `read_device_status` — `resource_read`, URI: `device://device/sensor-1/status`
 

@@ -3,11 +3,11 @@
 
 ## AI Cost Tracking
 
-![PyPI](https://img.shields.io/badge/pypi-costs-blue) ![Version](https://img.shields.io/badge/version-0.5.30-blue) ![Python](https://img.shields.io/badge/python-3.9+-blue) ![License](https://img.shields.io/badge/license-Apache--2.0-green)
-![AI Cost](https://img.shields.io/badge/AI%20Cost-$28.10-orange) ![Human Time](https://img.shields.io/badge/Human%20Time-21.2h-blue) ![Model](https://img.shields.io/badge/Model-openrouter%2Fqwen%2Fqwen3--coder--next-lightgrey)
+![PyPI](https://img.shields.io/badge/pypi-costs-blue) ![Version](https://img.shields.io/badge/version-0.1.31-blue) ![Python](https://img.shields.io/badge/python-3.9+-blue) ![License](https://img.shields.io/badge/license-Apache--2.0-green)
+![AI Cost](https://img.shields.io/badge/AI%20Cost-$28.12-orange) ![Human Time](https://img.shields.io/badge/Human%20Time-22.0h-blue) ![Model](https://img.shields.io/badge/Model-openrouter%2Fqwen%2Fqwen3--coder--next-lightgrey)
 
-- 🤖 **LLM usage:** $28.0989 (49 commits)
-- 👤 **Human dev:** ~$2120 (21.2h @ $100/h, 30min dedup)
+- 🤖 **LLM usage:** $28.1162 (51 commits)
+- 👤 **Human dev:** ~$2204 (22.0h @ $100/h, 30min dedup)
 
 Generated on 2026-06-15 using [openrouter/qwen/qwen3-coder-next](https://openrouter.ai/qwen/qwen3-coder-next)
 
@@ -23,17 +23,17 @@ Polish README: [`README.pl.md`](README.pl.md)
 
 ## Taskinity WWW (product pages)
 
-Static UI source: [`tellmesh/www`](../../tellmesh/www) (mounted at `/www/` in Docker). Deploy glue: [`www/README.md`](www/README.md).
+Static UI source: [`tellmesh/www`](../www) (mounted at `/www/` in Docker). Deploy glue: [`www/README.md`](www/README.md).
 
 After `make start` (Docker `:8788`) or `urish www serve`:
 
 | URL | File | Description |
 |-----|------|-------------|
-| http://localhost:8788/www/ | [`tellmesh/www/index.html`](../../tellmesh/www/index.html) | Landing — tour, integrations, office examples, offer |
-| http://localhost:8788/www/chat.html | [`tellmesh/www/chat.html`](../../tellmesh/www/chat.html) | NL chat → URI plan → run (dry-run default; not auto-execute) |
-| http://localhost:8788/www/przyklady.html | [`tellmesh/www/przyklady.html`](../../tellmesh/www/przyklady.html) | Integration lab — PASS cards, filters, commands from `examples/` |
-| http://localhost:8788/www/docs/examples.html | [`tellmesh/www/docs/examples.html`](../../tellmesh/www/docs/examples.html) | **Docs examples** — full `examples/*/*` content (README + YAML/SH) |
-| http://localhost:8788/www/demo.html | [`tellmesh/www/demo.html`](../../tellmesh/www/demo.html) | Technical URI demo (static) |
+| http://localhost:8788/www/ | [`tellmesh/www/index.html`](../www/index.html) | Landing — tour, integrations, office examples, offer |
+| http://localhost:8788/www/chat.html | [`tellmesh/www/chat.html`](../www/chat.html) | NL chat → URI plan → run (dry-run default; not auto-execute) |
+| http://localhost:8788/www/przyklady.html | [`tellmesh/www/przyklady.html`](../www/przyklady.html) | Integration lab — PASS cards, filters, commands from `examples/` |
+| http://localhost:8788/www/docs/examples.html | [`tellmesh/www/docs/examples.html`](../www/docs/examples.html) | **Docs examples** — full `examples/*/*` content (README + YAML/SH) |
+| http://localhost:8788/www/demo.html | [`tellmesh/www/demo.html`](../www/demo.html) | Technical URI demo (static) |
 
 Regenerate docs examples: `make www-docs` · WWW tests: `make www-test` · smoke: `make www-smoke`
 
@@ -327,7 +327,7 @@ make architecture-gate   # tests/architecture + uri3 doctor (boundaries, envelop
 make test                # full pytest (~420 tests)
 make examples-test       # examples/* integration (run.sh + inline demos)
 make ci-gate             # architecture-gate + test + examples-test
-bash ../../tellmesh/resource-agent-hypervisor/scripts/examples/test-all-examples.sh   # 27 checks sequentially (shell smoke)
+bash ../resource-agent-hypervisor/scripts/examples/test-all-examples.sh   # 27 checks sequentially (shell smoke)
 ```
 
 Examples integration is in `tests/examples/` — catalog `catalog.py`, parameterized `run.sh`, touri manifest smoke and stack imports (`uri2run`, `uri3`, `touri`). CI (`.github/workflows/ci.yml`) runs a separate **Examples integration** job after full pytest.
@@ -362,7 +362,7 @@ Example prompts and contracts: [`examples/`](examples/README.md).
 Each directory with `run.sh` can be run directly; full list:
 
 ```bash
-bash ../../tellmesh/resource-agent-hypervisor/scripts/examples/test-all-examples.sh
+bash ../resource-agent-hypervisor/scripts/examples/test-all-examples.sh
 pytest tests/examples -q
 ```
 
@@ -398,7 +398,7 @@ pytest tests/examples -q
 | — | [`examples/22_dashboard_agent`](examples/22_dashboard_agent/) | capability/flow for dashboard-agent | [`README`](examples/22_dashboard_agent/README.md) |
 | — | [`examples/16_www_landing_monitor`](examples/16_www_landing_monitor/) | landing monitor (task graph) | [`README`](examples/16_www_landing_monitor/README.md) |
 
-**WWW (readable form):** [`../../tellmesh/www/docs/examples.html`](../../tellmesh/www/docs/examples.html) — full content of all READMEs + source files · [`../../tellmesh/www/przyklady.html`](../../tellmesh/www/przyklady.html) — PASS lab + filters.
+**WWW (readable form):** [`../www/docs/examples.html`](../www/docs/examples.html) — full content of all READMEs + source files · [`../www/przyklady.html`](../www/przyklady.html) — PASS lab + filters.
 
 Docker + SSH testenv:
 
@@ -608,8 +608,8 @@ Full index: [`docs/README.md`](docs/README.md) · project status: [`TODO.md`](TO
 | Resource | Description |
 |----------|-------------|
 | [`examples/README.md`](examples/README.md) | Index of all repo examples |
-| [`../../tellmesh/www/docs/examples.html`](../../tellmesh/www/docs/examples.html) | Full README + source files (WWW) |
-| [`../../tellmesh/www/przyklady.html`](../../tellmesh/www/przyklady.html) | Integration lab — PASS + commands |
+| [`../www/docs/examples.html`](../www/docs/examples.html) | Full README + source files (WWW) |
+| [`../www/przyklady.html`](../www/przyklady.html) | Integration lab — PASS + commands |
 | [`examples/30_golden_path/`](examples/30_golden_path/) | 15 min tutorial |
 | [`examples/23_nl_to_agent_tutorial/`](examples/23_nl_to_agent_tutorial/) | NL → HTTP agent |
 | [`examples/31_office_day/`](examples/31_office_day/) | Office persona: web portal, ERP, bank, Android token |

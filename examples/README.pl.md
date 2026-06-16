@@ -2,7 +2,7 @@
 
 Przykłady są uporządkowane według schematu `examples/*/*` — każdy katalog ma własny `README.md`.
 
-**Dokumentacja WWW (pełna treść):** [`tellmesh/www/docs/examples.html`](../../tellmesh/www/docs/examples.html) — wszystkie README + pliki YAML/TXT/SH · [`tellmesh/www/przyklady.html`](../../tellmesh/www/przyklady.html) — lab PASS + komendy.
+**Dokumentacja WWW (pełna treść):** [`tellmesh/www/docs/examples.html`](../www/docs/examples.html) — wszystkie README + pliki YAML/TXT/SH · [`tellmesh/www/przyklady.html`](../www/przyklady.html) — lab PASS + komendy.
 
 **Indeks repo:** [`README.md`](./README.md) · [`docs/README.md`](../docs/README.md) · [`TODO.md`](../TODO.md) · [`CHANGELOG.md`](../CHANGELOG.md)
 
@@ -68,7 +68,7 @@ pip install -e '.[windows]'   # Windows UIA
 | — | [`22_dashboard_agent`](./22_dashboard_agent/) | capability/flow dashboard-agent | [`README`](./22_dashboard_agent/README.md) |
 | — | [`16_www_landing_monitor`](./16_www_landing_monitor/) | monitor landing WWW | [`README`](./16_www_landing_monitor/README.md) |
 
-> **WWW:** pełna treść wszystkich katalogów → [`tellmesh/www/docs/examples.html`](../../tellmesh/www/docs/examples.html)
+> **WWW:** pełna treść wszystkich katalogów → [`tellmesh/www/docs/examples.html`](../www/docs/examples.html)
 
 > **Uwaga:** numery 13–15 są współdzielone między ścieżkami (operator vs workflow) — używaj pełnej nazwy katalogu.
 

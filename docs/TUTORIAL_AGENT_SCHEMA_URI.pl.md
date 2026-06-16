@@ -151,7 +151,7 @@ repair://agent/schema-collab-agent.local/diagnose
 view://process/agent/schema-collab-agent.local/latest
 ```
 
-Uwaga o `file://`: w CLI na hoście zobaczysz ścieżki typu `file:///home/tom/github/wronai/hypervisor/...`, a w kontenerze czatu `file:///app/...`. Używaj `contract_uri` zwróconego przez `schema://agent/...`, bo jest poprawny dla bieżącego runtime.
+Uwaga o `file://`: w CLI na hoście zobaczysz ścieżki typu `file:///home/tom/github/tellmesh/tellmesh/...`, a w kontenerze czatu `file:///app/...`. Używaj `contract_uri` zwróconego przez `schema://agent/...`, bo jest poprawny dla bieżącego runtime.
 
 ---
 
