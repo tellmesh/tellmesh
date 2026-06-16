@@ -64,7 +64,7 @@ spec:
       requires_approval: true
 
   fallback:
-    operation: resolve
+    operation: query
     kind: query
     requires_approval: false
 
@@ -108,6 +108,14 @@ spec:
       operation: extract_dom
       kind: query
 
+    - match: browser://{browser}/page/active/dom
+      operation: extract_dom
+      kind: query
+
+    - match: browser://{browser}/page/active/screenshot
+      operation: screenshot
+      kind: query
+
     - match: browser://{browser}/page/click
       operation: click
       kind: command
@@ -137,5 +145,53 @@ spec:
       requires_approval: true
 
     - match: log://{target}
+      operation: read
+      kind: query
+
+    - match: env://*
+      operation: query
+      kind: query
+
+    - match: kvm://*
+      operation: query
+      kind: query
+
+    - match: him://*
+      operation: query
+      kind: command
+      requires_approval: true
+
+    - match: ocr://*
+      operation: query
+      kind: query
+
+    - match: llm://*
+      operation: query
+      kind: query
+
+    - match: rdp://*
+      operation: query
+      kind: query
+
+    - match: stt://*
+      operation: query
+      kind: query
+
+    - match: chat://*
+      operation: query
+      kind: command
+      requires_approval: true
+
+    - match: webrtc://*
+      operation: query
+      kind: command
+      requires_approval: true
+
+    - match: screen://*
+      operation: capture
+      kind: command
+      requires_approval: true
+
+    - match: screen://*/monitor/*/query/frame
       operation: read
       kind: query

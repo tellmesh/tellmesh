@@ -111,6 +111,13 @@ RUN_SH_EXAMPLES: tuple[ExampleSpec, ...] = (
         timeout_s=240,
     ),
     ExampleSpec(
+        "39",
+        "system_automations",
+        "run_sh",
+        "examples/39_system_automations/run.sh",
+        timeout_s=300,
+    ),
+    ExampleSpec(
         "01",
         "quickstart_local",
         "run_sh",
