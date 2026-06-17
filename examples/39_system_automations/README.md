@@ -54,7 +54,7 @@ Handlery `llm://` w `urirdp`/`urikvm` rozwiązują `LLM_MODEL`, `OPENROUTER_API_
 
 ## Powiązane
 
-- [`urisys/urisys-automation-lab`](../../../urisys/urisys-automation-lab/) — 10 flow + STT/chat/WebRTC UI (:8099)
+- [`urisys-automation-lab`](../../../urisys-automation-lab/) — 10 flow + STT/chat/WebRTC UI (:8099)
 - [`examples/15_compact_uri_flow`](../15_compact_uri_flow/README.md) — format uri2flow
 - [`examples/21_touri_voice`](../21_touri_voice/README.md) — `stt://` / `voice://`
-- [`urisys/urikvm-docker/flows/kvm-click-ok.uri.flow.yaml`](../../../urisys/urikvm-docker/flows/kvm-click-ok.uri.flow.yaml) — wzorzec KVM
+- [`urikvm-docker/flows/kvm-click-ok.uri.flow.yaml`](../../../urikvm-docker/flows/kvm-click-ok.uri.flow.yaml) — wzorzec KVM
