@@ -2,7 +2,7 @@ agent:
   name: weather-map-agent
   python_package: weather_map_agent
   version: 0.1.0
-  description: Generate forecast weather maps as HTML URL artifacts.
+  description: Generated thin agent
   runtime_url_env: RESOURCE_RUNTIME_URL
   runtime_url_default: http://localhost:8000
 capabilities:
