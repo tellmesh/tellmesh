@@ -89,38 +89,32 @@ def _desktop_env() -> dict[str, str]:
     return env
 
 
+def _run_screenshot(tool: str, args: list[str], target: Path, env: dict[str, str]) -> tuple[bool, str]:
+    if not shutil.which(tool):
+        return False, ""
+    result = subprocess.run(args, capture_output=True, text=True, check=False, env=env)
+    if result.returncode == 0 and target.is_file():
+        return True, ""
+    detail = (result.stderr or result.stdout or "").strip()
+    return False, detail or f"{tool} exited {result.returncode}"
+
+
 def _capture_screenshot(target: Path) -> tuple[bool, str]:
     env = _desktop_env()
-    if os.getenv("WAYLAND_DISPLAY") and shutil.which("grim"):
-        result = subprocess.run(["grim", str(target)], capture_output=True, text=True, check=False, env=env)
-        if result.returncode == 0 and target.is_file():
+    if os.getenv("WAYLAND_DISPLAY"):
+        ok, msg = _run_screenshot("grim", ["grim", str(target)], target, env)
+        if ok:
             return True, ""
-        detail = (result.stderr or result.stdout or "").strip()
-        return False, detail or f"grim exited {result.returncode}"
-    if shutil.which("gnome-screenshot"):
-        result = subprocess.run(
-            ["gnome-screenshot", f"--file={target}"],
-            capture_output=True,
-            text=True,
-            check=False,
-            env=env,
-        )
-        if result.returncode == 0 and target.is_file():
+        if msg:
+            return False, msg
+    for tool, args in (
+        ("gnome-screenshot", ["gnome-screenshot", f"--file={target}"]),
+        ("grim", ["grim", str(target)]),
+        ("scrot", ["scrot", str(target)]),
+    ):
+        ok, msg = _run_screenshot(tool, args, target, env)
+        if ok:
             return True, ""
-        detail = (result.stderr or result.stdout or "").strip()
-        return False, detail or f"gnome-screenshot exited {result.returncode}"
-    if shutil.which("grim"):
-        result = subprocess.run(["grim", str(target)], capture_output=True, text=True, check=False, env=env)
-        if result.returncode == 0 and target.is_file():
-            return True, ""
-        detail = (result.stderr or result.stdout or "").strip()
-        return False, detail or f"grim exited {result.returncode}"
-    if shutil.which("scrot"):
-        result = subprocess.run(["scrot", str(target)], capture_output=True, text=True, check=False, env=env)
-        if result.returncode == 0 and target.is_file():
-            return True, ""
-        detail = (result.stderr or result.stdout or "").strip()
-        return False, detail or f"scrot exited {result.returncode}"
     return False, "no screenshot tool available"
 
 
