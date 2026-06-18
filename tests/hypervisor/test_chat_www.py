@@ -728,9 +728,9 @@ def test_www_compose_mounts_system_artifacts(repo_root: Path):
 
 def test_www_dockerfile_includes_generated_agents_and_repair_cases(repo_root: Path):
     dockerfile = (repo_root / "www" / "Dockerfile").read_text()
-    assert "COPY wronai/hypervisor/agents ./agents" in dockerfile
-    assert "COPY wronai/hypervisor/examples ./examples" in dockerfile
-    assert "COPY wronai/hypervisor/knowledge ./knowledge" in dockerfile
+    assert "COPY tellmesh/tellmesh/agents ./agents" in dockerfile
+    assert "COPY tellmesh/tellmesh/examples ./examples" in dockerfile
+    assert "COPY tellmesh/tellmesh/knowledge ./knowledge" in dockerfile
     assert "COPY tellmesh/resource-agent-hypervisor ./tellmesh/resource-agent-hypervisor" in dockerfile
     assert "mkdir -p /app/www" in dockerfile
 

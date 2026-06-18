@@ -41,8 +41,8 @@ deployment:
   agent_ref: agent://weather-map-agent
   target_uri: local://agents/generated/weather_map_agent
   status: generated
-  health_uri: http://localhost:8105/health
-  card_uri: http://localhost:8105/.well-known/agent-card.json
+  health_uri: http://localhost:8102/health
+  card_uri: http://localhost:8102/.well-known/agent-card.json
   view_uri: view://process/agent/weather-map-agent.local/latest
 metadata:
   source: uri_tree
@@ -67,11 +67,11 @@ manifest:
 runtime:
   module: agents.generated.weather_map_agent.main:app
   path: /home/tom/github/tellmesh/tellmesh/agents/generated/weather_map_agent
-  port: 8105
-  health_uri: http://localhost:8105/health
-  card_uri: http://localhost:8105/.well-known/agent-card.json
+  port: 8102
+  health_uri: http://localhost:8102/health
+  card_uri: http://localhost:8102/.well-known/agent-card.json
   command: /home/tom/github/tellmesh/tellmesh/.venv/bin/python3 -m uvicorn agents.generated.weather_map_agent.main:app
-    --host 0.0.0.0 --port 8105
+    --host 0.0.0.0 --port 8102
 ```
 
 ```markpact:docker weather-map-agent
@@ -82,13 +82,13 @@ service:
     dockerfile: agents/generated/weather_map_agent/Dockerfile
   container_name: weather-map-agent
   ports:
-  - 8105:8105
+  - 8102:8102
   healthcheck:
     test:
     - CMD
     - curl
     - -f
-    - http://localhost:8105/health
+    - http://localhost:8102/health
   environment:
     RESOURCE_RUNTIME_URL: http://host.docker.internal:8000
 compose:

@@ -13,7 +13,11 @@ do:
       text: Software
   - him://local/keyboard/command/key:
       key: Return
-  - kvm://local/monitor/primary/query/screenshot
-  - ocr://local/image/latest/query/text
+  - id: screenshot
+    uri: kvm://local/monitor/primary/query/screenshot
+    save_as: screenshot
+  - id: ocr
+    uri: ocr://local/image/${screenshot.result.image_id}/query/text
+    after: screenshot
   - kvm://local/task/command/click-text:
       text: Updates

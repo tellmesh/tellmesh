@@ -47,4 +47,4 @@ def test_materialize_compose_from_weather_manifest(repo_root: Path):
     doc = yaml.safe_load(compose_path.read_text(encoding="utf-8"))
     service = doc["services"]["weather-map-agent"]
     assert service["build"]["dockerfile"] == "agents/generated/weather_map_agent/Dockerfile"
-    assert "8105:8105" in service["ports"]
+    assert "8102:8102" in service["ports"]

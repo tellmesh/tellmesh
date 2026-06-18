@@ -61,5 +61,5 @@ def test_manifest_has_docker_block_for_weather(repo_root: Path):
     text = (repo_root / "agents/manifests/weather-map-agent.markpact.md").read_text()
     blocks = extract_markpact_blocks(text, "docker")
     assert blocks
-    assert "8105:8105" in blocks[0]["body"]
+    assert "8102:8102" in blocks[0]["body"]
 

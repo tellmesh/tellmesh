@@ -52,9 +52,8 @@ URISYS_RUN_REAL=1 bash examples/39_system_automations/run.sh
 
 Handlery `llm://` w `urirdp`/`urikvm` rozwiązują `LLM_MODEL`, `OPENROUTER_API_KEY` itd. przez **`env://` policy** (allowlist w `urienv-docker/docker/config/env-policy.yaml`), z fallbackiem do `os.environ` / `urisys/.env`.
 
-## Powiązane
-
-- [`urisys-automation-lab`](../../../urisys-automation-lab/) — 10 flow + STT/chat/WebRTC UI (:8099)
+- [`examples/39_system_automations`](../../tellmesh/examples/39_system_automations) — źródłowe `*.uri.flow.yaml`
+- [`markpact-contracts/packs/desktop-automation-processes.markpact.md`](../../markpact-contracts/packs/desktop-automation-processes.markpact.md) — ten sam zestaw jako UriProcess / URI Flow Contract
 - [`examples/15_compact_uri_flow`](../15_compact_uri_flow/README.md) — format uri2flow
 - [`examples/21_touri_voice`](../21_touri_voice/README.md) — `stt://` / `voice://`
 - [`urikvm-docker/flows/kvm-click-ok.uri.flow.yaml`](../../../urikvm-docker/flows/kvm-click-ok.uri.flow.yaml) — wzorzec KVM

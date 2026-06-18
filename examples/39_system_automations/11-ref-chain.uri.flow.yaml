@@ -1,19 +1,15 @@
 flow:
-  id: rdp-kvm-smoke
-  description: RDP session status, screenshot, OCR, click OK (urirdp-docker stack).
+  id: ref-chain-smoke
+  description: save_as + ${ref} instead of implicit latest coupling
 
 defaults:
   approved: true
   dry_run: true
 
 do:
-  - rdp://local/session/query/status
-  - rdp://local/session/command/prepare-target
   - id: screenshot
     uri: kvm://local/monitor/primary/query/screenshot
     save_as: screenshot
   - id: ocr
     uri: ocr://local/image/${screenshot.result.image_id}/query/text
     after: screenshot
-  - kvm://local/task/command/click-text:
-      text: OK

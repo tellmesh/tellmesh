@@ -34,8 +34,8 @@ deployment:
   agent_ref: agent://generuj-mape-pogody-dwa-tygodnie-do-przodu-w-html-agent
   target_uri: local://agents/generated/generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html_agent
   status: generated
-  health_uri: http://localhost:8101/health
-  card_uri: http://localhost:8101/.well-known/agent-card.json
+  health_uri: http://localhost:8103/health
+  card_uri: http://localhost:8103/.well-known/agent-card.json
   view_uri: view://process/agent/generuj-mape-pogody-dwa-tygodnie-do-przodu-w-html-agent.local/latest
 metadata:
   source: uri_tree
@@ -61,11 +61,11 @@ manifest:
 runtime:
   module: agents.generated.generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html_agent.main:app
   path: /home/tom/github/tellmesh/tellmesh/agents/generated/generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html_agent
-  port: 8101
-  health_uri: http://localhost:8101/health
-  card_uri: http://localhost:8101/.well-known/agent-card.json
+  port: 8103
+  health_uri: http://localhost:8103/health
+  card_uri: http://localhost:8103/.well-known/agent-card.json
   command: /home/tom/github/tellmesh/tellmesh/.venv/bin/python3 -m uvicorn agents.generated.generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html_agent.main:app
-    --host 0.0.0.0 --port 8101
+    --host 0.0.0.0 --port 8103
 ```
 
 ```markpact:docker generuj-mape-pogody-dwa-tygodnie-do-przodu-w-html-agent
@@ -76,13 +76,13 @@ service:
     dockerfile: agents/generated/generuj_mape_pogody_dwa_tygodnie_do_przodu_w_html_agent/Dockerfile
   container_name: generuj-mape-pogody-dwa-tygodnie-do-przodu-w-html-agent
   ports:
-  - 8101:8101
+  - 8103:8103
   healthcheck:
     test:
     - CMD
     - curl
     - -f
-    - http://localhost:8101/health
+    - http://localhost:8103/health
   environment:
     RESOURCE_RUNTIME_URL: http://host.docker.internal:8000
 compose:

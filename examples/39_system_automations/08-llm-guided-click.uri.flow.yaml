@@ -7,8 +7,12 @@ defaults:
   dry_run: true
 
 do:
-  - kvm://local/monitor/primary/query/screenshot
-  - ocr://local/image/latest/query/text
+  - id: screenshot
+    uri: kvm://local/monitor/primary/query/screenshot
+    save_as: screenshot
+  - id: ocr
+    uri: ocr://local/image/${screenshot.result.image_id}/query/text
+    after: screenshot
   - llm://local/vision/query/analyze:
       target_text: Install
   - kvm://local/task/command/click-text:

@@ -220,11 +220,11 @@ deployments:
   status: generated
   declared:
     target_uri: local://agents/generated/weather_map_agent
-    preferred_port: 8101
-    health_uri: http://localhost:8101/health
-    card_uri: http://localhost:8101/.well-known/agent-card.json
-  card_uri: http://localhost:8101/.well-known/agent-card.json
-  health_uri: http://localhost:8101/health
+    preferred_port: 8102
+    health_uri: http://localhost:8102/health
+    card_uri: http://localhost:8102/.well-known/agent-card.json
+  card_uri: http://localhost:8102/.well-known/agent-card.json
+  health_uri: http://localhost:8102/health
   metadata:
     source: uri_tree
     domain_id: weather_map

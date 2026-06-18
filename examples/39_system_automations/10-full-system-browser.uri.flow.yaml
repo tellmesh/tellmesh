@@ -19,7 +19,7 @@ do:
     after: env_check
 
   - id: install_chromium
-    uri: shell://apt-get
+    uri: package://chromium/command/install
     payload:
       args: ["install", "-y", "chromium-browser"]
     after: apt_update
