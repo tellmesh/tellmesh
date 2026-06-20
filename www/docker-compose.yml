@@ -7,6 +7,11 @@ services:
     container_name: hypervisor-www-chat
     network_mode: "host"
     pid: "host"
+    environment:
+      # resource-agent-hypervisor no longer ships a bundled `hypervisor` module
+      # (it moved to the standalone ../hypervisor package), so expose that mounted
+      # source on PYTHONPATH for `from hypervisor.paths import find_repo_root`.
+      - PYTHONPATH=/app/tellmesh/hypervisor
     volumes:
       - ${HYPERVISOR_WWW_DIR:-../../www}:/app/www:ro
       - ../../hypervisor:/app/tellmesh/hypervisor:ro
